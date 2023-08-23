@@ -120,10 +120,10 @@ namespace Assets.Editor
             {
                 CollectSegments(polygon, paths);
             }
-            //else if (collider is CompositeCollider2D composite)
-            //{
-            //    CollectSegments(composite, paths);
-            //}
+            else if (collider is CompositeCollider2D composite)
+            {
+                CollectSegments(composite, paths);
+            }
         }
 
         private void CollectSegments(BoxCollider2D collider, PathsD paths)
@@ -162,7 +162,6 @@ namespace Assets.Editor
             for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
             {
                 var path = collider.GetPath(pathIdx);
-                
 
                 if (path.Length < 1)
                 {
@@ -175,45 +174,53 @@ namespace Assets.Editor
                     return new double[] { p.x, p.y };
                 });
 
-                //var pathSegments = new PathD();
-                //for (var idx = 0; idx < path.Length; idx++)
-                //{
-                //    var p = collider.transform.TransformPoint(path[idx]);
-                //    pathSegments.Add(p.x);
-                //    pathSegments.Add(p.y);
-                //}
-                //pathSegments.Add(new Segment { p1 = pathSegments[pathSegments.Count - 1].p2, p2 = pathSegments[0].p1 });
-
                 var shape = Clipper.MakePath(points.ToArray());
 
                 paths.Add(shape);
             }
         }
 
-        //private void CollectSegments(CompositeCollider2D collider, PathsD paths)
-        //{
-        //    for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
-        //    {
-        //        var path = new List<Vector2>();
-        //        var _ = collider.GetPath(pathIdx, path);
+        private void CollectSegments(CompositeCollider2D collider, PathsD paths)
+        {
+            for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
+            {
+                var path = new List<Vector2>();
+                var _ = collider.GetPath(pathIdx, path);
 
-        //        if (path.Count < 1)
-        //        {
-        //            return;
-        //        }
+                if (path.Count < 1)
+                {
+                    return;
+                }
 
-        //        var pathSegments = new List<Segment>();
-        //        var p1 = collider.transform.TransformPoint(path[0]);
-        //        for (var idx = 1; idx < path.Count; idx++)
-        //        {
-        //            var p2 = collider.transform.TransformPoint(path[idx]);
-        //            pathSegments.Add(new Segment { p1 = p1, p2 = p2 });
-        //            p1 = p2;
-        //        }
-        //        pathSegments.Add(new Segment { p1 = pathSegments[pathSegments.Count - 1].p2, p2 = pathSegments[0].p1 });
-        //        buffer.AddRange(pathSegments);
-        //    }
-        //}
+                var points = path.SelectMany(p =>
+                {
+                    p = collider.transform.TransformPoint(p);
+                    return new double[] { p.x, p.y };
+                });
+
+                var shape = Clipper.MakePath(points.ToArray());
+
+                paths.Add(shape);
+                //var path = new List<Vector2>();
+                //var _ = collider.GetPath(pathIdx, path);
+
+                //if (path.Count < 1)
+                //{
+                //    return;
+                //}
+
+                //var pathSegments = new List<Segment>();
+                //var p1 = collider.transform.TransformPoint(path[0]);
+                //for (var idx = 1; idx < path.Count; idx++)
+                //{
+                //    var p2 = collider.transform.TransformPoint(path[idx]);
+                //    pathSegments.Add(new Segment { p1 = p1, p2 = p2 });
+                //    p1 = p2;
+                //}
+                //pathSegments.Add(new Segment { p1 = pathSegments[pathSegments.Count - 1].p2, p2 = pathSegments[0].p1 });
+                //buffer.AddRange(pathSegments);
+            }
+        }
 
         private void AssignSegments(List<Segment> segments)
         {
