@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts._2RGuide
 {
     class PriorityQueue<TData, TPriority> where TPriority : IComparable
     {

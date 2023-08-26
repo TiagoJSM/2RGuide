@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using Assets.Scripts._2RGuide;
 using Clipper2Lib;
 using System;
 using System.Collections;
@@ -10,14 +11,14 @@ using UnityEngine.UIElements;
 
 namespace Assets.Editor
 {
-    [CustomEditor(typeof(World))]
+    [CustomEditor(typeof(NavWorld))]
     public class WorldEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
-            var world = (World)target;
+            var world = (NavWorld)target;
             if (GUILayout.Button("Bake Pathfinding"))
             {
                 CollectSegments(world);
@@ -68,7 +69,7 @@ namespace Assets.Editor
             return Clipper.Union(shapes, fillrule);
         }
 
-        private void CollectSegments(World world)
+        private void CollectSegments(NavWorld world)
         {
             var paths = new PathsD();
             var children = world.transform.childCount;
@@ -224,7 +225,7 @@ namespace Assets.Editor
 
         private void AssignSegments(List<Segment> segments)
         {
-            var world = (World)target;
+            var world = (NavWorld)target;
             var so = new SerializedObject(world);
 
             var prop = so.FindProperty(nameof(world.segments));
@@ -241,7 +242,7 @@ namespace Assets.Editor
 
         private void OnSceneGUI()
         {
-            var world = (World)target;
+            var world = (NavWorld)target;
             var segments = world.segments;
 
             for (int i = 0; i < segments.Length; i++)

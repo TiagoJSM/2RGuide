@@ -2,17 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts._2RGuide
 {
     public class Node
     {
         public Vector2 Position { get; set; }
 
-        public List<Node> Connections { get; }
+        public List<Node> Connections { get; set; }
 
         public Node()
         {
             Connections = new List<Node>();
+        }
+
+        public override int GetHashCode()
+        {
+            return Position.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Node other)
+            {
+                return other.Position == Position;
+            }
+            return false;
         }
     }
 
@@ -25,10 +39,10 @@ namespace Assets.Scripts
 
             var cameFrom = new Dictionary<Node, Node>();
 
-            var gScore = new Dictionary<Node, float>
+            var gScore = new Dictionary<Node, float> //map with default value of Infinity
             {
                 { start, 0.0f }
-            };//map with default value of Infinity
+            };
 
             var fScore = new Dictionary<Node, float>
             {
@@ -46,7 +60,7 @@ namespace Assets.Scripts
                 foreach (var neighbor in current.Connections)
                 {
                     var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.Position);
-                    if (tentativeGScore < gScore[neighbor])
+                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor, float.PositiveInfinity))
                     {
                         cameFrom[neighbor] = current;
                         gScore[neighbor] = tentativeGScore;
@@ -66,11 +80,12 @@ namespace Assets.Scripts
         private Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
         {
             var path = new List<Node>() { current };
-            while (current != goal)
+            while (cameFrom.ContainsKey(current))
             {
                 current = cameFrom[current];
                 path.Add(current);
             }
+            path.Reverse();
             return path.ToArray();
         }
 
