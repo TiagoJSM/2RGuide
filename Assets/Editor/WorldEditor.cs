@@ -34,35 +34,6 @@ namespace Assets.Editor
             return Clipper.PolyTreeToPaths64(polytree);
         }
 
-        //public static void SquaresTest(bool test_polytree = false)
-        //{
-        //    FillRule fillrule = FillRule.NonZero;
-
-        //    var shape1 = Clipper.MakePath(new double[] { 0,0, 10,0, 10,10, 0,10 });
-        //    var shape2 = Clipper.MakePath(new double[] { 5,5, 15,5, 15,15, 5,15 });
-        //    var subjects = new PathsD
-        //    {
-        //        shape1,
-        //        shape2
-        //    };
-
-        //    var solution = Clipper.Union(subjects, fillrule);
-
-        //    Handles.color = Color.blue;
-        //    foreach (var path in solution)
-        //    {
-        //        var p1 = path[0];
-        //        for (var idx = 1; idx < path.Count; idx ++)
-        //        {
-        //            var p2 = path[idx];
-        //            Handles.DrawLine(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y), EditorGUIUtility.pixelsPerPoint * 3);
-        //            p1 = p2;
-        //        }
-        //        var start = path[0];
-        //        Handles.DrawLine(new Vector2(start.X, start.Y), new Vector2(p1.X, p1.Y), EditorGUIUtility.pixelsPerPoint * 3);
-        //    }
-        //}
-
         private PathsD UnionShapes(PathsD shapes)
         {
             FillRule fillrule = FillRule.NonZero;
@@ -202,24 +173,6 @@ namespace Assets.Editor
                 var shape = Clipper.MakePath(points.ToArray());
 
                 paths.Add(shape);
-                //var path = new List<Vector2>();
-                //var _ = collider.GetPath(pathIdx, path);
-
-                //if (path.Count < 1)
-                //{
-                //    return;
-                //}
-
-                //var pathSegments = new List<Segment>();
-                //var p1 = collider.transform.TransformPoint(path[0]);
-                //for (var idx = 1; idx < path.Count; idx++)
-                //{
-                //    var p2 = collider.transform.TransformPoint(path[idx]);
-                //    pathSegments.Add(new Segment { p1 = p1, p2 = p2 });
-                //    p1 = p2;
-                //}
-                //pathSegments.Add(new Segment { p1 = pathSegments[pathSegments.Count - 1].p2, p2 = pathSegments[0].p1 });
-                //buffer.AddRange(pathSegments);
             }
         }
 
@@ -251,8 +204,6 @@ namespace Assets.Editor
                 Handles.color = Color.blue;
                 Handles.DrawLine(segment.p1, segment.p2, EditorGUIUtility.pixelsPerPoint * 3);
             }
-
-            //SquaresTest(true);
         }
     }
 }
