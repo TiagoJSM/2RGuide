@@ -25,18 +25,9 @@ namespace Assets.Editor
             }
         }
 
-        public static Paths64 Polytree_Union(Paths64 subjects, FillRule fillrule)
-        {
-            // of course this function is inefficient, 
-            // but it's purpose is simply to test polytrees.
-            PolyTree64 polytree = new PolyTree64();
-            Clipper.BooleanOp(ClipType.Union, subjects, null, polytree, fillrule);
-            return Clipper.PolyTreeToPaths64(polytree);
-        }
-
         private PathsD UnionShapes(PathsD shapes)
         {
-            FillRule fillrule = FillRule.NonZero;
+            var fillrule = FillRule.NonZero;
             return Clipper.Union(shapes, fillrule);
         }
 
