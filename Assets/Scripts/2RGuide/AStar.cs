@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using Assets.Scripts._2RGuide.Helpers;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts._2RGuide
 {
+    [Serializable]
     public class Node
     {
         public Vector2 Position { get; set; }

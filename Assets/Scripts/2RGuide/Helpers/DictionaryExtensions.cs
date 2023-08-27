@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts._2RGuide
+namespace Assets.Scripts._2RGuide.Helpers
 {
     public static class DictionaryExtensions
     {

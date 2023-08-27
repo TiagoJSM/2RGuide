@@ -196,7 +196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &237665064
 Transform:
   m_ObjectHideFlags: 0
@@ -455,29 +455,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4550598b52b6647be036fa2c3fb8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodes: []
   segments:
-  - p1: {x: 1.5, y: -1.5}
-    p2: {x: 1.5, y: 1.5}
-  - p1: {x: 1.5, y: 1.5}
-    p2: {x: -0.98, y: 1.5}
-  - p1: {x: -0.98, y: 1.5}
-    p2: {x: -0.96, y: 1.65}
-  - p1: {x: -0.96, y: 1.65}
-    p2: {x: -1.33, y: 3.44}
-  - p1: {x: -1.33, y: 3.44}
-    p2: {x: -2.34, y: 4.44}
-  - p1: {x: -2.34, y: 4.44}
-    p2: {x: -4.43, y: 4.15}
-  - p1: {x: -4.43, y: 4.15}
-    p2: {x: -4.44, y: 2.24}
-  - p1: {x: -4.44, y: 2.24}
-    p2: {x: -2.9, y: -0.19}
-  - p1: {x: -2.9, y: -0.19}
-    p2: {x: -1.5, y: -0.23}
-  - p1: {x: -1.5, y: -0.23}
-    p2: {x: -1.5, y: -1.5}
-  - p1: {x: 1.5, y: -1.5}
-    p2: {x: -1.5, y: -1.5}
+  - P1: {x: 3, y: 2.58}
+    P2: {x: 3, y: 3}
+  - P1: {x: 3, y: 3}
+    P2: {x: 0, y: 3}
+  - P1: {x: 0, y: 3}
+    P2: {x: 0, y: 2.58}
+  - P1: {x: 3, y: 2.58}
+    P2: {x: 0, y: 2.58}
+  - P1: {x: 1.5, y: -1.5}
+    P2: {x: 1.5, y: 1.5}
+  - P1: {x: 1.5, y: 1.5}
+    P2: {x: -1.5, y: 1.5}
+  - P1: {x: -1.5, y: 1.5}
+    P2: {x: -1.5, y: -1.5}
+  - P1: {x: 1.5, y: -1.5}
+    P2: {x: -1.5, y: -1.5}
+  drops:
+  - P1: {x: 3, y: 2.58}
+    P2: {x: 3, y: 3}
+  - P1: {x: 3, y: 3}
+    P2: {x: 0, y: 3}
+  - P1: {x: 0, y: 3}
+    P2: {x: 0, y: 2.58}
+  - P1: {x: 3, y: 2.58}
+    P2: {x: 0, y: 2.58}
+  - P1: {x: 1.5, y: -1.5}
+    P2: {x: 1.5, y: 1.5}
+  - P1: {x: 1.5, y: 1.5}
+    P2: {x: -1.5, y: 1.5}
+  - P1: {x: -1.5, y: 1.5}
+    P2: {x: -1.5, y: -1.5}
+  - P1: {x: 1.5, y: -1.5}
+    P2: {x: -1.5, y: -1.5}
+  maxDropHeight: 20
+  horizontalDistance: 0.5
+  maxSlope: 60
 --- !u!4 &1727419676
 Transform:
   m_ObjectHideFlags: 0
@@ -577,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1820012655
 Transform:
   m_ObjectHideFlags: 0
@@ -605,7 +620,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.2906651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -616,7 +631,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 3, y: 0.4186697}
   m_EdgeRadius: 0
 --- !u!1 &1903278509
 GameObject:

@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts;
 using Assets.Scripts._2RGuide;
+using Assets.Scripts._2RGuide.Helpers;
+using Assets.Scripts._2RGuide.Math;
 using Clipper2Lib;
 using System;
 using System.Collections;
@@ -22,6 +24,23 @@ namespace Assets.Editor
             if (GUILayout.Button("Bake Pathfinding"))
             {
                 CollectSegments(world);
+
+                var nodes = NodeHelpers.BuildNodes(world.segments);
+                var drops = DropsHelper.BuildDrops(
+                    nodes,
+                    world.segments,
+                    new DropsHelper.Settings()
+                    {
+                        maxDropHeight = world.maxDropHeight,
+                        horizontalDistance = world.horizontalDistance,
+                        maxSlope = world.maxSlope
+                    });
+
+                world.nodes = nodes.ToArray();
+                world.drops = drops;
+
+                EditorUtility.SetDirty(world);
+                serializedObject.ApplyModifiedProperties();
             }
         }
 
@@ -49,9 +68,9 @@ namespace Assets.Editor
             AssignSegments(segments);
         }
 
-        private List<Segment> ConvertToSegments(PathsD paths)
+        private LineSegment2D[] ConvertToSegments(PathsD paths)
         {
-            var segments = new List<Segment>();
+            var segments = new List<LineSegment2D>();
 
             foreach (var path in paths)
             {
@@ -59,14 +78,14 @@ namespace Assets.Editor
                 for (var idx = 1; idx < path.Count; idx++)
                 {
                     var p2 = path[idx];
-                    segments.Add(new Segment() { p1 = new Vector2((float)p1.x, (float)p1.y), p2 = new Vector2((float)p2.x, (float)p2.y) });
+                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
                     p1 = p2;
                 }
                 var start = path[0];
-                segments.Add(new Segment() { p1 = new Vector2((float)start.x, (float)start.y), p2 = new Vector2((float)p1.x, (float)p1.y) });
+                segments.Add(new LineSegment2D(new Vector2((float)start.x, (float)start.y), new Vector2((float)p1.x, (float)p1.y)));
             }
 
-            return segments;
+            return segments.ToArray();
         }
 
         private void CollectSegments(Collider2D collider, PathsD paths)
@@ -167,21 +186,10 @@ namespace Assets.Editor
             }
         }
 
-        private void AssignSegments(List<Segment> segments)
+        private void AssignSegments(LineSegment2D[] segments)
         {
             var world = (NavWorld)target;
-            var so = new SerializedObject(world);
-
-            var prop = so.FindProperty(nameof(world.segments));
-
-            prop.arraySize = segments.Count;
-            for (var idx = 0; idx < segments.Count; idx++)
-            {
-                var serializedElement = prop.GetArrayElementAtIndex(idx);
-                serializedElement.FindPropertyRelative(nameof(Segment.p1)).vector2Value = segments[idx].p1;
-                serializedElement.FindPropertyRelative(nameof(Segment.p2)).vector2Value = segments[idx].p2;
-            }
-            so.ApplyModifiedProperties();
+            world.segments = segments;
         }
 
         private void OnSceneGUI()
@@ -189,11 +197,53 @@ namespace Assets.Editor
             var world = (NavWorld)target;
             var segments = world.segments;
 
-            for (int i = 0; i < segments.Length; i++)
+            RenderSegments(segments, Color.blue);
+
+            if(world.drops != null)
             {
-                var segment = segments[i];
-                Handles.color = Color.blue;
-                Handles.DrawLine(segment.p1, segment.p2, EditorGUIUtility.pixelsPerPoint * 3);
+                RenderDrops(world.drops, Color.yellow);
+            }
+
+            RenderNodes(world.nodes);
+        }
+
+        private void RenderSegments(LineSegment2D[] segments, Color lineColor)
+        {
+            Handles.color = lineColor;
+            foreach (var segment in segments)
+            {
+                Handles.DrawLine(segment.P1, segment.P2, EditorGUIUtility.pixelsPerPoint * 3);
+            }
+        }
+
+        private void RenderDrops(LineSegment2D[] segments, Color lineColor)
+        {
+            Handles.color = lineColor;
+            foreach (var segment in segments)
+            {
+                RenderArrow(segment.P1, segment.P2);
+            }
+        }
+
+        private static void RenderArrow(Vector3 pos, Vector3 target, float arrowHeadLength = 0.2f, float arrowHeadAngle = 20.0f)
+        {
+            var direction = (target - pos).normalized;
+
+            //arrow shaft
+            Handles.DrawLine(pos, target, EditorGUIUtility.pixelsPerPoint * 3);
+
+            //arrow head
+            var right = Quaternion.LookRotation(direction) * Quaternion.Euler(180.0f + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+            var left = Quaternion.LookRotation(direction) * Quaternion.Euler(180.0f - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+            Handles.DrawLine(target, target + right * arrowHeadLength, EditorGUIUtility.pixelsPerPoint * 3);
+            Handles.DrawLine(target, target + left * arrowHeadLength, EditorGUIUtility.pixelsPerPoint * 3);
+        }
+
+        private static void RenderNodes(Node[] nodes)
+        {
+            foreach (var node in nodes)
+            {
+                Handles.Label(node.Position, "Node");
             }
         }
     }
