@@ -31,6 +31,7 @@ namespace Assets.Editor
                     world.segments,
                     new DropsHelper.Settings()
                     {
+                        //Nav2RGuideSettings.instance...
                         maxDropHeight = world.maxDropHeight,
                         horizontalDistance = world.horizontalDistance,
                         maxSlope = world.maxSlope
