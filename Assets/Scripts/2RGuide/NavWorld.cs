@@ -13,6 +13,7 @@ namespace Assets.Scripts._2RGuide
         public Node[] nodes;
         public LineSegment2D[] segments;
         public LineSegment2D[] drops;
+        public LineSegment2D[] jumps;
 
         public float maxDropHeight;
         public float horizontalDistance;

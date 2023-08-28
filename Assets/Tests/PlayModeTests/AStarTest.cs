@@ -19,8 +19,8 @@ namespace Assets.Tests.PlayModeTests
             var n1 = new Node() { Position = Vector3.zero };
             var n2 = new Node() { Position = Vector2.one };
 
-            n1.Connections.Add(n2);
-            n2.Connections.Add(n1);
+            n1.Connections.Add(NodeConnection.Walk(n2));
+            n2.Connections.Add(NodeConnection.Walk(n1));
 
             var path = astar.Resolve(n1, n2);
 

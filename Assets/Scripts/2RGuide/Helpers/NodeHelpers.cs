@@ -39,8 +39,8 @@ namespace Assets.Scripts._2RGuide.Helpers
                 var n1 = result.First(n => n.Position == segment.P1);
                 var n2 = result.First(n => n.Position == segment.P2);
 
-                n1.Connections.Add(n2);
-                n2.Connections.Add(n1);
+                n1.Connections.Add(NodeConnection.Walk(n2));
+                n2.Connections.Add(NodeConnection.Walk(n1));
             }
         }
     }

@@ -36,9 +36,18 @@ namespace Assets.Editor
                         horizontalDistance = world.horizontalDistance,
                         maxSlope = world.maxSlope
                     });
+                var jumps = JumpsHelper.BuildJumps(
+                    nodes,
+                    world.segments,
+                    new JumpsHelper.Settings()
+                    {
+                        //Nav2RGuideSettings.instance...
+                        maxSlope = world.maxSlope
+                    });
 
                 world.nodes = nodes.ToArray();
                 world.drops = drops;
+                world.jumps = jumps;
 
                 EditorUtility.SetDirty(world);
                 serializedObject.ApplyModifiedProperties();
@@ -204,6 +213,10 @@ namespace Assets.Editor
             {
                 RenderDrops(world.drops, Color.yellow);
             }
+            if (world.jumps != null)
+            {
+                RenderJumps(world.jumps, Color.gray);
+            }
 
             RenderNodes(world.nodes);
         }
@@ -223,6 +236,16 @@ namespace Assets.Editor
             foreach (var segment in segments)
             {
                 RenderArrow(segment.P1, segment.P2);
+            }
+        }
+
+        private void RenderJumps(LineSegment2D[] segments, Color lineColor)
+        {
+            Handles.color = lineColor;
+            foreach (var segment in segments)
+            {
+                RenderArrow(segment.P1, segment.P2);
+                RenderArrow(segment.P2, segment.P1);
             }
         }
 
