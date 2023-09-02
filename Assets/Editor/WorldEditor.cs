@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 namespace Assets.Editor
 {
@@ -42,6 +44,7 @@ namespace Assets.Editor
                     new JumpsHelper.Settings()
                     {
                         //Nav2RGuideSettings.instance...
+                        maxJumpDistance = world.maxJumpDistance,
                         maxSlope = world.maxSlope
                     });
 
@@ -84,6 +87,9 @@ namespace Assets.Editor
 
             foreach (var path in paths)
             {
+                // Clippy paths are created in the reverse order
+                path.Reverse();
+
                 var p1 = path[0];
                 for (var idx = 1; idx < path.Count; idx++)
                 {
@@ -92,7 +98,7 @@ namespace Assets.Editor
                     p1 = p2;
                 }
                 var start = path[0];
-                segments.Add(new LineSegment2D(new Vector2((float)start.x, (float)start.y), new Vector2((float)p1.x, (float)p1.y)));
+                segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
             }
 
             return segments.ToArray();
@@ -218,6 +224,8 @@ namespace Assets.Editor
                 RenderJumps(world.jumps, Color.gray);
             }
 
+            RenderNormals(world.segments, Color.magenta);
+
             RenderNodes(world.nodes);
         }
 
@@ -249,6 +257,18 @@ namespace Assets.Editor
             }
         }
 
+        private void RenderNormals(LineSegment2D[] segments, Color lineColor)
+        {
+            const float normalSize = 0.2f;
+            Handles.color = lineColor;
+            foreach (var segment in segments)
+            {
+                var middle = (segment.P2 + segment.P1) / 2;
+                RenderArrow(middle, middle + segment.NormalVector.normalized * normalSize, 0.08f);
+                Handles.Label(middle, $"N: {segment.NormalVector.normalized}; Slope: {segment.Slope}");
+            }
+        }
+
         private static void RenderArrow(Vector3 pos, Vector3 target, float arrowHeadLength = 0.2f, float arrowHeadAngle = 20.0f)
         {
             var direction = (target - pos).normalized;
@@ -267,7 +287,7 @@ namespace Assets.Editor
         {
             foreach (var node in nodes)
             {
-                Handles.Label(node.Position, "Node");
+                Handles.Label(node.Position, $"Node ({node.Position.x:0.00} , {node.Position.y:0.00})");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts._2RGuide.Helpers;
+using Assets.Scripts._2RGuide.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,18 +18,19 @@ namespace Assets.Scripts._2RGuide
     {
         public Node node;
         public ConnectionType connectionType;
+        public LineSegment2D segment;
 
-        public static NodeConnection Walk(Node node)
+        public static NodeConnection Walk(Node node, LineSegment2D segment)
         {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Walk };
+            return new NodeConnection { node = node, connectionType = ConnectionType.Walk, segment = segment };
         }
-        public static NodeConnection Drop(Node node)
+        public static NodeConnection Drop(Node node, LineSegment2D segment)
         {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Drop };
+            return new NodeConnection { node = node, connectionType = ConnectionType.Drop, segment = segment };
         }
-        public static NodeConnection Jump(Node node)
+        public static NodeConnection Jump(Node node, LineSegment2D segment)
         {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Jump };
+            return new NodeConnection { node = node, connectionType = ConnectionType.Jump, segment = segment };
         }
     }
 

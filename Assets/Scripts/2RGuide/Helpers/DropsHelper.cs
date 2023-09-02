@@ -59,16 +59,18 @@ namespace Assets.Scripts._2RGuide.Helpers
             var connectedNode1 = nodes.FirstOrDefault(n => n.Position == target.P1);
             if(connectedNode1 != null)
             {
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1));
+                // ToDo: test if the new LineSegment2D is well done
+                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(target.P1, dropTargetNode.Position)));
             }
 
             var connectedNode2 = nodes.FirstOrDefault(n => n.Position == target.P2);
             if (connectedNode2 != null)
             {
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2));
+                // ToDo: test if the new LineSegment2D is well done
+                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(dropTargetNode.Position, target.P2)));
             }
 
-            dropNode.Connections.Add(NodeConnection.Drop(dropTargetNode));
+            dropNode.Connections.Add(NodeConnection.Drop(dropTargetNode, new LineSegment2D(dropNode.Position, dropTargetNode.Position)));
             nodes.Add(dropTargetNode);
         }
 

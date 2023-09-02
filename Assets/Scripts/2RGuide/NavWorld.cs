@@ -19,5 +19,6 @@ namespace Assets.Scripts._2RGuide
         public float horizontalDistance;
         [Range(0.0f, 90.0f)]
         public float maxSlope;
+        public float maxJumpDistance;
     }
 }

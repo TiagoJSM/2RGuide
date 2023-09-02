@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts._2RGuide;
+using Assets.Scripts._2RGuide.Math;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -19,8 +20,8 @@ namespace Assets.Tests.PlayModeTests
             var n1 = new Node() { Position = Vector3.zero };
             var n2 = new Node() { Position = Vector2.one };
 
-            n1.Connections.Add(NodeConnection.Walk(n2));
-            n2.Connections.Add(NodeConnection.Walk(n1));
+            n1.Connections.Add(NodeConnection.Walk(n2, new LineSegment2D()));
+            n2.Connections.Add(NodeConnection.Walk(n1, new LineSegment2D()));
 
             var path = astar.Resolve(n1, n2);
 
