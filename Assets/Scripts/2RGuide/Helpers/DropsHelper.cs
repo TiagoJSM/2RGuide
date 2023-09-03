@@ -30,7 +30,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, originX, settings);
                     if (target)
                     {
-                        AddDropTargetNodeForSegment(target, nodes, node);
+                        AddDropTargetNodeForSegment(target, nodes, segments, node);
                         resultSegments.Add(target);
                     }
                 }
@@ -42,7 +42,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, originX, settings);
                     if (target)
                     {
-                        AddDropTargetNodeForSegment(target, nodes, node);
+                        AddDropTargetNodeForSegment(target, nodes, segments, node);
                         resultSegments.Add(target);
                     }
                 }
@@ -51,23 +51,36 @@ namespace Assets.Scripts._2RGuide.Helpers
             return resultSegments.ToArray();
         }
 
-        //ToDo: check if new node is not in node collection
-        private static void AddDropTargetNodeForSegment(LineSegment2D target, List<Node> nodes, Node dropNode)
+        private static void AddDropTargetNodeForSegment(LineSegment2D target, List<Node> nodes, LineSegment2D[] segments, Node dropNode)
         {
+            var existingNodeAtPosition = nodes.FirstOrDefault(n => n.Position == target.P2);
+
+            if(existingNodeAtPosition != null)
+            {
+                return;
+            }
+
+            var dropTargetSegment = segments.FirstOrDefault(s => s.OnSegment(target.P2));
+
+            if(!dropTargetSegment)
+            {
+                return;
+            }
+
             var dropTargetNode = new Node() { Position = target.P2 };
 
-            var connectedNode1 = nodes.FirstOrDefault(n => n.Position == target.P1);
+            var connectedNode1 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P1);
             if(connectedNode1 != null)
             {
                 // ToDo: test if the new LineSegment2D is well done
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(target.P1, dropTargetNode.Position)));
+                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(dropTargetSegment.P1, dropTargetNode.Position)));
             }
 
-            var connectedNode2 = nodes.FirstOrDefault(n => n.Position == target.P2);
+            var connectedNode2 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P2);
             if (connectedNode2 != null)
             {
                 // ToDo: test if the new LineSegment2D is well done
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(dropTargetNode.Position, target.P2)));
+                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(dropTargetNode.Position, dropTargetSegment.P2)));
             }
 
             dropNode.Connections.Add(NodeConnection.Drop(dropTargetNode, new LineSegment2D(dropNode.Position, dropTargetNode.Position)));
