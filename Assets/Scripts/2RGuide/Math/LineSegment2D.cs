@@ -164,6 +164,113 @@ namespace Assets.Scripts._2RGuide.Math
             return LineIntersectionPoint(other);
         }
 
+        // https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+        public bool IntersectsCircle(Circle circle)
+        {
+            //E is the starting point of the ray,
+            //L is the end point of the ray,
+            //C is the center of sphere you're testing against
+            //r is the radius of that sphere
+            //Compute:
+            //d = L - E ( Direction vector of ray, from start to end )
+            //f = E - C ( Vector from center sphere to ray start )
+
+            var d = P2 - P1;
+            var f = P1 - circle.center;
+            var r = circle.radius;
+
+            float a = Vector2.Dot(d, d);
+            float b = 2 * Vector2.Dot(f, d);
+            float c = Vector2.Dot(f, f) - r * r;
+
+            float discriminant = b * b - 4 * a * c;
+            if (discriminant < 0)
+            {
+                if (circle.IsInside(P1) || circle.IsInside(P2))
+                {
+                    return true;
+                }
+                // no intersection
+                return false;
+            }
+            else
+            {
+                // ray didn't totally miss sphere,
+                // so there is a solution to
+                // the equation.
+
+                discriminant = Mathf.Sqrt(discriminant);
+
+                // either solution may be on or off the ray so need to test both
+                // t1 is always the smaller value, because BOTH discriminant and
+                // a are nonnegative.
+                float t1 = (-b - discriminant) / (2 * a);
+                float t2 = (-b + discriminant) / (2 * a);
+
+                // 3x HIT cases:
+                //          -o->             --|-->  |            |  --|->
+                // Impale(t1 hit,t2 hit), Poke(t1 hit,t2>1), ExitWound(t1<0, t2 hit), 
+
+                // 3x MISS cases:
+                //       ->  o                     o ->              | -> |
+                // FallShort (t1>1,t2>1), Past (t1<0,t2<0), CompletelyInside(t1<0, t2>1)
+
+                if (t1 >= 0 && t1 <= 1)
+                {
+                    // t1 is the intersection, and it's closer than t2
+                    // (since t1 uses -b - discriminant)
+                    // Impale, Poke
+                    return true;
+                }
+
+                // here t1 didn't intersect so we are either started
+                // inside the sphere or completely past it
+                if (t2 >= 0 && t2 <= 1)
+                {
+                    // ExitWound
+                    return true;
+                }
+
+                if(circle.IsInside(P1) || circle.IsInside(P2))
+                {
+                    return true;
+                }
+
+                // no intn: FallShort, Past, CompletelyInside
+                return false;
+            }
+        }
+
+        public Vector2 ClosestPointOnLine( Vector2 point)
+        {
+            var vVector1 = point - P1;
+            var vVector2 = (P2 - P1).normalized;
+
+            var d = Vector2.Distance(P1, P2);
+            var t = Vector2.Dot(vVector2, vVector1);
+
+            if (t <= 0)
+            {
+                return P1;
+            }
+
+            if (t >= d)
+            {
+                return P2;
+            }
+
+            var vVector3 = vVector2 * t;
+
+            var closestPoint = P1 + vVector3;
+
+            return closestPoint;
+        }
+
+        public bool OnSegment(Vector2 p)
+        {
+            return OnSegment(P1, p, P2);
+        }
+
         public static LineSegment2D operator +(LineSegment2D segment, Vector2 offset)
         {
             return new LineSegment2D(segment.P1 + offset, segment.P2 + offset);
@@ -189,6 +296,17 @@ namespace Assets.Scripts._2RGuide.Math
             return segment.P1 != Vector2.zero || segment.P2 != Vector2.zero;
         }
 
+        // Given three collinear points p, q, r, the function checks if
+        // point q lies on line segment 'pr'
+        private static bool OnSegment(Vector2 p, Vector2 q, Vector2 r)
+        {
+            if (q.x <= Mathf.Max(p.x, r.x) && q.x >= Mathf.Min(p.x, r.x) &&
+                q.y <= Mathf.Max(p.y, r.y) && q.y >= Mathf.Min(p.y, r.y))
+                return true;
+
+            return false;
+        }
+
         private Vector2 LineIntersectionPoint(LineSegment2D other)
         {
             // Get A,B,C of first line
@@ -211,17 +329,6 @@ namespace Assets.Scripts._2RGuide.Math
                 (B2 * C1 - B1 * C2) / delta,
                 (A1 * C2 - A2 * C1) / delta
             );
-        }
-
-        // Given three collinear points p, q, r, the function checks if
-        // point q lies on line segment 'pr'
-        private static bool OnSegment(Vector2 p, Vector2 q, Vector2 r)
-        {
-            if (q.x <= Mathf.Max(p.x, r.x) && q.x >= Mathf.Min(p.x, r.x) &&
-                q.y <= Mathf.Max(p.y, r.y) && q.y >= Mathf.Min(p.y, r.y))
-                return true;
-
-            return false;
         }
 
         // To find orientation of ordered triplet (p, q, r).

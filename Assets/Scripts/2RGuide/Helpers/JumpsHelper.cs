@@ -13,6 +13,7 @@ namespace Assets.Scripts._2RGuide.Helpers
         {
             public float maxJumpDistance;
             public float maxSlope;
+            public float minJumpDistanceX;
         }
 
         public static LineSegment2D[] BuildJumps(List<Node> nodes, LineSegment2D[] segments, Settings settings)
@@ -21,40 +22,86 @@ namespace Assets.Scripts._2RGuide.Helpers
 
             foreach (var node in nodes.ToArray())
             {
-                //if(node.Connections.All(c => 
-                //    OverMaxSlope(c.segment, settings.maxSlope)))
-                //{
-                //    continue;
-                //}
+                var jumpRadius = new Circle(node.Position, settings.maxJumpDistance);
+                var segmentsInRange = segments.Where(s => !OverMaxSlope(s, settings.maxSlope) && s.IntersectsCircle(jumpRadius)).ToArray();
 
-                var canJumpToLeftSide = node.CanJumpToLeftSide(settings.maxSlope);
-                if (canJumpToLeftSide)
+                //var closestPoints = 
+                //    segmentsInRange
+                //        .Where(s => CutSegmentToTheLeft(s, node.Position.x - 0.5f))
+                //        .Select(s => 
+                //            s.ClosestPointOnLine(node.Position))
+                //        .Where(p => 
+                //            !p.Approximately(node.Position));
+
+                if(node.CanJumpToLeftSide(settings.maxSlope))
                 {
-                    var target = FindClosestNodeToJumpToTheLeft(node, nodes, segments, settings);
-                    if (target != null)
-                    {
-                        var segment = new LineSegment2D() { P1 = node.Position, P2 = target.Position };
-                        target.Connections.Add(NodeConnection.Jump(node, segment));
-                        node.Connections.Add(NodeConnection.Jump(target, segment));
-                        resultSegments.Add(segment);
-                    }
+                    var closestPoints =
+                        segmentsInRange
+                            .Select(s => CutSegmentToTheLeft(s, node.Position.x - settings.minJumpDistanceX))
+                            .Where(s => s)
+                            .Select(s =>
+                                s.ClosestPointOnLine(node.Position))
+                            .Where(p =>
+                                !p.Approximately(node.Position))
+                            .ToArray();
+
+                    GetJumpSegments(node, closestPoints, segments, resultSegments);
                 }
 
-                var canJumpToRightSide = node.CanJumpToRightSide(settings.maxSlope);
-                if (canJumpToRightSide)
+                if (node.CanJumpToRightSide(settings.maxSlope))
                 {
-                    var target = FindClosestNodeToJumpToTheRight(node, nodes, segments, settings);
-                    if (target != null)
-                    {
-                        var segment = new LineSegment2D() { P1 = node.Position, P2 = target.Position };
-                        target.Connections.Add(NodeConnection.Jump(node, segment));
-                        node.Connections.Add(NodeConnection.Jump(target, segment));
-                        resultSegments.Add(segment);
-                    }
+                    var closestPoints =
+                        segmentsInRange
+                            .Select(s => CutSegmentToTheRight(s, node.Position.x + settings.minJumpDistanceX))
+                            .Where(s => s)
+                            .Select(s =>
+                                s.ClosestPointOnLine(node.Position))
+                            .Where(p =>
+                                !p.Approximately(node.Position))
+                            .ToArray();
+
+                    GetJumpSegments(node, closestPoints, segments, resultSegments);
                 }
             }
 
             return resultSegments.ToArray();
+        }
+
+        private static void GetJumpSegments(Node node, Vector2[] closestPoints, LineSegment2D[] segments, List<LineSegment2D> resultSegments)
+        {
+            resultSegments.AddRange(
+                closestPoints
+                    .Select(p =>
+                        new LineSegment2D(node.Position, p))
+                    .Where(l =>
+                        !segments.Any(s =>
+                            !s.OnSegment(l.P2) && s.DoLinesIntersect(l, false)))
+            );
+        }
+
+        private static LineSegment2D CutSegmentToTheLeft(LineSegment2D segment, float x)
+        {
+            if(segment.P1.x > x && segment.P2.x > x)
+            {
+                return new LineSegment2D();
+            }
+
+            segment.P1.x = Mathf.Min(x, segment.P1.x);
+            segment.P2.x = Mathf.Min(x, segment.P2.x);
+
+            return segment;
+        }
+
+        private static LineSegment2D CutSegmentToTheRight(LineSegment2D segment, float x)
+        {
+            if (segment.P1.x < x && segment.P2.x < x)
+            {
+                return new LineSegment2D();
+            }
+
+            segment.P1.x = Mathf.Max(x, segment.P1.x);
+            segment.P2.x = Mathf.Max(x, segment.P2.x);
+            return segment;
         }
 
         private static bool IsJumpNode(this Node node, float maxSlope)

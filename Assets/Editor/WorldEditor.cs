@@ -45,7 +45,8 @@ namespace Assets.Editor
                     {
                         //Nav2RGuideSettings.instance...
                         maxJumpDistance = world.maxJumpDistance,
-                        maxSlope = world.maxSlope
+                        maxSlope = world.maxSlope,
+                        minJumpDistanceX = world.minJumpDistanceX
                     });
 
                 world.nodes = nodes.ToArray();

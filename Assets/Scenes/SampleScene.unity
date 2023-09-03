@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &57691187
 Transform:
   m_ObjectHideFlags: 0
@@ -522,14 +522,6 @@ MonoBehaviour:
     P2: {x: 3, y: 2.5}
   - P1: {x: 3, y: 2.5}
     P2: {x: 0, y: 2.5}
-  - P1: {x: -4, y: 2.25}
-    P2: {x: -4, y: 2.75}
-  - P1: {x: -4, y: 2.75}
-    P2: {x: -1, y: 2.75}
-  - P1: {x: -1, y: 2.75}
-    P2: {x: -1, y: 2.25}
-  - P1: {x: -1, y: 2.25}
-    P2: {x: -4, y: 2.25}
   - P1: {x: -1.5, y: -1.5}
     P2: {x: -1.5, y: 1.5}
   - P1: {x: -1.5, y: 1.5}
@@ -543,19 +535,7 @@ MonoBehaviour:
     P2: {x: -0.5, y: 1.5}
   - P1: {x: 0, y: 3.5}
     P2: {x: -0.5, y: 1.5}
-  - P1: {x: -1, y: 2.75}
-    P2: {x: -0.5, y: 1.5}
-  - P1: {x: -1, y: 2.25}
-    P2: {x: -0.5, y: 1.5}
-  jumps:
-  - P1: {x: 0, y: 3.5}
-    P2: {x: -1, y: 2.75}
-  - P1: {x: -1, y: 2.75}
-    P2: {x: 0, y: 3.5}
-  - P1: {x: -0.5, y: 1.5}
-    P2: {x: 1.5, y: 1.5}
-  - P1: {x: -0.5, y: 1.5}
-    P2: {x: 1.5, y: 1.5}
+  jumps: []
   maxDropHeight: 20
   horizontalDistance: 0.5
   maxSlope: 60
