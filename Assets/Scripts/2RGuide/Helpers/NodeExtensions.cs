@@ -8,6 +8,16 @@ namespace Assets.Scripts._2RGuide.Helpers
 {
     public static class NodeExtensions
     {
+        public static bool CanJumpOrDropToLeftSide(this Node node, float maxSlope)
+        {
+            return node.HasWalkConnection(maxSlope) && !node.HasLeftSideWalkConnection(maxSlope);
+        }
+
+        public static bool CanJumpOrDropToRightSide(this Node node, float maxSlope)
+        {
+            return node.HasWalkConnection(maxSlope) && !node.HasRightSideWalkConnection(maxSlope);
+        }
+
         public static bool HasLeftSideWalkConnection(this Node node, float maxSlope)
         {
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x < node.Position.x);
@@ -16,6 +26,13 @@ namespace Assets.Scripts._2RGuide.Helpers
         public static bool HasRightSideWalkConnection(this Node node, float maxSlope)
         {
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x > node.Position.x);
+        }
+
+        private static bool HasWalkConnection(this Node node, float maxSlope)
+        {
+            return node.Connections.Any(c =>
+                    c.connectionType == ConnectionType.Walk &&
+                    !c.segment.OverMaxSlope(maxSlope));
         }
 
         private static bool HasConnection(Node node, float maxSlope, Func<Node, Node, bool> predicate)

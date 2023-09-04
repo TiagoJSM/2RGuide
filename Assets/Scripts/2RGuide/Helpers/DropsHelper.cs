@@ -23,8 +23,8 @@ namespace Assets.Scripts._2RGuide.Helpers
 
             foreach (var node in nodes.ToArray())
             {
-                var hasLeftSideConnections = node.HasLeftSideWalkConnection(settings.maxSlope);
-                if (!hasLeftSideConnections)
+                var canJumpOrDropToLeftSide = node.CanJumpOrDropToLeftSide(settings.maxSlope);
+                if (canJumpOrDropToLeftSide)
                 {
                     var originX = node.Position.x - settings.horizontalDistance;
                     var target = FindTargetDropSegment(node, segments, originX, settings);
@@ -35,8 +35,8 @@ namespace Assets.Scripts._2RGuide.Helpers
                     }
                 }
 
-                var hasRightSideConnections = node.HasRightSideWalkConnection(settings.maxSlope);
-                if (!hasRightSideConnections)
+                var canJumpOrDropToRightSide = node.CanJumpOrDropToRightSide(settings.maxSlope);
+                if (canJumpOrDropToRightSide)
                 {
                     var originX = node.Position.x + settings.horizontalDistance;
                     var target = FindTargetDropSegment(node, segments, originX, settings);
@@ -72,14 +72,12 @@ namespace Assets.Scripts._2RGuide.Helpers
             var connectedNode1 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P1);
             if(connectedNode1 != null)
             {
-                // ToDo: test if the new LineSegment2D is well done
                 dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(dropTargetSegment.P1, dropTargetNode.Position)));
             }
 
             var connectedNode2 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P2);
             if (connectedNode2 != null)
             {
-                // ToDo: test if the new LineSegment2D is well done
                 dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(dropTargetNode.Position, dropTargetSegment.P2)));
             }
 

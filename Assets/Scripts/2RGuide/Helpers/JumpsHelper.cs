@@ -23,17 +23,9 @@ namespace Assets.Scripts._2RGuide.Helpers
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpDistance);
-                var segmentsInRange = segments.Where(s => !OverMaxSlope(s, settings.maxSlope) && s.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = segments.Where(s => !s.OverMaxSlope(settings.maxSlope) && s.IntersectsCircle(jumpRadius)).ToArray();
 
-                //var closestPoints = 
-                //    segmentsInRange
-                //        .Where(s => CutSegmentToTheLeft(s, node.Position.x - 0.5f))
-                //        .Select(s => 
-                //            s.ClosestPointOnLine(node.Position))
-                //        .Where(p => 
-                //            !p.Approximately(node.Position));
-
-                if(node.CanJumpToLeftSide(settings.maxSlope))
+                if(node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
                     var closestPoints =
                         segmentsInRange
@@ -48,7 +40,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     GetJumpSegments(node, closestPoints, segments, resultSegments);
                 }
 
-                if (node.CanJumpToRightSide(settings.maxSlope))
+                if (node.CanJumpOrDropToRightSide(settings.maxSlope))
                 {
                     var closestPoints =
                         segmentsInRange
@@ -102,69 +94,6 @@ namespace Assets.Scripts._2RGuide.Helpers
             segment.P1.x = Mathf.Max(x, segment.P1.x);
             segment.P2.x = Mathf.Max(x, segment.P2.x);
             return segment;
-        }
-
-        private static bool IsJumpNode(this Node node, float maxSlope)
-        {
-            return node.Connections.Any(c =>
-                    c.connectionType == ConnectionType.Walk &&
-                    !OverMaxSlope(c.segment, maxSlope));
-        }
-
-        private static bool CanJumpToLeftSide(this Node node, float maxSlope)
-        {
-            return node.IsJumpNode(maxSlope) && !node.HasLeftSideWalkConnection(maxSlope);
-        }
-
-        private static bool CanJumpToRightSide(this Node node, float maxSlope)
-        {
-            return node.IsJumpNode(maxSlope) && !node.HasRightSideWalkConnection(maxSlope);
-        }
-
-        private static Node FindClosestNodeToJumpToTheLeft(Node node, List<Node> nodes, LineSegment2D[] segments, Settings settings)
-        {
-            return FindClosestNodeToJumpTo(
-                node, 
-                nodes,
-                segments,
-                settings, 
-                n => n.Position.x < node.Position.x
-            );
-        }
-
-        private static Node FindClosestNodeToJumpToTheRight(Node node, List<Node> nodes, LineSegment2D[] segments, Settings settings)
-        {
-            return FindClosestNodeToJumpTo(
-                node, 
-                nodes,
-                segments,
-                settings, 
-                n => n.Position.x > node.Position.x
-            );
-        }
-
-        private static Node FindClosestNodeToJumpTo(Node node, List<Node> nodes, LineSegment2D[] segments, Settings settings, Func<Node, bool> predicate)
-        {
-            return 
-                nodes
-                    .Where(n => n != node)
-                    .Where(n => 
-                        n.Connections.Any(c => 
-                            c.connectionType == ConnectionType.Walk && !OverMaxSlope(c.segment, settings.maxSlope)))
-                    .Where(predicate)
-                    .Where(n => !segments.Any(s => s.DoLinesIntersect(new LineSegment2D(node.Position, n.Position), false)))
-                    .Where(n => Vector2.Distance(n.Position, node.Position) < settings.maxJumpDistance)
-                    .MinBy(n => Vector2.Distance(n.Position, node.Position));
-        }
-
-        private static bool OverMaxSlope(LineSegment2D segment, float maxSlope)
-        {
-            var slope = segment.Slope;
-            if (slope != null)
-            {
-                return Mathf.Abs(slope.Value) > maxSlope || segment.NormalVector.y < 0.0f;
-            }
-            return true;
         }
     }
 }
