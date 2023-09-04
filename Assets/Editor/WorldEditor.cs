@@ -33,20 +33,18 @@ namespace Assets.Editor
                     world.segments,
                     new DropsHelper.Settings()
                     {
-                        //Nav2RGuideSettings.instance...
-                        maxDropHeight = world.maxDropHeight,
-                        horizontalDistance = world.horizontalDistance,
-                        maxSlope = world.maxSlope
+                        maxDropHeight = Nav2RGuideSettings.instance.MaxDropHeight,
+                        horizontalDistance = Nav2RGuideSettings.instance.HorizontalDistance,
+                        maxSlope = Nav2RGuideSettings.instance.MaxSlope
                     });
                 var jumps = JumpsHelper.BuildJumps(
                     nodes,
                     world.segments,
                     new JumpsHelper.Settings()
                     {
-                        //Nav2RGuideSettings.instance...
-                        maxJumpDistance = world.maxJumpDistance,
-                        maxSlope = world.maxSlope,
-                        minJumpDistanceX = world.minJumpDistanceX
+                        maxJumpDistance = Nav2RGuideSettings.instance.MaxJumpDistance,
+                        maxSlope = Nav2RGuideSettings.instance.MaxSlope,
+                        minJumpDistanceX = Nav2RGuideSettings.instance.HorizontalDistance
                     });
 
                 world.nodes = nodes.ToArray();

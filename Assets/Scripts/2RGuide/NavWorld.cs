@@ -14,12 +14,5 @@ namespace Assets.Scripts._2RGuide
         public LineSegment2D[] segments;
         public LineSegment2D[] drops;
         public LineSegment2D[] jumps;
-
-        public float maxDropHeight;
-        public float horizontalDistance;
-        [Range(0.0f, 90.0f)]
-        public float maxSlope;
-        public float maxJumpDistance;
-        public float minJumpDistanceX;
     }
 }

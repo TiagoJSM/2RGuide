@@ -22,9 +22,12 @@ namespace Assets.Editor
         [Range(0.0f, 90.0f)]
         [SerializeField]
         private float _maxSlope = 60.0f;
+        [SerializeField]
+        private float _maxJumpDistance;
 
         public float MaxDropHeight => _maxDropHeight;
         public float HorizontalDistance => _horizontalDistance;
         public float MaxSlope => _maxSlope;
+        public float MaxJumpDistance => _maxJumpDistance;
     }
 }

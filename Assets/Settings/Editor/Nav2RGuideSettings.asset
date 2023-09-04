@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8b28011a1aa60428a901abc21582aa, type: 3}
   m_Name: Nav2RGuideSettings
   m_EditorClassIdentifier: 
-  _maxDropHeight: 10
-  _horizontalDistance: 1
+  _maxDropHeight: 20
+  _horizontalDistance: 0.5
   _maxSlope: 60
+  _maxJumpDistance: 3
