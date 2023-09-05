@@ -14,27 +14,12 @@ namespace Assets.Scripts._2RGuide
 
         [SerializeField]
         private float _speed;
-        [SerializeField]
-        private NavWorld _navWorld;
-
-        // Use this for initialization
-        void Start()
-        {
-            _allNodes = _navWorld.nodes;
-            var astar = new AStar();
-
-            while (_path == null)
-            {
-                _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
-                _path = astar.Resolve(_allNodes[UnityEngine.Random.Range(0, _allNodes.Length)], _allNodes[_targetNodeIndex]);
-            }
-            transform.position = _path[0].Position;
-            _targetPathIndex = 1;
-        }
 
         // Update is called once per frame
         void Update()
         {
+            Initialize();
+
             var step = _speed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, _path[_targetPathIndex].Position, step);
 
@@ -52,6 +37,26 @@ namespace Assets.Scripts._2RGuide
                     _path = astar.Resolve(_allNodes[currentNodeIndex], _allNodes[_targetNodeIndex]);
                 }
             }
+        }
+
+        private void Initialize()
+        {
+            if(_allNodes != null)
+            {
+                return;
+            }
+
+            _allNodes = NavWorldReference.Instance.NavWorld.nodes;
+
+            var astar = new AStar();
+
+            while (_path == null)
+            {
+                _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
+                _path = astar.Resolve(_allNodes[UnityEngine.Random.Range(0, _allNodes.Length)], _allNodes[_targetNodeIndex]);
+            }
+            transform.position = _path[0].Position;
+            _targetPathIndex = 1;
         }
 
         private bool Approximatelly(Vector2 v1, Vector2 v2)

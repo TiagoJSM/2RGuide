@@ -14,7 +14,8 @@ namespace Assets.Scripts._2RGuide
         Jump
     }
 
-    public struct NodeConnection
+    [Serializable]
+    public class NodeConnection
     {
         public Node node;
         public ConnectionType connectionType;
@@ -37,12 +38,21 @@ namespace Assets.Scripts._2RGuide
     [Serializable]
     public class Node
     {
-        public Vector2 Position { get; set; }
-        public List<NodeConnection> Connections { get; set; }
+        [SerializeField]
+        private Vector2 _position;
+        [SerializeReference]
+        private List<NodeConnection> _connections;
+
+        public Vector2 Position 
+        {
+            get => _position;
+            set => _position = value;
+        }
+        public List<NodeConnection> Connections => _connections;
 
         public Node()
         {
-            Connections = new List<NodeConnection>();
+            _connections = new List<NodeConnection>();
         }
 
         public override int GetHashCode()
