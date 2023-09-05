@@ -1,18 +1,48 @@
-﻿using System.Collections;
+﻿using Assets.Scripts._2RGuide.Helpers;
+using Assets.Scripts._2RGuide.Math;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts._2RGuide
 {
+    public enum ConnectionType
+    {
+        Walk,
+        Drop,
+        Jump
+    }
+
+    public struct NodeConnection
+    {
+        public Node node;
+        public ConnectionType connectionType;
+        public LineSegment2D segment;
+
+        public static NodeConnection Walk(Node node, LineSegment2D segment)
+        {
+            return new NodeConnection { node = node, connectionType = ConnectionType.Walk, segment = segment };
+        }
+        public static NodeConnection Drop(Node node, LineSegment2D segment)
+        {
+            return new NodeConnection { node = node, connectionType = ConnectionType.Drop, segment = segment };
+        }
+        public static NodeConnection Jump(Node node, LineSegment2D segment)
+        {
+            return new NodeConnection { node = node, connectionType = ConnectionType.Jump, segment = segment };
+        }
+    }
+
+    [Serializable]
     public class Node
     {
         public Vector2 Position { get; set; }
-
-        public List<Node> Connections { get; set; }
+        public List<NodeConnection> Connections { get; set; }
 
         public Node()
         {
-            Connections = new List<Node>();
+            Connections = new List<NodeConnection>();
         }
 
         public override int GetHashCode()
@@ -59,16 +89,16 @@ namespace Assets.Scripts._2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
-                    var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.Position);
-                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor, float.PositiveInfinity))
+                    var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.node.Position);
+                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor.node, float.PositiveInfinity))
                     {
-                        cameFrom[neighbor] = current;
-                        gScore[neighbor] = tentativeGScore;
-                        var currentFScore = tentativeGScore + Heuristic(neighbor, goal);
-                        fScore[neighbor] = currentFScore;
-                        if (!queue.Contains(neighbor))
+                        cameFrom[neighbor.node] = current;
+                        gScore[neighbor.node] = tentativeGScore;
+                        var currentFScore = tentativeGScore + Heuristic(neighbor.node, goal);
+                        fScore[neighbor.node] = currentFScore;
+                        if (!queue.Contains(neighbor.node))
                         {
-                            queue.Enqueue(neighbor, currentFScore);
+                            queue.Enqueue(neighbor.node, currentFScore);
                         }
                     }
                 }

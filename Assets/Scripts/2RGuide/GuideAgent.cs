@@ -20,7 +20,7 @@ namespace Assets.Scripts._2RGuide
         // Use this for initialization
         void Start()
         {
-            _allNodes = _navWorld.Nodes.ToArray();
+            _allNodes = _navWorld.nodes;
             var astar = new AStar();
 
             while (_path == null)
