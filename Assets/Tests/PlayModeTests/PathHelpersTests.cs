@@ -30,7 +30,7 @@ namespace Assets.Tests.PlayModeTests
 
             Assert.AreEqual(8, nodes.Count);
 
-            var dropSegments = DropsHelper.BuildDrops(nodes, segments, new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = DropsHelper.BuildDrops(nodes, segments, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
 
             Assert.AreEqual(1, dropSegments.Length);
         }

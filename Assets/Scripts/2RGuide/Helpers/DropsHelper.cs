@@ -17,7 +17,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float maxSlope;
         }
 
-        public static LineSegment2D[] BuildDrops(List<Node> nodes, LineSegment2D[] segments, Settings settings)
+        public static LineSegment2D[] BuildDrops(List<Node> nodes, LineSegment2D[] segments, LineSegment2D[] jumps, Settings settings)
         {
             var resultSegments = new List<LineSegment2D>();
 
@@ -27,7 +27,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                 if (canJumpOrDropToLeftSide)
                 {
                     var originX = node.Position.x - settings.horizontalDistance;
-                    var target = FindTargetDropSegment(node, segments, originX, settings);
+                    var target = FindTargetDropSegment(node, segments, jumps, originX, settings);
                     if (target)
                     {
                         PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
@@ -39,7 +39,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                 if (canJumpOrDropToRightSide)
                 {
                     var originX = node.Position.x + settings.horizontalDistance;
-                    var target = FindTargetDropSegment(node, segments, originX, settings);
+                    var target = FindTargetDropSegment(node, segments, jumps, originX, settings);
                     if (target)
                     {
                         PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
@@ -53,7 +53,7 @@ namespace Assets.Scripts._2RGuide.Helpers
 
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
         // Check if there's no jump segment as replacement
-        private static LineSegment2D FindTargetDropSegment(Node node, LineSegment2D[] segments, float originX, Settings settings)
+        private static LineSegment2D FindTargetDropSegment(Node node, LineSegment2D[] segments, LineSegment2D[] jumps, float originX, Settings settings)
         {
             var origin = new Vector2(originX, node.Position.y);
 
@@ -75,9 +75,15 @@ namespace Assets.Scripts._2RGuide.Helpers
                 var position = s.PositionInX(originX);
                 return Vector2.Distance(position.Value, origin);
             });
+
             if (segment)
             {
-                return new LineSegment2D(node.Position, segment.PositionInX(originX).Value);
+                var dropSegment = new LineSegment2D(node.Position, segment.PositionInX(originX).Value);
+
+                if(!jumps.Any(rs => rs.IsCoincident(dropSegment)))
+                {
+                    return dropSegment;
+                }
             }
             return default;
         }

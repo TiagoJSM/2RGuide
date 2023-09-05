@@ -57,7 +57,7 @@ namespace Assets.Editor
 
                 var nodes = NodeHelpers.BuildNodes(world.segments);
                 var jumps = JumpsHelper.BuildJumps(nodes, world.segments, JumpSettings);
-                var drops = DropsHelper.BuildDrops(nodes, world.segments, DropSettings);
+                var drops = DropsHelper.BuildDrops(nodes, world.segments, jumps, DropSettings);
 
                 world.nodes = nodes.ToArray();
                 world.drops = drops;
