@@ -271,6 +271,11 @@ namespace Assets.Scripts._2RGuide.Math
             return OnSegment(P1, p, P2);
         }
 
+        public bool IsCoincident(LineSegment2D other)
+        {
+            return (P1.Approximately(other.P1) && P2.Approximately(other.P2)) || (P1.Approximately(other.P2) && P2.Approximately(other.P1));
+        }
+
         public static LineSegment2D operator +(LineSegment2D segment, Vector2 offset)
         {
             return new LineSegment2D(segment.P1 + offset, segment.P2 + offset);

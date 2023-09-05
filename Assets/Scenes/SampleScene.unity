@@ -547,16 +547,11 @@ MonoBehaviour:
   - P1: {x: 0, y: 3.5}
     P2: {x: -1, y: 2.75}
   - P1: {x: 0, y: 3.5}
-    P2: {x: -0.3, y: 1.5}
+    P2: {x: -0.5, y: 1.5}
   - P1: {x: -1, y: 2.75}
     P2: {x: 0, y: 3.5}
   - P1: {x: -1, y: 2.75}
-    P2: {x: -0.7, y: 1.5}
-  maxDropHeight: 20
-  horizontalDistance: 0.5
-  maxSlope: 60
-  maxJumpDistance: 3
-  minJumpDistanceX: 0.3
+    P2: {x: -0.5, y: 1.5}
 --- !u!4 &1727419676
 Transform:
   m_ObjectHideFlags: 0

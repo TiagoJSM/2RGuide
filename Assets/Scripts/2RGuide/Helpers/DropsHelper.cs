@@ -30,7 +30,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, originX, settings);
                     if (target)
                     {
-                        AddDropTargetNodeForSegment(target, nodes, segments, node);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
                         resultSegments.Add(target);
                     }
                 }
@@ -42,7 +42,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, originX, settings);
                     if (target)
                     {
-                        AddDropTargetNodeForSegment(target, nodes, segments, node);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
                         resultSegments.Add(target);
                     }
                 }
@@ -51,41 +51,8 @@ namespace Assets.Scripts._2RGuide.Helpers
             return resultSegments.ToArray();
         }
 
-        private static void AddDropTargetNodeForSegment(LineSegment2D target, List<Node> nodes, LineSegment2D[] segments, Node dropNode)
-        {
-            var existingNodeAtPosition = nodes.FirstOrDefault(n => n.Position == target.P2);
-
-            if(existingNodeAtPosition != null)
-            {
-                return;
-            }
-
-            var dropTargetSegment = segments.FirstOrDefault(s => s.OnSegment(target.P2));
-
-            if(!dropTargetSegment)
-            {
-                return;
-            }
-
-            var dropTargetNode = new Node() { Position = target.P2 };
-
-            var connectedNode1 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P1);
-            if(connectedNode1 != null)
-            {
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(dropTargetSegment.P1, dropTargetNode.Position)));
-            }
-
-            var connectedNode2 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P2);
-            if (connectedNode2 != null)
-            {
-                dropTargetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(dropTargetNode.Position, dropTargetSegment.P2)));
-            }
-
-            dropNode.Connections.Add(NodeConnection.Drop(dropTargetNode, new LineSegment2D(dropNode.Position, dropTargetNode.Position)));
-            nodes.Add(dropTargetNode);
-        }
-
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
+        // Check if there's no jump segment as replacement
         private static LineSegment2D FindTargetDropSegment(Node node, LineSegment2D[] segments, float originX, Settings settings)
         {
             var origin = new Vector2(originX, node.Position.y);

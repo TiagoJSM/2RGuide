@@ -18,6 +18,34 @@ namespace Assets.Editor
     [CustomEditor(typeof(NavWorld))]
     public class WorldEditor : UnityEditor.Editor
     {
+        private JumpsHelper.Settings JumpSettings
+        {
+            get
+            {
+                var instance = Nav2RGuideSettings.instance;
+                return new JumpsHelper.Settings()
+                {
+                    maxJumpDistance = instance.MaxJumpDistance,
+                    maxSlope = instance.MaxSlope,
+                    minJumpDistanceX = instance.HorizontalDistance
+                };
+            }
+        }
+
+        private DropsHelper.Settings DropSettings
+        {
+            get
+            {
+                var instance = Nav2RGuideSettings.instance;
+                return new DropsHelper.Settings()
+                {
+                    maxDropHeight = instance.MaxDropHeight,
+                    horizontalDistance = instance.HorizontalDistance,
+                    maxSlope = instance.MaxSlope
+                };
+            }
+        }
+
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
@@ -28,24 +56,8 @@ namespace Assets.Editor
                 CollectSegments(world);
 
                 var nodes = NodeHelpers.BuildNodes(world.segments);
-                var drops = DropsHelper.BuildDrops(
-                    nodes,
-                    world.segments,
-                    new DropsHelper.Settings()
-                    {
-                        maxDropHeight = Nav2RGuideSettings.instance.MaxDropHeight,
-                        horizontalDistance = Nav2RGuideSettings.instance.HorizontalDistance,
-                        maxSlope = Nav2RGuideSettings.instance.MaxSlope
-                    });
-                var jumps = JumpsHelper.BuildJumps(
-                    nodes,
-                    world.segments,
-                    new JumpsHelper.Settings()
-                    {
-                        maxJumpDistance = Nav2RGuideSettings.instance.MaxJumpDistance,
-                        maxSlope = Nav2RGuideSettings.instance.MaxSlope,
-                        minJumpDistanceX = Nav2RGuideSettings.instance.HorizontalDistance
-                    });
+                var jumps = JumpsHelper.BuildJumps(nodes, world.segments, JumpSettings);
+                var drops = DropsHelper.BuildDrops(nodes, world.segments, DropSettings);
 
                 world.nodes = nodes.ToArray();
                 world.drops = drops;

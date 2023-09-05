@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts._2RGuide.Helpers
 {
@@ -37,7 +38,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, segments, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, segments, resultSegments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -52,22 +53,30 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, segments, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, segments, resultSegments);
                 }
             }
 
             return resultSegments.ToArray();
         }
 
-        private static void GetJumpSegments(Node node, Vector2[] closestPoints, LineSegment2D[] segments, List<LineSegment2D> resultSegments)
+        private static void GetJumpSegments(Node node, Vector2[] closestPoints, List<Node> nodes, LineSegment2D[] segments, List<LineSegment2D> resultSegments)
         {
-            resultSegments.AddRange(
+            var jumpSegments =
                 closestPoints
                     .Select(p =>
                         new LineSegment2D(node.Position, p))
                     .Where(l =>
                         !segments.Any(s =>
-                            !s.OnSegment(l.P2) && s.DoLinesIntersect(l, false)))
+                            !s.OnSegment(l.P2) && s.DoLinesIntersect(l, false)));
+
+            foreach (var jumpSegment in jumpSegments)
+            {
+                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, segments, node, ConnectionType.Jump);
+            }
+
+            resultSegments.AddRange(
+                jumpSegments.Where(js => !resultSegments.Any(rs => rs.IsCoincident(js)))
             );
         }
 
