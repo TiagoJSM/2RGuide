@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts._2RGuide.Helpers;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,9 +20,8 @@ namespace Assets.Scripts._2RGuide
         }
 
         private Node[] _allNodes;
-        private Node[] _path;
+        private Vector2[] _path;
         private int _targetPathIndex;
-        private int _targetNodeIndex;
 
         private Vector2? _currentDestination;
         private Vector2? _desiredDestination;
@@ -90,7 +90,7 @@ namespace Assets.Scripts._2RGuide
 
             var step = _speed * Time.deltaTime;
 
-            if (Approximatelly(transform.position, _path[_targetPathIndex].Position))
+            if (Approximatelly(transform.position, _path[_targetPathIndex]))
             {
                 _targetPathIndex++;
                 if (_targetPathIndex >= _path.Length)
@@ -103,7 +103,7 @@ namespace Assets.Scripts._2RGuide
 
             if (_targetPathIndex < _path.Length)
             {
-                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex].Position, step) - (Vector2)transform.position;
+                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex], step) - (Vector2)transform.position;
             }
         }
 
@@ -122,9 +122,20 @@ namespace Assets.Scripts._2RGuide
                 yield return null;
             }
 
-            _coroutine = null;
-            _path = pathfindingTask.Result;
+            var path = pathfindingTask.Result;
             _targetPathIndex = 0;
+
+            if (path.Length > 1)
+            {
+                var connection = path.ElementAt(0).Connections.First(c => c.node.Equals(path.ElementAt(1)));
+                if (connection.segment.OnSegment(transform.position))
+                {
+                    _targetPathIndex = 1;
+                }
+            }
+
+            _coroutine = null;
+            _path = path.Select(n => n.Position).ToArray();
         }
     }
 }
