@@ -22,19 +22,6 @@ namespace Assets.Scripts._2RGuide
         public Node node;
         public ConnectionType connectionType;
         public LineSegment2D segment;
-
-        public static NodeConnection Walk(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Walk, segment = segment };
-        }
-        public static NodeConnection Drop(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Drop, segment = segment };
-        }
-        public static NodeConnection Jump(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Jump, segment = segment };
-        }
     }
 
     [Serializable]
@@ -81,25 +68,6 @@ namespace Assets.Scripts._2RGuide
             }
             return false;
         }
-
-        //public static bool operator ==(Node node1, Node node2)
-        //{
-        //    if(node1 == null && node2 == null)
-        //    {
-        //        return true;
-        //    }
-        //    if (node1 == null || node2 == null)
-        //    {
-        //        return false;
-        //    }
-
-        //    return node1.Position.Approximately(node2.Position);
-        //}
-
-        //public static bool operator !=(Node node1, Node node2)
-        //{
-        //    return !(node1 == node2);
-        //}
     }
 
     public static class AStar
