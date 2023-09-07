@@ -20,7 +20,7 @@ namespace Assets.Scripts._2RGuide
         }
 
         private Node[] _allNodes;
-        private Vector2[] _path;
+        private Node[] _path;
         private int _targetPathIndex;
 
         private Vector2? _currentDestination;
@@ -32,6 +32,7 @@ namespace Assets.Scripts._2RGuide
         private float _speed;
 
         public Vector2 DesiredMovement { get; private set; }
+        public ConnectionType CurrentConnectionType { get; private set; }
 
         public void SetDestination(Vector2 destination)
         {
@@ -90,7 +91,7 @@ namespace Assets.Scripts._2RGuide
 
             var step = _speed * Time.deltaTime;
 
-            if (Approximatelly(transform.position, _path[_targetPathIndex]))
+            if (Approximatelly(transform.position, _path[_targetPathIndex].Position))
             {
                 _targetPathIndex++;
                 if (_targetPathIndex >= _path.Length)
@@ -98,12 +99,23 @@ namespace Assets.Scripts._2RGuide
                     _desiredDestination = null;
                     _agentStatus = AgentStatus.Iddle;
                     _path = null;
+                    DesiredMovement = Vector2.zero;
+                    return;
+                }
+                else
+                {
+                    CurrentConnectionType = ConnectionType.Walk;
+                    if (_targetPathIndex > 0)
+                    {
+                        var connection = _path[_targetPathIndex - 1].Connections.First(c => c.node.Equals(_path[_targetPathIndex]));
+                        CurrentConnectionType = connection.connectionType;
+                    }
                 }
             }
 
             if (_targetPathIndex < _path.Length)
             {
-                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex], step) - (Vector2)transform.position;
+                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex].Position, step) - (Vector2)transform.position;
             }
         }
 
@@ -135,7 +147,7 @@ namespace Assets.Scripts._2RGuide
             }
 
             _coroutine = null;
-            _path = path.Select(n => n.Position).ToArray();
+            _path = path;
         }
     }
 }
