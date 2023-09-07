@@ -1,85 +1,130 @@
 ﻿using Assets.Scripts._2RGuide.Helpers;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static Assets.Scripts._2RGuide.GuideAgent;
 using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts._2RGuide
 {
     public class GuideAgent : MonoBehaviour
     {
+        public enum AgentStatus
+        {
+            Iddle,
+            Busy,
+            Moving
+        }
+
         private Node[] _allNodes;
         private Node[] _path;
         private int _targetPathIndex;
         private int _targetNodeIndex;
 
+        private Vector2? _currentDestination;
+        private Vector2? _desiredDestination;
+        private AgentStatus _agentStatus = AgentStatus.Iddle;
+        private Coroutine _coroutine;
+
         [SerializeField]
         private float _speed;
+
+        public Vector2 DesiredMovement { get; private set; }
+
+        public void SetDestination(Vector2 destination)
+        {
+            _desiredDestination = destination;
+        }
+
+        public void CancelPathFinding()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
+            _currentDestination = null;
+            _agentStatus = AgentStatus.Iddle;
+            _path = null;
+        }
+
+        private void Start()
+        {
+            var navWorld = NavWorldReference.Instance.NavWorld;
+
+            if (navWorld == null)
+            {
+                Debug.LogError($"NavWorld not present in scene, can't use {nameof(GuideAgent)}");
+                return;
+            }
+
+            _allNodes = navWorld.nodes;
+        }
 
         // Update is called once per frame
         void Update()
         {
-            Initialize();
-
-            var step = _speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, _path[_targetPathIndex].Position, step);
-
-            //if the values are not approximate 
-            if (Approximatelly(transform.position, _path[_targetPathIndex].Position))
+            if (!_currentDestination.HasValue && _desiredDestination.HasValue)
             {
-                _targetPathIndex++;
-                if(_targetPathIndex >= _path.Length)
-                {
-                    _targetPathIndex = 1;
-
-                    var astar = new AStar();
-                    var currentNodeIndex = _targetNodeIndex;
-                    _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
-
-                    _path = astar.Resolve(_allNodes[currentNodeIndex], _allNodes[_targetNodeIndex]);
-
-                    Debug.Log($"{_allNodes[currentNodeIndex].Position}            {_allNodes[_targetNodeIndex].Position}");
-                }
+                CancelPathFinding();
+                _currentDestination = _desiredDestination;
+                _desiredDestination = null;
+                var startN = _allNodes.MinBy(n => Vector2.Distance(transform.position, n.Position));
+                var endN = _allNodes.MinBy(n => Vector2.Distance(_currentDestination.Value, n.Position));
+                _coroutine = StartCoroutine(FindPath(startN, endN));
             }
+            
+            Move();
         }
 
-        private void Initialize()
+        private void Move()
         {
-            if(_allNodes != null)
+            if (_path == null)
             {
                 return;
             }
 
-            _allNodes = NavWorldReference.Instance.NavWorld.nodes;
+            _agentStatus = AgentStatus.Moving;
 
-            var astar = new AStar();
+            var step = _speed * Time.deltaTime;
 
-            while (_path == null)
+            if (Approximatelly(transform.position, _path[_targetPathIndex].Position))
             {
-                _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
-                var startNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
-
-                var startN = _allNodes[startNodeIndex];
-                var endN = _allNodes[_targetNodeIndex];
-
-                //(-1.0, 2.8)            (-1.0, 2.8)
-                //startN = _allNodes.FirstOrDefault(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
-                //endN = _allNodes.FirstOrDefault(n => n.Position.Approximately(new Vector2(-4.0f, 2.25f)));
-
-                _path = astar.Resolve(startN, endN);
-                if(_path == null)
+                _targetPathIndex++;
+                if (_targetPathIndex >= _path.Length)
                 {
-                    return;
+                    _desiredDestination = null;
+                    _agentStatus = AgentStatus.Iddle;
+                    _path = null;
                 }
             }
 
-            transform.position = _path[0].Position;
-            _targetPathIndex = 1;
+            if (_targetPathIndex < _path.Length)
+            {
+                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex].Position, step) - (Vector2)transform.position;
+            }
         }
 
         private bool Approximatelly(Vector2 v1, Vector2 v2)
         {
             return Mathf.Approximately(v1.x, v2.x) && Mathf.Approximately(v1.y, v2.y);
+        }
+
+        private IEnumerator FindPath(Node start, Node end)
+        {
+            _agentStatus = AgentStatus.Busy;
+            var pathfindingTask = Task.Run(() => AStar.Resolve(start, end));
+
+            while (!pathfindingTask.IsCompleted)
+            {
+                yield return null;
+            }
+
+            _coroutine = null;
+            _path = pathfindingTask.Result;
+            _targetPathIndex = 0;
         }
     }
 }

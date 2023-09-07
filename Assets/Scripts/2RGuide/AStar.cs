@@ -102,9 +102,9 @@ namespace Assets.Scripts._2RGuide
         //}
     }
 
-    public class AStar
+    public static class AStar
     {
-        public Node[] Resolve(Node start, Node goal)
+        public static Node[] Resolve(Node start, Node goal)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -149,7 +149,7 @@ namespace Assets.Scripts._2RGuide
             return null;
         }
 
-        private Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
+        private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
         {
             var path = new List<Node>() { current };
             while (cameFrom.ContainsKey(current))
@@ -162,7 +162,7 @@ namespace Assets.Scripts._2RGuide
         }
 
 
-        private float Heuristic(Node node, Node goal)
+        private static float Heuristic(Node node, Node goal)
         {
             return Vector2.Distance(node.Position, goal.Position);
         }

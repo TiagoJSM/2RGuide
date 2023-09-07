@@ -15,16 +15,13 @@ namespace Assets.Tests.PlayModeTests
         [Test]
         public void TestAStar2Nodes()
         {
-            // Use the Assert class to test conditions
-            var astar = new AStar();
-
             var n1 = new Node() { Position = Vector3.zero };
             var n2 = new Node() { Position = Vector2.one };
 
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D());
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D());
 
-            var path = astar.Resolve(n1, n2);
+            var path = AStar.Resolve(n1, n2);
 
             Assert.AreEqual(2, path.Length);
         }
@@ -61,12 +58,10 @@ namespace Assets.Tests.PlayModeTests
 
             var navResult = NavHelper.Build(segments, jumpSettings, dropSettings);
 
-            var astar = new AStar();
-
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
 
-            var path = astar.Resolve(navResult.nodes[0], navResult.nodes[4]);
+            var path = AStar.Resolve(navResult.nodes[0], navResult.nodes[4]);
 
             Assert.AreEqual(3, path.Length);
         }
