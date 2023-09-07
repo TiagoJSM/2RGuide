@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts._2RGuide.Helpers;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -34,7 +35,10 @@ namespace Assets.Scripts._2RGuide
                     var astar = new AStar();
                     var currentNodeIndex = _targetNodeIndex;
                     _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
+
                     _path = astar.Resolve(_allNodes[currentNodeIndex], _allNodes[_targetNodeIndex]);
+
+                    Debug.Log($"{_allNodes[currentNodeIndex].Position}            {_allNodes[_targetNodeIndex].Position}");
                 }
             }
         }
@@ -53,8 +57,22 @@ namespace Assets.Scripts._2RGuide
             while (_path == null)
             {
                 _targetNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
-                _path = astar.Resolve(_allNodes[UnityEngine.Random.Range(0, _allNodes.Length)], _allNodes[_targetNodeIndex]);
+                var startNodeIndex = UnityEngine.Random.Range(0, _allNodes.Length);
+
+                var startN = _allNodes[startNodeIndex];
+                var endN = _allNodes[_targetNodeIndex];
+
+                //(-1.0, 2.8)            (-1.0, 2.8)
+                //startN = _allNodes.FirstOrDefault(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
+                //endN = _allNodes.FirstOrDefault(n => n.Position.Approximately(new Vector2(-4.0f, 2.25f)));
+
+                _path = astar.Resolve(startN, endN);
+                if(_path == null)
+                {
+                    return;
+                }
             }
+
             transform.position = _path[0].Position;
             _targetPathIndex = 1;
         }

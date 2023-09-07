@@ -3,6 +3,7 @@ using Assets.Scripts._2RGuide.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,11 +50,22 @@ namespace Assets.Scripts._2RGuide
             get => _position;
             set => _position = value;
         }
-        public List<NodeConnection> Connections => _connections;
+        public IEnumerable<NodeConnection> Connections => _connections;
 
         public Node()
         {
             _connections = new List<NodeConnection>();
+        }
+
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment)
+        {
+            var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
+            if (!hasSegment)
+            {
+                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment });
+            }
+
+            return !hasSegment;
         }
 
         public override int GetHashCode()

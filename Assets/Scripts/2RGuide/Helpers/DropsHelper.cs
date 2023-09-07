@@ -30,7 +30,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop, settings.maxSlope);
                         resultSegments.Add(target);
                     }
                 }
@@ -42,7 +42,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                     var target = FindTargetDropSegment(node, segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, segments, node, ConnectionType.Drop, settings.maxSlope);
                         resultSegments.Add(target);
                     }
                 }
