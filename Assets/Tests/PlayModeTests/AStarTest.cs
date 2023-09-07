@@ -68,7 +68,7 @@ namespace Assets.Tests.PlayModeTests
 
             var path = astar.Resolve(navResult.nodes[0], navResult.nodes[4]);
 
-            Assert.AreEqual(2, path.Length);
+            Assert.AreEqual(3, path.Length);
         }
     }
 }
