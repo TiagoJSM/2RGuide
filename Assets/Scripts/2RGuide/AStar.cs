@@ -3,6 +3,7 @@ using Assets.Scripts._2RGuide.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -53,6 +54,12 @@ namespace Assets.Scripts._2RGuide
             }
 
             return !hasSegment;
+        }
+
+        public NodeConnection? ConnectionWith(Node n)
+        {
+            var nc = Connections.FirstOrDefault(c => c.node.Equals(n));
+            return nc;
         }
 
         public override int GetHashCode()

@@ -12,6 +12,12 @@ namespace Assets.Scripts._2RGuide
 {
     public class GuideAgent : MonoBehaviour
     {
+        public struct AgentSegment
+        {
+            public Vector2 position;
+            public ConnectionType connectionType;
+        }
+
         public enum AgentStatus
         {
             Iddle,
@@ -20,7 +26,7 @@ namespace Assets.Scripts._2RGuide
         }
 
         private Node[] _allNodes;
-        private Node[] _path;
+        private AgentSegment[] _path;
         private int _targetPathIndex;
 
         private Vector2? _currentDestination;
@@ -91,7 +97,7 @@ namespace Assets.Scripts._2RGuide
 
             var step = _speed * Time.deltaTime;
 
-            if (Approximatelly(transform.position, _path[_targetPathIndex].Position))
+            if (Approximatelly(transform.position, _path[_targetPathIndex].position))
             {
                 _targetPathIndex++;
                 if (_targetPathIndex >= _path.Length)
@@ -104,18 +110,13 @@ namespace Assets.Scripts._2RGuide
                 }
                 else
                 {
-                    CurrentConnectionType = ConnectionType.Walk;
-                    if (_targetPathIndex > 0)
-                    {
-                        var connection = _path[_targetPathIndex - 1].Connections.First(c => c.node.Equals(_path[_targetPathIndex]));
-                        CurrentConnectionType = connection.connectionType;
-                    }
+                    CurrentConnectionType = _path[_targetPathIndex].connectionType;
                 }
             }
 
             if (_targetPathIndex < _path.Length)
             {
-                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex].Position, step) - (Vector2)transform.position;
+                DesiredMovement = Vector2.MoveTowards(transform.position, _path[_targetPathIndex].position, step) - (Vector2)transform.position;
             }
         }
 
@@ -137,17 +138,36 @@ namespace Assets.Scripts._2RGuide
             var path = pathfindingTask.Result;
             _targetPathIndex = 0;
 
-            if (path.Length > 1)
+            var agentSegmentPath =
+                path
+                    .Select((n, i) =>
+                    {
+                        var connectionType =
+                            i == 0
+                            ? ConnectionType.Walk
+                            : path[i - 1].ConnectionWith(path[i]).Value.connectionType;
+                        return new AgentSegment() { position = n.Position, connectionType = connectionType };
+                    });
+
+            var segmentPath = agentSegmentPath.ToArray();
+
+            // if character is already in between first and second node no need to go back to first
+            if (path.Count() > 1)
             {
-                var connection = path.ElementAt(0).Connections.First(c => c.node.Equals(path.ElementAt(1)));
-                if (connection.segment.OnSegment(transform.position))
-                {
-                    _targetPathIndex = 1;
-                }
+                var closestPositionWithStart = path[0].ConnectionWith(path[1]).Value.segment.ClosestPointOnLine(transform.position);
+                segmentPath[0].position = closestPositionWithStart;
             }
 
             _coroutine = null;
-            _path = path;
+
+            // if character doesn't want to move to last node it should stay "half way"
+            if (path.Count() > 1)
+            { 
+                var closestPositionWithTarget = path[path.Length - 2].ConnectionWith(path.Last()).Value.segment.ClosestPointOnLine(_currentDestination.Value);
+                segmentPath[segmentPath.Length - 1].position = closestPositionWithTarget;
+            }
+
+            _path = segmentPath;
         }
     }
 }
