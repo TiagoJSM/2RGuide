@@ -25,4 +25,4 @@ Planned Features
 
 License
 ===
-MIT
+[MIT licensed](./LICENSE)
