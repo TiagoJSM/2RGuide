@@ -23,6 +23,7 @@ namespace Assets.Editor
         private static class AutoNavBaker
         {
 
+
             static AutoNavBaker()
             {
                 EditorSceneManager.sceneSaving += OnSceneSaving;
