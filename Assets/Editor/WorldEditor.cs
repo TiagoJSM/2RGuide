@@ -55,13 +55,11 @@ namespace Assets.Editor
             {
                 CollectSegments(world);
 
-                var nodes = NodeHelpers.BuildNodes(world.segments);
-                var jumps = JumpsHelper.BuildJumps(nodes, world.segments, JumpSettings);
-                var drops = DropsHelper.BuildDrops(nodes, world.segments, jumps, DropSettings);
+                var navResult = NavHelper.Build(world.segments, JumpSettings, DropSettings);
 
-                world.nodes = nodes.ToArray();
-                world.drops = drops;
-                world.jumps = jumps;
+                world.nodes = navResult.nodes;
+                world.drops = navResult.drops;
+                world.jumps = navResult.jumps;
 
                 EditorUtility.SetDirty(world);
                 serializedObject.ApplyModifiedProperties();

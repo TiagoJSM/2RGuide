@@ -38,7 +38,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, segments, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, segments, settings.maxSlope, resultSegments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -53,14 +53,14 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, segments, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, segments, settings.maxSlope, resultSegments);
                 }
             }
 
             return resultSegments.ToArray();
         }
 
-        private static void GetJumpSegments(Node node, Vector2[] closestPoints, List<Node> nodes, LineSegment2D[] segments, List<LineSegment2D> resultSegments)
+        private static void GetJumpSegments(Node node, Vector2[] closestPoints, List<Node> nodes, LineSegment2D[] segments, float maxSlope, List<LineSegment2D> resultSegments)
         {
             var jumpSegments =
                 closestPoints
@@ -72,7 +72,7 @@ namespace Assets.Scripts._2RGuide.Helpers
 
             foreach (var jumpSegment in jumpSegments)
             {
-                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, segments, node, ConnectionType.Jump);
+                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, segments, node, ConnectionType.Jump, maxSlope);
             }
 
             resultSegments.AddRange(

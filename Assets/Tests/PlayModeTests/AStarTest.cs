@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts._2RGuide;
+using Assets.Scripts._2RGuide.Helpers;
 using Assets.Scripts._2RGuide.Math;
 using NUnit.Framework;
 using UnityEngine;
@@ -10,32 +12,58 @@ namespace Assets.Tests.PlayModeTests
 {
     public class AStarTest
     {
-        // A Test behaves as an ordinary method
         [Test]
         public void TestAStar2Nodes()
         {
-            // Use the Assert class to test conditions
-            var astar = new AStar();
-
             var n1 = new Node() { Position = Vector3.zero };
             var n2 = new Node() { Position = Vector2.one };
 
-            n1.Connections.Add(NodeConnection.Walk(n2, new LineSegment2D()));
-            n2.Connections.Add(NodeConnection.Walk(n1, new LineSegment2D()));
+            n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D());
+            n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D());
 
-            var path = astar.Resolve(n1, n2);
+            var path = AStar.Resolve(n1, n2);
 
             Assert.AreEqual(2, path.Length);
         }
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator NewTestScriptWithEnumeratorPasses()
+        [Test]
+        public void TestAStarConnectedJump()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            var jumpSettings = new JumpsHelper.Settings
+            {
+                maxJumpDistance = 3.0f,
+                maxSlope = 60.0f,
+                minJumpDistanceX = 0.5f
+            };
+
+            var dropSettings = new DropsHelper.Settings
+            {
+                horizontalDistance = 0.5f,
+                maxSlope = 60.0f,
+                maxDropHeight = 20.0f
+            };
+
+            var segments = new LineSegment2D[]
+            {
+                new LineSegment2D(new Vector2(0.0f, 3.5f), new Vector2(3.0f, 3.5f)),
+                new LineSegment2D(new Vector2(3.0f, 3.5f), new Vector2(3.0f, 2.5f)),
+                new LineSegment2D(new Vector2(3.0f, 2.5f), new Vector2(0.0f, 2.5f)),
+                new LineSegment2D(new Vector2(0.0f, 2.5f), new Vector2(0.0f, 3.5f)),
+
+                new LineSegment2D(new Vector2(-1.5f, 1.5f), new Vector2(1.5f, 1.5f)),
+                new LineSegment2D(new Vector2(1.5f, 1.5f), new Vector2(1.5f, -1.5f)),
+                new LineSegment2D(new Vector2(1.5f, -1.5f), new Vector2(-1.5f, -1.5f)),
+                new LineSegment2D(new Vector2(-1.5f, -1.5f), new Vector2(-1.5f, 1.5f)),
+            };
+
+            var navResult = NavHelper.Build(segments, jumpSettings, dropSettings);
+
+            var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
+            var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
+
+            var path = AStar.Resolve(navResult.nodes[0], navResult.nodes[4]);
+
+            Assert.AreEqual(3, path.Length);
         }
     }
 }

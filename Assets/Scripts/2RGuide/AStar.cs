@@ -3,7 +3,10 @@ using Assets.Scripts._2RGuide.Math;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts._2RGuide
 {
@@ -14,35 +17,49 @@ namespace Assets.Scripts._2RGuide
         Jump
     }
 
+    [Serializable]
     public struct NodeConnection
     {
         public Node node;
         public ConnectionType connectionType;
         public LineSegment2D segment;
-
-        public static NodeConnection Walk(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Walk, segment = segment };
-        }
-        public static NodeConnection Drop(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Drop, segment = segment };
-        }
-        public static NodeConnection Jump(Node node, LineSegment2D segment)
-        {
-            return new NodeConnection { node = node, connectionType = ConnectionType.Jump, segment = segment };
-        }
     }
 
     [Serializable]
     public class Node
     {
-        public Vector2 Position { get; set; }
-        public List<NodeConnection> Connections { get; set; }
+        [SerializeField]
+        private Vector2 _position;
+        [SerializeField]
+        private List<NodeConnection> _connections;
+
+        public Vector2 Position 
+        {
+            get => _position;
+            set => _position = value;
+        }
+        public IEnumerable<NodeConnection> Connections => _connections;
 
         public Node()
         {
-            Connections = new List<NodeConnection>();
+            _connections = new List<NodeConnection>();
+        }
+
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment)
+        {
+            var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
+            if (!hasSegment)
+            {
+                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment });
+            }
+
+            return !hasSegment;
+        }
+
+        public NodeConnection? ConnectionWith(Node n)
+        {
+            var nc = Connections.FirstOrDefault(c => c.node.Equals(n));
+            return nc;
         }
 
         public override int GetHashCode()
@@ -54,15 +71,15 @@ namespace Assets.Scripts._2RGuide
         {
             if(obj is Node other)
             {
-                return other.Position == Position;
+                return other.Position.Approximately(Position);
             }
             return false;
         }
     }
 
-    public class AStar
+    public static class AStar
     {
-        public Node[] Resolve(Node start, Node goal)
+        public static Node[] Resolve(Node start, Node goal)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -82,7 +99,7 @@ namespace Assets.Scripts._2RGuide
             while(queue.Count > 0)
             {
                 var current = queue.Dequeue();
-                if (current == goal)
+                if (current.Equals(goal))
                 {
                     return ReconstructPath(cameFrom, current, goal);
                 }
@@ -107,7 +124,7 @@ namespace Assets.Scripts._2RGuide
             return null;
         }
 
-        private Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
+        private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
         {
             var path = new List<Node>() { current };
             while (cameFrom.ContainsKey(current))
@@ -120,7 +137,7 @@ namespace Assets.Scripts._2RGuide
         }
 
 
-        private float Heuristic(Node node, Node goal)
+        private static float Heuristic(Node node, Node goal)
         {
             return Vector2.Distance(node.Position, goal.Position);
         }

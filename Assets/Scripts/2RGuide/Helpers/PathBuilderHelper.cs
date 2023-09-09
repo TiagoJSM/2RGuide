@@ -8,34 +8,34 @@ namespace Assets.Scripts._2RGuide.Helpers
 {
     public static class PathBuilderHelper
     {
-        public static void AddTargetNodeForSegment(LineSegment2D target, List<Node> nodes, LineSegment2D[] segments, Node startNode, ConnectionType connectionType)
+        public static void AddTargetNodeForSegment(LineSegment2D target, List<Node> nodes, LineSegment2D[] segments, Node startNode, ConnectionType connectionType, float maxSlope)
         {
-            var existingNodeAtPosition = nodes.FirstOrDefault(n => n.Position == target.P2);
+            var targetNode = nodes.FirstOrDefault(n => n.Position == target.P2);
 
-            if (existingNodeAtPosition != null)
+            if (targetNode == null)
             {
-                return;
-            }
+                targetNode = new Node() { Position = target.P2 };
 
-            var dropTargetSegment = segments.FirstOrDefault(s => s.OnSegment(target.P2));
+                var dropTargetSegment = segments.FirstOrDefault(s => !s.OverMaxSlope(maxSlope) && s.OnSegment(target.P2));
 
-            if (!dropTargetSegment)
-            {
-                return;
-            }
+                if (!dropTargetSegment)
+                {
+                    return;
+                }
 
-            var targetNode = new Node() { Position = target.P2 };
+                var connectedNode1 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P1);
+                if (connectedNode1 != null)
+                {
+                    targetNode.AddConnection(ConnectionType.Walk, connectedNode1, new LineSegment2D(dropTargetSegment.P1, targetNode.Position));
+                    connectedNode1.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(targetNode.Position, dropTargetSegment.P1));
+                }
 
-            var connectedNode1 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P1);
-            if (connectedNode1 != null)
-            {
-                targetNode.Connections.Add(NodeConnection.Walk(connectedNode1, new LineSegment2D(dropTargetSegment.P1, targetNode.Position)));
-            }
-
-            var connectedNode2 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P2);
-            if (connectedNode2 != null)
-            {
-                targetNode.Connections.Add(NodeConnection.Walk(connectedNode2, new LineSegment2D(targetNode.Position, dropTargetSegment.P2)));
+                var connectedNode2 = nodes.FirstOrDefault(n => n.Position == dropTargetSegment.P2);
+                if (connectedNode2 != null)
+                {
+                    targetNode.AddConnection(ConnectionType.Walk, connectedNode2, new LineSegment2D(targetNode.Position, dropTargetSegment.P2));
+                    connectedNode2.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(dropTargetSegment.P2, targetNode.Position));
+                }
             }
 
             AddConnection(startNode, targetNode, connectionType);
@@ -47,14 +47,14 @@ namespace Assets.Scripts._2RGuide.Helpers
             switch (connectionType)
             {
                 case ConnectionType.Walk:
-                    startNode.Connections.Add(NodeConnection.Walk(endNode, new LineSegment2D(startNode.Position, endNode.Position)));
+                    startNode.AddConnection(ConnectionType.Walk, endNode, new LineSegment2D(startNode.Position, endNode.Position));
                     break;
                 case ConnectionType.Drop:
-                    startNode.Connections.Add(NodeConnection.Drop(endNode, new LineSegment2D(startNode.Position, endNode.Position)));
+                    startNode.AddConnection(ConnectionType.Drop, endNode, new LineSegment2D(startNode.Position, endNode.Position));
                     break;
                 case ConnectionType.Jump:
-                    startNode.Connections.Add(NodeConnection.Jump(endNode, new LineSegment2D(startNode.Position, endNode.Position)));
-                    endNode.Connections.Add(NodeConnection.Jump(startNode, new LineSegment2D(endNode.Position, startNode.Position)));
+                    startNode.AddConnection(ConnectionType.Jump, endNode, new LineSegment2D(startNode.Position, endNode.Position));
+                    endNode.AddConnection(ConnectionType.Jump, startNode, new LineSegment2D(endNode.Position, startNode.Position));
                     break;
             }
         }
