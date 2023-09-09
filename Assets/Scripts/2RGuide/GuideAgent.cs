@@ -25,7 +25,6 @@ namespace Assets.Scripts._2RGuide
             Moving
         }
 
-        private Node[] _allNodes;
         private AgentSegment[] _path;
         private int _targetPathIndex;
 
@@ -66,8 +65,6 @@ namespace Assets.Scripts._2RGuide
                 Debug.LogError($"NavWorld not present in scene, can't use {nameof(GuideAgent)}");
                 return;
             }
-
-            _allNodes = navWorld.nodes;
         }
 
         // Update is called once per frame
@@ -78,9 +75,7 @@ namespace Assets.Scripts._2RGuide
                 CancelPathFinding();
                 _currentDestination = _desiredDestination;
                 _desiredDestination = null;
-                var startN = _allNodes.MinBy(n => Vector2.Distance(transform.position, n.Position));
-                var endN = _allNodes.MinBy(n => Vector2.Distance(_currentDestination.Value, n.Position));
-                _coroutine = StartCoroutine(FindPath(startN, endN));
+                _coroutine = StartCoroutine(FindPath(transform.position, _currentDestination.Value));
             }
             
             Move();
@@ -125,10 +120,17 @@ namespace Assets.Scripts._2RGuide
             return Mathf.Approximately(v1.x, v2.x) && Mathf.Approximately(v1.y, v2.y);
         }
 
-        private IEnumerator FindPath(Node start, Node end)
+        private IEnumerator FindPath(Vector2 start, Vector2 end)
         {
             _agentStatus = AgentStatus.Busy;
-            var pathfindingTask = Task.Run(() => AStar.Resolve(start, end));
+            var pathfindingTask = Task.Run(() => 
+            {
+                var navWorld = NavWorldReference.Instance.NavWorld;
+                var allNodes = navWorld.nodes;
+                var startN = allNodes.MinBy(n => Vector2.Distance(start, n.Position));
+                var endN = allNodes.MinBy(n => Vector2.Distance(end, n.Position));
+                return AStar.Resolve(startN, endN);
+            });
 
             while (!pathfindingTask.IsCompleted)
             {
@@ -163,6 +165,7 @@ namespace Assets.Scripts._2RGuide
             // if character doesn't want to move to last node it should stay "half way"
             if (path.Count() > 1)
             { 
+                //ToDo: first check if on segment between length-2 and length-1, if yes run code bellow, otherwise check connections for last node for closest value on segment
                 var closestPositionWithTarget = path[path.Length - 2].ConnectionWith(path.Last()).Value.segment.ClosestPointOnLine(_currentDestination.Value);
                 segmentPath[segmentPath.Length - 1].position = closestPositionWithTarget;
             }
