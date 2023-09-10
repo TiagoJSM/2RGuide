@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts._2RGuide.Math;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts._2RGuide.Helpers
 {
+    [Serializable]
     public struct NavSegment
     {
         public LineSegment2D segment;
@@ -19,6 +21,7 @@ namespace Assets.Scripts._2RGuide.Helpers
 
     public static class LineSegmentExtensions
     {
+        //ToDo: move this to another file (maybe settings?)
         public static readonly float MaxHeight = 100.0f;  
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {

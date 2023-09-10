@@ -11,7 +11,7 @@ namespace Assets.Scripts._2RGuide
     public class NavWorld : MonoBehaviour
     {
         public Node[] nodes;
-        public LineSegment2D[] segments;
+        public NavSegment[] segments;
         public LineSegment2D[] drops;
         public LineSegment2D[] jumps;
     }

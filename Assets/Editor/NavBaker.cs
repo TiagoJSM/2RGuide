@@ -55,11 +55,12 @@ namespace Assets.Editor
 
         public static void BakePathfinding(NavWorld world)
         {
-            CollectSegments(world);
+            var segments = CollectSegments(world);
 
-            var navResult = NavHelper.Build(world.segments, NodePathSettings, JumpSettings, DropSettings);
+            var navResult = NavHelper.Build(segments, NodePathSettings, JumpSettings, DropSettings);
 
             world.nodes = navResult.nodes;
+            world.segments = navResult.segments;
             world.drops = navResult.drops;
             world.jumps = navResult.jumps;
         }
@@ -191,12 +192,7 @@ namespace Assets.Editor
             }
         }
 
-        private static void AssignSegments(NavWorld world, LineSegment2D[] segments)
-        {
-            world.segments = segments;
-        }
-
-        private static void CollectSegments(NavWorld world)
+        private static LineSegment2D[] CollectSegments(NavWorld world)
         {
             var paths = new PathsD();
             var children = world.transform.childCount;
@@ -210,8 +206,7 @@ namespace Assets.Editor
                 }
             }
             paths = UnionShapes(paths);
-            var segments = ConvertToSegments(paths);
-            AssignSegments(world, segments);
+            return ConvertToSegments(paths);
         }
     }
 }

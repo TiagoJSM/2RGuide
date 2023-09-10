@@ -8,6 +8,7 @@ namespace Assets.Scripts._2RGuide.Helpers
     public struct NavResult
     {
         public Node[] nodes;
+        public NavSegment[] segments;
         public LineSegment2D[] jumps;
         public LineSegment2D[] drops;
     }
@@ -28,6 +29,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             return new NavResult()
             {
                 nodes = nodeStore.ToArray(),
+                segments = navSegments,
                 jumps = jumps,
                 drops = drops
             };
