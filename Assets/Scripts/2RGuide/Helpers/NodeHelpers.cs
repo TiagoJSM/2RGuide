@@ -8,39 +8,31 @@ namespace Assets.Scripts._2RGuide.Helpers
 {
     public static class NodeHelpers
     {
-        public static List<Node> BuildNodes(LineSegment2D[] segments)
+        public struct Settings
         {
-            var nodes = new List<Node>();
-
-            foreach (var segment in segments)
-            {
-                var n1 = new Node() { Position = segment.P1 };
-                var n2 = new Node() { Position = segment.P2 };
-
-                if (!nodes.Contains(n1))
-                {
-                    nodes.Add(n1);
-                }
-                if (!nodes.Contains(n2))
-                {
-                    nodes.Add(n2);
-                }
-            }
-
-            CreateNodeConnections(segments, nodes);
-
-            return nodes;
+            public float segmentDivision;
         }
 
-        private static void CreateNodeConnections(LineSegment2D[] segments, List<Node> result)
+        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments, Settings settigns)
         {
-            foreach (var segment in segments)
+            foreach (var navSegment in navSegments)
             {
-                var n1 = result.First(n => n.Position == segment.P1);
-                var n2 = result.First(n => n.Position == segment.P2);
+                nodeStore.NewNode(navSegment.segment.P1);
+                nodeStore.NewNode(navSegment.segment.P2);
+            }
 
-                n1.AddConnection(ConnectionType.Walk, n2, segment);
-                n2.AddConnection(ConnectionType.Walk, n1, segment);
+            CreateNodeConnections(navSegments, nodeStore);
+        }
+
+        private static void CreateNodeConnections(NavSegment[] navSegments, NodeStore nodeStore)
+        {
+            foreach (var navSegment in navSegments)
+            {
+                var n1 = nodeStore.Get(navSegment.segment.P1);
+                var n2 = nodeStore.Get(navSegment.segment.P2);
+
+                n1.AddConnection(ConnectionType.Walk, n2, navSegment.segment, navSegment.maxHeight);
+                n2.AddConnection(ConnectionType.Walk, n1, navSegment.segment, navSegment.maxHeight);
             }
         }
     }

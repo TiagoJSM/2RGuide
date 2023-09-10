@@ -13,6 +13,18 @@ namespace Assets.Editor
 {
     public static class NavBaker
     {
+        private static NodeHelpers.Settings NodePathSettings
+        {
+            get
+            {
+                var instance = Nav2RGuideSettings.instance;
+                return new NodeHelpers.Settings()
+                {
+                    segmentDivision = instance.SegmentDivision
+                };
+            }
+        }
+
         private static JumpsHelper.Settings JumpSettings
         {
             get
@@ -45,7 +57,7 @@ namespace Assets.Editor
         {
             CollectSegments(world);
 
-            var navResult = NavHelper.Build(world.segments, JumpSettings, DropSettings);
+            var navResult = NavHelper.Build(world.segments, NodePathSettings, JumpSettings, DropSettings);
 
             world.nodes = navResult.nodes;
             world.drops = navResult.drops;

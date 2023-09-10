@@ -23,6 +23,7 @@ namespace Assets.Scripts._2RGuide
         public Node node;
         public ConnectionType connectionType;
         public LineSegment2D segment;
+        public float maxHeight;
     }
 
     [Serializable]
@@ -45,7 +46,7 @@ namespace Assets.Scripts._2RGuide
             _connections = new List<NodeConnection>();
         }
 
-        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment)
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight)
         {
             var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
             if (!hasSegment)
