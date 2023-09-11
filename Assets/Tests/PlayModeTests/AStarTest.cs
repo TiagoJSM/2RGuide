@@ -21,7 +21,7 @@ namespace Assets.Tests.PlayModeTests
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity);
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity);
 
-            var path = AStar.Resolve(n1, n2);
+            var path = AStar.Resolve(n1, n2, 0);
 
             Assert.AreEqual(2, path.Length);
         }
@@ -66,9 +66,54 @@ namespace Assets.Tests.PlayModeTests
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
 
-            var path = AStar.Resolve(navResult.nodes[0], navResult.nodes[4]);
+            var path = AStar.Resolve(start, end, 0);
 
-            Assert.AreEqual(3, path.Length);
+            Assert.AreEqual(4, path.Length);
+        }
+
+        [Test]
+        public void TestAStarLongDistanceDueToHeight()
+        {
+            var nodePathSettings = new NodeHelpers.Settings
+            {
+                segmentDivision = 1.0f,
+            };
+
+            var jumpSettings = new JumpsHelper.Settings
+            {
+                maxJumpDistance = 10.0f,
+                maxSlope = 60.0f,
+                minJumpDistanceX = 0.5f
+            };
+
+            var dropSettings = new DropsHelper.Settings
+            {
+                horizontalDistance = 0.5f,
+                maxSlope = 60.0f,
+                maxDropHeight = 20.0f
+            };
+
+            var segments = new LineSegment2D[]
+            {
+                new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(30.0f, 0.0f)),
+                new LineSegment2D(new Vector2(30.0f, 0.0f), new Vector2(30.0f, -10.0f)),
+                new LineSegment2D(new Vector2(30.0f, -10.0f), new Vector2(0.0f, -10.0f)),
+                new LineSegment2D(new Vector2(0.0f, -10.0f), new Vector2(0.0f, 0.0f)),
+
+                new LineSegment2D(new Vector2(4.0f, 4.0f), new Vector2(4.0f, 5.0f)),
+                new LineSegment2D(new Vector2(4.0f, 5.0f), new Vector2(10.0f, 5.0f)),
+                new LineSegment2D(new Vector2(10.0f, 5.0f), new Vector2(10.0f, 4.0f)),
+                new LineSegment2D(new Vector2(10.0f, 4.0f), new Vector2(4.0f, 4.0f)),
+            };
+
+            var navResult = NavHelper.Build(segments, nodePathSettings, jumpSettings, dropSettings);
+
+            var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 0.0f)));
+            var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(30.0f, 0.0f)));
+
+            var path = AStar.Resolve(start, end, 10);
+
+            Assert.AreEqual(6, path.Length);
         }
     }
 }

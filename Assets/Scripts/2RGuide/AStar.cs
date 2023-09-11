@@ -51,7 +51,7 @@ namespace Assets.Scripts._2RGuide
             var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
             if (!hasSegment)
             {
-                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment });
+                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment, maxHeight = maxHeight });
             }
 
             return !hasSegment;
@@ -80,7 +80,7 @@ namespace Assets.Scripts._2RGuide
 
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -107,6 +107,11 @@ namespace Assets.Scripts._2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
+                    if(neighbor.maxHeight < maxHeight)
+                    {
+                        continue;
+                    }
+
                     var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.node.Position);
                     if (tentativeGScore < gScore.GetValueOrDefault(neighbor.node, float.PositiveInfinity))
                     {
