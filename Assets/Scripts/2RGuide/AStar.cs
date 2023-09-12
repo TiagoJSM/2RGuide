@@ -80,7 +80,7 @@ namespace Assets.Scripts._2RGuide
 
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -108,6 +108,10 @@ namespace Assets.Scripts._2RGuide
                 foreach (var neighbor in current.Connections)
                 {
                     if(neighbor.maxHeight < maxHeight)
+                    {
+                        continue;
+                    }
+                    if (neighbor.segment.SlopeRadians > maxSlope)
                     {
                         continue;
                     }
