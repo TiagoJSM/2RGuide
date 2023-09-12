@@ -1,19 +1,23 @@
 ﻿using Assets.Scripts._2RGuide;
+using Assets.Scripts._2RGuide.Helpers;
 using Assets.Scripts._2RGuide.Math;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Editor
 {
     public static class EditorNavDrawer
     {
+        private static float LineThickness => EditorGUIUtility.pixelsPerPoint * 4;
+
         public static void RenderWorldNav(NavWorld world)
         {
             var segments = world.segments;
 
-            RenderSegments(segments, Color.blue);
+            RenderSegments(segments, new Color(173f / 255f, 216f / 255f, 230f / 255f), new Color(0, 0, 1.0f));
 
             if (world.drops != null)
             {
@@ -24,17 +28,19 @@ namespace Assets.Editor
                 RenderJumps(world.jumps, Color.gray);
             }
 
-            RenderNormals(world.segments, Color.magenta);
+            RenderNormals(segments, Color.magenta);
 
             RenderNodes(world.nodes);
         }
 
-        private static void RenderSegments(LineSegment2D[] segments, Color lineColor)
+        private static void RenderSegments(NavSegment[] navSegments, Color minHeightColor, Color maxHeightColor)
         {
-            Handles.color = lineColor;
-            foreach (var segment in segments)
+            
+            foreach (var navSegment in navSegments)
             {
-                Handles.DrawLine(segment.P1, segment.P2, EditorGUIUtility.pixelsPerPoint * 3);
+                var segment = navSegment.segment;
+                Handles.color = Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / LineSegmentExtensions.MaxHeight);
+                Handles.DrawLine(segment.P1, segment.P2, LineThickness);
             }
         }
 
@@ -57,12 +63,13 @@ namespace Assets.Editor
             }
         }
 
-        private static void RenderNormals(LineSegment2D[] segments, Color lineColor)
+        private static void RenderNormals(NavSegment[] navSegments, Color lineColor)
         {
             const float normalSize = 0.2f;
             Handles.color = lineColor;
-            foreach (var segment in segments)
+            foreach (var navSegment in navSegments)
             {
+                var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalVector.normalized * normalSize, 0.08f);
                 Handles.Label(middle, $"N: {segment.NormalVector.normalized}; Slope: {segment.Slope}");
@@ -74,13 +81,13 @@ namespace Assets.Editor
             var direction = (target - pos).normalized;
 
             //arrow shaft
-            Handles.DrawLine(pos, target, EditorGUIUtility.pixelsPerPoint * 3);
+            Handles.DrawLine(pos, target, LineThickness);
 
             //arrow head
             var right = Quaternion.LookRotation(direction) * Quaternion.Euler(180.0f + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
             var left = Quaternion.LookRotation(direction) * Quaternion.Euler(180.0f - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
-            Handles.DrawLine(target, target + right * arrowHeadLength, EditorGUIUtility.pixelsPerPoint * 3);
-            Handles.DrawLine(target, target + left * arrowHeadLength, EditorGUIUtility.pixelsPerPoint * 3);
+            Handles.DrawLine(target, target + right * arrowHeadLength, LineThickness);
+            Handles.DrawLine(target, target + left * arrowHeadLength, LineThickness);
         }
 
         private static void RenderNodes(Node[] nodes)

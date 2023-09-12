@@ -35,6 +35,11 @@ namespace Assets.Scripts._2RGuide
 
         [SerializeField]
         private float _speed;
+        [SerializeField]
+        private float _height;
+        [Range(0f, 90f)]
+        [SerializeField]
+        private float _maxSlopeDegrees;
 
         public Vector2 DesiredMovement { get; private set; }
         public ConnectionType CurrentConnectionType { get; private set; }
@@ -129,7 +134,7 @@ namespace Assets.Scripts._2RGuide
                 var allNodes = navWorld.nodes;
                 var startN = allNodes.MinBy(n => Vector2.Distance(start, n.Position));
                 var endN = allNodes.MinBy(n => Vector2.Distance(end, n.Position));
-                return AStar.Resolve(startN, endN);
+                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees);
             });
 
             while (!pathfindingTask.IsCompleted)

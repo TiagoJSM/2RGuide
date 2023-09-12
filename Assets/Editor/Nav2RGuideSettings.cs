@@ -24,10 +24,13 @@ namespace Assets.Editor
         private float _maxSlope = 60.0f;
         [SerializeField]
         private float _maxJumpDistance;
+        [SerializeField]
+        private float _segmentDivision = 1.0f;
 
         public float MaxDropHeight => _maxDropHeight;
         public float HorizontalDistance => _horizontalDistance;
         public float MaxSlope => _maxSlope;
         public float MaxJumpDistance => _maxJumpDistance;
+        public float SegmentDivision => _segmentDivision;
     }
 }

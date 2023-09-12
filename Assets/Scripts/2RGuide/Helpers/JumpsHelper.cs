@@ -17,20 +17,20 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float minJumpDistanceX;
         }
 
-        public static LineSegment2D[] BuildJumps(List<Node> nodes, LineSegment2D[] segments, Settings settings)
+        public static LineSegment2D[] BuildJumps(NodeStore nodes, NavSegment[] navSegments, Settings settings)
         {
             var resultSegments = new List<LineSegment2D>();
 
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpDistance);
-                var segmentsInRange = segments.Where(s => !s.OverMaxSlope(settings.maxSlope) && s.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navSegments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if(node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
                     var closestPoints =
                         segmentsInRange
-                            .Select(s => CutSegmentToTheLeft(s, node.Position.x - settings.minJumpDistanceX))
+                            .Select(ss => CutSegmentToTheLeft(ss.segment, node.Position.x - settings.minJumpDistanceX))
                             .Where(s => s)
                             .Select(s =>
                                 s.ClosestPointOnLine(node.Position))
@@ -38,14 +38,14 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, segments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
                 {
                     var closestPoints =
                         segmentsInRange
-                            .Select(s => CutSegmentToTheRight(s, node.Position.x + settings.minJumpDistanceX))
+                            .Select(ss => CutSegmentToTheRight(ss.segment, node.Position.x + settings.minJumpDistanceX))
                             .Where(s => s)
                             .Select(s =>
                                 s.ClosestPointOnLine(node.Position))
@@ -53,26 +53,26 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, segments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
                 }
             }
 
             return resultSegments.ToArray();
         }
 
-        private static void GetJumpSegments(Node node, Vector2[] closestPoints, List<Node> nodes, LineSegment2D[] segments, float maxSlope, List<LineSegment2D> resultSegments)
+        private static void GetJumpSegments(Node node, Vector2[] closestPoints, NodeStore nodes, NavSegment[] navSegments, float maxSlope, List<LineSegment2D> resultSegments)
         {
             var jumpSegments =
                 closestPoints
                     .Select(p =>
                         new LineSegment2D(node.Position, p))
                     .Where(l =>
-                        !segments.Any(s =>
-                            !s.OnSegment(l.P2) && s.DoLinesIntersect(l, false)));
+                        !navSegments.Any(ss =>
+                            !ss.segment.OnSegment(l.P2) && ss.segment.DoLinesIntersect(l, false)));
 
             foreach (var jumpSegment in jumpSegments)
             {
-                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, segments, node, ConnectionType.Jump, maxSlope);
+                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, navSegments, node, ConnectionType.Jump, maxSlope, float.PositiveInfinity);
             }
 
             resultSegments.AddRange(

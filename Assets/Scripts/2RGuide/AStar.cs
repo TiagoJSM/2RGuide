@@ -23,6 +23,7 @@ namespace Assets.Scripts._2RGuide
         public Node node;
         public ConnectionType connectionType;
         public LineSegment2D segment;
+        public float maxHeight;
     }
 
     [Serializable]
@@ -45,12 +46,12 @@ namespace Assets.Scripts._2RGuide
             _connections = new List<NodeConnection>();
         }
 
-        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment)
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight)
         {
             var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
             if (!hasSegment)
             {
-                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment });
+                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment, maxHeight = maxHeight });
             }
 
             return !hasSegment;
@@ -79,7 +80,7 @@ namespace Assets.Scripts._2RGuide
 
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -106,6 +107,15 @@ namespace Assets.Scripts._2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
+                    if(neighbor.maxHeight < maxHeight)
+                    {
+                        continue;
+                    }
+                    if (neighbor.segment.SlopeRadians > maxSlope)
+                    {
+                        continue;
+                    }
+
                     var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.node.Position);
                     if (tentativeGScore < gScore.GetValueOrDefault(neighbor.node, float.PositiveInfinity))
                     {
