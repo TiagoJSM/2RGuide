@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Drawing;
 using UnityEngine;
-using static UnityEngine.Networking.UnityWebRequest;
 
 namespace Assets.Scripts._2RGuide.Math
 {
