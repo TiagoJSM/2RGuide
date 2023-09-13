@@ -61,7 +61,12 @@ namespace Assets.Tests.PlayModeTests
                 new LineSegment2D(new Vector2(-1.5f, -1.5f), new Vector2(-1.5f, 1.5f)),
             };
 
-            var navResult = NavHelper.Build(segments, nodePathSettings, jumpSettings, dropSettings);
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = segments,
+            };
+
+            var navResult = NavHelper.Build(navBuildContext, nodePathSettings, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
@@ -106,7 +111,12 @@ namespace Assets.Tests.PlayModeTests
                 new LineSegment2D(new Vector2(10.0f, 4.0f), new Vector2(4.0f, 4.0f)),
             };
 
-            var navResult = NavHelper.Build(segments, nodePathSettings, jumpSettings, dropSettings);
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = segments,
+            };
+
+            var navResult = NavHelper.Build(navBuildContext, nodePathSettings, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 0.0f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(30.0f, 0.0f)));
