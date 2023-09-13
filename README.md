@@ -8,6 +8,7 @@ Features
 ===
 * Builds navigation paths from scene colliders 
 * Agent to traverse the shortest paths to reach a target position.
+* Support for auto generated jumps and drops to connect segments segments
 
 Getting Started
 ===
@@ -19,9 +20,9 @@ Getting Started
 Planned Features
 ===
 * Currently the tool only supports `BoxCollider2D` and `PolygonCollider2D`, `EdgeCollider2D` support will be added later
-* Support for auto generated and user designed jumps and drops to connect segments segments
 * Support for one way jump for some platforms
 * Areas that forbid agent to move into to avoid obstacles
+* Support for user designed jumps and drops to connect segments segments
 
 License
 ===

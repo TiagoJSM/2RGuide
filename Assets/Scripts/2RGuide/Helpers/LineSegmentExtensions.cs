@@ -12,6 +12,7 @@ namespace Assets.Scripts._2RGuide.Helpers
     {
         public LineSegment2D segment;
         public float maxHeight;
+        public bool oneWayPlatform;
 
         public static implicit operator bool(NavSegment navSegment)
         {
@@ -33,11 +34,11 @@ namespace Assets.Scripts._2RGuide.Helpers
             return true;
         }
 
-        public static NavSegment[] Split(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments)
         {
             var result = new List<NavSegment>();
 
-            var splits = segment.SplitSegment(segmentDivision, segments);
+            var splits = segment.DivideSegment(segmentDivision, segments);
 
             var index = 0;
             
@@ -71,7 +72,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             return result.ToArray();
         }
 
-        public static NavSegment[] SplitSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments)
         {
             var splits = new List<NavSegment>();
 
@@ -97,6 +98,36 @@ namespace Assets.Scripts._2RGuide.Helpers
             }
 
             return splits.ToArray();
+        }
+
+        public static LineSegment2D[] Split(this LineSegment2D segment, params Vector2[] splitPoints)
+        {
+            var pointsOnSegment = 
+                splitPoints
+                    .Where(p => segment.OnSegment(p))
+                    .OrderBy(p => Vector2.Distance(segment.P1, p));
+
+            var result = new List<LineSegment2D>();
+
+            var p1 = segment.P1;
+
+            foreach(var splitPoint in splitPoints)
+            {
+                result.Add(new LineSegment2D(p1, splitPoint));
+                p1 = splitPoint;
+            }
+
+            result.Add(new LineSegment2D(p1, segment.P2));
+
+            return result.ToArray();
+        }
+
+        public static Vector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
+        {
+            return segments
+                .Select(s => s.GetIntersection(segment, false))
+                .Where(v => v.HasValue)
+                .Select(v => v.Value).ToArray();
         }
     }
 }

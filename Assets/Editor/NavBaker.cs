@@ -55,7 +55,8 @@ namespace Assets.Editor
 
         public static void BakePathfinding(NavWorld world)
         {
-            var segments = CollectSegments(world);
+            var colliders = GetColliders(world);
+            var segments = CollectSegments(colliders);
 
             var navResult = NavHelper.Build(segments, NodePathSettings, JumpSettings, DropSettings);
 
@@ -129,21 +130,37 @@ namespace Assets.Editor
             paths.Add(shape);
         }
 
-        //private void CollectSegments(EdgeCollider2D collider, PathsD paths)
-        //{
-        //    if(collider.pointCount < 1)
-        //    {
-        //        return;
-        //    }
+        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, LineSegment2D[] segments, Collider2D[] colliders)
+        {
+            var edgeSegments = new List<LineSegment2D>();
 
-        //    var p1 = collider.transform.TransformPoint(collider.points[0]);
-        //    for (var idx = 1; idx < collider.pointCount; idx++)
-        //    {
-        //        var p2 = collider.transform.TransformPoint(collider.points[idx]);
-        //        buffer.Add(new Segment { p1 = p1, p2 = p2 });
-        //        p1 = p2;
-        //    }
-        //}
+            if(collider.pointCount < 1)
+            {
+                return new LineSegment2D[0];
+            }
+
+            var p1 = collider.transform.TransformPoint(collider.points[0]);
+            for (var idx = 1; idx < collider.pointCount; idx++)
+            {
+                var p2 = collider.transform.TransformPoint(collider.points[idx]);
+                edgeSegments.Add(new LineSegment2D(p1, p2));
+                p1 = p2;
+            }
+
+            var splitEdgeSegments =
+                edgeSegments
+                    .SelectMany(es =>
+                    {
+                        var intersections = es.GetIntersections(segments);
+                        return es.Split(intersections);
+                    })
+                    .Where(s => 
+                        !colliders.Any(c => 
+                            c.OverlapPoint(s.P1) && c.OverlapPoint(s.P2)))
+                    .ToArray();
+
+            return splitEdgeSegments;
+        }
 
         private static void CollectSegments(PolygonCollider2D collider, PathsD paths)
         {
@@ -192,9 +209,10 @@ namespace Assets.Editor
             }
         }
 
-        private static LineSegment2D[] CollectSegments(NavWorld world)
+        private static Collider2D[] GetColliders(NavWorld world)
         {
-            var paths = new PathsD();
+            var colliders = new List<Collider2D>();
+
             var children = world.transform.childCount;
             for (var idx = 0; idx < children; idx++)
             {
@@ -202,11 +220,43 @@ namespace Assets.Editor
                 if (child.gameObject.activeInHierarchy)
                 {
                     var collider = child.GetComponent<Collider2D>();
-                    CollectSegments(collider, paths);
+                    if(collider != null)
+                    {
+                        colliders.Add(collider);
+                    }
                 }
             }
+
+            return colliders.ToArray();
+        }
+
+        private static LineSegment2D[] CollectSegments(Collider2D[] colliders)
+        {
+            var paths = new PathsD();
+
+            foreach (var collider in colliders)
+            {
+                CollectSegments(collider, paths);
+            }
             paths = UnionShapes(paths);
-            return ConvertToSegments(paths);
+
+            var segmentsFromPaths = ConvertToSegments(paths);
+
+            var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
+            var edgeSegments = 
+                colliders
+                    .Select(c => c as EdgeCollider2D)
+                    .Where(c => c != null)
+                    .SelectMany(c => 
+                        GetSegments(c, segmentsFromPaths, otherColliders));
+
+            var result = new List<LineSegment2D>();
+            result.AddRange(segmentsFromPaths);
+            result.AddRange(edgeSegments);
+
+            //ToDo: Move this code to a function and split "segmentsFromPaths" if segment from "result" intersect with them
+
+            return result.ToArray();
         }
     }
 }

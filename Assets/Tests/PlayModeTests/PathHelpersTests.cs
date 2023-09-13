@@ -31,7 +31,7 @@ namespace Assets.Tests.PlayModeTests
             };
 
             var navSegments = segments.SelectMany(s =>
-                s.Split(float.MaxValue, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
+                s.DivideSegment(float.MaxValue, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
 
             NodeHelpers.BuildNodes(nodes, navSegments, settings);
 

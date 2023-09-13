@@ -20,7 +20,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             var nodeStore = new NodeStore();
 
             var navSegments = segments.SelectMany(s =>
-                s.Split(nodePathSettings.segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
+                s.DivideSegment(nodePathSettings.segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
 
             NodeHelpers.BuildNodes(nodeStore, navSegments, nodePathSettings);
             var jumps = JumpsHelper.BuildJumps(nodeStore, navSegments, jumpSettings);
