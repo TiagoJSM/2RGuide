@@ -30,6 +30,11 @@ namespace Assets.Tests.PlayModeTests
                 new LineSegment2D(new Vector2(5.0f, 21.0f), new Vector2(5.0f, 20.0f)),
             };
 
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = segments
+            };
+
             var navSegments = segments.SelectMany(s =>
                 s.DivideSegment(float.MaxValue, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
 
@@ -37,7 +42,7 @@ namespace Assets.Tests.PlayModeTests
 
             Assert.AreEqual(8, nodes.ToArray().Length);
 
-            var dropSegments = DropsHelper.BuildDrops(nodes, navSegments, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, navSegments, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
 
             Assert.AreEqual(1, dropSegments.Length);
         }

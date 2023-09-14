@@ -113,10 +113,10 @@ namespace Assets.Editor
             {
                 CollectSegments(box, clipper);
             }
-            if (collider is EdgeCollider2D edge)
-            {
-                CollectSegments(edge, clipper);
-            }
+            //if (collider is EdgeCollider2D edge)
+            //{
+            //    CollectSegments(edge, clipper);
+            //}
             else if (collider is PolygonCollider2D polygon)
             {
                 CollectSegments(polygon, clipper);
@@ -235,32 +235,33 @@ namespace Assets.Editor
             }
             
             var closedPath = new PathsD();
-            var openPath = new PathsD();
-            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath, openPath);
+            //var openPath = new PathsD();
+            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             
             var closedPathSegments = ConvertClosedPathToSegments(closedPath);
-            var openPathSegments = ConvertOpenPathToSegments(openPath);
+            //var openPathSegments = ConvertOpenPathToSegments(openPath);
 
             var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
+            var edgeSegments = colliders.GetEdgeSegments(closedPathSegments, otherColliders).ToArray();
+
             // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections
             closedPathSegments =
                 closedPathSegments
                     .SelectMany(sp =>
                     {
-                        var intersections = sp.GetIntersections(openPathSegments);
+                        var intersections = sp.GetIntersections(edgeSegments);
                         return sp.Split(intersections);
                     })
                     .ToArray();
 
             var result = new List<LineSegment2D>();
             result.AddRange(closedPathSegments);
-            result.AddRange(openPathSegments);
+            result.AddRange(edgeSegments);
 
             return new NavBuildContext()
             {
-                openPath = openPath,
                 closedPath = closedPath,
                 segments = result.ToArray()
             };

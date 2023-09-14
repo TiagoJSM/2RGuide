@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts._2RGuide.Math;
+using Clipper2Lib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -128,6 +129,24 @@ namespace Assets.Scripts._2RGuide.Helpers
                 .Select(s => s.GetIntersection(segment, false))
                 .Where(v => v.HasValue)
                 .Select(v => v.Value).ToArray();
+        }
+
+        public static bool IsJumpSegmentOverlappingTerrain(this LineSegment2D jumpSegment, PathsD closedPaths)
+        {
+            var line = Clipper.MakePath(new double[]
+                {
+                    jumpSegment.P1.x, jumpSegment.P1.y,
+                    jumpSegment.P2.x, jumpSegment.P2.y,
+                });
+
+            var clipper = new ClipperD();
+            clipper.AddPath(line, PathType.Subject, true); // a line is open
+            clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
+
+            var openPath = new PathsD();
+            var closedPath = new PathsD();
+            var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
+            return closedPath.Count == 0;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts._2RGuide.Math;
+using Clipper2Lib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float minJumpDistanceX;
         }
 
-        public static LineSegment2D[] BuildJumps(NodeStore nodes, NavSegment[] navSegments, Settings settings)
+        public static LineSegment2D[] BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, NavSegment[] navSegments, Settings settings)
         {
             var resultSegments = new List<LineSegment2D>();
 
@@ -38,7 +39,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -53,14 +54,14 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
                 }
             }
 
             return resultSegments.ToArray();
         }
 
-        private static void GetJumpSegments(Node node, Vector2[] closestPoints, NodeStore nodes, NavSegment[] navSegments, float maxSlope, List<LineSegment2D> resultSegments)
+        private static void GetJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NodeStore nodes, NavSegment[] navSegments, float maxSlope, List<LineSegment2D> resultSegments)
         {
             var jumpSegments =
                 closestPoints
@@ -68,7 +69,9 @@ namespace Assets.Scripts._2RGuide.Helpers
                         new LineSegment2D(node.Position, p))
                     .Where(l =>
                         !navSegments.Any(ss =>
-                            !ss.segment.OnSegment(l.P2) && ss.segment.DoLinesIntersect(l, false)));
+                            !ss.segment.OnSegment(l.P2) && ss.segment.DoLinesIntersect(l, false)))
+                    .Where(s => 
+                        !s.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath));
 
             foreach (var jumpSegment in jumpSegments)
             {

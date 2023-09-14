@@ -17,7 +17,6 @@ namespace Assets.Scripts._2RGuide.Helpers
     public struct NavBuildContext
     {
         public PathsD closedPath;
-        public PathsD openPath;
         public LineSegment2D[] segments;
     }
 
@@ -31,8 +30,8 @@ namespace Assets.Scripts._2RGuide.Helpers
                 s.DivideSegment(nodePathSettings.segmentDivision, 1.0f, navBuildContext.segments.Except(new LineSegment2D[] { s }))).ToArray();
 
             NodeHelpers.BuildNodes(nodeStore, navSegments, nodePathSettings);
-            var jumps = JumpsHelper.BuildJumps(nodeStore, navSegments, jumpSettings);
-            var drops = DropsHelper.BuildDrops(nodeStore, navSegments, jumps, dropSettings);
+            var jumps = JumpsHelper.BuildJumps(navBuildContext, nodeStore, navSegments, jumpSettings);
+            var drops = DropsHelper.BuildDrops(navBuildContext, nodeStore, navSegments, jumps, dropSettings);
 
             return new NavResult()
             {
