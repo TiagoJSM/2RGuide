@@ -34,5 +34,6 @@ namespace Assets.Editor
         public float MaxSlope => _maxSlope;
         public float MaxJumpDistance => _maxJumpDistance;
         public float SegmentDivision => _segmentDivision;
+        public LayerMask OneWayPlatformMask => _oneWayPlatformMask;
     }
 }

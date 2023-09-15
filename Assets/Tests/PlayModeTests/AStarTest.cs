@@ -82,7 +82,7 @@ namespace Assets.Tests.PlayModeTests
                 closedPath = closedPath
             };
 
-            var navResult = NavHelper.Build(navBuildContext, nodePathSettings, jumpSettings, dropSettings);
+            var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
@@ -146,7 +146,7 @@ namespace Assets.Tests.PlayModeTests
                 closedPath = closedPath
             };
 
-            var navResult = NavHelper.Build(navBuildContext, nodePathSettings, jumpSettings, dropSettings);
+            var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 0.0f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(30.0f, 0.0f)));

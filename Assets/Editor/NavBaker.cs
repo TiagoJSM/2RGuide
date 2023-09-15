@@ -20,7 +20,8 @@ namespace Assets.Editor
                 var instance = Nav2RGuideSettings.instance;
                 return new NodeHelpers.Settings()
                 {
-                    segmentDivision = instance.SegmentDivision
+                    segmentDivision = instance.SegmentDivision,
+                    oneWayPlatformMask = instance.OneWayPlatformMask
                 };
             }
         }
@@ -56,9 +57,9 @@ namespace Assets.Editor
         public static void BakePathfinding(NavWorld world)
         {
             var colliders = GetColliders(world);
-            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings.segmentDivision);
+            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
 
-            var navResult = NavHelper.Build(navBuildContext, NodePathSettings, JumpSettings, DropSettings);
+            var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
 
             world.nodes = navResult.nodes;
             world.segments = navResult.segments;
@@ -201,7 +202,7 @@ namespace Assets.Editor
             return colliders.ToArray();
         }
 
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, float segmentDivision)
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
         {
             var paths = new PathsD();
             var clipper = new ClipperD();
@@ -220,7 +221,8 @@ namespace Assets.Editor
             var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
-            var edgeSegments = colliders.GetEdgeSegments(closedPathSegments, otherColliders).ToArray();
+            var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask).ToArray();
+            var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();
 
             // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections
             closedPathSegments =
@@ -236,7 +238,9 @@ namespace Assets.Editor
             result.AddRange(closedPathSegments);
             result.AddRange(edgeSegments);
 
-            var navSegments = NavHelper.ConvertToNavSegments(result, segmentDivision, edgeSegments);
+            var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
+
+            var navSegments = NavHelper.ConvertToNavSegments(result, nodePathSettings.segmentDivision, oneWayEdgeSegments);
 
             return new NavBuildContext()
             {

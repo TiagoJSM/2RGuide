@@ -24,7 +24,7 @@ namespace Assets.Scripts._2RGuide.Helpers
 
     public static class NavHelper
     {
-        public static NavResult Build(NavBuildContext navBuildContext, NodeHelpers.Settings nodePathSettings, JumpsHelper.Settings jumpSettings, DropsHelper.Settings dropSettings)
+        public static NavResult Build(NavBuildContext navBuildContext, JumpsHelper.Settings jumpSettings, DropsHelper.Settings dropSettings)
         {
             var nodeStore = new NodeStore();
 
