@@ -14,7 +14,8 @@ namespace Assets.Scripts._2RGuide
     {
         Walk,
         Drop,
-        Jump
+        Jump,
+        OneWayPlatformJump
     }
 
     [Serializable]

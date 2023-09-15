@@ -132,7 +132,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                 nodes.ConnectWithNodesAtSegment(oneWayPlatformNode, oneWayPlatformSegment);
                 nodes.ConnectWithNodesAtSegment(targetNode, targetPlatformSegment);
 
-                var jumpSegment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, ConnectionType.Jump);
+                var jumpSegment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, ConnectionType.OneWayPlatformJump);
 
                 resultSegments.Add(jumpSegment);
             }

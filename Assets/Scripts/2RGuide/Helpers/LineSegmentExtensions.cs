@@ -24,7 +24,7 @@ namespace Assets.Scripts._2RGuide.Helpers
     public static class LineSegmentExtensions
     {
         //ToDo: move this to another file (maybe settings?)
-        public static readonly float MaxHeight = 100.0f;  
+        public static readonly float MaxHeight = 50.0f;  
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {
             var slope = segment.Slope;
