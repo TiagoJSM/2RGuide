@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts._2RGuide;
 using Assets.Scripts._2RGuide.Helpers;
 using Assets.Scripts._2RGuide.Math;
+using Clipper2Lib;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -48,20 +50,39 @@ namespace Assets.Tests.PlayModeTests
                 maxDropHeight = 20.0f
             };
 
-            var segments = new LineSegment2D[]
-            {
-                new LineSegment2D(new Vector2(0.0f, 3.5f), new Vector2(3.0f, 3.5f)),
-                new LineSegment2D(new Vector2(3.0f, 3.5f), new Vector2(3.0f, 2.5f)),
-                new LineSegment2D(new Vector2(3.0f, 2.5f), new Vector2(0.0f, 2.5f)),
-                new LineSegment2D(new Vector2(0.0f, 2.5f), new Vector2(0.0f, 3.5f)),
+            var clipper = new ClipperD();
+            var closedPath = new PathsD();
 
-                new LineSegment2D(new Vector2(-1.5f, 1.5f), new Vector2(1.5f, 1.5f)),
-                new LineSegment2D(new Vector2(1.5f, 1.5f), new Vector2(1.5f, -1.5f)),
-                new LineSegment2D(new Vector2(1.5f, -1.5f), new Vector2(-1.5f, -1.5f)),
-                new LineSegment2D(new Vector2(-1.5f, -1.5f), new Vector2(-1.5f, 1.5f)),
+            var shape1 = Clipper.MakePath(new double[]
+                {
+                    0.0, 3.5,
+                    3.0, 3.5,
+                    3.0, 2.5,
+                    0.0, 2.5,
+                });
+
+            var shape2 = Clipper.MakePath(new double[]
+                {
+                    -1.5, 1.5,
+                    1.5, 1.5,
+                    1.5, -1.5,
+                    -1.5, -1.5,
+                });
+
+            clipper.AddPath(shape1, PathType.Subject);
+            clipper.AddPath(shape2, PathType.Subject);
+
+            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
+            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>());
+
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = navSegments,
+                closedPath = closedPath
             };
 
-            var navResult = NavHelper.Build(segments, nodePathSettings, jumpSettings, dropSettings);
+            var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
@@ -93,20 +114,39 @@ namespace Assets.Tests.PlayModeTests
                 maxDropHeight = 20.0f
             };
 
-            var segments = new LineSegment2D[]
-            {
-                new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(30.0f, 0.0f)),
-                new LineSegment2D(new Vector2(30.0f, 0.0f), new Vector2(30.0f, -10.0f)),
-                new LineSegment2D(new Vector2(30.0f, -10.0f), new Vector2(0.0f, -10.0f)),
-                new LineSegment2D(new Vector2(0.0f, -10.0f), new Vector2(0.0f, 0.0f)),
+            var clipper = new ClipperD();
+            var closedPath = new PathsD();
 
-                new LineSegment2D(new Vector2(4.0f, 4.0f), new Vector2(4.0f, 5.0f)),
-                new LineSegment2D(new Vector2(4.0f, 5.0f), new Vector2(10.0f, 5.0f)),
-                new LineSegment2D(new Vector2(10.0f, 5.0f), new Vector2(10.0f, 4.0f)),
-                new LineSegment2D(new Vector2(10.0f, 4.0f), new Vector2(4.0f, 4.0f)),
+            var shape1 = Clipper.MakePath(new double[]
+                {
+                    0.0, 0.0,
+                    30.0, 0.0,
+                    30.0, -10.0,
+                    0.0, -10.0,
+                });
+
+            var shape2 = Clipper.MakePath(new double[]
+                {
+                    4.0, 4.0,
+                    4.0, 5.0,
+                    10.0, 5.0,
+                    10.0, 4.0,
+                });
+
+            clipper.AddPath(shape1, PathType.Subject);
+            clipper.AddPath(shape2, PathType.Subject);
+
+            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
+            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>());
+
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = navSegments,
+                closedPath = closedPath
             };
 
-            var navResult = NavHelper.Build(segments, nodePathSettings, jumpSettings, dropSettings);
+            var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
             var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 0.0f)));
             var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(30.0f, 0.0f)));

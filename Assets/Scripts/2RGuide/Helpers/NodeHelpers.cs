@@ -11,9 +11,10 @@ namespace Assets.Scripts._2RGuide.Helpers
         public struct Settings
         {
             public float segmentDivision;
+            public LayerMask oneWayPlatformMask;
         }
 
-        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments, Settings settigns)
+        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments)
         {
             foreach (var navSegment in navSegments)
             {

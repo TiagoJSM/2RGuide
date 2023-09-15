@@ -26,11 +26,14 @@ namespace Assets.Editor
         private float _maxJumpDistance;
         [SerializeField]
         private float _segmentDivision = 1.0f;
+        [SerializeField]
+        private LayerMask _oneWayPlatformMask;
 
         public float MaxDropHeight => _maxDropHeight;
         public float HorizontalDistance => _horizontalDistance;
         public float MaxSlope => _maxSlope;
         public float MaxJumpDistance => _maxJumpDistance;
         public float SegmentDivision => _segmentDivision;
+        public LayerMask OneWayPlatformMask => _oneWayPlatformMask;
     }
 }

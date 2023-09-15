@@ -114,7 +114,7 @@ namespace Assets.Tests.PlayModeTests
         public void TestSplitCount()
         {
             var ls = new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(15.0f, 0.0f));
-            var splits = ls.SplitSegment(5.0f, Array.Empty<LineSegment2D>());
+            var splits = ls.DivideSegment(5.0f, Array.Empty<LineSegment2D>());
 
             Assert.AreEqual(3, splits.Length);
         }
@@ -124,7 +124,7 @@ namespace Assets.Tests.PlayModeTests
         {
             var ls = new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(15.0f, 0.0f));
             var splits = 
-                ls.Split(
+                ls.DivideSegment(
                     5.0f,
                     0.001f,
                     new LineSegment2D[] 
@@ -144,7 +144,7 @@ namespace Assets.Tests.PlayModeTests
         {
             var ls = new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(100.0f, 0.0f));
             var splits =
-                ls.Split(
+                ls.DivideSegment(
                     5.0f,
                     0.001f,
                     new LineSegment2D[]

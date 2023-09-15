@@ -16,3 +16,7 @@ MonoBehaviour:
   _horizontalDistance: 0.5
   _maxSlope: 60
   _maxJumpDistance: 3
+  _segmentDivision: 1
+  _oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 64

@@ -1,10 +1,13 @@
 ﻿using Assets.Scripts._2RGuide;
 using Assets.Scripts._2RGuide.Helpers;
 using Assets.Scripts._2RGuide.Math;
+using Clipper2Lib;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -13,31 +16,45 @@ namespace Assets.Tests.PlayModeTests
         [Test]
         public void Test2SquaresWith1Drop()
         {
-            var settings = new NodeHelpers.Settings() { segmentDivision = 1.0f };
             var nodes = new NodeStore();
-            var segments = new LineSegment2D[]
-            {
-                // box 1
-                new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(10.0f, 0.0f)),
-                new LineSegment2D(new Vector2(10.0f, 0.0f), new Vector2(10.0f, 10.0f)),
-                new LineSegment2D(new Vector2(10.0f, 10.0f), new Vector2(0.0f, 10.0f)),
-                new LineSegment2D(new Vector2(0.0f, 10.0f), new Vector2(0.0f, 0.0f)),
 
-                // box 2
-                new LineSegment2D(new Vector2(5.0f, 20.0f), new Vector2(15.0f, 20.0f)),
-                new LineSegment2D(new Vector2(15.0f, 20.0f), new Vector2(15.0f, 21.0f)),
-                new LineSegment2D(new Vector2(15.0f, 21.0f), new Vector2(5.0f, 21.0f)),
-                new LineSegment2D(new Vector2(5.0f, 21.0f), new Vector2(5.0f, 20.0f)),
+            var clipper = new ClipperD();
+            var closedPath = new PathsD();
+
+            var shape1 = Clipper.MakePath(new double[]
+                {
+                    0.0, 0.0,
+                    10.0, 0.0,
+                    10.0, 10.0,
+                    0.0, 10.0,
+                });
+
+            var shape2 = Clipper.MakePath(new double[]
+                {
+                    5.0f, 20.0,
+                    15.0, 20.0,
+                    15.0, 21.0,
+                    5.0, 21.0,
+                });
+
+            clipper.AddPath(shape1, PathType.Subject);
+            clipper.AddPath(shape2, PathType.Subject);
+
+            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
+            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>());
+
+            var navBuildContext = new NavBuildContext()
+            {
+                segments = navSegments,
+                closedPath = closedPath
             };
 
-            var navSegments = segments.SelectMany(s =>
-                s.Split(float.MaxValue, 1.0f, segments.Except(new LineSegment2D[] { s }))).ToArray();
+            NodeHelpers.BuildNodes(nodes, navSegments);
 
-            NodeHelpers.BuildNodes(nodes, navSegments, settings);
+            Assert.AreEqual(10, nodes.ToArray().Length);
 
-            Assert.AreEqual(8, nodes.ToArray().Length);
-
-            var dropSegments = DropsHelper.BuildDrops(nodes, navSegments, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
 
             Assert.AreEqual(1, dropSegments.Length);
         }

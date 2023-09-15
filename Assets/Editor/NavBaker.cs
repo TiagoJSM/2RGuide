@@ -20,7 +20,8 @@ namespace Assets.Editor
                 var instance = Nav2RGuideSettings.instance;
                 return new NodeHelpers.Settings()
                 {
-                    segmentDivision = instance.SegmentDivision
+                    segmentDivision = instance.SegmentDivision,
+                    oneWayPlatformMask = instance.OneWayPlatformMask
                 };
             }
         }
@@ -55,9 +56,10 @@ namespace Assets.Editor
 
         public static void BakePathfinding(NavWorld world)
         {
-            var segments = CollectSegments(world);
+            var colliders = GetColliders(world);
+            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
 
-            var navResult = NavHelper.Build(segments, NodePathSettings, JumpSettings, DropSettings);
+            var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
 
             world.nodes = navResult.nodes;
             world.segments = navResult.segments;
@@ -65,21 +67,12 @@ namespace Assets.Editor
             world.jumps = navResult.jumps;
         }
 
-        private static PathsD UnionShapes(PathsD shapes)
-        {
-            var fillrule = FillRule.NonZero;
-            return Clipper.Union(shapes, fillrule);
-        }
-
-        private static LineSegment2D[] ConvertToSegments(PathsD paths)
+        private static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
         {
             var segments = new List<LineSegment2D>();
 
             foreach (var path in paths)
             {
-                // Clippy paths are created in the reverse order
-                path.Reverse();
-
                 var p1 = path[0];
                 for (var idx = 1; idx < path.Count; idx++)
                 {
@@ -87,34 +80,32 @@ namespace Assets.Editor
                     segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
                     p1 = p2;
                 }
-                var start = path[0];
-                segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
             }
 
             return segments.ToArray();
         }
 
-        private static void CollectSegments(Collider2D collider, PathsD paths)
+        private static void CollectSegments(Collider2D collider, ClipperD clipper)
         {
             if (collider is BoxCollider2D box)
             {
-                CollectSegments(box, paths);
+                CollectSegments(box, clipper);
             }
-            //else if(collider is EdgeCollider2D edge)
+            //if (collider is EdgeCollider2D edge)
             //{
-            //    CollectSegments(edge, paths);
+            //    CollectSegments(edge, clipper);
             //}
             else if (collider is PolygonCollider2D polygon)
             {
-                CollectSegments(polygon, paths);
+                CollectSegments(polygon, clipper);
             }
             else if (collider is CompositeCollider2D composite)
             {
-                CollectSegments(composite, paths);
+                CollectSegments(composite, clipper);
             }
         }
 
-        private static void CollectSegments(BoxCollider2D collider, PathsD paths)
+        private static void CollectSegments(BoxCollider2D collider, ClipperD clipper)
         {
             var bounds = collider.bounds;
 
@@ -125,27 +116,27 @@ namespace Assets.Editor
                     bounds.max.x, bounds.max.y,
                     bounds.max.x, bounds.min.y,
                 });
-
-            paths.Add(shape);
+            clipper.AddPath(shape, PathType.Subject);
         }
 
-        //private void CollectSegments(EdgeCollider2D collider, PathsD paths)
-        //{
-        //    if(collider.pointCount < 1)
-        //    {
-        //        return;
-        //    }
+        private static void CollectSegments(EdgeCollider2D collider, ClipperD clipper)
+        {
+            var points = new List<double>();
+            var p1 = collider.transform.TransformPoint(collider.points[0]);
+            points.Add(p1.x);
+            points.Add(p1.y);
 
-        //    var p1 = collider.transform.TransformPoint(collider.points[0]);
-        //    for (var idx = 1; idx < collider.pointCount; idx++)
-        //    {
-        //        var p2 = collider.transform.TransformPoint(collider.points[idx]);
-        //        buffer.Add(new Segment { p1 = p1, p2 = p2 });
-        //        p1 = p2;
-        //    }
-        //}
+            for (var idx = 1; idx < collider.pointCount; idx++)
+            {
+                var p2 = collider.transform.TransformPoint(collider.points[idx]);
+                points.Add(p2.x);
+                points.Add(p2.y);
+            }
+            var shape = Clipper.MakePath(points.ToArray());
+            clipper.AddPath(shape, PathType.Subject, true);
+        }
 
-        private static void CollectSegments(PolygonCollider2D collider, PathsD paths)
+        private static void CollectSegments(PolygonCollider2D collider, ClipperD clipper)
         {
             for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
             {
@@ -163,12 +154,11 @@ namespace Assets.Editor
                 });
 
                 var shape = Clipper.MakePath(points.ToArray());
-
-                paths.Add(shape);
+                clipper.AddPath(shape, PathType.Subject);
             }
         }
 
-        private static void CollectSegments(CompositeCollider2D collider, PathsD paths)
+        private static void CollectSegments(CompositeCollider2D collider, ClipperD clipper)
         {
             for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
             {
@@ -187,14 +177,14 @@ namespace Assets.Editor
                 });
 
                 var shape = Clipper.MakePath(points.ToArray());
-
-                paths.Add(shape);
+                clipper.AddPath(shape, PathType.Subject);
             }
         }
 
-        private static LineSegment2D[] CollectSegments(NavWorld world)
+        private static Collider2D[] GetColliders(NavWorld world)
         {
-            var paths = new PathsD();
+            var colliders = new List<Collider2D>();
+
             var children = world.transform.childCount;
             for (var idx = 0; idx < children; idx++)
             {
@@ -202,11 +192,61 @@ namespace Assets.Editor
                 if (child.gameObject.activeInHierarchy)
                 {
                     var collider = child.GetComponent<Collider2D>();
-                    CollectSegments(collider, paths);
+                    if(collider != null)
+                    {
+                        colliders.Add(collider);
+                    }
                 }
             }
-            paths = UnionShapes(paths);
-            return ConvertToSegments(paths);
+
+            return colliders.ToArray();
+        }
+
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
+        {
+            var paths = new PathsD();
+            var clipper = new ClipperD();
+            
+            foreach (var collider in colliders)
+            {
+                CollectSegments(collider, clipper);
+            }
+            
+            var closedPath = new PathsD();
+            
+            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
+            
+            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+
+            var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
+
+            // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
+            var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask).ToArray();
+            var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();
+
+            // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections
+            closedPathSegments =
+                closedPathSegments
+                    .SelectMany(sp =>
+                    {
+                        var intersections = sp.GetIntersections(edgeSegments);
+                        return sp.Split(intersections);
+                    })
+                    .ToArray();
+
+            var result = new List<LineSegment2D>();
+            result.AddRange(closedPathSegments);
+            result.AddRange(edgeSegments);
+
+            var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
+
+            var navSegments = NavHelper.ConvertToNavSegments(result, nodePathSettings.segmentDivision, oneWayEdgeSegments);
+
+            return new NavBuildContext()
+            {
+                closedPath = closedPath,
+                segments = navSegments
+            };
         }
     }
 }
