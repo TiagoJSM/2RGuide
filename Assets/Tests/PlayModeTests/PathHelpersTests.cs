@@ -5,7 +5,7 @@ using Clipper2Lib;
 using NUnit.Framework;
 using System;
 
-namespace Assets.Tests.PlayModeTests
+namespace _2RGuide.Tests.PlayModeTests
 {
     public class PathHelpersTests
     {

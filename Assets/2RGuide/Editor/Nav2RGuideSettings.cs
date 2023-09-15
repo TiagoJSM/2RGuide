@@ -3,7 +3,7 @@ using Hextant.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Editor
+namespace _2RGuide.Editor
 {
     [Settings(SettingsUsage.EditorProject, "Nav 2RGuide Settings")]
     public sealed class Nav2RGuideSettings : Settings<Nav2RGuideSettings>

@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace Assets.Tests.PlayModeTests
+namespace _2RGuide.Tests.PlayModeTests
 {
     public class LineSegment2DTests
     {

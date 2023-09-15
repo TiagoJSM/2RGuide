@@ -6,7 +6,7 @@ using _2RGuide.Math;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Editor
+namespace _2RGuide.Editor
 {
     public static class NavBaker
     {

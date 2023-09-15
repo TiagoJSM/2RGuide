@@ -4,7 +4,7 @@ using _2RGuide.Math;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Editor
+namespace _2RGuide.Editor
 {
     public static class EditorNavDrawer
     {

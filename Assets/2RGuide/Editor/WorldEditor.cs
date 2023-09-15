@@ -4,7 +4,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Editor
+namespace _2RGuide.Editor
 {
     [CustomEditor(typeof(NavWorld))]
     public class WorldEditor : UnityEditor.Editor
