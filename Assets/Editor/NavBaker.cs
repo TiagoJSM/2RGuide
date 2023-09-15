@@ -56,7 +56,7 @@ namespace Assets.Editor
         public static void BakePathfinding(NavWorld world)
         {
             var colliders = GetColliders(world);
-            var navBuildContext = GetNavBuildContext(colliders);
+            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings.segmentDivision);
 
             var navResult = NavHelper.Build(navBuildContext, NodePathSettings, JumpSettings, DropSettings);
 
@@ -64,29 +64,6 @@ namespace Assets.Editor
             world.segments = navResult.segments;
             world.drops = navResult.drops;
             world.jumps = navResult.jumps;
-        }
-
-        private static LineSegment2D[] ConvertClosedPathToSegments(PathsD paths)
-        {
-            var segments = new List<LineSegment2D>();
-
-            foreach (var path in paths)
-            {
-                // Clippy paths are created in the reverse order
-                path.Reverse();
-
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
-                    p1 = p2;
-                }
-                var start = path[0];
-                segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
-            }
-
-            return segments.ToArray();
         }
 
         private static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
@@ -224,7 +201,7 @@ namespace Assets.Editor
             return colliders.ToArray();
         }
 
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders)
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, float segmentDivision)
         {
             var paths = new PathsD();
             var clipper = new ClipperD();
@@ -235,11 +212,10 @@ namespace Assets.Editor
             }
             
             var closedPath = new PathsD();
-            //var openPath = new PathsD();
+            
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             
-            var closedPathSegments = ConvertClosedPathToSegments(closedPath);
-            //var openPathSegments = ConvertOpenPathToSegments(openPath);
+            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
 
             var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
 
@@ -260,10 +236,12 @@ namespace Assets.Editor
             result.AddRange(closedPathSegments);
             result.AddRange(edgeSegments);
 
+            var navSegments = NavHelper.ConvertToNavSegments(result, segmentDivision, edgeSegments);
+
             return new NavBuildContext()
             {
                 closedPath = closedPath,
-                segments = result.ToArray()
+                segments = navSegments
             };
         }
     }

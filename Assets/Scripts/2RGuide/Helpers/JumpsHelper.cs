@@ -18,14 +18,14 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float minJumpDistanceX;
         }
 
-        public static LineSegment2D[] BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, NavSegment[] navSegments, Settings settings)
+        public static LineSegment2D[] BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, Settings settings)
         {
             var resultSegments = new List<LineSegment2D>();
 
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpDistance);
-                var segmentsInRange = navSegments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if(node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
@@ -39,7 +39,7 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navBuildContext.segments, settings.maxSlope, resultSegments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -54,9 +54,11 @@ namespace Assets.Scripts._2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navSegments, settings.maxSlope, resultSegments);
+                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navBuildContext.segments, settings.maxSlope, resultSegments);
                 }
             }
+
+            GetOneWayPlatformJumpSegments(navBuildContext, nodes, settings, resultSegments);
 
             return resultSegments.ToArray();
         }
@@ -106,6 +108,33 @@ namespace Assets.Scripts._2RGuide.Helpers
             segment.P1.x = Mathf.Max(x, segment.P1.x);
             segment.P2.x = Mathf.Max(x, segment.P2.x);
             return segment;
+        }
+
+        private static void GetOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, List<LineSegment2D> resultSegments)
+        {
+            var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(settings.maxSlope));
+
+            foreach(var oneWayPlatform in oneWayPlatforms)
+            {
+                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, Vector2.down * settings.maxJumpDistance, resultSegments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
+                if (!hit)
+                {
+                    continue;
+                }
+
+                var oneWayPlatformNode = nodes.NewNodeOrExisting(oneWayPlatform.segment.HalfPoint);
+                var targetNode = nodes.NewNodeOrExisting(hit.HitPosition.Value);
+
+                var oneWayPlatformSegment = resultSegments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
+                var targetPlatformSegment = resultSegments.GetSegmentWithPosition(hit.HitPosition.Value);
+
+                nodes.ConnectWithNodesAtSegment(oneWayPlatformNode, oneWayPlatformSegment);
+                nodes.ConnectWithNodesAtSegment(targetNode, targetPlatformSegment);
+
+                var jumpSegment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, ConnectionType.Jump);
+
+                resultSegments.Add(jumpSegment);
+            }
         }
     }
 }

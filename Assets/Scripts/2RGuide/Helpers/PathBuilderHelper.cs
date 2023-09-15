@@ -10,32 +10,26 @@ namespace Assets.Scripts._2RGuide.Helpers
     {
         public static void AddTargetNodeForSegment(LineSegment2D target, NodeStore nodeStore, NavSegment[] navSegments, Node startNode, ConnectionType connectionType, float maxSlope, float maxHeight)
         {
-            var targetNode = nodeStore.Get(target.P2);
+            var targetNode = nodeStore.NewNodeOrExisting(target.P2);
+            var dropTargetSegment = navSegments.FirstOrDefault(ss => !ss.segment.OverMaxSlope(maxSlope) && ss.segment.OnSegment(target.P2));
 
-            if (targetNode == null)
+            if (!dropTargetSegment)
             {
-                targetNode = nodeStore.NewNode(target.P2);
+                return;
+            }
 
-                var dropTargetSegment = navSegments.FirstOrDefault(ss => !ss.segment.OverMaxSlope(maxSlope) && ss.segment.OnSegment(target.P2));
+            var connectedNode1 = nodeStore.Get(dropTargetSegment.segment.P1);
+            if (connectedNode1 != null)
+            {
+                targetNode.AddConnection(ConnectionType.Walk, connectedNode1, new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position), dropTargetSegment.maxHeight);
+                connectedNode1.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P1), dropTargetSegment.maxHeight);
+            }
 
-                if (!dropTargetSegment)
-                {
-                    return;
-                }
-
-                var connectedNode1 = nodeStore.Get(dropTargetSegment.segment.P1);
-                if (connectedNode1 != null)
-                {
-                    targetNode.AddConnection(ConnectionType.Walk, connectedNode1, new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position), dropTargetSegment.maxHeight);
-                    connectedNode1.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P1), dropTargetSegment.maxHeight);
-                }
-
-                var connectedNode2 = nodeStore.Get(dropTargetSegment.segment.P2);
-                if (connectedNode2 != null)
-                {
-                    targetNode.AddConnection(ConnectionType.Walk, connectedNode2, new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2), dropTargetSegment.maxHeight);
-                    connectedNode2.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(dropTargetSegment.segment.P2, targetNode.Position), dropTargetSegment.maxHeight);
-                }
+            var connectedNode2 = nodeStore.Get(dropTargetSegment.segment.P2);
+            if (connectedNode2 != null)
+            {
+                targetNode.AddConnection(ConnectionType.Walk, connectedNode2, new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2), dropTargetSegment.maxHeight);
+                connectedNode2.AddConnection(ConnectionType.Walk, targetNode, new LineSegment2D(dropTargetSegment.segment.P2, targetNode.Position), dropTargetSegment.maxHeight);
             }
 
             AddConnection(startNode, targetNode, connectionType, maxHeight);

@@ -148,5 +148,10 @@ namespace Assets.Scripts._2RGuide.Helpers
             var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
             return closedPath.Count == 0;
         }
+
+        public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
+        {
+            return segments.FirstOrDefault(s => s.OnSegment(position));
+        }
     }
 }

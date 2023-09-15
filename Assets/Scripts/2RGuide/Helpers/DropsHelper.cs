@@ -17,7 +17,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float maxSlope;
         }
 
-        public static LineSegment2D[] BuildDrops(NavBuildContext navBuildContext, NodeStore nodes, NavSegment[] navSegments, LineSegment2D[] jumps, Settings settings)
+        public static LineSegment2D[] BuildDrops(NavBuildContext navBuildContext, NodeStore nodes, LineSegment2D[] jumps, Settings settings)
         {
             var resultSegments = new List<LineSegment2D>();
 
@@ -27,10 +27,10 @@ namespace Assets.Scripts._2RGuide.Helpers
                 if (canJumpOrDropToLeftSide)
                 {
                     var originX = node.Position.x - settings.horizontalDistance;
-                    var target = FindTargetDropSegment(navBuildContext, node, navSegments, jumps, originX, settings);
+                    var target = FindTargetDropSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navSegments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navBuildContext.segments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
                         resultSegments.Add(target);
                     }
                 }
@@ -39,10 +39,10 @@ namespace Assets.Scripts._2RGuide.Helpers
                 if (canJumpOrDropToRightSide)
                 {
                     var originX = node.Position.x + settings.horizontalDistance;
-                    var target = FindTargetDropSegment(navBuildContext, node, navSegments, jumps, originX, settings);
+                    var target = FindTargetDropSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navSegments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
+                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navBuildContext.segments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
                         resultSegments.Add(target);
                     }
                 }

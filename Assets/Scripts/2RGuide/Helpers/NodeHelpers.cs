@@ -13,7 +13,7 @@ namespace Assets.Scripts._2RGuide.Helpers
             public float segmentDivision;
         }
 
-        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments, Settings settigns)
+        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments)
         {
             foreach (var navSegment in navSegments)
             {
