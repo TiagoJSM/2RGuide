@@ -112,11 +112,12 @@ namespace Assets.Scripts._2RGuide.Helpers
 
         private static void GetOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, List<LineSegment2D> resultSegments)
         {
-            var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(settings.maxSlope));
+            var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(settings.maxSlope)).ToArray();
+            var segments = navBuildContext.segments.Select(s => s.segment);
 
-            foreach(var oneWayPlatform in oneWayPlatforms)
+            foreach (var oneWayPlatform in oneWayPlatforms)
             {
-                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, Vector2.down * settings.maxJumpDistance, resultSegments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
+                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, Vector2.down * settings.maxJumpDistance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
                 if (!hit)
                 {
                     continue;
@@ -125,8 +126,8 @@ namespace Assets.Scripts._2RGuide.Helpers
                 var oneWayPlatformNode = nodes.NewNodeOrExisting(oneWayPlatform.segment.HalfPoint);
                 var targetNode = nodes.NewNodeOrExisting(hit.HitPosition.Value);
 
-                var oneWayPlatformSegment = resultSegments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
-                var targetPlatformSegment = resultSegments.GetSegmentWithPosition(hit.HitPosition.Value);
+                var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
+                var targetPlatformSegment = segments.GetSegmentWithPosition(hit.HitPosition.Value);
 
                 nodes.ConnectWithNodesAtSegment(oneWayPlatformNode, oneWayPlatformSegment);
                 nodes.ConnectWithNodesAtSegment(targetNode, targetPlatformSegment);
