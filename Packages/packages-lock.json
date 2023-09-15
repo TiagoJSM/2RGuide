@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.hextantstudios.utilities": {
-      "version": "https://github.com/hextantstudios/com.hextantstudios.utilities.git",
+      "version": "https://github.com/hextantstudios/com.hextantstudios.utilities.git#v0.1.1",
       "depth": 0,
       "source": "git",
       "dependencies": {},
