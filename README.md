@@ -4,6 +4,10 @@ Unity3D navigation solution for 2D platformers using 2D colliders.
 
 This is still early work in progress, should never be used on a production project
 
+Add Dependency
+===
+In Unity's Packaga Manager add package from git url and use `https://github.com/TiagoJSM/2RGuide.git?path=Assets/2RGuide` as the url.
+
 Features
 ===
 * Builds navigation paths from scene colliders 
