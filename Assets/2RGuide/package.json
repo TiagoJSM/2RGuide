@@ -7,7 +7,7 @@
   "unityRelease": "7f1",
   "licensesUrl": "https://opensource.org/license/mit/",
   "dependencies": {
-    "com.hextantstudios.utilities": "https://github.com/hextantstudios/com.hextantstudios.utilities.git#v0.1.1"
+    "com.hextantstudios.utilities": "https://github.com/hextantstudios/com.hextantstudios.utilities.git"
   },
   "keywords": [
     "Pathfinding",
