@@ -1,9 +1,6 @@
-﻿using Assets.Scripts._2RGuide.Helpers;
-using Assets.Scripts._2RGuide.Math;
+﻿using _2RGuide.Helpers;
 using NUnit.Framework;
 using System;
-using System.Collections;
-using UnityEngine;
 
 namespace Assets.Tests.PlayModeTests
 {

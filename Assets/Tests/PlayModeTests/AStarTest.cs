@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts._2RGuide;
-using Assets.Scripts._2RGuide.Helpers;
-using Assets.Scripts._2RGuide.Math;
+using _2RGuide;
+using _2RGuide.Helpers;
+using _2RGuide.Math;
 using Clipper2Lib;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Assets.Tests.PlayModeTests
 {

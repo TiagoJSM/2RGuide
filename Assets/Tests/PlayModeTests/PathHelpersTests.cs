@@ -1,13 +1,9 @@
-﻿using Assets.Scripts._2RGuide;
-using Assets.Scripts._2RGuide.Helpers;
-using Assets.Scripts._2RGuide.Math;
+﻿using _2RGuide;
+using _2RGuide.Helpers;
+using _2RGuide.Math;
 using Clipper2Lib;
 using NUnit.Framework;
 using System;
-using System.Collections;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Tests.PlayModeTests
 {
