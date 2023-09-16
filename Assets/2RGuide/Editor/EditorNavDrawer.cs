@@ -32,7 +32,10 @@ namespace _2RGuide.Editor
 
         private static void RenderSegments(NavSegment[] navSegments, Color minHeightColor, Color maxHeightColor)
         {
-            
+            if(navSegments == null)
+            {
+                return;
+            }
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;
@@ -43,6 +46,10 @@ namespace _2RGuide.Editor
 
         private static void RenderDrops(LineSegment2D[] segments, Color lineColor)
         {
+            if (segments == null)
+            {
+                return;
+            }
             Handles.color = lineColor;
             foreach (var segment in segments)
             {
@@ -52,6 +59,10 @@ namespace _2RGuide.Editor
 
         private static void RenderJumps(LineSegment2D[] segments, Color lineColor)
         {
+            if (segments == null)
+            {
+                return;
+            }
             Handles.color = lineColor;
             foreach (var segment in segments)
             {
@@ -62,6 +73,10 @@ namespace _2RGuide.Editor
 
         private static void RenderNormals(NavSegment[] navSegments, Color lineColor)
         {
+            if (navSegments == null)
+            {
+                return;
+            }
             const float normalSize = 0.2f;
             Handles.color = lineColor;
             foreach (var navSegment in navSegments)
@@ -89,6 +104,10 @@ namespace _2RGuide.Editor
 
         private static void RenderNodes(Node[] nodes)
         {
+            if(nodes == null)
+            {
+                return;
+            }
             foreach (var node in nodes)
             {
                 Handles.Label(node.Position, $"Node ({node.Position.x:0.00} , {node.Position.y:0.00})");
