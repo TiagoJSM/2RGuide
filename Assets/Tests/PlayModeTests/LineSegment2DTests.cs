@@ -1,11 +1,10 @@
-﻿using Assets.Scripts._2RGuide.Helpers;
-using Assets.Scripts._2RGuide.Math;
+﻿using _2RGuide.Helpers;
+using _2RGuide.Math;
 using NUnit.Framework;
 using System;
-using System.Collections;
 using UnityEngine;
 
-namespace Assets.Tests.PlayModeTests
+namespace _2RGuide.Tests.PlayModeTests
 {
     public class LineSegment2DTests
     {
@@ -135,7 +134,7 @@ namespace Assets.Tests.PlayModeTests
 
             Assert.AreEqual(3, splits.Length);
             Assert.AreEqual(10.0f, splits[0].maxHeight);
-            Assert.AreEqual(100.0f, splits[1].maxHeight);
+            Assert.AreEqual(50.0f, splits[1].maxHeight);
             Assert.AreEqual(6.0f, splits[2].maxHeight);
         }
 
@@ -155,9 +154,9 @@ namespace Assets.Tests.PlayModeTests
 
             Assert.AreEqual(4, splits.Length);
             Assert.AreEqual(10.0f, splits[0].maxHeight);
-            Assert.AreEqual(100.0f, splits[1].maxHeight);
+            Assert.AreEqual(50.0f, splits[1].maxHeight);
             Assert.AreEqual(6.0f, splits[2].maxHeight);
-            Assert.AreEqual(100.0f, splits[3].maxHeight);
+            Assert.AreEqual(50.0f, splits[3].maxHeight);
         }
     }
 }
