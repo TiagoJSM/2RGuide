@@ -64,9 +64,9 @@ namespace _2RGuide.Editor
             world.jumps = navResult.jumps;
         }
 
-        private static void CollectSegments(Collider2D collider, ClipperD clipper)
+        private static void CollectSegments(Collider2D collider, LayerMask oneWayPlatformer, ClipperD clipper)
         {
-            if (collider is BoxCollider2D box)
+            if (collider is BoxCollider2D box && !oneWayPlatformer.Includes(box.gameObject))
             {
                 CollectSegments(box, clipper);
             }
@@ -142,32 +142,36 @@ namespace _2RGuide.Editor
         private static Collider2D[] GetColliders(NavWorld world)
         {
             var colliders = new List<Collider2D>();
+            GetColliders(world.gameObject, colliders);
+            return colliders.ToArray();
+        }
 
-            var children = world.transform.childCount;
+        private static void GetColliders(GameObject go, List<Collider2D> colliders)
+        {
+            var children = go.transform.childCount;
             for (var idx = 0; idx < children; idx++)
             {
-                var child = world.transform.GetChild(idx);
+                var child = go.transform.GetChild(idx);
                 if (child.gameObject.activeInHierarchy)
                 {
                     var collider = child.GetComponent<Collider2D>();
-                    if(collider != null)
+                    if (collider != null)
                     {
                         colliders.Add(collider);
                     }
+                    GetColliders(child.gameObject, colliders);
                 }
             }
-
-            return colliders.ToArray();
         }
 
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
         {
             var paths = new PathsD();
-            var clipper = new ClipperD();
+            var clipper = new ClipperD(3);
             
             foreach (var collider in colliders)
             {
-                CollectSegments(collider, clipper);
+                CollectSegments(collider, nodePathSettings.oneWayPlatformMask, clipper);
             }
             
             var closedPath = new PathsD();
@@ -176,7 +180,9 @@ namespace _2RGuide.Editor
             
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
 
-            var otherColliders = colliders.Where(c => c is BoxCollider2D || c is PolygonCollider2D).ToArray();
+            var otherColliders = colliders.Where(c => 
+                c is BoxCollider2D && !nodePathSettings.oneWayPlatformMask.Includes(c.gameObject) || 
+                c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
             var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask).ToArray();

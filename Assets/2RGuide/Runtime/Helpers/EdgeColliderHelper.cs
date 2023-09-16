@@ -10,6 +10,13 @@ namespace _2RGuide.Helpers
     {
         public static IEnumerable<(LineSegment2D, bool)> GetEdgeSegments(this Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
         {
+            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask);
+            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask);
+            return linesFromEdgeColliders.Concat(linesFromBoxColliders);
+        }
+
+        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
+        {
             return
                 colliders
                     .Select(c => c as EdgeCollider2D)
@@ -20,6 +27,25 @@ namespace _2RGuide.Helpers
                         return GetSegments(c, segmentsFromPaths, otherColliders).Select(s => (s, isOneWay));
                     });
         }
+
+        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromBoxColliders(Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
+        {
+            return
+                colliders
+                    .Where(c => oneWayPlatformMask.Includes(c.gameObject))
+                    .Select(c => c as BoxCollider2D)
+                    .Where(c => c != null)
+                    .SelectMany(c =>
+                    {
+                        var bounds = c.bounds;
+                        var segments = new LineSegment2D[] 
+                        { 
+                            new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y)) 
+                        };
+                        return SplitSegments(segments, segmentsFromPaths, otherColliders).Select(s => (s, true));
+                    });
+        }
+
         private static LineSegment2D[] GetSegments(EdgeCollider2D collider, LineSegment2D[] segments, Collider2D[] colliders)
         {
             var edgeSegments = new List<LineSegment2D>();
@@ -37,6 +63,11 @@ namespace _2RGuide.Helpers
                 p1 = p2;
             }
 
+            return SplitSegments(edgeSegments, segments, colliders);
+        }
+
+        private static LineSegment2D[] SplitSegments(IEnumerable<LineSegment2D> edgeSegments, LineSegment2D[] segments, Collider2D[] colliders)
+        {
             var splitEdgeSegments =
                 edgeSegments
                     .SelectMany(es =>
@@ -51,5 +82,6 @@ namespace _2RGuide.Helpers
 
             return splitEdgeSegments;
         }
+
     }
 }

@@ -12,7 +12,6 @@ namespace _2RGuide.Editor
         [InitializeOnLoad]
         private static class AutoNavBaker
         {
-
             static AutoNavBaker()
             {
                 EditorSceneManager.sceneSaving += OnSceneSaving;
@@ -52,11 +51,6 @@ namespace _2RGuide.Editor
         {
             var world = (NavWorld)target;
             EditorNavDrawer.RenderWorldNav(world);
-        }
-
-        private void OnSceneDirtied(Scene _)
-        {
-            Debug.Log("thing");
         }
     }
 }

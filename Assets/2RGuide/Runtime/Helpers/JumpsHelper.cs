@@ -113,7 +113,8 @@ namespace _2RGuide.Helpers
 
             foreach (var oneWayPlatform in oneWayPlatforms)
             {
-                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, Vector2.down * settings.maxJumpDistance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
+                var start = oneWayPlatform.segment.HalfPoint;
+                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, start + Vector2.down * settings.maxJumpDistance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
                 if (!hit)
                 {
                     continue;
