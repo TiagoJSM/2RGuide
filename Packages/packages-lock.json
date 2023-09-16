@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.hextantstudios.utilities": {
-      "version": "https://github.com/hextantstudios/com.hextantstudios.utilities.git#v0.1.1",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "9da89728ce89a4b84411b2cfcf919dc767813968"
-    },
     "com.unity.2d.animation": {
       "version": "5.0.4",
       "depth": 0,
