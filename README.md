@@ -13,6 +13,7 @@ Features
 * Builds navigation paths from scene colliders 
 * Agent to traverse the shortest paths to reach a target position.
 * Support for auto generated jumps and drops to connect segments segments
+* Support for one way platforms jumps
 
 Getting Started
 ===
@@ -20,13 +21,12 @@ Getting Started
 * Create a parent `GameObject` to hold other GameObjects with the colliders to represent the world's paths
 * Add the `NavWorld` component to the parent `GameObject`
 * On the component's inspector panel press bake to generate the navigation segments
+* To tweat the bake procedure go to `Edit` > `Project Settings` > `Nav2RGuide Settings` and modify the values to your liking
 
 Planned Features
 ===
-* Currently the tool only supports `BoxCollider2D` and `PolygonCollider2D`, `EdgeCollider2D` support will be added later
-* Support for one way jump for some platforms
 * Areas that forbid agent to move into to avoid obstacles
-* Support for user designed jumps and drops to connect segments segments
+* Support for user designed jumps and drops to connect segments
 
 License
 ===
