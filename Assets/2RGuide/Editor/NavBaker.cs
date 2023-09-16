@@ -142,28 +142,32 @@ namespace _2RGuide.Editor
         private static Collider2D[] GetColliders(NavWorld world)
         {
             var colliders = new List<Collider2D>();
+            GetColliders(world.gameObject, colliders);
+            return colliders.ToArray();
+        }
 
-            var children = world.transform.childCount;
+        private static void GetColliders(GameObject go, List<Collider2D> colliders)
+        {
+            var children = go.transform.childCount;
             for (var idx = 0; idx < children; idx++)
             {
-                var child = world.transform.GetChild(idx);
+                var child = go.transform.GetChild(idx);
                 if (child.gameObject.activeInHierarchy)
                 {
                     var collider = child.GetComponent<Collider2D>();
-                    if(collider != null)
+                    if (collider != null)
                     {
                         colliders.Add(collider);
                     }
+                    GetColliders(child.gameObject, colliders);
                 }
             }
-
-            return colliders.ToArray();
         }
 
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
         {
             var paths = new PathsD();
-            var clipper = new ClipperD();
+            var clipper = new ClipperD(3);
             
             foreach (var collider in colliders)
             {
