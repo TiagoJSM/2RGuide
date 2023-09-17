@@ -36,6 +36,8 @@ namespace _2RGuide.Editor
                         {
                             EditorGUILayout.PropertyField(settings.FindProperty(field));
                         }
+
+                        settings.ApplyModifiedPropertiesWithoutUndo();
                     },
 
                     // Populate the search keywords to enable smart search filtering and label highlighting:
