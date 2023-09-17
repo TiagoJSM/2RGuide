@@ -7,6 +7,9 @@ namespace _2RGuide
     {
         private GuideAgent _guideAgent;
 
+        [SerializeField]
+        private Vector2 _target;
+
         // Use this for initialization
         void Awake()
         {
@@ -15,7 +18,7 @@ namespace _2RGuide
 
         private void Start()
         {
-            _guideAgent.SetDestination(new Vector2(-4.0f, 2.25f));
+            _guideAgent.SetDestination(_target);
         }
 
         // Update is called once per frame

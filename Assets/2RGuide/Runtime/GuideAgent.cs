@@ -40,12 +40,15 @@ namespace _2RGuide
         private float _baseOffset;
         [SerializeField]
         private float _proximityThreshold;
+        [SerializeField]
+        private ConnectionType _allowedConnectionTypes = ConnectionType.All;
 
         private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
 
         public Vector2 DesiredMovement { get; private set; }
         public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
         public Vector2? CurrentTargetPosition => _path == null ? default(Vector2?) : _path[_targetPathIndex].position;
+        public AgentStatus Status => _agentStatus;
         public float BaseOffset
         {
             get => _baseOffset;
@@ -143,7 +146,7 @@ namespace _2RGuide
                 var allNodes = navWorld.nodes;
                 var startN = allNodes.MinBy(n => Vector2.Distance(start, n.Position));
                 var endN = allNodes.MinBy(n => Vector2.Distance(end, n.Position));
-                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees);
+                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes);
             });
 
             while (!pathfindingTask.IsCompleted)
