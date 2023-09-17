@@ -7,12 +7,15 @@ using UnityEngine;
 
 namespace _2RGuide
 {
+    [Flags]
     public enum ConnectionType
     {
-        Walk,
-        Drop,
-        Jump,
-        OneWayPlatformJump
+        None = 0,
+        Walk = 1 << 1,
+        Drop = 1 << 2,
+        Jump = 1 << 3,
+        OneWayPlatformJump = 1 << 4,
+        All = Walk | Drop | Jump | OneWayPlatformJump
     }
 
     [Serializable]
@@ -78,7 +81,7 @@ namespace _2RGuide
 
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope, ConnectionType allowedConnectionTypes)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -110,6 +113,10 @@ namespace _2RGuide
                         continue;
                     }
                     if (neighbor.segment.SlopeRadians > maxSlope)
+                    {
+                        continue;
+                    }
+                    if (!allowedConnectionTypes.HasFlag(neighbor.connectionType))
                     {
                         continue;
                     }
