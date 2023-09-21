@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Helpers;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -155,6 +156,14 @@ namespace _2RGuide
             }
 
             var path = pathfindingTask.Result;
+
+            if (path == null)
+            {
+                _coroutine = null;
+                _path = Array.Empty<AgentSegment>();
+                yield break;
+            }
+
             _targetPathIndex = 0;
 
             var agentSegmentPath =
