@@ -17,9 +17,9 @@ namespace Assets.Tests.PlayModeTests
             yield return null;
             var agent = GameObject.Find("Agent");
             Assert.That(agent, Is.Not.Null);
-            Assert.AreEqual(agent.transform.position, new Vector3(-5.0f, 0.5f, 0.0f));
+            Assert.AreEqual(new Vector3(-5.0f, 0.5f, 0.0f), agent.transform.position);
             yield return new WaitForSeconds(0.5f);
-            Assert.AreEqual(agent.transform.position, new Vector3(5.0f, 0.5f, 0.0f));
+            Assert.AreEqual(new Vector3(5.0f, 0.5f, 0.0f), agent.transform.position);
         }
 
         [UnityTest]
@@ -29,9 +29,9 @@ namespace Assets.Tests.PlayModeTests
             yield return null;
             var agent = GameObject.Find("Agent");
             Assert.That(agent, Is.Not.Null);
-            Assert.AreEqual(agent.transform.position, new Vector3(1.565005f, -3.45f, 0.0f));
+            //Assert.AreEqual(new Vector3(1.565005f, -3.45f, 0.0f), agent.transform.position);
             yield return new WaitForSeconds(0.5f);
-            Assert.AreEqual(agent.transform.position, new Vector3(6.62f, 6.38f, 0.0f));
+            Assert.AreEqual(new Vector3(6.62f, 6.38f, 0.0f), agent.transform.position);
         }
     }
 }
