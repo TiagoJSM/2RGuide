@@ -14,8 +14,10 @@ namespace _2RGuide.Tests.PlayModeTests
         [Test]
         public void TestAStar2Nodes()
         {
-            var n1 = new Node() { Position = Vector3.zero };
-            var n2 = new Node() { Position = Vector2.one };
+            var store = new NodeStore();
+
+            var n1 = store.NewNode(Vector2.zero);
+            var n2 = store.NewNode(Vector2.one);
 
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity);
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity);
@@ -81,8 +83,8 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
-            var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(1.5f, -1.5f)));
-            var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 3.5f)));
+            var start = navResult.nodeStore.Get(new Vector2(1.5f, -1.5f));
+            var end = navResult.nodeStore.Get(new Vector2(0.0f, 3.5f));
 
             var path = AStar.Resolve(start, end, 0, 90f, ConnectionType.All);
 
@@ -145,8 +147,8 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
-            var start = navResult.nodes.First(n => n.Position.Approximately(new Vector2(0.0f, 0.0f)));
-            var end = navResult.nodes.First(n => n.Position.Approximately(new Vector2(30.0f, 0.0f)));
+            var start = navResult.nodeStore.Get(new Vector2(0.0f, 0.0f));
+            var end = navResult.nodeStore.Get(new Vector2(30.0f, 0.0f));
 
             var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All);
 

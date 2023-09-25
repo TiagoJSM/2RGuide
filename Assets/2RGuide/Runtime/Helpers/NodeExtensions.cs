@@ -30,23 +30,23 @@ namespace _2RGuide.Helpers
         private static bool HasWalkConnection(this Node node, float maxSlope)
         {
             return node.Connections.Any(c =>
-                    c.connectionType == ConnectionType.Walk &&
-                    !c.segment.OverMaxSlope(maxSlope));
+                    c.ConnectionType == ConnectionType.Walk &&
+                    !c.Segment.OverMaxSlope(maxSlope));
         }
 
         private static bool HasConnection(Node node, float maxSlope, Func<Node, Node, bool> predicate)
         {
             return node
                 .Connections
-                .Where(c => c.connectionType == ConnectionType.Walk)
+                .Where(c => c.ConnectionType == ConnectionType.Walk)
                 .Any(cn =>
                 {
-                    var line = new LineSegment2D(node.Position, cn.node.Position);
+                    var line = new LineSegment2D(node.Position, cn.Node.Position);
                     if (Mathf.Abs(line.SlopeRadians) > maxSlope)
                     {
                         return false;
                     }
-                    return predicate(node, cn.node);
+                    return predicate(node, cn.Node);
                 });
         }
     }

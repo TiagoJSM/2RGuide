@@ -144,9 +144,8 @@ namespace _2RGuide
             var pathfindingTask = Task.Run(() => 
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
-                var allNodes = navWorld.nodes;
-                var startN = allNodes.MinBy(n => Vector2.Distance(start, n.Position));
-                var endN = allNodes.MinBy(n => Vector2.Distance(end, n.Position));
+                var startN = navWorld.nodeStore.ClosestTo(start);
+                var endN = navWorld.nodeStore.ClosestTo(end);
                 return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes);
             });
 
@@ -173,7 +172,7 @@ namespace _2RGuide
                         var connectionType =
                             i == 0
                             ? ConnectionType.Walk
-                            : path[i - 1].ConnectionWith(path[i]).Value.connectionType;
+                            : path[i - 1].ConnectionWith(path[i]).Value.ConnectionType;
                         return new AgentSegment() { position = n.Position, connectionType = connectionType };
                     });
 
@@ -182,7 +181,7 @@ namespace _2RGuide
             // if character is already in between first and second node no need to go back to first
             if (path.Count() > 1)
             {
-                var closestPositionWithStart = path[0].ConnectionWith(path[1]).Value.segment.ClosestPointOnLine(ReferencePosition);
+                var closestPositionWithStart = path[0].ConnectionWith(path[1]).Value.Segment.ClosestPointOnLine(ReferencePosition);
                 segmentPath[0].position = closestPositionWithStart;
             }
 
@@ -192,7 +191,7 @@ namespace _2RGuide
             if (path.Count() > 1)
             { 
                 //ToDo: first check if on segment between length-2 and length-1, if yes run code bellow, otherwise check connections for last node for closest value on segment
-                var closestPositionWithTarget = path[path.Length - 2].ConnectionWith(path.Last()).Value.segment.ClosestPointOnLine(_currentDestination.Value);
+                var closestPositionWithTarget = path[path.Length - 2].ConnectionWith(path.Last()).Value.Segment.ClosestPointOnLine(_currentDestination.Value);
                 segmentPath[segmentPath.Length - 1].position = closestPositionWithTarget;
             }
 

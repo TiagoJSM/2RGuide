@@ -7,78 +7,6 @@ using UnityEngine;
 
 namespace _2RGuide
 {
-    [Flags]
-    public enum ConnectionType
-    {
-        None = 0,
-        Walk = 1 << 1,
-        Drop = 1 << 2,
-        Jump = 1 << 3,
-        OneWayPlatformJump = 1 << 4,
-        All = Walk | Drop | Jump | OneWayPlatformJump
-    }
-
-    [Serializable]
-    public struct NodeConnection
-    {
-        public Node node;
-        public ConnectionType connectionType;
-        public LineSegment2D segment;
-        public float maxHeight;
-    }
-
-    [Serializable]
-    public class Node
-    {
-        [SerializeField]
-        private Vector2 _position;
-        [SerializeField]
-        private List<NodeConnection> _connections;
-
-        public Vector2 Position 
-        {
-            get => _position;
-            set => _position = value;
-        }
-        public IEnumerable<NodeConnection> Connections => _connections;
-
-        public Node()
-        {
-            _connections = new List<NodeConnection>();
-        }
-
-        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight)
-        {
-            var hasSegment = _connections.Any(c => c.segment.IsCoincident(segment));
-            if (!hasSegment)
-            {
-                _connections.Add(new NodeConnection { node = other, connectionType = connectionType, segment = segment, maxHeight = maxHeight });
-            }
-
-            return !hasSegment;
-        }
-
-        public NodeConnection? ConnectionWith(Node n)
-        {
-            var nc = Connections.FirstOrDefault(c => c.node.Equals(n));
-            return nc;
-        }
-
-        public override int GetHashCode()
-        {
-            return Position.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if(obj is Node other)
-            {
-                return other.Position.Approximately(Position);
-            }
-            return false;
-        }
-    }
-
     public static class AStar
     {
         public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope, ConnectionType allowedConnectionTypes)
@@ -108,29 +36,29 @@ namespace _2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
-                    if(neighbor.maxHeight < maxHeight)
+                    if(neighbor.MaxHeight < maxHeight)
                     {
                         continue;
                     }
-                    if (neighbor.segment.SlopeRadians > maxSlope)
+                    if (neighbor.Segment.SlopeRadians > maxSlope)
                     {
                         continue;
                     }
-                    if (!allowedConnectionTypes.HasFlag(neighbor.connectionType))
+                    if (!allowedConnectionTypes.HasFlag(neighbor.ConnectionType))
                     {
                         continue;
                     }
 
-                    var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.node.Position);
-                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor.node, float.PositiveInfinity))
+                    var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.Node.Position);
+                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor.Node, float.PositiveInfinity))
                     {
-                        cameFrom[neighbor.node] = current;
-                        gScore[neighbor.node] = tentativeGScore;
-                        var currentFScore = tentativeGScore + Heuristic(neighbor.node, goal);
-                        fScore[neighbor.node] = currentFScore;
-                        if (!queue.Contains(neighbor.node))
+                        cameFrom[neighbor.Node] = current;
+                        gScore[neighbor.Node] = tentativeGScore;
+                        var currentFScore = tentativeGScore + Heuristic(neighbor.Node, goal);
+                        fScore[neighbor.Node] = currentFScore;
+                        if (!queue.Contains(neighbor.Node))
                         {
-                            queue.Enqueue(neighbor.node, currentFScore);
+                            queue.Enqueue(neighbor.Node, currentFScore);
                         }
                     }
                 }
