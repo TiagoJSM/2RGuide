@@ -27,7 +27,7 @@ namespace _2RGuide.Editor
 
             RenderNormals(segments, Color.magenta);
 
-            RenderNodes(world.nodes);
+            RenderNodes(world.nodeStore.ToArray());
         }
 
         private static void RenderSegments(NavSegment[] navSegments, Color minHeightColor, Color maxHeightColor)

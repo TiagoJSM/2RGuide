@@ -58,7 +58,7 @@ namespace _2RGuide.Editor
 
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
 
-            world.nodes = navResult.nodes;
+            world.nodeStore = navResult.nodeStore;
             world.segments = navResult.segments;
             world.drops = navResult.drops;
             world.jumps = navResult.jumps;

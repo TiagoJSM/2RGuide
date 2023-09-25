@@ -8,7 +8,7 @@ namespace _2RGuide.Helpers
 {
     public struct NavResult
     {
-        public Node[] nodes;
+        public NodeStore nodeStore;
         public NavSegment[] segments;
         public LineSegment2D[] jumps;
         public LineSegment2D[] drops;
@@ -34,7 +34,7 @@ namespace _2RGuide.Helpers
 
             return new NavResult()
             {
-                nodes = nodeStore.ToArray(),
+                nodeStore = nodeStore,
                 segments = navSegments,
                 jumps = jumps,
                 drops = drops
