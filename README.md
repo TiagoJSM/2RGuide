@@ -28,6 +28,20 @@ Planned Features
 * Areas that forbid agent to move into to avoid obstacles
 * Support for user designed jumps and drops to connect segments
 
+Examples
+===
+Baking navigation segments:
+
+<img src="./Resources/Bake%20Scene.gif" alt="bake" width="70%" height="70%"/>
+
+Moving to target in game:
+
+<img src="./Resources/Chase.gif" alt="chase" width="50%" height="50%"/>
+
+Special Thanks
+===
+[Clipper2](https://github.com/AngusJohnson/Clipper2) library used to get the world geometry.
+
 License
 ===
 [MIT licensed](./LICENSE)
