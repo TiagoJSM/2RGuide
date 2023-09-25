@@ -22,14 +22,9 @@ namespace _2RGuide
     [Serializable]
     public struct NodeConnection
     {
-        //[SerializeReference]
-        [NonSerialized]
+        [HideInInspector]
+        [SerializeReference]
         private NodeStore _nodeStore;
-        public NodeStore NodeStore 
-        {
-            get => _nodeStore;
-            set => _nodeStore = value;
-        }
         [SerializeField]
         private int _nodeIndex;
         [SerializeField]
@@ -39,20 +34,19 @@ namespace _2RGuide
         [SerializeField]
         private float _maxHeight;
 
-        public Node Node => NodeStore.Get(_nodeIndex);
+        public Node Node => _nodeStore.Get(_nodeIndex);
         public ConnectionType ConnectionType => _connectionType;
         public LineSegment2D Segment => _segment;
         public float MaxHeight => _maxHeight;
 
         public NodeConnection(
-            //NodeStore store, 
+            NodeStore store, 
             int nodeIndex, 
             ConnectionType connectionType, 
             LineSegment2D segment, 
             float maxHeight)
         {
-            _nodeStore = null;
-            //NodeStore = store;
+            _nodeStore = store;
             _nodeIndex = nodeIndex;
             _connectionType = connectionType;
             _segment = segment;
@@ -63,23 +57,9 @@ namespace _2RGuide
     [Serializable]
     public class Node
     {
-        [NonSerialized]
+        [HideInInspector]
+        [SerializeReference]
         private NodeStore _nodeStore;
-        //[SerializeReference]
-        public NodeStore NodeStore 
-        {
-            get => _nodeStore;
-            set
-            {
-                _nodeStore = value;
-                for(var idx = 0; idx < _connections.Count; idx++)
-                {
-                    var connection = _connections[idx];
-                    connection.NodeStore = _nodeStore;
-                    _connections[idx] = connection;
-                }
-            }
-        }
         [SerializeField]
         private int _nodeIndex;
 
@@ -98,11 +78,11 @@ namespace _2RGuide
         public Node() { }
 
         public Node(
-            //NodeStore nodeStore, 
+            NodeStore nodeStore, 
             Vector2 position, 
             int nodeIndex)
         {
-            //NodeStore = nodeStore;
+            _nodeStore = nodeStore;
             Position = position;
             _nodeIndex = nodeIndex;
             _connections = new List<NodeConnection>();
@@ -113,8 +93,7 @@ namespace _2RGuide
             var hasSegment = _connections.Any(c => c.Segment.IsCoincident(segment));
             if (!hasSegment)
             {
-                var connection = new NodeConnection(other._nodeIndex, connectionType, segment, maxHeight);
-                connection.NodeStore = NodeStore;
+                var connection = new NodeConnection(_nodeStore, other._nodeIndex, connectionType, segment, maxHeight);
                 _connections.Add(connection);
             }
 
@@ -143,7 +122,7 @@ namespace _2RGuide
     }
 
     [Serializable]
-    public class NodeStore : ISerializationCallbackReceiver
+    public class NodeStore
     {
         [SerializeField]
         private List<Node> _nodes = new List<Node>();
@@ -152,8 +131,7 @@ namespace _2RGuide
         {
             if (!Contains(position))
             {
-                var node = new Node(position, _nodes.Count);
-                node.NodeStore = this;
+                var node = new Node(this, position, _nodes.Count);
                 _nodes.Add(node);
                 return node;
             }
@@ -215,21 +193,6 @@ namespace _2RGuide
             node2.AddConnection(connectionType, node1, s, maxHeight);
 
             return s;
-        }
-
-        public void OnBeforeSerialize()
-        {
-            
-        }
-
-        public void OnAfterDeserialize()
-        {
-            Debug.Log("after");
-
-            foreach(var node in _nodes)
-            {
-                node.NodeStore = this;
-            }
         }
     }
 }
