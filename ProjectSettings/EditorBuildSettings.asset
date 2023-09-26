@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToPositionWithJumpsTestScene.unity
     guid: 2617d6cd92935d1469ca4c4579a98584
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionOneWayJumpTestScene.unity
+    guid: 28f5dce49af8826438020e205129958e
   m_configObjects: {}

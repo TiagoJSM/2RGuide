@@ -18,9 +18,9 @@ namespace Assets.Tests.PlayModeTests
             yield return null;
             var agent = GameObject.Find("Agent");
             Assert.That(agent, Is.Not.Null);
-            Assert.AreEqual(new Vector3(-5.0f, 0.5f, 0.0f), agent.transform.position);
+            Assert.AreEqual(new Vector3(-5.0f, 0.5f), agent.transform.position);
             yield return new WaitForSeconds(0.5f);
-            Assert.AreEqual(new Vector3(5.0f, 0.5f, 0.0f), agent.transform.position);
+            Assert.AreEqual(new Vector3(5.0f, 0.5f), agent.transform.position);
         }
 
         [UnityTest]
@@ -31,9 +31,23 @@ namespace Assets.Tests.PlayModeTests
             var agent = GameObject.Find("Agent");
             Assert.That(agent, Is.Not.Null);
             var comparer = new Vector3EqualityComparer(0.25f);
-            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(1.56f, -3.45f, 0.0f)).Using(comparer));
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(1.56f, -3.45f)).Using(comparer));
             yield return new WaitForSeconds(1.0f);
-            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, 6.34f, 0.0f)).Using(comparer));
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, 6.34f)).Using(comparer));
+        }
+
+
+        [UnityTest]
+        public IEnumerator VerifyAgentReachedGoalWithOneWayPlatformJumps()
+        {
+            SceneManager.LoadScene("MoveToPositionOneWayJumpTestScene");
+            yield return null;
+            var agent = GameObject.Find("Agent");
+            Assert.That(agent, Is.Not.Null);
+            var comparer = new Vector3EqualityComparer(0.25f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(0.93f, 0.5f)).Using(comparer));
+            yield return new WaitForSeconds(1.0f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(0.934f, 3.06f)).Using(comparer));
         }
     }
 }

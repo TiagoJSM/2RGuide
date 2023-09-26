@@ -120,14 +120,11 @@ namespace _2RGuide.Helpers
                     continue;
                 }
 
-                var oneWayPlatformNode = nodes.NewNodeOrExisting(oneWayPlatform.segment.HalfPoint);
-                var targetNode = nodes.NewNodeOrExisting(hit.HitPosition.Value);
-
                 var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
                 var targetPlatformSegment = segments.GetSegmentWithPosition(hit.HitPosition.Value);
 
-                nodes.ConnectWithNodesAtSegment(oneWayPlatformNode, oneWayPlatformSegment);
-                nodes.ConnectWithNodesAtSegment(targetNode, targetPlatformSegment);
+                var oneWayPlatformNode = nodes.SplitSegmentAt(oneWayPlatform.segment, oneWayPlatform.segment.HalfPoint);
+                var targetNode = nodes.SplitSegmentAt(targetPlatformSegment, hit.HitPosition.Value);
 
                 var jumpSegment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, ConnectionType.OneWayPlatformJump);
 
