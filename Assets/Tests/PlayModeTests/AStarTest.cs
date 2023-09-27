@@ -22,7 +22,7 @@ namespace _2RGuide.Tests.PlayModeTests
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity);
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity);
 
-            var path = AStar.Resolve(n1, n2, 0, 90f, ConnectionType.All);
+            var path = AStar.Resolve(n1, n2, 0, 90f, ConnectionType.All, float.PositiveInfinity);
 
             Assert.AreEqual(2, path.Length);
         }
@@ -86,7 +86,7 @@ namespace _2RGuide.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(1.5f, -1.5f));
             var end = navResult.nodeStore.Get(new Vector2(0.0f, 3.5f));
 
-            var path = AStar.Resolve(start, end, 0, 90f, ConnectionType.All);
+            var path = AStar.Resolve(start, end, 0, 90f, ConnectionType.All, float.PositiveInfinity);
 
             Assert.AreEqual(4, path.Length);
         }
@@ -150,7 +150,7 @@ namespace _2RGuide.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(0.0f, 0.0f));
             var end = navResult.nodeStore.Get(new Vector2(30.0f, 0.0f));
 
-            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All);
+            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity);
 
             Assert.AreEqual(6, path.Length);
         }

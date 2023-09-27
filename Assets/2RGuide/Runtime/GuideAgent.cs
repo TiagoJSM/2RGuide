@@ -43,6 +43,8 @@ namespace _2RGuide
         private float _proximityThreshold;
         [SerializeField]
         private ConnectionType _allowedConnectionTypes = ConnectionType.All;
+        [SerializeField]
+        private float _pathfindingMaxDistance = float.PositiveInfinity;
 
         private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
 
@@ -89,7 +91,6 @@ namespace _2RGuide
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (!_currentDestination.HasValue && _desiredDestination.HasValue)
@@ -144,9 +145,9 @@ namespace _2RGuide
             var pathfindingTask = Task.Run(() => 
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
-                var startN = navWorld.nodeStore.ClosestTo(start);
-                var endN = navWorld.nodeStore.ClosestTo(end);
-                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes);
+                var startN = navWorld.GetClosestNodeInSegment(start);
+                var endN = navWorld.GetClosestNodeInSegment(end);
+                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
             });
 
             while (!pathfindingTask.IsCompleted)

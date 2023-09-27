@@ -62,6 +62,13 @@ namespace _2RGuide.Editor
             world.segments = navResult.segments;
             world.drops = navResult.drops;
             world.jumps = navResult.jumps;
+            world.uniqueSegments = navResult.nodeStore.GetUniqueNodeConnections().Select(nc => 
+                new NavSegment() 
+                { 
+                    maxHeight = nc.MaxHeight,
+                    oneWayPlatform = nc.ConnectionType == ConnectionType.OneWayPlatformJump,
+                    segment = nc.Segment
+                }).ToArray();
         }
 
         private static void CollectSegments(Collider2D collider, LayerMask oneWayPlatformer, ClipperD clipper)

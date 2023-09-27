@@ -9,7 +9,7 @@ namespace _2RGuide
 {
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope, ConnectionType allowedConnectionTypes)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope, ConnectionType allowedConnectionTypes, float maxDistance)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -31,12 +31,12 @@ namespace _2RGuide
                 var current = queue.Dequeue();
                 if (current.Equals(goal))
                 {
-                    return ReconstructPath(cameFrom, current, goal);
+                    return ReconstructPath(cameFrom, current);
                 }
 
                 foreach (var neighbor in current.Connections)
                 {
-                    if(neighbor.MaxHeight < maxHeight)
+                    if (neighbor.MaxHeight < maxHeight)
                     {
                         continue;
                     }
@@ -50,6 +50,12 @@ namespace _2RGuide
                     }
 
                     var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.Node.Position);
+
+                    if (tentativeGScore > maxDistance)
+                    {
+                        continue;
+                    }
+
                     if (tentativeGScore < gScore.GetValueOrDefault(neighbor.Node, float.PositiveInfinity))
                     {
                         cameFrom[neighbor.Node] = current;
@@ -64,10 +70,17 @@ namespace _2RGuide
                 }
             }
 
+            var kvp = cameFrom.MinBy(kvp => Vector2.Distance(kvp.Key.Position, goal.Position));
+            
+            if (kvp.Key != null)
+            {
+                return ReconstructPath(cameFrom, kvp.Key);
+            }
+
             return null;
         }
 
-        private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Node goal)
+        private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current)
         {
             var path = new List<Node>() { current };
             while (cameFrom.ContainsKey(current))

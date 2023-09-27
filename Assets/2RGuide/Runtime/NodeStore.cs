@@ -106,6 +106,11 @@ namespace _2RGuide
             return nc;
         }
 
+        public void RemoveConnectionWith(Node n)
+        {
+            _connections.RemoveAll(nc => nc.Node == n);
+        }
+
         public override int GetHashCode()
         {
             return Position.GetHashCode();
@@ -118,6 +123,19 @@ namespace _2RGuide
                 return other.Position.Approximately(Position);
             }
             return false;
+        }
+    }
+
+    public class NodeConnectionEqualityComparer : IEqualityComparer<NodeConnection>
+    {
+        public bool Equals(NodeConnection x, NodeConnection y)
+        {
+            return x.Segment.IsCoincident(y.Segment);
+        }
+
+        public int GetHashCode(NodeConnection obj)
+        {
+            return obj.Segment.P1.GetHashCode() + obj.Segment.P2.GetHashCode();
         }
     }
 
@@ -141,6 +159,46 @@ namespace _2RGuide
         public Node NewNodeOrExisting(Vector2 position)
         {
             return NewNode(position) ?? Get(position);
+        }
+
+        public Node SplitSegmentAt(LineSegment2D segment, Vector2 position)
+        {
+            var splitNode = Get(position);
+
+            if(splitNode != null)
+            {
+                return splitNode;
+            }
+
+            var connectedNode1 = Get(segment.P1);
+            var connectedNode2 = Get(segment.P2);
+            var connection = connectedNode1.ConnectionWith(connectedNode2);
+
+            if(connection == null)
+            {
+                return null;
+            }
+
+            var maxHeight = connection.Value.MaxHeight;
+
+            splitNode = NewNode(position);
+
+            connectedNode1.RemoveConnectionWith(connectedNode2);
+            connectedNode2.RemoveConnectionWith(connectedNode1);
+
+            if (connectedNode1 != null)
+            {
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, new LineSegment2D(segment.P1, splitNode.Position), maxHeight);
+                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, new LineSegment2D(splitNode.Position, segment.P1), maxHeight);
+            }
+            
+            if (connectedNode2 != null)
+            {
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, new LineSegment2D(splitNode.Position, segment.P2), maxHeight);
+                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, new LineSegment2D(segment.P2, splitNode.Position), maxHeight);
+            }
+
+            return splitNode;
         }
 
         public Node Get(int nodeIndex)
@@ -168,23 +226,6 @@ namespace _2RGuide
             return _nodes.ToArray();
         }
 
-        public void ConnectWithNodesAtSegment(Node node, LineSegment2D segment, ConnectionType connectionType = ConnectionType.Walk)
-        {
-            var oneWayPlatN1 = Get(segment.P1);
-            var oneWayPlatN2 = Get(segment.P2);
-
-            var connection = oneWayPlatN1.ConnectionWith(oneWayPlatN2).Value;
-
-            var s1 = new LineSegment2D(oneWayPlatN1.Position, node.Position);
-            var s2 = new LineSegment2D(node.Position, oneWayPlatN2.Position);
-
-            node.AddConnection(connectionType, oneWayPlatN1, s1, connection.MaxHeight);
-            node.AddConnection(connectionType, oneWayPlatN2, s2, connection.MaxHeight);
-
-            oneWayPlatN1.AddConnection(connectionType, node, s1, connection.MaxHeight);
-            oneWayPlatN2.AddConnection(connectionType, node, s2, connection.MaxHeight);
-        }
-
         public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType = ConnectionType.Walk)
         {
             var s = new LineSegment2D(node1.Position, node2.Position);
@@ -193,6 +234,12 @@ namespace _2RGuide
             node2.AddConnection(connectionType, node1, s, maxHeight);
 
             return s;
+        }
+
+        public NodeConnection[] GetUniqueNodeConnections()
+        {
+            var connections = _nodes.SelectMany(n => n.Connections).Distinct(new NodeConnectionEqualityComparer());
+            return connections.ToArray();
         }
     }
 }
