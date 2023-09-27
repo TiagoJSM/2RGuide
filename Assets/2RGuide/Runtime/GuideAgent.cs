@@ -145,8 +145,6 @@ namespace _2RGuide
             var pathfindingTask = Task.Run(() => 
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
-                //var startN = navWorld.nodeStore.ClosestTo(start);
-                //var endN = navWorld.nodeStore.ClosestTo(end);
                 var startN = navWorld.GetClosestNodeInSegment(start);
                 var endN = navWorld.GetClosestNodeInSegment(end);
                 return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
