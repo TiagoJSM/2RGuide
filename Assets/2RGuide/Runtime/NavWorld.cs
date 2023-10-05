@@ -15,13 +15,7 @@ namespace _2RGuide
 
         public Node GetClosestNodeInSegment(Vector2 position)
         {
-            var navSegment = 
-                uniqueSegments
-                    .MinBy(ns =>
-                    {
-                        var closestPoint = ns.segment.ClosestPointOnLine(position);
-                        return Vector2.Distance(closestPoint, position);
-                    });
+            var navSegment = GetClosestNavSegment(position);
 
             var closestPoint = navSegment.segment.ClosestPointOnLine(position);
 
@@ -29,6 +23,19 @@ namespace _2RGuide
             var node2 = nodeStore.Get(navSegment.segment.P2);
 
             return Vector2.Distance(closestPoint, node1.Position) < Vector2.Distance(closestPoint, node2.Position) ? node1 : node2;
+        }
+
+        public NavSegment GetClosestNavSegment(Vector2 position)
+        {
+            var navSegment =
+                uniqueSegments
+                    .MinBy(ns =>
+                    {
+                        var closestPoint = ns.segment.ClosestPointOnLine(position);
+                        return Vector2.Distance(closestPoint, position);
+                    });
+
+            return navSegment;
         }
     }
 }
