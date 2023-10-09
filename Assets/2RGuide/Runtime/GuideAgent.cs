@@ -47,6 +47,7 @@ namespace _2RGuide
         private float _pathfindingMaxDistance = float.PositiveInfinity;
 
         private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
+        private bool RequiresFindingNewPath => !_currentDestination.HasValue && _desiredDestination.HasValue;
 
         public Vector2 DesiredMovement { get; private set; }
         public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
@@ -65,7 +66,12 @@ namespace _2RGuide
 
         public void SetDestination(Vector2 destination)
         {
+            CancelPathFinding();
             _desiredDestination = destination;
+            if(RequiresFindingNewPath)
+            {
+                _agentStatus = AgentStatus.Busy;
+            }
         }
 
         public void CancelPathFinding()
@@ -78,6 +84,23 @@ namespace _2RGuide
             _currentDestination = null;
             _agentStatus = AgentStatus.Iddle;
             _path = null;
+        }
+
+        public void CompleteCurrentSegment()
+        {
+            if(_path == null)
+            {
+                return;
+            }
+
+            _targetPathIndex++;
+            if (_targetPathIndex >= _path.Length)
+            {
+                _desiredDestination = null;
+                _agentStatus = AgentStatus.Iddle;
+                _path = null;
+                DesiredMovement = Vector2.zero;
+            }
         }
 
         private void Start()
@@ -93,7 +116,7 @@ namespace _2RGuide
 
         void Update()
         {
-            if (!_currentDestination.HasValue && _desiredDestination.HasValue)
+            if (RequiresFindingNewPath)
             {
                 CancelPathFinding();
                 _currentDestination = _desiredDestination;
@@ -117,13 +140,9 @@ namespace _2RGuide
 
             if (Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold)
             {
-                _targetPathIndex++;
-                if (_targetPathIndex >= _path.Length)
+                CompleteCurrentSegment();
+                if (_path == null)
                 {
-                    _desiredDestination = null;
-                    _agentStatus = AgentStatus.Iddle;
-                    _path = null;
-                    DesiredMovement = Vector2.zero;
                     return;
                 }
             }
@@ -134,14 +153,8 @@ namespace _2RGuide
             }
         }
 
-        private bool Approximatelly(Vector2 v1, Vector2 v2)
-        {
-            return v1.Approximately(v2);
-        }
-
         private IEnumerator FindPath(Vector2 start, Vector2 end)
         {
-            _agentStatus = AgentStatus.Busy;
             var pathfindingTask = Task.Run(() => 
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
@@ -160,7 +173,8 @@ namespace _2RGuide
             if (path == null)
             {
                 _coroutine = null;
-                _path = Array.Empty<AgentSegment>();
+                _path = null;
+                _agentStatus = AgentStatus.Iddle;
                 yield break;
             }
 
