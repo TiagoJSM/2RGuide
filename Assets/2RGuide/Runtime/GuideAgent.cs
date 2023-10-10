@@ -118,7 +118,6 @@ namespace _2RGuide
         {
             if (RequiresFindingNewPath)
             {
-                CancelPathFinding();
                 _currentDestination = _desiredDestination;
                 _desiredDestination = null;
                 _coroutine = StartCoroutine(FindPath(ReferencePosition, _currentDestination.Value));
