@@ -134,8 +134,6 @@ namespace _2RGuide
                 return;
             }
 
-            _agentStatus = AgentStatus.Moving;
-
             var step = _speed * Time.deltaTime;
 
             if (Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold)
@@ -178,6 +176,7 @@ namespace _2RGuide
                 yield break;
             }
 
+            _agentStatus = AgentStatus.Moving;
             _targetPathIndex = 0;
 
             var agentSegmentPath =
