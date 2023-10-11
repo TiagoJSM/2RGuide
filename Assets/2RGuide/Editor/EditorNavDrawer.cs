@@ -110,7 +110,7 @@ namespace _2RGuide.Editor
             }
             foreach (var node in nodes)
             {
-                Handles.Label(node.Position, $"Node ({node.Position.x:0.00} , {node.Position.y:0.00})");
+                Handles.Label(node.Position, $"Node[{node.NodeIndex}] ({node.Position.x:0.00} , {node.Position.y:0.00})");
             }
         }
     }

@@ -59,7 +59,7 @@ namespace _2RGuide.Helpers
             return resultSegments.ToArray();
         }
 
-        private static void GetJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NodeStore nodes, NavSegment[] navSegments, float maxSlope, List<LineSegment2D> resultSegments)
+        private static void GetJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NodeStore nodes, List<NavSegment> navSegments, float maxSlope, List<LineSegment2D> resultSegments)
         {
             var jumpSegments =
                 closestPoints

@@ -77,7 +77,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var navBuildContext = new NavBuildContext()
             {
-                segments = navSegments,
+                segments = navSegments.ToList(),
                 closedPath = closedPath
             };
 
@@ -141,7 +141,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var navBuildContext = new NavBuildContext()
             {
-                segments = navSegments,
+                segments = navSegments.ToList(),
                 closedPath = closedPath
             };
 
