@@ -172,6 +172,7 @@ MonoBehaviour:
   _baseOffset: 0
   _proximityThreshold: 0
   _allowedConnectionTypes: 30
+  _pathfindingMaxDistance: Infinity
 --- !u!4 &720845718
 Transform:
   m_ObjectHideFlags: 0
@@ -741,21 +742,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
   - segment:
-      P1: {x: -5, y: 0.5}
-      P2: {x: 0, y: 0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 0, y: 0.5}
-      P2: {x: 2, y: 0.5}
-    maxHeight: 1.56
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 2, y: 0.5}
-      P2: {x: 5, y: 0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-  - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
@@ -763,6 +749,36 @@ MonoBehaviour:
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -5, y: 0.5}
+      P2: {x: -0.066000015, y: 0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -0.066000015, y: 0.5}
+      P2: {x: 0, y: 0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 0, y: 0.5}
+      P2: {x: 1.934, y: 0.5}
+    maxHeight: 1.56
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 1.934, y: 0.5}
+      P2: {x: 2, y: 0.5}
+    maxHeight: 1.56
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 2, y: 0.5}
+      P2: {x: 2, y: 0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 2, y: 0.5}
+      P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
   drops: []

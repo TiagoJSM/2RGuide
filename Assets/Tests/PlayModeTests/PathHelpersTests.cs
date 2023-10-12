@@ -4,6 +4,7 @@ using _2RGuide.Math;
 using Clipper2Lib;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace _2RGuide.Tests.PlayModeTests
 {
@@ -42,7 +43,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var navBuildContext = new NavBuildContext()
             {
-                segments = navSegments,
+                segments = navSegments.ToList(),
                 closedPath = closedPath
             };
 

@@ -68,6 +68,7 @@ namespace _2RGuide
         [SerializeField]
         private List<NodeConnection> _connections;
 
+        public int NodeIndex => _nodeIndex;
         public Vector2 Position
         {
             get => _position;

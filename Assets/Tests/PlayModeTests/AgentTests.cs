@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using _2RGuide;
+using NUnit.Framework;
 using System.Collections;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -48,6 +49,19 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(agent.transform.position, Is.EqualTo(new Vector3(0.93f, 0.5f)).Using(comparer));
             yield return new WaitForSeconds(1.0f);
             Assert.That(agent.transform.position, Is.EqualTo(new Vector3(0.934f, 3.06f)).Using(comparer));
+        }
+
+        [UnityTest]
+        public IEnumerator VerifyAgentReachedGoalInAdjacentSegment()
+        {
+            SceneManager.LoadScene("MoveToAdjacentSegmentTestScene");
+            yield return null;
+            var agent = GameObject.Find("Agent");
+            Assert.That(agent, Is.Not.Null);
+            var comparer = new Vector3EqualityComparer(0.25f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(2.94f, -3.45f)).Using(comparer));
+            yield return new WaitForSeconds(1.0f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(-1.298f, -3.598f)).Using(comparer));
         }
     }
 }

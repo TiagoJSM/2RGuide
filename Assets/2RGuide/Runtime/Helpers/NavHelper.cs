@@ -17,7 +17,7 @@ namespace _2RGuide.Helpers
     public struct NavBuildContext
     {
         public PathsD closedPath;
-        public NavSegment[] segments;
+        public List<NavSegment> segments;
     }
 
     public static class NavHelper
@@ -35,7 +35,7 @@ namespace _2RGuide.Helpers
             return new NavResult()
             {
                 nodeStore = nodeStore,
-                segments = navSegments,
+                segments = navSegments.ToArray(),
                 jumps = jumps,
                 drops = drops
             };

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToPositionOneWayJumpTestScene.unity
     guid: 28f5dce49af8826438020e205129958e
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToAdjacentSegmentTestScene.unity
+    guid: 1c4289fe6a6917f4f999f663524c73da
   m_configObjects: {}

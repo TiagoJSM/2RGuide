@@ -50,7 +50,7 @@ namespace _2RGuide.Helpers
 
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
         // Check if there's no jump segment as replacement
-        private static LineSegment2D FindTargetDropSegment(NavBuildContext navBuildContext, Node node, NavSegment[] navSegments, LineSegment2D[] jumps, float originX, Settings settings)
+        private static LineSegment2D FindTargetDropSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, LineSegment2D[] jumps, float originX, Settings settings)
         {
             var origin = new Vector2(originX, node.Position.y);
 

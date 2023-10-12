@@ -216,7 +216,7 @@ namespace _2RGuide.Editor
             return new NavBuildContext()
             {
                 closedPath = closedPath,
-                segments = navSegments
+                segments = navSegments.ToList(),
             };
         }
     }

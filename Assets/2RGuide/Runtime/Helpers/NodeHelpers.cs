@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace _2RGuide.Helpers
 {
@@ -10,7 +11,7 @@ namespace _2RGuide.Helpers
             public LayerMask oneWayPlatformMask;
         }
 
-        public static void BuildNodes(NodeStore nodeStore, NavSegment[] navSegments)
+        public static void BuildNodes(NodeStore nodeStore, IEnumerable<NavSegment> navSegments)
         {
             foreach (var navSegment in navSegments)
             {
@@ -21,7 +22,7 @@ namespace _2RGuide.Helpers
             CreateNodeConnections(navSegments, nodeStore);
         }
 
-        private static void CreateNodeConnections(NavSegment[] navSegments, NodeStore nodeStore)
+        private static void CreateNodeConnections(IEnumerable<NavSegment> navSegments, NodeStore nodeStore)
         {
             foreach (var navSegment in navSegments)
             {
