@@ -178,7 +178,7 @@ namespace _2RGuide
 
                 if(nodes != null && nodes.Length > 0)
                 {
-                    pathStatus = nodes.Last().Position == end ? PathStatus.Complete : PathStatus.Incomplete;
+                    pathStatus = nodes.Last().Equals(endN) ? PathStatus.Complete : PathStatus.Incomplete;
                 }
 
                 return new PathfindingResult()
