@@ -9,6 +9,12 @@ namespace _2RGuide
 {
     public class GuideAgent : MonoBehaviour
     {
+        private struct PathfindingResult
+        {
+            public PathStatus pathStatus;
+            public Node[] nodes;
+        }
+
         public struct AgentSegment
         {
             public Vector2 position;
@@ -20,6 +26,13 @@ namespace _2RGuide
             Iddle,
             Busy,
             Moving
+        }
+
+        public enum PathStatus
+        {
+            Invalid,
+            Incomplete,
+            Complete
         }
 
         private AgentSegment[] _path;
@@ -53,6 +66,7 @@ namespace _2RGuide
         public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
         public Vector2? CurrentTargetPosition => _path == null ? default(Vector2?) : _path[_targetPathIndex].position;
         public AgentStatus Status => _agentStatus;
+        public PathStatus CurrentPathStatus { get; private set; }
         public float BaseOffset
         {
             get => _baseOffset;
@@ -83,6 +97,7 @@ namespace _2RGuide
             }
             _currentDestination = null;
             _agentStatus = AgentStatus.Iddle;
+            CurrentPathStatus = PathStatus.Invalid;
             _path = null;
         }
 
@@ -98,6 +113,7 @@ namespace _2RGuide
             {
                 _desiredDestination = null;
                 _agentStatus = AgentStatus.Iddle;
+                CurrentPathStatus = PathStatus.Invalid;
                 _path = null;
                 DesiredMovement = Vector2.zero;
             }
@@ -157,7 +173,19 @@ namespace _2RGuide
                 var navWorld = NavWorldReference.Instance.NavWorld;
                 var startN = navWorld.GetClosestNodeInSegment(start);
                 var endN = navWorld.GetClosestNodeInSegment(end);
-                return AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
+                var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
+                var pathStatus = PathStatus.Invalid;
+
+                if(nodes != null && nodes.Length > 0)
+                {
+                    pathStatus = nodes.Last().Position == end ? PathStatus.Complete : PathStatus.Incomplete;
+                }
+
+                return new PathfindingResult()
+                {
+                    nodes = nodes,
+                    pathStatus = pathStatus
+                };
             });
 
             while (!pathfindingTask.IsCompleted)
@@ -165,7 +193,10 @@ namespace _2RGuide
                 yield return null;
             }
 
-            var path = pathfindingTask.Result;
+            var result = pathfindingTask.Result;
+            var path = result.nodes;
+
+            CurrentPathStatus = result.pathStatus;
 
             if (path == null)
             {
