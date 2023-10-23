@@ -1093,20 +1093,20 @@ MonoBehaviour:
         _connectionType: 2
         _segment:
           P1: {x: -7.596, y: -3.615}
-          P2: {x: -4.9960027, y: -3.615}
-        _maxHeight: 3.365
+          P2: {x: 7.2039948, y: -3.615}
+        _maxHeight: 9.275
       - _nodeStore:
           id: 0
-        _nodeIndex: 32
+        _nodeIndex: 24
         _connectionType: 2
         _segment:
-          P1: {x: -7.596, y: -0.45}
+          P1: {x: -7.596, y: 9.2}
           P2: {x: -7.596, y: -3.615}
         _maxHeight: 10
     - _nodeStore:
         id: 0
       _nodeIndex: 14
-      _position: {x: -4.9960027, y: -3.615}
+      _position: {x: 7.2039948, y: -3.615}
       _connections:
       - _nodeStore:
           id: 0
@@ -1114,42 +1114,8 @@ MonoBehaviour:
         _connectionType: 2
         _segment:
           P1: {x: -7.596, y: -3.615}
-          P2: {x: -4.9960027, y: -3.615}
-        _maxHeight: 3.365
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 33
-        _connectionType: 2
-        _segment:
-          P1: {x: -4.571, y: -3.615}
-          P2: {x: -4.9960027, y: -3.615}
+          P2: {x: 7.2039948, y: -3.615}
         _maxHeight: 9.275
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 15
-      _position: {x: 7.2039948, y: -3.615}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 16
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.2039948, y: -3.615}
-          P2: {x: 7.267, y: -3.615}
-        _maxHeight: 8.116497
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 33
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.2039948, y: -3.615}
-          P2: {x: -4.571, y: -3.615}
-        _maxHeight: 9.275
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 16
-      _position: {x: 7.267, y: -3.615}
-      _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 15
@@ -1158,387 +1124,216 @@ MonoBehaviour:
           P1: {x: 7.2039948, y: -3.615}
           P2: {x: 7.267, y: -3.615}
         _maxHeight: 8.116497
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 17
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: -3.615}
-          P2: {x: 7.267, y: 5.5849996}
-        _maxHeight: 10
     - _nodeStore:
         id: 0
-      _nodeIndex: 17
-      _position: {x: 7.267, y: 5.5849996}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 16
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: -3.615}
-          P2: {x: 7.267, y: 5.5849996}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 18
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 5.5849996}
-          P2: {x: 7.267, y: 5.66}
-        _maxHeight: 3.6100001
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 18
-      _position: {x: 7.267, y: 5.66}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 17
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 5.5849996}
-          P2: {x: 7.267, y: 5.66}
-        _maxHeight: 3.6100001
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 19
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 5.66}
-          P2: {x: 3.657, y: 5.66}
-        _maxHeight: 9.211128
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 19
-      _position: {x: 3.657, y: 5.66}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 18
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 5.66}
-          P2: {x: 3.657, y: 5.66}
-        _maxHeight: 9.211128
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 20
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.657, y: 5.66}
-          P2: {x: 3.657, y: 6.335}
-        _maxHeight: 10
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 20
-      _position: {x: 3.657, y: 6.335}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 19
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.657, y: 5.66}
-          P2: {x: 3.657, y: 6.335}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 21
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.657, y: 6.335}
-          P2: {x: 7.267, y: 6.335}
-        _maxHeight: 2.8650007
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 21
-      _position: {x: 7.267, y: 6.335}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 20
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.657, y: 6.335}
-          P2: {x: 7.267, y: 6.335}
-        _maxHeight: 2.8650007
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 22
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 6.335}
-          P2: {x: 7.267, y: 6.535}
-        _maxHeight: 3.6100001
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 22
-      _position: {x: 7.267, y: 6.535}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 21
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 6.335}
-          P2: {x: 7.267, y: 6.535}
-        _maxHeight: 3.6100001
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 23
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 6.535}
-          P2: {x: 7.267, y: 9.2}
-        _maxHeight: 10
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 23
-      _position: {x: 7.267, y: 9.2}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 22
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 6.535}
-          P2: {x: 7.267, y: 9.2}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 24
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 9.2}
-          P2: {x: 3.467003, y: 9.2}
-        _maxHeight: 2.8650002
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 24
-      _position: {x: 3.467003, y: 9.2}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 23
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.267, y: 9.2}
-          P2: {x: 3.467003, y: 9.2}
-        _maxHeight: 2.8650002
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 25
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.467003, y: 9.2}
-          P2: {x: -4.932997, y: 9.2}
-        _maxHeight: 10
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 25
-      _position: {x: -4.932997, y: 9.2}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 24
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.467003, y: 9.2}
-          P2: {x: -4.932997, y: 9.2}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 26
-        _connectionType: 2
-        _segment:
-          P1: {x: -4.932997, y: 9.2}
-          P2: {x: -7.596, y: 9.2}
-        _maxHeight: 8.775
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 26
-      _position: {x: -7.596, y: 9.2}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 25
-        _connectionType: 2
-        _segment:
-          P1: {x: -4.932997, y: 9.2}
-          P2: {x: -7.596, y: 9.2}
-        _maxHeight: 8.775
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 27
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 9.2}
-          P2: {x: -7.596, y: 0.6000041}
-        _maxHeight: 10
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 27
-      _position: {x: -7.596, y: 0.6000041}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 26
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 9.2}
-          P2: {x: -7.596, y: 0.6000041}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 28
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 0.6000041}
-          P2: {x: -7.596, y: 0.425}
-        _maxHeight: 2.5249996
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 28
-      _position: {x: -7.596, y: 0.425}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 27
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 0.6000041}
-          P2: {x: -7.596, y: 0.425}
-        _maxHeight: 2.5249996
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 29
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 0.425}
-          P2: {x: -5.071, y: 0.425}
-        _maxHeight: 8.775001
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 29
-      _position: {x: -5.071, y: 0.425}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 28
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: 0.425}
-          P2: {x: -5.071, y: 0.425}
-        _maxHeight: 8.775001
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 30
-        _connectionType: 2
-        _segment:
-          P1: {x: -5.071, y: 0.425}
-          P2: {x: -5.071, y: -0.25}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 33
-        _connectionType: 8
-        _segment:
-          P1: {x: -5.071, y: 0.425}
-          P2: {x: -4.571, y: -3.615}
-        _maxHeight: Infinity
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 30
-      _position: {x: -5.071, y: -0.25}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 29
-        _connectionType: 2
-        _segment:
-          P1: {x: -5.071, y: 0.425}
-          P2: {x: -5.071, y: -0.25}
-        _maxHeight: 10
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 31
-        _connectionType: 2
-        _segment:
-          P1: {x: -5.071, y: -0.25}
-          P2: {x: -7.596, y: -0.25}
-        _maxHeight: 3.365
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 31
-      _position: {x: -7.596, y: -0.25}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 30
-        _connectionType: 2
-        _segment:
-          P1: {x: -5.071, y: -0.25}
-          P2: {x: -7.596, y: -0.25}
-        _maxHeight: 3.365
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 32
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: -0.25}
-          P2: {x: -7.596, y: -0.45}
-        _maxHeight: 2.5249996
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 32
-      _position: {x: -7.596, y: -0.45}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 31
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: -0.25}
-          P2: {x: -7.596, y: -0.45}
-        _maxHeight: 2.5249996
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 13
-        _connectionType: 2
-        _segment:
-          P1: {x: -7.596, y: -0.45}
-          P2: {x: -7.596, y: -3.615}
-        _maxHeight: 10
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 33
-      _position: {x: -4.571, y: -3.615}
+      _nodeIndex: 15
+      _position: {x: 7.267, y: -3.615}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 14
         _connectionType: 2
         _segment:
-          P1: {x: -4.9960027, y: -3.615}
-          P2: {x: -4.571, y: -3.615}
-        _maxHeight: 9.275
+          P1: {x: 7.2039948, y: -3.615}
+          P2: {x: 7.267, y: -3.615}
+        _maxHeight: 8.116497
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 16
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: -3.615}
+          P2: {x: 7.267, y: 5.5849996}
+        _maxHeight: 10
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 16
+      _position: {x: 7.267, y: 5.5849996}
+      _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 15
         _connectionType: 2
         _segment:
-          P1: {x: -4.571, y: -3.615}
-          P2: {x: 7.2039948, y: -3.615}
-        _maxHeight: 9.275
+          P1: {x: 7.267, y: -3.615}
+          P2: {x: 7.267, y: 5.5849996}
+        _maxHeight: 10
       - _nodeStore:
           id: 0
-        _nodeIndex: 29
-        _connectionType: 8
+        _nodeIndex: 17
+        _connectionType: 2
         _segment:
-          P1: {x: -4.571, y: -3.615}
-          P2: {x: -5.071, y: 0.425}
-        _maxHeight: Infinity
+          P1: {x: 7.267, y: 5.5849996}
+          P2: {x: 7.267, y: 5.66}
+        _maxHeight: 3.6100001
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 17
+      _position: {x: 7.267, y: 5.66}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 16
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 5.5849996}
+          P2: {x: 7.267, y: 5.66}
+        _maxHeight: 3.6100001
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 18
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 5.66}
+          P2: {x: 3.657, y: 5.66}
+        _maxHeight: 9.211128
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 18
+      _position: {x: 3.657, y: 5.66}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 17
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 5.66}
+          P2: {x: 3.657, y: 5.66}
+        _maxHeight: 9.211128
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 19
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.657, y: 5.66}
+          P2: {x: 3.657, y: 6.335}
+        _maxHeight: 10
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 19
+      _position: {x: 3.657, y: 6.335}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 18
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.657, y: 5.66}
+          P2: {x: 3.657, y: 6.335}
+        _maxHeight: 10
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 20
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.657, y: 6.335}
+          P2: {x: 7.267, y: 6.335}
+        _maxHeight: 2.8650007
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 20
+      _position: {x: 7.267, y: 6.335}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 19
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.657, y: 6.335}
+          P2: {x: 7.267, y: 6.335}
+        _maxHeight: 2.8650007
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 21
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 6.335}
+          P2: {x: 7.267, y: 6.535}
+        _maxHeight: 3.6100001
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 21
+      _position: {x: 7.267, y: 6.535}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 20
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 6.335}
+          P2: {x: 7.267, y: 6.535}
+        _maxHeight: 3.6100001
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 22
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 6.535}
+          P2: {x: 7.267, y: 9.2}
+        _maxHeight: 10
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 22
+      _position: {x: 7.267, y: 9.2}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 21
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 6.535}
+          P2: {x: 7.267, y: 9.2}
+        _maxHeight: 10
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 23
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 9.2}
+          P2: {x: 3.467003, y: 9.2}
+        _maxHeight: 2.8650002
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 23
+      _position: {x: 3.467003, y: 9.2}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 22
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.267, y: 9.2}
+          P2: {x: 3.467003, y: 9.2}
+        _maxHeight: 2.8650002
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 24
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.467003, y: 9.2}
+          P2: {x: -7.596, y: 9.2}
+        _maxHeight: 10
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 24
+      _position: {x: -7.596, y: 9.2}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 23
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.467003, y: 9.2}
+          P2: {x: -7.596, y: 9.2}
+        _maxHeight: 10
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 13
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.596, y: 9.2}
+          P2: {x: -7.596, y: -3.615}
+        _maxHeight: 10
   segments:
   - segment:
       P1: {x: -8.653, y: -4.951}
@@ -1607,8 +1402,8 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: -7.596, y: -3.615}
-      P2: {x: -4.9960027, y: -3.615}
-    maxHeight: 3.365
+      P2: {x: 7.2039948, y: -3.615}
+    maxHeight: 9.275
     oneWayPlatform: 0
   - segment:
       P1: {x: 7.2039948, y: -3.615}
@@ -1657,63 +1452,16 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: 3.467003, y: 9.2}
-      P2: {x: -4.932997, y: 9.2}
-    maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -4.932997, y: 9.2}
       P2: {x: -7.596, y: 9.2}
-    maxHeight: 8.775
+    maxHeight: 10
     oneWayPlatform: 0
   - segment:
       P1: {x: -7.596, y: 9.2}
-      P2: {x: -7.596, y: 0.6000041}
-    maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: 0.6000041}
-      P2: {x: -7.596, y: 0.425}
-    maxHeight: 2.5249996
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: 0.425}
-      P2: {x: -5.071, y: 0.425}
-    maxHeight: 8.775001
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.071, y: 0.425}
-      P2: {x: -5.071, y: -0.25}
-    maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.071, y: -0.25}
-      P2: {x: -7.596, y: -0.25}
-    maxHeight: 3.365
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: -0.25}
-      P2: {x: -7.596, y: -0.45}
-    maxHeight: 2.5249996
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: -0.45}
       P2: {x: -7.596, y: -3.615}
     maxHeight: 10
     oneWayPlatform: 0
-  - segment:
-      P1: {x: -4.9960027, y: -3.615}
-      P2: {x: -4.571, y: -3.615}
-    maxHeight: 9.275
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -4.571, y: -3.615}
-      P2: {x: 7.2039948, y: -3.615}
-    maxHeight: 9.275
-    oneWayPlatform: 0
   drops: []
-  jumps:
-  - P1: {x: -5.071, y: 0.425}
-    P2: {x: -4.571, y: -3.615}
+  jumps: []
   uniqueSegments:
   - segment:
       P1: {x: -8.653, y: -4.951}
@@ -1782,28 +1530,18 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: -7.596, y: -3.615}
-      P2: {x: -4.9960027, y: -3.615}
-    maxHeight: 3.365
+      P2: {x: 7.2039948, y: -3.615}
+    maxHeight: 9.275
     oneWayPlatform: 0
   - segment:
-      P1: {x: -7.596, y: -0.45}
+      P1: {x: -7.596, y: 9.2}
       P2: {x: -7.596, y: -3.615}
     maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -4.571, y: -3.615}
-      P2: {x: -4.9960027, y: -3.615}
-    maxHeight: 9.275
     oneWayPlatform: 0
   - segment:
       P1: {x: 7.2039948, y: -3.615}
       P2: {x: 7.267, y: -3.615}
     maxHeight: 8.116497
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 7.2039948, y: -3.615}
-      P2: {x: -4.571, y: -3.615}
-    maxHeight: 9.275
     oneWayPlatform: 0
   - segment:
       P1: {x: 7.267, y: -3.615}
@@ -1847,48 +1585,8 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: 3.467003, y: 9.2}
-      P2: {x: -4.932997, y: 9.2}
-    maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -4.932997, y: 9.2}
       P2: {x: -7.596, y: 9.2}
-    maxHeight: 8.775
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: 9.2}
-      P2: {x: -7.596, y: 0.6000041}
     maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: 0.6000041}
-      P2: {x: -7.596, y: 0.425}
-    maxHeight: 2.5249996
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: 0.425}
-      P2: {x: -5.071, y: 0.425}
-    maxHeight: 8.775001
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.071, y: 0.425}
-      P2: {x: -5.071, y: -0.25}
-    maxHeight: 10
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.071, y: 0.425}
-      P2: {x: -4.571, y: -3.615}
-    maxHeight: Infinity
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.071, y: -0.25}
-      P2: {x: -7.596, y: -0.25}
-    maxHeight: 3.365
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -7.596, y: -0.25}
-      P2: {x: -7.596, y: -0.45}
-    maxHeight: 2.5249996
     oneWayPlatform: 0
   references:
     version: 1
@@ -2180,20 +1878,20 @@ MonoBehaviour:
             _connectionType: 2
             _segment:
               P1: {x: -7.596, y: -3.615}
-              P2: {x: -4.9960027, y: -3.615}
-            _maxHeight: 3.365
+              P2: {x: 7.2039948, y: -3.615}
+            _maxHeight: 9.275
           - _nodeStore:
               id: 0
-            _nodeIndex: 32
+            _nodeIndex: 24
             _connectionType: 2
             _segment:
-              P1: {x: -7.596, y: -0.45}
+              P1: {x: -7.596, y: 9.2}
               P2: {x: -7.596, y: -3.615}
             _maxHeight: 10
         - _nodeStore:
             id: 0
           _nodeIndex: 14
-          _position: {x: -4.9960027, y: -3.615}
+          _position: {x: 7.2039948, y: -3.615}
           _connections:
           - _nodeStore:
               id: 0
@@ -2201,42 +1899,8 @@ MonoBehaviour:
             _connectionType: 2
             _segment:
               P1: {x: -7.596, y: -3.615}
-              P2: {x: -4.9960027, y: -3.615}
-            _maxHeight: 3.365
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 33
-            _connectionType: 2
-            _segment:
-              P1: {x: -4.571, y: -3.615}
-              P2: {x: -4.9960027, y: -3.615}
+              P2: {x: 7.2039948, y: -3.615}
             _maxHeight: 9.275
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 15
-          _position: {x: 7.2039948, y: -3.615}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 16
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.2039948, y: -3.615}
-              P2: {x: 7.267, y: -3.615}
-            _maxHeight: 8.116497
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 33
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.2039948, y: -3.615}
-              P2: {x: -4.571, y: -3.615}
-            _maxHeight: 9.275
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 16
-          _position: {x: 7.267, y: -3.615}
-          _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 15
@@ -2245,387 +1909,216 @@ MonoBehaviour:
               P1: {x: 7.2039948, y: -3.615}
               P2: {x: 7.267, y: -3.615}
             _maxHeight: 8.116497
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 17
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: -3.615}
-              P2: {x: 7.267, y: 5.5849996}
-            _maxHeight: 10
         - _nodeStore:
             id: 0
-          _nodeIndex: 17
-          _position: {x: 7.267, y: 5.5849996}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 16
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: -3.615}
-              P2: {x: 7.267, y: 5.5849996}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 18
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 5.5849996}
-              P2: {x: 7.267, y: 5.66}
-            _maxHeight: 3.6100001
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 18
-          _position: {x: 7.267, y: 5.66}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 17
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 5.5849996}
-              P2: {x: 7.267, y: 5.66}
-            _maxHeight: 3.6100001
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 19
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 5.66}
-              P2: {x: 3.657, y: 5.66}
-            _maxHeight: 9.211128
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 19
-          _position: {x: 3.657, y: 5.66}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 18
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 5.66}
-              P2: {x: 3.657, y: 5.66}
-            _maxHeight: 9.211128
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 20
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.657, y: 5.66}
-              P2: {x: 3.657, y: 6.335}
-            _maxHeight: 10
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 20
-          _position: {x: 3.657, y: 6.335}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 19
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.657, y: 5.66}
-              P2: {x: 3.657, y: 6.335}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 21
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.657, y: 6.335}
-              P2: {x: 7.267, y: 6.335}
-            _maxHeight: 2.8650007
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 21
-          _position: {x: 7.267, y: 6.335}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 20
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.657, y: 6.335}
-              P2: {x: 7.267, y: 6.335}
-            _maxHeight: 2.8650007
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 22
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 6.335}
-              P2: {x: 7.267, y: 6.535}
-            _maxHeight: 3.6100001
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 22
-          _position: {x: 7.267, y: 6.535}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 21
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 6.335}
-              P2: {x: 7.267, y: 6.535}
-            _maxHeight: 3.6100001
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 23
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 6.535}
-              P2: {x: 7.267, y: 9.2}
-            _maxHeight: 10
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 23
-          _position: {x: 7.267, y: 9.2}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 22
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 6.535}
-              P2: {x: 7.267, y: 9.2}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 24
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 9.2}
-              P2: {x: 3.467003, y: 9.2}
-            _maxHeight: 2.8650002
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 24
-          _position: {x: 3.467003, y: 9.2}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 23
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.267, y: 9.2}
-              P2: {x: 3.467003, y: 9.2}
-            _maxHeight: 2.8650002
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 25
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.467003, y: 9.2}
-              P2: {x: -4.932997, y: 9.2}
-            _maxHeight: 10
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 25
-          _position: {x: -4.932997, y: 9.2}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 24
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.467003, y: 9.2}
-              P2: {x: -4.932997, y: 9.2}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 26
-            _connectionType: 2
-            _segment:
-              P1: {x: -4.932997, y: 9.2}
-              P2: {x: -7.596, y: 9.2}
-            _maxHeight: 8.775
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 26
-          _position: {x: -7.596, y: 9.2}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 25
-            _connectionType: 2
-            _segment:
-              P1: {x: -4.932997, y: 9.2}
-              P2: {x: -7.596, y: 9.2}
-            _maxHeight: 8.775
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 27
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 9.2}
-              P2: {x: -7.596, y: 0.6000041}
-            _maxHeight: 10
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 27
-          _position: {x: -7.596, y: 0.6000041}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 26
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 9.2}
-              P2: {x: -7.596, y: 0.6000041}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 28
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 0.6000041}
-              P2: {x: -7.596, y: 0.425}
-            _maxHeight: 2.5249996
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 28
-          _position: {x: -7.596, y: 0.425}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 27
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 0.6000041}
-              P2: {x: -7.596, y: 0.425}
-            _maxHeight: 2.5249996
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 29
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 0.425}
-              P2: {x: -5.071, y: 0.425}
-            _maxHeight: 8.775001
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 29
-          _position: {x: -5.071, y: 0.425}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 28
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: 0.425}
-              P2: {x: -5.071, y: 0.425}
-            _maxHeight: 8.775001
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 30
-            _connectionType: 2
-            _segment:
-              P1: {x: -5.071, y: 0.425}
-              P2: {x: -5.071, y: -0.25}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 33
-            _connectionType: 8
-            _segment:
-              P1: {x: -5.071, y: 0.425}
-              P2: {x: -4.571, y: -3.615}
-            _maxHeight: Infinity
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 30
-          _position: {x: -5.071, y: -0.25}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 29
-            _connectionType: 2
-            _segment:
-              P1: {x: -5.071, y: 0.425}
-              P2: {x: -5.071, y: -0.25}
-            _maxHeight: 10
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 31
-            _connectionType: 2
-            _segment:
-              P1: {x: -5.071, y: -0.25}
-              P2: {x: -7.596, y: -0.25}
-            _maxHeight: 3.365
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 31
-          _position: {x: -7.596, y: -0.25}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 30
-            _connectionType: 2
-            _segment:
-              P1: {x: -5.071, y: -0.25}
-              P2: {x: -7.596, y: -0.25}
-            _maxHeight: 3.365
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 32
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: -0.25}
-              P2: {x: -7.596, y: -0.45}
-            _maxHeight: 2.5249996
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 32
-          _position: {x: -7.596, y: -0.45}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 31
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: -0.25}
-              P2: {x: -7.596, y: -0.45}
-            _maxHeight: 2.5249996
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 13
-            _connectionType: 2
-            _segment:
-              P1: {x: -7.596, y: -0.45}
-              P2: {x: -7.596, y: -3.615}
-            _maxHeight: 10
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 33
-          _position: {x: -4.571, y: -3.615}
+          _nodeIndex: 15
+          _position: {x: 7.267, y: -3.615}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 14
             _connectionType: 2
             _segment:
-              P1: {x: -4.9960027, y: -3.615}
-              P2: {x: -4.571, y: -3.615}
-            _maxHeight: 9.275
+              P1: {x: 7.2039948, y: -3.615}
+              P2: {x: 7.267, y: -3.615}
+            _maxHeight: 8.116497
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 16
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: -3.615}
+              P2: {x: 7.267, y: 5.5849996}
+            _maxHeight: 10
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 16
+          _position: {x: 7.267, y: 5.5849996}
+          _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 15
             _connectionType: 2
             _segment:
-              P1: {x: -4.571, y: -3.615}
-              P2: {x: 7.2039948, y: -3.615}
-            _maxHeight: 9.275
+              P1: {x: 7.267, y: -3.615}
+              P2: {x: 7.267, y: 5.5849996}
+            _maxHeight: 10
           - _nodeStore:
               id: 0
-            _nodeIndex: 29
-            _connectionType: 8
+            _nodeIndex: 17
+            _connectionType: 2
             _segment:
-              P1: {x: -4.571, y: -3.615}
-              P2: {x: -5.071, y: 0.425}
-            _maxHeight: Infinity
+              P1: {x: 7.267, y: 5.5849996}
+              P2: {x: 7.267, y: 5.66}
+            _maxHeight: 3.6100001
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 17
+          _position: {x: 7.267, y: 5.66}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 16
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 5.5849996}
+              P2: {x: 7.267, y: 5.66}
+            _maxHeight: 3.6100001
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 18
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 5.66}
+              P2: {x: 3.657, y: 5.66}
+            _maxHeight: 9.211128
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 18
+          _position: {x: 3.657, y: 5.66}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 17
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 5.66}
+              P2: {x: 3.657, y: 5.66}
+            _maxHeight: 9.211128
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 19
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.657, y: 5.66}
+              P2: {x: 3.657, y: 6.335}
+            _maxHeight: 10
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 19
+          _position: {x: 3.657, y: 6.335}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 18
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.657, y: 5.66}
+              P2: {x: 3.657, y: 6.335}
+            _maxHeight: 10
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 20
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.657, y: 6.335}
+              P2: {x: 7.267, y: 6.335}
+            _maxHeight: 2.8650007
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 20
+          _position: {x: 7.267, y: 6.335}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 19
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.657, y: 6.335}
+              P2: {x: 7.267, y: 6.335}
+            _maxHeight: 2.8650007
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 21
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 6.335}
+              P2: {x: 7.267, y: 6.535}
+            _maxHeight: 3.6100001
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 21
+          _position: {x: 7.267, y: 6.535}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 20
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 6.335}
+              P2: {x: 7.267, y: 6.535}
+            _maxHeight: 3.6100001
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 22
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 6.535}
+              P2: {x: 7.267, y: 9.2}
+            _maxHeight: 10
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 22
+          _position: {x: 7.267, y: 9.2}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 21
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 6.535}
+              P2: {x: 7.267, y: 9.2}
+            _maxHeight: 10
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 23
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 9.2}
+              P2: {x: 3.467003, y: 9.2}
+            _maxHeight: 2.8650002
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 23
+          _position: {x: 3.467003, y: 9.2}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 22
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.267, y: 9.2}
+              P2: {x: 3.467003, y: 9.2}
+            _maxHeight: 2.8650002
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 24
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.467003, y: 9.2}
+              P2: {x: -7.596, y: 9.2}
+            _maxHeight: 10
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 24
+          _position: {x: -7.596, y: 9.2}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 23
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.467003, y: 9.2}
+              P2: {x: -7.596, y: 9.2}
+            _maxHeight: 10
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 13
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.596, y: 9.2}
+              P2: {x: -7.596, y: -3.615}
+            _maxHeight: 10
 --- !u!4 &1727419676
 Transform:
   m_ObjectHideFlags: 0
@@ -2671,7 +2164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1777391084
 Transform:
   m_ObjectHideFlags: 0
