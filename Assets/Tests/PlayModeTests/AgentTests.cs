@@ -67,5 +67,36 @@ namespace Assets.Tests.PlayModeTests
             yield return new WaitForSeconds(1.0f);
             Assert.That(agent.transform.position, Is.EqualTo(target.transform.position).Using(comparer));
         }
+
+        [UnityTest]
+        public IEnumerator VerifyAgentCantReachGoalButMovesToClosestPosition()
+        {
+            SceneManager.LoadScene("MoveToNonReachablePositionTestScene");
+            yield return null;
+            var agent = GameObject.Find("Agent");
+            Assert.That(agent, Is.Not.Null);
+            var comparer = new Vector3EqualityComparer(0.25f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(1.565f, -3.45f)).Using(comparer));
+            yield return new WaitForSeconds(1.0f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, -3.615f)).Using(comparer));
+        }
+
+        [UnityTest]
+        public IEnumerator VerifyAgentCantReachGoalButMovesToClosestPositionAfterRepeatedPathfinding()
+        {
+            SceneManager.LoadScene("MoveToNonReachablePositionRepeatPathfindingTestScene");
+            yield return null;
+            var agent = GameObject.Find("Agent").GetComponent<TransformMovement>();
+            var target = GameObject.Find("Target");
+            Assert.That(agent, Is.Not.Null);
+            var comparer = new Vector3EqualityComparer(0.25f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(1.565f, -3.45f)).Using(comparer));
+            agent.Target = target.transform;
+            yield return new WaitForSeconds(1.0f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, -3.615f)).Using(comparer));
+            agent.Target = target.transform;
+            yield return new WaitForSeconds(1.0f);
+            Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, -3.615f)).Using(comparer));
+        }
     }
 }

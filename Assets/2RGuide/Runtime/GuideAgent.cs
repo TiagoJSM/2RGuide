@@ -142,6 +142,13 @@ namespace _2RGuide
             Move();
         }
 
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            DrawPath();
+#endif
+        }
+
         private void Move()
         {
             if (_path == null)
@@ -239,7 +246,17 @@ namespace _2RGuide
                 segmentPath[segmentPath.Length - 1].position = closestPositionWithTarget;
             }
 
-            _path = segmentPath;
+            var distinctedSegmentPath = segmentPath.Distinct();
+
+            if(distinctedSegmentPath.Count() < 2)
+            {
+                _coroutine = null;
+                _path = null;
+                _agentStatus = AgentStatus.Iddle;
+                yield break;
+            }
+
+            _path = distinctedSegmentPath.ToArray();
         }
 
         private void OnDrawGizmosSelected()
@@ -247,5 +264,23 @@ namespace _2RGuide
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(ReferencePosition, ProximityThreshold);
         }
+
+#if UNITY_EDITOR
+        private void DrawPath()
+        {
+            if (_path == null)
+            {
+                return;
+            }
+
+            var start = ReferencePosition;
+
+            for (var idx = _targetPathIndex; idx < _path.Length; idx++)
+            {
+                Debug.DrawLine(start, _path[idx].position, Color.yellow);
+                start = _path[idx].position;
+            }
+        }
+#endif
     }
 }
