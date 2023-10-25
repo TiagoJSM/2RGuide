@@ -23,7 +23,7 @@ namespace _2RGuide.Helpers
     public static class LineSegmentExtensions
     {
         //ToDo: move this to another file (maybe settings?)
-        public static readonly float MaxHeight = 50.0f;  
+        public static readonly float MaxHeight = 10.0f;  
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {
             var slope = segment.Slope;
@@ -78,15 +78,19 @@ namespace _2RGuide.Helpers
 
             var p1 = segment.P1;
             var normal = segment.NormalVector.normalized;
-            var hit = Calculations.Raycast(p1, p1 + normal * MaxHeight, segments);
-            var p1Height = hit ? hit.Distance : MaxHeight;
+            var p1Height = MaxHeight;
             var divisionStep = segmentDivision;
 
             while (p1 != segment.P2)
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                hit = Calculations.Raycast(p2, p2 + normal * MaxHeight, segments);
+                var hit = Calculations.Raycast(p2, p2 + normal * MaxHeight, segments);
                 var p2Height = hit ? hit.Distance : MaxHeight;
+
+                if (p2 == segment.P2)
+                {
+                    p2Height = p1Height;
+                }
 
                 splits.Add(new NavSegment()
                 {

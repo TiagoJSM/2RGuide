@@ -74,7 +74,16 @@ namespace _2RGuide
             
             if (kvp.Key != null)
             {
-                return ReconstructPath(cameFrom, kvp.Key);
+                var closestNodeDistance = Vector2.Distance(kvp.Key.Position, goal.Position);
+                var startNodeDistance = Vector2.Distance(start.Position, goal.Position);
+                if (closestNodeDistance < startNodeDistance)
+                {
+                    return ReconstructPath(cameFrom, kvp.Key);
+                }
+                else
+                {
+                    return new Node[] { start };
+                }
             }
 
             return null;
