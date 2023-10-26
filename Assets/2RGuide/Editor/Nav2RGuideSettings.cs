@@ -19,11 +19,12 @@ namespace _2RGuide.Editor
                 var fields = new string[]
                 {
                     nameof(_maxDropHeight),
-                    nameof(_horizontalDistance),
+                    nameof(_jumpDropHorizontalDistance),
                     nameof(_maxSlope),
-                    nameof(_maxJumpDistance),
-                    nameof(_segmentDivision),
-                    nameof(_oneWayPlatformMask)
+                    nameof(_maxJumpHeight),
+                    nameof(_segmentDivisionDistance),
+                    nameof(_oneWayPlatformMask),
+                    nameof(_segmentMaxHeight)
                 };
 
                 var provider = new SettingsProvider("Project/Nav2RGuide Settings", SettingsScope.Project)
@@ -54,23 +55,26 @@ namespace _2RGuide.Editor
         [SerializeField]
         private float _maxDropHeight = 10.0f;
         [SerializeField]
-        private float _horizontalDistance = 1.0f;
+        private float _jumpDropHorizontalDistance = 1.0f;
         [Range(0.0f, 90.0f)]
         [SerializeField]
         private float _maxSlope = 60.0f;
         [SerializeField]
-        private float _maxJumpDistance;
+        private float _maxJumpHeight;
         [SerializeField]
-        private float _segmentDivision = 1.0f;
+        private float _segmentDivisionDistance = 1.0f;
         [SerializeField]
         private LayerMask _oneWayPlatformMask;
+        [SerializeField]
+        private float _segmentMaxHeight = 50.0f;
 
         public float MaxDropHeight => _maxDropHeight;
-        public float HorizontalDistance => _horizontalDistance;
+        public float JumpDropHorizontalDistance => _jumpDropHorizontalDistance;
         public float MaxSlope => _maxSlope;
-        public float MaxJumpDistance => _maxJumpDistance;
-        public float SegmentDivision => _segmentDivision;
+        public float MaxJumpHeight => _maxJumpHeight;
+        public float SegmentDivisionDistance => _segmentDivisionDistance;
         public LayerMask OneWayPlatformMask => _oneWayPlatformMask;
+        public float SegmentMaxHeight => _segmentMaxHeight;
 
         internal static Nav2RGuideSettings GetOrCreateSettings()
         {

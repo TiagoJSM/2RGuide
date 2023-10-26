@@ -36,10 +36,11 @@ namespace _2RGuide.Editor
             {
                 return;
             }
+            var instance = Nav2RGuideSettings.GetOrCreateSettings();
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;
-                Handles.color = Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / LineSegmentExtensions.MaxHeight);
+                Handles.color = Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
                 Handles.DrawLine(segment.P1, segment.P2, LineThickness);
             }
         }

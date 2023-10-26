@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Nav2RGuideSettings
   m_EditorClassIdentifier: 
   _maxDropHeight: 20
-  _horizontalDistance: 0.5
+  _jumpDropHorizontalDistance: 0.5
   _maxSlope: 60
-  _maxJumpDistance: 5
-  _segmentDivision: 1
+  _maxJumpHeight: 5
+  _segmentDivisionDistance: 1
   _oneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 64
+  _segmentMaxHeight: 50

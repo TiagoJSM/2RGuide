@@ -9,7 +9,7 @@ namespace _2RGuide.Helpers
     {
         public struct Settings
         {
-            public float maxJumpDistance;
+            public float maxJumpHeight;
             public float maxSlope;
             public float minJumpDistanceX;
         }
@@ -20,7 +20,7 @@ namespace _2RGuide.Helpers
 
             foreach (var node in nodes.ToArray())
             {
-                var jumpRadius = new Circle(node.Position, settings.maxJumpDistance);
+                var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
                 var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if(node.CanJumpOrDropToLeftSide(settings.maxSlope))
@@ -114,7 +114,7 @@ namespace _2RGuide.Helpers
             foreach (var oneWayPlatform in oneWayPlatforms)
             {
                 var start = oneWayPlatform.segment.HalfPoint;
-                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, start + Vector2.down * settings.maxJumpDistance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
+                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, start + Vector2.down * settings.maxJumpHeight, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
                 if (!hit)
                 {
                     continue;

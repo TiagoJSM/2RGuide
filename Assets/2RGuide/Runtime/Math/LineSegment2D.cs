@@ -307,7 +307,7 @@ namespace _2RGuide.Math
             return false;
         }
 
-        private Vector2 LineIntersectionPoint(LineSegment2D other)
+        private Vector2? LineIntersectionPoint(LineSegment2D other)
         {
             // Get A,B,C of first line
             float A1 = P2.y - P1.y;
@@ -322,7 +322,10 @@ namespace _2RGuide.Math
             // Get delta and check if the lines are parallel
             float delta = A1 * B2 - A2 * B1;
             if (delta == 0)
-                return Vector2.zero;
+            {
+                //return Vector2.zero;
+                return null;
+            }
 
             // now return the intersection point
             return new Vector2(

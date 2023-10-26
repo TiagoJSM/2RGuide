@@ -22,8 +22,6 @@ namespace _2RGuide.Helpers
 
     public static class LineSegmentExtensions
     {
-        //ToDo: move this to another file (maybe settings?)
-        public static readonly float MaxHeight = 50.0f;  
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {
             var slope = segment.Slope;
@@ -34,11 +32,11 @@ namespace _2RGuide.Helpers
             return true;
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight)
         {
             var result = new List<NavSegment>();
 
-            var splits = segment.DivideSegment(segmentDivision, segments);
+            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight);
 
             var index = 0;
             
@@ -72,21 +70,42 @@ namespace _2RGuide.Helpers
             return result.ToArray();
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight)
         {
             var splits = new List<NavSegment>();
 
             var p1 = segment.P1;
             var normal = segment.NormalVector.normalized;
-            var hit = Calculations.Raycast(p1, p1 + normal * MaxHeight, segments);
-            var p1Height = hit ? hit.Distance : MaxHeight;
+            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments);
+            var p1Height = hit ? hit.Distance : maxHeight;
+            if(hit && hit.HitLineEnd)
+            {
+                var sameDir = SameDirection(segment.P1, segment.P2, hit.LineSegment, hit.HitPosition.Value);
+                if(!sameDir)
+                {
+                    p1Height = maxHeight;
+                }
+            }
+            
             var divisionStep = segmentDivision;
 
             while (p1 != segment.P2)
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                hit = Calculations.Raycast(p2, p2 + normal * MaxHeight, segments);
-                var p2Height = hit ? hit.Distance : MaxHeight;
+                hit = Calculations.Raycast(p2, p2 + normal * maxHeight, segments);
+                var p2Height = hit ? hit.Distance : maxHeight;
+
+                if (p2 == segment.P2)
+                {
+                    if (hit && hit.HitLineEnd)
+                    {
+                        var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
+                        if (!sameDir)
+                        {
+                            p2Height = p1Height;
+                        }
+                    }
+                }
 
                 splits.Add(new NavSegment()
                 {
@@ -151,6 +170,16 @@ namespace _2RGuide.Helpers
         public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
         {
             return segments.FirstOrDefault(s => s.OnSegment(position));
+        }
+
+        private static bool SameDirection(Vector2 s1P1, Vector2 s1P2, LineSegment2D s, Vector2 hitPosition)
+        {
+            var s2P1 = hitPosition.Approximately(s.P1) ? s.P1 : s.P2;
+            var s2P2 = hitPosition.Approximately(s.P1) ? s.P2 : s.P1;
+
+            var s1Dir = (s1P2 - s1P1).normalized;
+            var s2Dir = (s2P2 - s2P1).normalized;
+            return Vector2.Dot(s1Dir, s2Dir) > 0.0f;
         }
     }
 }

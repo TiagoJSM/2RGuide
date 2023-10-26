@@ -9,6 +9,7 @@ namespace _2RGuide.Helpers
         {
             public float segmentDivision;
             public LayerMask oneWayPlatformMask;
+            public float segmentMaxHeight;
         }
 
         public static void BuildNodes(NodeStore nodeStore, IEnumerable<NavSegment> navSegments)

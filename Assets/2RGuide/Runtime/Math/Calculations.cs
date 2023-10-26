@@ -7,13 +7,28 @@ namespace _2RGuide.Math
 {
     public struct CalculationRaycastHit
     {
+        public LineSegment2D LineSegment { get; private set; }
         public float Distance { get; private set; }
         public Vector2? HitPosition { get; private set; }
 
-        public CalculationRaycastHit(Vector2? hitPosition, float distance)
+        public CalculationRaycastHit(LineSegment2D lineSegment, Vector2? hitPosition, float distance)
         {
+            LineSegment = lineSegment;
             HitPosition = hitPosition;
             Distance = distance;
+        }
+
+        public bool HitLineEnd
+        {
+            get
+            {
+                if(!HitPosition.HasValue)
+                {
+                    return false;
+                }
+
+                return LineSegment.P1.Approximately(HitPosition.Value) || LineSegment.P2.Approximately(HitPosition.Value);
+            }
         }
 
         public static implicit operator bool(CalculationRaycastHit hit)
@@ -32,13 +47,13 @@ namespace _2RGuide.Math
             var min = 
                 segments
                     .Select(s =>
-                        ray.GetIntersection(s, false))
+                        (s, ray.GetIntersection(s, false)))
                     .Where(v => 
-                        v.HasValue)
+                        v.Item2.HasValue)
                     .MinBy(v => 
-                        Vector2.Distance(v.Value, origin));
+                        Vector2.Distance(v.Item2.Value, origin));
 
-            return min.HasValue ? new CalculationRaycastHit(min, Vector2.Distance(min.Value, origin)) : new CalculationRaycastHit();
+            return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, Vector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();
         }
     }
 }

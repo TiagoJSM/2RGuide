@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToAdjacentSegmentTestScene.unity
     guid: 1c4289fe6a6917f4f999f663524c73da
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToNonReachablePositionTestScene.unity
+    guid: 0517f947dd248e54aa8b0bd432aded89
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToNonReachablePositionRepeatPathfindingTestScene.unity
+    guid: 3ede06070a075da41beb8c93f1f4cbdb
   m_configObjects: {}

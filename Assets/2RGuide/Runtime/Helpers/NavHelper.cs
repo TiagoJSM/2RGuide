@@ -64,13 +64,13 @@ namespace _2RGuide.Helpers
             return segments.ToArray();
         }
 
-        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments)
+        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight)
         {
             return
                 segments
                     .SelectMany(s =>
                     {
-                        var dividedSegs = s.DivideSegment(segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }));
+                        var dividedSegs = s.DivideSegment(segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }), maxHeight);
                         for (var idx = 0; idx < dividedSegs.Length; idx++)
                         {
                             dividedSegs[idx].oneWayPlatform = edgeSegments.Contains(s);

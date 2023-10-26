@@ -10,6 +10,19 @@ namespace _2RGuide
         [SerializeField]
         private Transform _target;
 
+        public Transform Target
+        {
+            get => _target;
+            set
+            {
+                if (_target != value)
+                {
+                    _target = value;
+                    _guideAgent.SetDestination(_target.position);
+                }
+            }
+        }
+
         // Use this for initialization
         void Awake()
         {
@@ -18,13 +31,27 @@ namespace _2RGuide
 
         private void Start()
         {
-            _guideAgent.SetDestination(_target.position);
+            if (_target != null)
+            {
+                _guideAgent.SetDestination(_target.position);
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
             transform.position += (Vector3)_guideAgent.DesiredMovement;
+        }
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying)
+            {
+                if (_guideAgent != null && _target != null)
+                {
+                    _guideAgent.SetDestination(_target.position);
+                }
+            }
         }
     }
 }

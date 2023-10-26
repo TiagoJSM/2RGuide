@@ -17,8 +17,9 @@ namespace _2RGuide.Editor
                 var instance = Nav2RGuideSettings.GetOrCreateSettings();
                 return new NodeHelpers.Settings()
                 {
-                    segmentDivision = instance.SegmentDivision,
-                    oneWayPlatformMask = instance.OneWayPlatformMask
+                    segmentDivision = instance.SegmentDivisionDistance,
+                    oneWayPlatformMask = instance.OneWayPlatformMask,
+                    segmentMaxHeight = instance.SegmentMaxHeight
                 };
             }
         }
@@ -30,9 +31,9 @@ namespace _2RGuide.Editor
                 var instance = Nav2RGuideSettings.GetOrCreateSettings();
                 return new JumpsHelper.Settings()
                 {
-                    maxJumpDistance = instance.MaxJumpDistance,
+                    maxJumpHeight = instance.MaxJumpHeight,
                     maxSlope = instance.MaxSlope,
-                    minJumpDistanceX = instance.HorizontalDistance
+                    minJumpDistanceX = instance.JumpDropHorizontalDistance
                 };
             }
         }
@@ -45,7 +46,7 @@ namespace _2RGuide.Editor
                 return new DropsHelper.Settings()
                 {
                     maxDropHeight = instance.MaxDropHeight,
-                    horizontalDistance = instance.HorizontalDistance,
+                    horizontalDistance = instance.JumpDropHorizontalDistance,
                     maxSlope = instance.MaxSlope
                 };
             }
@@ -211,7 +212,7 @@ namespace _2RGuide.Editor
 
             var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
 
-            var navSegments = NavHelper.ConvertToNavSegments(result, nodePathSettings.segmentDivision, oneWayEdgeSegments);
+            var navSegments = NavHelper.ConvertToNavSegments(result, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight);
 
             return new NavBuildContext()
             {
