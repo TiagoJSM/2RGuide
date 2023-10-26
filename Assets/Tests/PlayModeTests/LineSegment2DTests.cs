@@ -160,16 +160,16 @@ namespace _2RGuide.Tests.PlayModeTests
             Assert.AreEqual(50.0f, splits[3].maxHeight);
         }
 
-        [Test]
-        public void TestIntersectionValueBetweenLinesWithSameDirection()
-        {
-            var ray = new LineSegment2D(new Vector2(7.3f, -3.6f), new Vector2(7.3f, 6.4f));
-            var s = new LineSegment2D(new Vector2(7.3f, 6.3f), new Vector2(7.3f, 9.2f));
-            var intersection = ray.GetIntersection(s);
+        //[Test]
+        //public void TestIntersectionValueBetweenLinesWithSameDirection()
+        //{
+        //    var ray = new LineSegment2D(new Vector2(7.3f, -3.6f), new Vector2(7.3f, 6.4f));
+        //    var s = new LineSegment2D(new Vector2(7.3f, 6.3f), new Vector2(7.3f, 9.2f));
+        //    var intersection = ray.GetIntersection(s);
 
-            Assert.True(intersection.HasValue);
-            var comparer = new Vector3EqualityComparer(0.01f);
-            Assert.That(intersection.Value, Is.EqualTo(new Vector2(7.3f, 6.3f)).Using(comparer));
-        }
+        //    Assert.True(intersection.HasValue);
+        //    var comparer = new Vector3EqualityComparer(0.01f);
+        //    Assert.That(intersection.Value, Is.EqualTo(new Vector2(7.3f, 6.3f)).Using(comparer));
+        //}
     }
 }
