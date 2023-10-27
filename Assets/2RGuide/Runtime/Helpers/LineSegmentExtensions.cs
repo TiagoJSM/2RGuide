@@ -149,7 +149,7 @@ namespace _2RGuide.Helpers
                 .Select(v => v.Value).ToArray();
         }
 
-        public static bool IsJumpSegmentOverlappingTerrain(this LineSegment2D jumpSegment, PathsD closedPaths)
+        public static bool IsJumpSegmentOverlappingTerrain(this LineSegment2D jumpSegment, PathsD closedPaths, IEnumerable<NavSegment> navSegments)
         {
             var line = Clipper.MakePath(new double[]
                 {
@@ -164,7 +164,19 @@ namespace _2RGuide.Helpers
             var openPath = new PathsD();
             var closedPath = new PathsD();
             var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-            return closedPath.Count == 0;
+            //return closedPath.Count == 0;
+            if (closedPath.Count == 0)
+            {
+                return true;
+            }
+            return false;
+
+            var intersects = navSegments.Any(ns => 
+                { 
+                    var intersect = ns.segment.DoLinesIntersect(jumpSegment, false);
+                    return intersect;
+                });
+            return intersects;
         }
 
         public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)

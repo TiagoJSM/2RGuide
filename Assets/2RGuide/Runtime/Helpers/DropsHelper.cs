@@ -77,7 +77,7 @@ namespace _2RGuide.Helpers
             {
                 var dropSegment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
 
-                var overlaps = dropSegment.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath);
+                var overlaps = dropSegment.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
 
                 if (overlaps)
                 {

@@ -15,7 +15,7 @@ MonoBehaviour:
   _maxDropHeight: 20
   _jumpDropHorizontalDistance: 0.5
   _maxSlope: 60
-  _maxJumpHeight: 5
+  _maxJumpHeight: 1
   _segmentDivisionDistance: 1
   _oneWayPlatformMask:
     serializedVersion: 2

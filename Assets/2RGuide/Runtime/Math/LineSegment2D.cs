@@ -372,10 +372,23 @@ namespace _2RGuide.Math
             int o3 = Orientation(p2, q2, p1);
             int o4 = Orientation(p2, q2, q1);
 
-            // General case
-            if (o1 != o2 && o3 != o4)
-                return true;
+            var collinear = ValidateIfCollinear(p1, q1, p2, q2, o1, o2, o3, o4);
 
+            if (collinear)
+            {
+                if (!validateLineEndingIntersection)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            // General case
+            return o1 != o2 && o3 != o4;
+        }
+
+        private static bool ValidateIfCollinear(Vector2 p1, Vector2 q1, Vector2 p2, Vector2 q2, int o1, int o2, int o3, int o4)
+        {
             // Special Cases
             // p1, q1 and p2 are collinear and p2 lies on segment p1q1
             if (o1 == 0 && OnSegment(p1, p2, q1)) return true;
