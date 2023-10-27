@@ -47,7 +47,7 @@ namespace _2RGuide.Math
             var min = 
                 segments
                     .Select(s =>
-                        (s, ray.GetIntersection(s, false)))
+                        (s, ray.GetIntersection(s)))
                     .Where(v => 
                         v.Item2.HasValue)
                     .MinBy(v => 

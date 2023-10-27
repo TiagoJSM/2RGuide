@@ -69,7 +69,7 @@ namespace _2RGuide.Helpers
                         !navSegments.Any(ss =>
                             !ss.segment.OnSegment(l.P2) && ss.segment.DoLinesIntersect(l, false)))
                     .Where(s => 
-                        !s.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath));
+                        !s.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments));
 
             foreach (var jumpSegment in jumpSegments)
             {
