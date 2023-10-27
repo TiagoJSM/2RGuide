@@ -169,7 +169,6 @@ namespace _2RGuide.Helpers
             {
                 return true;
             }
-            return false;
 
             var intersects = navSegments.Any(ns => 
                 { 
