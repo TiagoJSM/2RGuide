@@ -83,7 +83,7 @@ namespace _2RGuide
         {
             CancelPathFinding();
             _desiredDestination = destination;
-            if(RequiresFindingNewPath)
+            if (RequiresFindingNewPath)
             {
                 _agentStatus = AgentStatus.Busy;
             }
@@ -97,6 +97,7 @@ namespace _2RGuide
                 _coroutine = null;
             }
             _currentDestination = null;
+            _desiredDestination = null;
             _agentStatus = AgentStatus.Iddle;
             CurrentPathStatus = PathStatus.Invalid;
             _path = null;
