@@ -56,7 +56,7 @@ namespace _2RGuide
                         continue;
                     }
 
-                    if (tentativeGScore < gScore.GetValueOrDefault(neighbor.Node, float.PositiveInfinity))
+                    if (tentativeGScore < gScore.GetValueOrDefaultValue(neighbor.Node, float.PositiveInfinity))
                     {
                         cameFrom[neighbor.Node] = current;
                         gScore[neighbor.Node] = tentativeGScore;
