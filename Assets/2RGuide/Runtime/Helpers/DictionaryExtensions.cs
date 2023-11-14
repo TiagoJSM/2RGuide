@@ -4,7 +4,7 @@ namespace _2RGuide.Helpers
 {
     public static class DictionaryExtensions
     {
-        public static TValue GetValueOrDefault<TKey, TValue>(
+        public static TValue GetValueOrDefaultValue<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key,
             TValue defaultValue)
