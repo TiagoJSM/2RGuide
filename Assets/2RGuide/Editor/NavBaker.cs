@@ -5,6 +5,7 @@ using Clipper2Lib;
 using _2RGuide.Math;
 using System.Collections.Generic;
 using System.Linq;
+using Assets._2RGuide.Runtime.Helpers;
 
 namespace _2RGuide.Editor
 {
@@ -175,7 +176,7 @@ namespace _2RGuide.Editor
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
         {
             var paths = new PathsD();
-            var clipper = new ClipperD(3);
+            var clipper = ClipperUtils.ConfiguredClipperD();
             
             foreach (var collider in colliders)
             {

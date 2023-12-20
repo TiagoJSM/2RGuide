@@ -121,7 +121,7 @@ namespace _2RGuide.Helpers
                 }
 
                 var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
-                var targetPlatformSegment = segments.GetSegmentWithPosition(hit.HitPosition.Value);
+                var targetPlatformSegment = hit.LineSegment;
 
                 var oneWayPlatformNode = nodes.SplitSegmentAt(oneWayPlatform.segment, oneWayPlatform.segment.HalfPoint);
                 var targetNode = nodes.SplitSegmentAt(targetPlatformSegment, hit.HitPosition.Value);
