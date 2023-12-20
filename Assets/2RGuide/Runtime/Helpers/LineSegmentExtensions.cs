@@ -165,7 +165,7 @@ namespace _2RGuide.Helpers
             var openPath = new PathsD();
             var closedPath = new PathsD();
             var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-            //return closedPath.Count == 0;
+            
             if (closedPath.Count == 0)
             {
                 return true;

@@ -64,6 +64,24 @@ namespace _2RGuide.Helpers
             return segments.ToArray();
         }
 
+        public static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
+        {
+            var segments = new List<LineSegment2D>();
+
+            foreach (var path in paths)
+            {
+                var p1 = path[0];
+                for (var idx = 1; idx < path.Count; idx++)
+                {
+                    var p2 = path[idx];
+                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
+                    p1 = p2;
+                }
+            }
+
+            return segments.ToArray();
+        }
+
         public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight)
         {
             return

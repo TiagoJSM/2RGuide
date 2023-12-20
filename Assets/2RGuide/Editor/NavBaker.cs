@@ -194,7 +194,7 @@ namespace _2RGuide.Editor
                 c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
-            var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask).ToArray();
+            var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask, closedPath).ToArray();
             var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();
 
             // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections

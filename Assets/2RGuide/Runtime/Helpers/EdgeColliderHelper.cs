@@ -1,4 +1,6 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
+using Clipper2Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,15 @@ namespace _2RGuide.Helpers
 {
     public static class EdgeColliderHelper
     {
-        public static IEnumerable<(LineSegment2D, bool)> GetEdgeSegments(this Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
+        public static IEnumerable<(LineSegment2D, bool)> GetEdgeSegments(
+            this Collider2D[] colliders, 
+            LineSegment2D[] segmentsFromPaths, 
+            Collider2D[] otherColliders, 
+            LayerMask oneWayPlatformMask,
+            PathsD closedPaths)
         {
             var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask);
-            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask);
+            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask, closedPaths);
             return linesFromEdgeColliders.Concat(linesFromBoxColliders);
         }
 
@@ -28,7 +35,12 @@ namespace _2RGuide.Helpers
                     });
         }
 
-        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromBoxColliders(Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
+        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromBoxColliders(
+            Collider2D[] colliders, 
+            LineSegment2D[] segmentsFromPaths, 
+            Collider2D[] otherColliders, 
+            LayerMask oneWayPlatformMask,
+            PathsD closedPaths)
         {
             return
                 colliders
@@ -38,9 +50,25 @@ namespace _2RGuide.Helpers
                     .SelectMany(c =>
                     {
                         var bounds = c.bounds;
-                        var segments = new LineSegment2D[] 
-                        { 
-                            new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y)) 
+                        var segment = new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y));
+                        var line = Clipper.MakePath(new double[]
+                        {
+                            segment.P1.x, segment.P1.y,
+                            segment.P2.x, segment.P2.y,
+                        });
+
+                        var clipper = ClipperUtils.ConfiguredClipperD();
+                        clipper.AddPath(line, PathType.Subject, true); // a line is open
+                        clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
+                        var openPath = new PathsD();
+                        var closedPath = new PathsD();
+                        var res = clipper.Execute(ClipType.Difference, FillRule.NonZero, openPath, closedPath);
+
+                        return NavHelper.ConvertOpenPathToSegments(closedPath).Select(s => (s, true));
+
+                        var segments = new LineSegment2D[]
+                        {
+                            new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y))
                         };
                         return SplitSegments(segments, segmentsFromPaths, otherColliders).Select(s => (s, true));
                     });
