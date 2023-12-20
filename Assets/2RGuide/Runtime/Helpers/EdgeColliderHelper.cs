@@ -17,12 +17,17 @@ namespace _2RGuide.Helpers
             LayerMask oneWayPlatformMask,
             PathsD closedPaths)
         {
-            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask);
+            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask, closedPaths);
             var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask, closedPaths);
             return linesFromEdgeColliders.Concat(linesFromBoxColliders);
         }
 
-        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(Collider2D[] colliders, LineSegment2D[] segmentsFromPaths, Collider2D[] otherColliders, LayerMask oneWayPlatformMask)
+        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(
+            Collider2D[] colliders, 
+            LineSegment2D[] segmentsFromPaths, 
+            Collider2D[] otherColliders, 
+            LayerMask oneWayPlatformMask,
+            PathsD closedPaths)
         {
             return
                 colliders
@@ -31,7 +36,7 @@ namespace _2RGuide.Helpers
                     .SelectMany(c =>
                     {
                         var isOneWay = oneWayPlatformMask.Includes(c.gameObject);
-                        return GetSegments(c, segmentsFromPaths, otherColliders).Select(s => (s, isOneWay));
+                        return GetSegments(c, segmentsFromPaths, otherColliders, closedPaths).Select(s => (s, isOneWay));
                     });
         }
 
@@ -51,19 +56,9 @@ namespace _2RGuide.Helpers
                     {
                         var bounds = c.bounds;
                         var segment = new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y));
-                        var line = Clipper.MakePath(new double[]
-                        {
-                            segment.P1.x, segment.P1.y,
-                            segment.P2.x, segment.P2.y,
-                        });
+                        var closedPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
 
-                        var clipper = ClipperUtils.ConfiguredClipperD();
-                        clipper.AddPath(line, PathType.Subject, true); // a line is open
-                        clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
-                        var openPath = new PathsD();
-                        var closedPath = new PathsD();
-                        var res = clipper.Execute(ClipType.Difference, FillRule.NonZero, openPath, closedPath);
-
+                        // the result of difference is in closed path, but it represents the open path
                         return NavHelper.ConvertOpenPathToSegments(closedPath).Select(s => (s, true));
 
                         var segments = new LineSegment2D[]
@@ -74,7 +69,7 @@ namespace _2RGuide.Helpers
                     });
         }
 
-        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, LineSegment2D[] segments, Collider2D[] colliders)
+        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, LineSegment2D[] segments, Collider2D[] colliders, PathsD closedPaths)
         {
             var edgeSegments = new List<LineSegment2D>();
             
@@ -91,7 +86,14 @@ namespace _2RGuide.Helpers
                 p1 = p2;
             }
 
-            return SplitSegments(edgeSegments, segments, colliders);
+            return edgeSegments.SelectMany(s =>
+            {
+                var closedPath = ClipperUtils.GetSubtractedPathFromClosedPaths(s, closedPaths);
+                return NavHelper.ConvertOpenPathToSegments(closedPath);
+            })
+            .ToArray();
+            
+            //return SplitSegments(edgeSegments, segments, colliders);
         }
 
         private static LineSegment2D[] SplitSegments(IEnumerable<LineSegment2D> edgeSegments, LineSegment2D[] segments, Collider2D[] colliders)
