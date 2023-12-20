@@ -189,14 +189,16 @@ namespace _2RGuide
 
             if (connectedNode1 != null)
             {
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, new LineSegment2D(segment.P1, splitNode.Position), maxHeight);
-                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, new LineSegment2D(splitNode.Position, segment.P1), maxHeight);
+                var connectionSegment = new LineSegment2D(segment.P1, splitNode.Position);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight);
+                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight);
             }
             
             if (connectedNode2 != null)
             {
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, new LineSegment2D(splitNode.Position, segment.P2), maxHeight);
-                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, new LineSegment2D(segment.P2, splitNode.Position), maxHeight);
+                var connectionSegment = new LineSegment2D(splitNode.Position, segment.P2);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight);
+                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight);
             }
 
             return splitNode;
