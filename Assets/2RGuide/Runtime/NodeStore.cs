@@ -16,7 +16,8 @@ namespace _2RGuide
         Drop = 1 << 2,
         Jump = 1 << 3,
         OneWayPlatformJump = 1 << 4,
-        All = Walk | Drop | Jump | OneWayPlatformJump
+        OneWayPlatformDrop = 1 << 5,
+        All = Walk | Drop | Jump | OneWayPlatformJump | OneWayPlatformDrop
     }
 
     [Serializable]
@@ -211,7 +212,7 @@ namespace _2RGuide
 
         public Node Get(Vector2 position)
         {
-            return _nodes.FirstOrDefault(n => n.Position == position);
+            return _nodes.FirstOrDefault(n => n.Position.Approximately(position));
         }
 
         public Node ClosestTo(Vector2 position)

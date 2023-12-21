@@ -108,28 +108,7 @@ namespace _2RGuide.Helpers
 
         private static void GetOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, List<LineSegment2D> resultSegments)
         {
-            var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(settings.maxSlope)).ToArray();
-            var segments = navBuildContext.segments.Select(s => s.segment);
-
-            foreach (var oneWayPlatform in oneWayPlatforms)
-            {
-                var start = oneWayPlatform.segment.HalfPoint;
-                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, start + Vector2.down * settings.maxJumpHeight, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }));
-                if (!hit)
-                {
-                    continue;
-                }
-
-                var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
-                var targetPlatformSegment = hit.LineSegment;
-
-                var oneWayPlatformNode = nodes.SplitSegmentAt(oneWayPlatform.segment, oneWayPlatform.segment.HalfPoint);
-                var targetNode = nodes.SplitSegmentAt(targetPlatformSegment, hit.HitPosition.Value);
-
-                var jumpSegment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, ConnectionType.OneWayPlatformJump);
-
-                resultSegments.Add(jumpSegment);
-            }
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxJumpHeight, settings.maxSlope, ConnectionType.OneWayPlatformJump, new LineSegment2D[0], resultSegments);
         }
     }
 }
