@@ -45,6 +45,8 @@ namespace _2RGuide.Helpers
                 }
             }
 
+            GetOneWayPlatformDropSegments(navBuildContext, nodes, settings, jumps, resultSegments);
+
             return resultSegments.ToArray();
         }
 
@@ -90,6 +92,11 @@ namespace _2RGuide.Helpers
                 }
             }
             return default;
+        }
+
+        private static void GetOneWayPlatformDropSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, LineSegment2D[] jumps, List<LineSegment2D> resultSegments)
+        {
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxDropHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps, resultSegments);
         }
     }
 }

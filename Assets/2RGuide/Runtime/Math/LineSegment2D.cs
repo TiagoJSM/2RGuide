@@ -300,8 +300,8 @@ namespace _2RGuide.Math
         // point q lies on line segment 'pr'
         private static bool OnSegment(Vector2 p, Vector2 q, Vector2 r)
         {
-            if (q.x <= Mathf.Max(p.x, r.x) && q.x >= Mathf.Min(p.x, r.x) &&
-                q.y <= Mathf.Max(p.y, r.y) && q.y >= Mathf.Min(p.y, r.y))
+            if (q.x.LessThanOrEquals(Mathf.Max(p.x, r.x)) && q.x.GreaterThanOrEquals(Mathf.Min(p.x, r.x)) &&
+                q.y.LessThanOrEquals(Mathf.Max(p.y, r.y)) && q.y.GreaterThanOrEquals(Mathf.Min(p.y, r.y)))
                 return true;
 
             return false;

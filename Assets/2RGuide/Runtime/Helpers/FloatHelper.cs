@@ -8,5 +8,15 @@ namespace _2RGuide.Helpers
         {
             return Mathf.Abs(a - b) < epsilon;
         }
+
+        public static bool GreaterThanOrEquals(this float value, float other)
+        {
+            return value > other || Mathf.Approximately(value, other);
+        }
+
+        public static bool LessThanOrEquals(this float value, float other)
+        {
+            return value < other || Mathf.Approximately(value, other);
+        }
     }
 }

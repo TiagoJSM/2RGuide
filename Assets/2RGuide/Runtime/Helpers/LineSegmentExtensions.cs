@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using System;
 using System.Collections.Generic;
@@ -157,14 +158,14 @@ namespace _2RGuide.Helpers
                     jumpSegment.P2.x, jumpSegment.P2.y,
                 });
 
-            var clipper = new ClipperD();
+            var clipper = ClipperUtils.ConfiguredClipperD();
             clipper.AddPath(line, PathType.Subject, true); // a line is open
             clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
 
             var openPath = new PathsD();
             var closedPath = new PathsD();
             var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-            //return closedPath.Count == 0;
+            
             if (closedPath.Count == 0)
             {
                 return true;
