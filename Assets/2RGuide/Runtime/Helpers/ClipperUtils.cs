@@ -1,4 +1,5 @@
-﻿using _2RGuide.Math;
+﻿using _2RGuide.Helpers;
+using _2RGuide.Math;
 using Clipper2Lib;
 using System.Collections;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Assets._2RGuide.Runtime.Helpers
     {
         public static ClipperD ConfiguredClipperD()
         {
-            return new ClipperD(4);
+            return new ClipperD(FloatHelper.RoundingDecimalPrecision);
         }
 
         public static PathsD GetSubtractedPathFromClosedPaths(LineSegment2D openPathSegment, PathsD closedPaths)

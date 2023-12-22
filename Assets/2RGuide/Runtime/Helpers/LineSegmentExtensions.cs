@@ -171,12 +171,13 @@ namespace _2RGuide.Helpers
                 return true;
             }
 
-            var intersects = navSegments.Any(ns => 
-                { 
-                    var intersect = ns.segment.DoLinesIntersect(segment, false);
-                    return intersect;
-                });
-            return intersects;
+            if (closedPath.Count == 1)
+            {
+                var clipped = new LineSegment2D(new Vector2((float)closedPath[0][0].x, (float)closedPath[0][0].y), new Vector2((float)closedPath[0][1].x, (float)closedPath[0][1].y));
+                return !clipped.IsCoincident(segment);
+            }
+
+            return true;
         }
 
         public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
