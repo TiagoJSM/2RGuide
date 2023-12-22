@@ -41,7 +41,7 @@ namespace _2RGuide.Helpers
                 .Where(c => c.ConnectionType == ConnectionType.Walk)
                 .Any(cn =>
                 {
-                    var line = new LineSegment2D(node.Position, cn.Node.Position);
+                    var line = cn.Segment;
                     if (Mathf.Abs(line.SlopeRadians) > maxSlope)
                     {
                         return false;

@@ -39,7 +39,7 @@ namespace _2RGuide.Math
             get
             {
                 var xDif = P2.x - P1.x;
-                if (xDif == 0)
+                if (Mathf.Approximately(xDif, 0.0f))
                 {
                     return null;
                 }
