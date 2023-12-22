@@ -3,6 +3,7 @@ using System.Linq;
 using _2RGuide;
 using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using NUnit.Framework;
 using UnityEngine;
@@ -30,23 +31,18 @@ namespace _2RGuide.Tests.PlayModeTests
         [Test]
         public void TestAStarConnectedJump()
         {
-            var nodePathSettings = new NodeHelpers.Settings
+            var jumpSettings = new AirConnectionHelper.Settings
             {
-                segmentDivision = float.MaxValue
-            };
-
-            var jumpSettings = new JumpsHelper.Settings
-            {
-                maxJumpHeight = 3.0f,
+                maxHeight = 3.0f,
                 maxSlope = 60.0f,
-                minJumpDistanceX = 0.5f
+                horizontalDistance = 0.5f
             };
 
-            var dropSettings = new DropsHelper.Settings
+            var dropSettings = new AirConnectionHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,
-                maxDropHeight = 20.0f
+                maxHeight = 20.0f
             };
 
             var clipper = new ClipperD();
@@ -94,23 +90,18 @@ namespace _2RGuide.Tests.PlayModeTests
         [Test]
         public void TestAStarLongDistanceDueToHeight()
         {
-            var nodePathSettings = new NodeHelpers.Settings
+            var jumpSettings = new AirConnectionHelper.Settings
             {
-                segmentDivision = 1.0f,
-            };
-
-            var jumpSettings = new JumpsHelper.Settings
-            {
-                maxJumpHeight = 10.0f,
+                maxHeight = 10.0f,
                 maxSlope = 60.0f,
-                minJumpDistanceX = 0.5f
+                horizontalDistance = 0.5f
             };
 
-            var dropSettings = new DropsHelper.Settings
+            var dropSettings = new AirConnectionHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,
-                maxDropHeight = 20.0f
+                maxHeight = 20.0f
             };
 
             var clipper = new ClipperD();
@@ -137,12 +128,12 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f);
 
             var navBuildContext = new NavBuildContext()
             {
                 segments = navSegments.ToList(),
-                closedPath = closedPath
+                closedPath = closedPath,
             };
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);

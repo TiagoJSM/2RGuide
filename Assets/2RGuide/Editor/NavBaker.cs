@@ -25,30 +25,30 @@ namespace _2RGuide.Editor
             }
         }
 
-        private static JumpsHelper.Settings JumpSettings
+        private static AirConnectionHelper.Settings JumpSettings
         {
             get
             {
                 var instance = Nav2RGuideSettings.GetOrCreateSettings();
-                return new JumpsHelper.Settings()
+                return new AirConnectionHelper.Settings()
                 {
-                    maxJumpHeight = instance.MaxJumpHeight,
+                    maxHeight = instance.MaxJumpHeight,
+                    horizontalDistance = instance.JumpDropHorizontalDistance,
                     maxSlope = instance.MaxSlope,
-                    minJumpDistanceX = instance.JumpDropHorizontalDistance
                 };
             }
         }
 
-        private static DropsHelper.Settings DropSettings
+        private static AirConnectionHelper.Settings DropSettings
         {
             get
             {
                 var instance = Nav2RGuideSettings.GetOrCreateSettings();
-                return new DropsHelper.Settings()
+                return new AirConnectionHelper.Settings()
                 {
-                    maxDropHeight = instance.MaxDropHeight,
+                    maxHeight = instance.MaxDropHeight,
                     horizontalDistance = instance.JumpDropHorizontalDistance,
-                    maxSlope = instance.MaxSlope
+                    maxSlope = instance.MaxSlope,
                 };
             }
         }

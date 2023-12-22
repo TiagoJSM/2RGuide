@@ -9,7 +9,7 @@ namespace Assets._2RGuide.Runtime.Helpers
     {
         public static ClipperD ConfiguredClipperD()
         {
-            return new ClipperD(3);
+            return new ClipperD(4);
         }
 
         public static PathsD GetSubtractedPathFromClosedPaths(LineSegment2D openPathSegment, PathsD closedPaths)

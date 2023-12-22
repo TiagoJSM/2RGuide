@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,15 +8,9 @@ namespace _2RGuide.Helpers
 {
     public static class DropsHelper
     {
-        public struct Settings
+        public static LineSegment2D[] BuildDrops(NavBuildContext navBuildContext, NodeStore nodes, LineSegment2D[] jumps, AirConnectionHelper.Settings settings)
         {
-            public float maxDropHeight;
-            public float horizontalDistance;
-            public float maxSlope;
-        }
-
-        public static LineSegment2D[] BuildDrops(NavBuildContext navBuildContext, NodeStore nodes, LineSegment2D[] jumps, Settings settings)
-        {
+            return AirConnectionHelper.Build(navBuildContext, nodes, jumps, ConnectionType.Drop, ConnectionType.OneWayPlatformDrop, settings);
             var resultSegments = new List<LineSegment2D>();
 
             foreach (var node in nodes.ToArray())
@@ -51,8 +46,7 @@ namespace _2RGuide.Helpers
         }
 
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
-        // Check if there's no jump segment as replacement
-        private static LineSegment2D FindTargetDropSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, LineSegment2D[] jumps, float originX, Settings settings)
+        private static LineSegment2D FindTargetDropSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, LineSegment2D[] jumps, float originX, AirConnectionHelper.Settings settings)
         {
             var origin = new Vector2(originX, node.Position.y);
 
@@ -67,7 +61,7 @@ namespace _2RGuide.Helpers
                 {
                     return false;
                 }
-                return Vector2.Distance(position.Value, origin) <= settings.maxDropHeight;
+                return Vector2.Distance(position.Value, origin) <= settings.maxHeight;
             })
             .MinBy(ss =>
             {
@@ -79,7 +73,7 @@ namespace _2RGuide.Helpers
             {
                 var dropSegment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
 
-                var overlaps = dropSegment.IsJumpSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
+                var overlaps = dropSegment.IsSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
 
                 if (overlaps)
                 {
@@ -94,9 +88,9 @@ namespace _2RGuide.Helpers
             return default;
         }
 
-        private static void GetOneWayPlatformDropSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, LineSegment2D[] jumps, List<LineSegment2D> resultSegments)
+        private static void GetOneWayPlatformDropSegments(NavBuildContext navBuildContext, NodeStore nodes, AirConnectionHelper.Settings settings, LineSegment2D[] jumps, List<LineSegment2D> resultSegments)
         {
-            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxDropHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps, resultSegments);
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps, resultSegments);
         }
     }
 }

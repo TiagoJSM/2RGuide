@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace _2RGuide.Helpers
 
     public static class NavHelper
     {
-        public static NavResult Build(NavBuildContext navBuildContext, JumpsHelper.Settings jumpSettings, DropsHelper.Settings dropSettings)
+        public static NavResult Build(NavBuildContext navBuildContext, AirConnectionHelper.Settings jumpSettings, AirConnectionHelper.Settings dropSettings)
         {
             var nodeStore = new NodeStore();
 
