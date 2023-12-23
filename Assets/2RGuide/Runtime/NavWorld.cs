@@ -37,5 +37,11 @@ namespace _2RGuide
 
             return navSegment;
         }
+
+        private void OnDrawGizmos()
+        {
+            //leave it blank, the gizmo implementation is done in the editor "WorldEditor" class
+            //this needs to be here for the option to appear on the "Gizmos" dropdown menu
+        }
     }
 }

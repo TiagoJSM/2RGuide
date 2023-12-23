@@ -47,10 +47,15 @@ namespace _2RGuide.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void OnSceneGUI()
+        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy, typeof(NavWorld))]
+        private static void RenderCustomGizmo(NavWorld objectTransform, GizmoType gizmoType)
         {
-            var world = (NavWorld)target;
-            EditorNavDrawer.RenderWorldNav(world);
+            var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
+
+            if (navWorld != null)
+            {
+                EditorNavDrawer.RenderWorldNav(navWorld);
+            }
         }
     }
 }
