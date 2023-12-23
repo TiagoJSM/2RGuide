@@ -33,8 +33,8 @@ namespace _2RGuide.Editor
                 return new JumpsHelper.Settings()
                 {
                     maxJumpHeight = instance.MaxJumpHeight,
+                    minJumpDistanceX = instance.JumpDropHorizontalDistance,
                     maxSlope = instance.MaxSlope,
-                    minJumpDistanceX = instance.JumpDropHorizontalDistance
                 };
             }
         }
@@ -46,9 +46,9 @@ namespace _2RGuide.Editor
                 var instance = Nav2RGuideSettings.GetOrCreateSettings();
                 return new DropsHelper.Settings()
                 {
-                    maxDropHeight = instance.MaxDropHeight,
+                    maxHeight = instance.MaxDropHeight,
                     horizontalDistance = instance.JumpDropHorizontalDistance,
-                    maxSlope = instance.MaxSlope
+                    maxSlope = instance.MaxSlope,
                 };
             }
         }

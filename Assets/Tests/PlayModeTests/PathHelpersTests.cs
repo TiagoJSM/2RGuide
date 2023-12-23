@@ -1,6 +1,7 @@
 ﻿using _2RGuide;
 using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using NUnit.Framework;
 using System;
@@ -51,7 +52,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             Assert.AreEqual(10, nodes.ToArray().Length);
 
-            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxDropHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
 
             Assert.AreEqual(1, dropSegments.Length);
         }

@@ -39,7 +39,7 @@ namespace _2RGuide.Math
             get
             {
                 var xDif = P2.x - P1.x;
-                if (xDif == 0)
+                if (xDif.Approximately(0.0f))
                 {
                     return null;
                 }
@@ -236,7 +236,7 @@ namespace _2RGuide.Math
             }
         }
 
-        public Vector2 ClosestPointOnLine( Vector2 point)
+        public Vector2 ClosestPointOnLine(Vector2 point)
         {
             var vVector1 = point - P1;
             var vVector2 = (P2 - P1).normalized;
@@ -346,7 +346,7 @@ namespace _2RGuide.Math
             var val = (q.y - p.y) * (r.x - q.x) -
                     (q.x - p.x) * (r.y - q.y);
 
-            if (Mathf.Approximately(val, 0)) return 0; // collinear
+            if (val.Approximately(0.0f)) return 0; // collinear
 
             return (val > 0) ? 1 : 2; // clock or counterclock wise
         }

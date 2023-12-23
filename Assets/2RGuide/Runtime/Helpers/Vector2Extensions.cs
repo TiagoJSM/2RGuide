@@ -6,7 +6,7 @@ namespace _2RGuide.Helpers
     {
         public static bool Approximately(this Vector2 v, Vector2 other)
         {
-            return Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y);
+            return v.x.Approximately(other.x) && v.y.Approximately(other.y);
         }
     }
 }
