@@ -19,18 +19,24 @@ namespace _2RGuide.Helpers
             var targetNode = nodeStore.SplitSegmentAt(dropTargetSegment.segment, target.P2);
             navSegments.Remove(dropTargetSegment);
 
-            navSegments.Add(new NavSegment()
+            if (!dropTargetSegment.segment.P1.Approximately(targetNode.Position))
             {
-                segment = new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position),
-                maxHeight = dropTargetSegment.maxHeight,
-                oneWayPlatform = dropTargetSegment.oneWayPlatform
-            });
-            navSegments.Add(new NavSegment()
+                navSegments.Add(new NavSegment()
+                {
+                    segment = new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position),
+                    maxHeight = dropTargetSegment.maxHeight,
+                    oneWayPlatform = dropTargetSegment.oneWayPlatform
+                });
+            }
+            if (!targetNode.Position.Approximately(dropTargetSegment.segment.P2))
             {
-                segment = new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2),
-                maxHeight = dropTargetSegment.maxHeight,
-                oneWayPlatform = dropTargetSegment.oneWayPlatform
-            });
+                navSegments.Add(new NavSegment()
+                {
+                    segment = new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2),
+                    maxHeight = dropTargetSegment.maxHeight,
+                    oneWayPlatform = dropTargetSegment.oneWayPlatform
+                });
+            }
 
             AddConnection(startNode, targetNode, connectionType, maxHeight);
         }

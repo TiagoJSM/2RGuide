@@ -71,7 +71,8 @@ namespace _2RGuide.Helpers
                     {
                         var overlaps = !s.IsSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
                         return overlaps;
-                    });
+                    })
+                    .ToArray();
 
             foreach (var jumpSegment in jumpSegments)
             {
@@ -81,44 +82,6 @@ namespace _2RGuide.Helpers
             resultSegments.AddRange(
                 jumpSegments.Where(js => !resultSegments.Any(rs => rs.IsCoincident(js)))
             );
-        }
-
-        //ToDo: Check if doesn't collide with any other collider not part of pathfinding
-        private static LineSegment2D FindTargetJumpSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, float originX, Settings settings)
-        {
-            var origin = new Vector2(originX, node.Position.y);
-
-            var navSegment = navSegments.Where(ss =>
-            {
-                var position = ss.segment.PositionInX(originX);
-                if (!position.HasValue)
-                {
-                    return false;
-                }
-                if (origin.y < position.Value.y)
-                {
-                    return false;
-                }
-                return Vector2.Distance(position.Value, origin) <= settings.maxJumpHeight;
-            })
-            .MinBy(ss =>
-            {
-                var position = ss.segment.PositionInX(originX);
-                return Vector2.Distance(position.Value, origin);
-            });
-
-            if (navSegment)
-            {
-                var jumpSegment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
-
-                var overlaps = jumpSegment.IsSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
-
-                if (overlaps)
-                {
-                    return default;
-                }
-            }
-            return default;
         }
 
         private static LineSegment2D CutSegmentToTheLeft(LineSegment2D segment, float x)

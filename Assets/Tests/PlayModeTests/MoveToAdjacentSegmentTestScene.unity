@@ -2071,11 +2071,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
   - segment:
-      P1: {x: 0.8387, y: 3.4953}
-      P2: {x: 0.8387, y: 3.4953}
-    maxHeight: 5.7046986
-    oneWayPlatform: 0
-  - segment:
       P1: {x: -4.5964, y: -3.6147}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: 12.814699
@@ -2086,16 +2081,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
   - segment:
-      P1: {x: -3.5963998, y: -3.6147}
-      P2: {x: -3.5963998, y: -3.6147}
-    maxHeight: 6.4347
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -2.7431, y: 3.4953}
-      P2: {x: -2.7431, y: 3.4953}
-    maxHeight: 5.7046986
-    oneWayPlatform: 0
-  - segment:
       P1: {x: -2.7431, y: 3.4953}
       P2: {x: 0.8387, y: 3.4953}
     maxHeight: 5.7046986
@@ -2104,16 +2089,6 @@ MonoBehaviour:
       P1: {x: -7.5964, y: 0.4253}
       P2: {x: -5.0713, y: 0.4253}
     maxHeight: 8.774699
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -5.0713, y: 0.4253}
-      P2: {x: -5.0713, y: 0.4253}
-    maxHeight: 8.774699
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 3.6569, y: 6.3353}
-      P2: {x: 3.6569, y: 6.3353}
-    maxHeight: 2.864699
     oneWayPlatform: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
