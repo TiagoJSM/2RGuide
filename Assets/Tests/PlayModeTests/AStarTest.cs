@@ -31,14 +31,14 @@ namespace _2RGuide.Tests.PlayModeTests
         [Test]
         public void TestAStarConnectedJump()
         {
-            var jumpSettings = new AirConnectionHelper.Settings
+            var jumpSettings = new JumpsHelper.Settings
             {
-                maxHeight = 3.0f,
+                maxJumpHeight = 3.0f,
                 maxSlope = 60.0f,
-                horizontalDistance = 0.5f
+                minJumpDistanceX = 0.5f
             };
 
-            var dropSettings = new AirConnectionHelper.Settings
+            var dropSettings = new DropsHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,
@@ -90,14 +90,14 @@ namespace _2RGuide.Tests.PlayModeTests
         [Test]
         public void TestAStarLongDistanceDueToHeight()
         {
-            var jumpSettings = new AirConnectionHelper.Settings
+            var jumpSettings = new JumpsHelper.Settings
             {
-                maxHeight = 10.0f,
+                maxJumpHeight = 10.0f,
                 maxSlope = 60.0f,
-                horizontalDistance = 0.5f
+                minJumpDistanceX = 0.5f
             };
 
-            var dropSettings = new AirConnectionHelper.Settings
+            var dropSettings = new DropsHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,

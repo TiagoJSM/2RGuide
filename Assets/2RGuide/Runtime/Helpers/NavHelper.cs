@@ -23,7 +23,7 @@ namespace _2RGuide.Helpers
 
     public static class NavHelper
     {
-        public static NavResult Build(NavBuildContext navBuildContext, AirConnectionHelper.Settings jumpSettings, AirConnectionHelper.Settings dropSettings)
+        public static NavResult Build(NavBuildContext navBuildContext, JumpsHelper.Settings jumpSettings, DropsHelper.Settings dropSettings)
         {
             var nodeStore = new NodeStore();
 

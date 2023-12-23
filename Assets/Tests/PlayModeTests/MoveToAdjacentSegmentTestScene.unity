@@ -1097,6 +1097,14 @@ MonoBehaviour:
         _maxHeight: 12.814699
       - _nodeStore:
           id: 0
+        _nodeIndex: 36
+        _connectionType: 8
+        _segment:
+          P1: {x: -3.5963998, y: -3.6147}
+          P2: {x: -5.0713, y: 0.4253}
+        _maxHeight: Infinity
+      - _nodeStore:
+          id: 0
         _nodeIndex: 45
         _connectionType: 2
         _segment:
@@ -1313,6 +1321,14 @@ MonoBehaviour:
           P1: {x: 3.6569, y: 6.3353}
           P2: {x: 7.2669, y: 6.3353}
         _maxHeight: 2.864699
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 41
+        _connectionType: 8
+        _segment:
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 0.8387, y: 3.4953}
+        _maxHeight: Infinity
       - _nodeStore:
           id: 0
         _nodeIndex: 44
@@ -1602,6 +1618,22 @@ MonoBehaviour:
           P1: {x: -5.0713, y: 0.4253}
           P2: {x: -4.5713, y: -3.6147}
         _maxHeight: Infinity
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 13
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -3.5963998, y: -3.6147}
+        _maxHeight: Infinity
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 40
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -2.7431, y: 3.4953}
+        _maxHeight: Infinity
     - _nodeStore:
         id: 0
       _nodeIndex: 37
@@ -1688,6 +1720,14 @@ MonoBehaviour:
         _maxHeight: 5.7046986
       - _nodeStore:
           id: 0
+        _nodeIndex: 36
+        _connectionType: 8
+        _segment:
+          P1: {x: -2.7431, y: 3.4953}
+          P2: {x: -5.0713, y: 0.4253}
+        _maxHeight: Infinity
+      - _nodeStore:
+          id: 0
         _nodeIndex: 45
         _connectionType: 4
         _segment:
@@ -1715,6 +1755,14 @@ MonoBehaviour:
           P1: {x: 0.8387, y: 3.4953}
           P2: {x: 0.8387, y: 2.82}
         _maxHeight: 6.4282
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 23
+        _connectionType: 8
+        _segment:
+          P1: {x: 0.8387, y: 3.4953}
+          P2: {x: 3.6569, y: 6.3353}
+        _maxHeight: Infinity
       - _nodeStore:
           id: 0
         _nodeIndex: 46
@@ -1938,11 +1986,6 @@ MonoBehaviour:
     maxHeight: 11.2533
     oneWayPlatform: 0
   - segment:
-      P1: {x: 3.6569, y: 6.3353}
-      P2: {x: 7.2669, y: 6.3353}
-    maxHeight: 2.864699
-    oneWayPlatform: 0
-  - segment:
       P1: {x: 7.2669, y: 6.3353}
       P2: {x: 7.2669, y: 9.2}
     maxHeight: 14.863299
@@ -1998,11 +2041,6 @@ MonoBehaviour:
     maxHeight: 14.863299
     oneWayPlatform: 0
   - segment:
-      P1: {x: -7.5964, y: 0.4253}
-      P2: {x: -5.0713, y: 0.4253}
-    maxHeight: 8.774699
-    oneWayPlatform: 0
-  - segment:
       P1: {x: -5.0713, y: 0.4253}
       P2: {x: -5.0713, y: -0.25}
     maxHeight: 12.3382
@@ -2023,11 +2061,6 @@ MonoBehaviour:
     maxHeight: 4.853299
     oneWayPlatform: 0
   - segment:
-      P1: {x: -2.7431, y: 3.4953}
-      P2: {x: 0.8387, y: 3.4953}
-    maxHeight: 5.7046986
-    oneWayPlatform: 0
-  - segment:
       P1: {x: 0.8387, y: 3.4953}
       P2: {x: 0.8387, y: 2.82}
     maxHeight: 6.4282
@@ -2038,6 +2071,11 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
   - segment:
+      P1: {x: 0.8387, y: 3.4953}
+      P2: {x: 0.8387, y: 3.4953}
+    maxHeight: 5.7046986
+    oneWayPlatform: 0
+  - segment:
       P1: {x: -4.5964, y: -3.6147}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: 12.814699
@@ -2046,6 +2084,41 @@ MonoBehaviour:
       P1: {x: -4.5713, y: -3.6147}
       P2: {x: -3.5963998, y: -3.6147}
     maxHeight: 12.814699
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -3.5963998, y: -3.6147}
+      P2: {x: -3.5963998, y: -3.6147}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -2.7431, y: 3.4953}
+      P2: {x: -2.7431, y: 3.4953}
+    maxHeight: 5.7046986
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -2.7431, y: 3.4953}
+      P2: {x: 0.8387, y: 3.4953}
+    maxHeight: 5.7046986
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -7.5964, y: 0.4253}
+      P2: {x: -5.0713, y: 0.4253}
+    maxHeight: 8.774699
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -5.0713, y: 0.4253}
+    maxHeight: 8.774699
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 3.6569, y: 6.3353}
+    maxHeight: 2.864699
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 7.2669, y: 6.3353}
+    maxHeight: 2.864699
     oneWayPlatform: 0
   - segment:
       P1: {x: 1.4036002, y: -3.6147}
@@ -2080,8 +2153,14 @@ MonoBehaviour:
   - P1: {x: 0.8387, y: 3.4953}
     P2: {x: 1.3387, y: -3.6147}
   jumps:
+  - P1: {x: 3.6569, y: 6.3353}
+    P2: {x: 0.8387, y: 3.4953}
   - P1: {x: -5.0713, y: 0.4253}
     P2: {x: -4.5713, y: -3.6147}
+  - P1: {x: -5.0713, y: 0.4253}
+    P2: {x: -3.5963998, y: -3.6147}
+  - P1: {x: -5.0713, y: 0.4253}
+    P2: {x: -2.7431, y: 3.4953}
   uniqueSegments:
   - segment:
       P1: {x: -8.6531, y: -4.951}
@@ -2160,6 +2239,11 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
+      P2: {x: -5.0713, y: 0.4253}
+    maxHeight: Infinity
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -3.5963998, y: -3.6147}
       P2: {x: -3.2431, y: -3.6147}
     maxHeight: 6.4347
     oneWayPlatform: 0
@@ -2222,6 +2306,11 @@ MonoBehaviour:
       P1: {x: 3.6569, y: 6.3353}
       P2: {x: 7.2669, y: 6.3353}
     maxHeight: 2.864699
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 0.8387, y: 3.4953}
+    maxHeight: Infinity
     oneWayPlatform: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
@@ -2296,6 +2385,11 @@ MonoBehaviour:
   - segment:
       P1: {x: -5.0713, y: 0.4253}
       P2: {x: -4.5713, y: -3.6147}
+    maxHeight: Infinity
+    oneWayPlatform: 0
+  - segment:
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -2.7431, y: 3.4953}
     maxHeight: Infinity
     oneWayPlatform: 0
   - segment:
@@ -2632,6 +2726,14 @@ MonoBehaviour:
             _maxHeight: 12.814699
           - _nodeStore:
               id: 0
+            _nodeIndex: 36
+            _connectionType: 8
+            _segment:
+              P1: {x: -3.5963998, y: -3.6147}
+              P2: {x: -5.0713, y: 0.4253}
+            _maxHeight: Infinity
+          - _nodeStore:
+              id: 0
             _nodeIndex: 45
             _connectionType: 2
             _segment:
@@ -2848,6 +2950,14 @@ MonoBehaviour:
               P1: {x: 3.6569, y: 6.3353}
               P2: {x: 7.2669, y: 6.3353}
             _maxHeight: 2.864699
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 41
+            _connectionType: 8
+            _segment:
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 0.8387, y: 3.4953}
+            _maxHeight: Infinity
           - _nodeStore:
               id: 0
             _nodeIndex: 44
@@ -3137,6 +3247,22 @@ MonoBehaviour:
               P1: {x: -5.0713, y: 0.4253}
               P2: {x: -4.5713, y: -3.6147}
             _maxHeight: Infinity
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 13
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -3.5963998, y: -3.6147}
+            _maxHeight: Infinity
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 40
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -2.7431, y: 3.4953}
+            _maxHeight: Infinity
         - _nodeStore:
             id: 0
           _nodeIndex: 37
@@ -3223,6 +3349,14 @@ MonoBehaviour:
             _maxHeight: 5.7046986
           - _nodeStore:
               id: 0
+            _nodeIndex: 36
+            _connectionType: 8
+            _segment:
+              P1: {x: -2.7431, y: 3.4953}
+              P2: {x: -5.0713, y: 0.4253}
+            _maxHeight: Infinity
+          - _nodeStore:
+              id: 0
             _nodeIndex: 45
             _connectionType: 4
             _segment:
@@ -3250,6 +3384,14 @@ MonoBehaviour:
               P1: {x: 0.8387, y: 3.4953}
               P2: {x: 0.8387, y: 2.82}
             _maxHeight: 6.4282
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 23
+            _connectionType: 8
+            _segment:
+              P1: {x: 0.8387, y: 3.4953}
+              P2: {x: 3.6569, y: 6.3353}
+            _maxHeight: Infinity
           - _nodeStore:
               id: 0
             _nodeIndex: 46

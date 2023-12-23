@@ -236,7 +236,7 @@ namespace _2RGuide.Math
             }
         }
 
-        public Vector2 ClosestPointOnLine( Vector2 point)
+        public Vector2 ClosestPointOnLine(Vector2 point)
         {
             var vVector1 = point - P1;
             var vVector2 = (P2 - P1).normalized;

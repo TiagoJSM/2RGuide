@@ -52,7 +52,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             Assert.AreEqual(10, nodes.ToArray().Length);
 
-            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new AirConnectionHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
 
             Assert.AreEqual(1, dropSegments.Length);
         }
