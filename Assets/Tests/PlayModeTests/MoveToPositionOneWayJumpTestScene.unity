@@ -788,11 +788,6 @@ MonoBehaviour:
     oneWayPlatform: 0
   - segment:
       P1: {x: 2, y: 0.5}
-      P2: {x: 2, y: 0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 2, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0

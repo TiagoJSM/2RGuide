@@ -1961,11 +1961,6 @@ MonoBehaviour:
     maxHeight: 2.664699
     oneWayPlatform: 0
   - segment:
-      P1: {x: 0.8387, y: 6.5353}
-      P2: {x: 0.8387, y: 6.5353}
-    maxHeight: 2.664699
-    oneWayPlatform: 0
-  - segment:
       P1: {x: -4.5964, y: -3.6147}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: 12.814699
@@ -1974,16 +1969,6 @@ MonoBehaviour:
       P1: {x: -4.5713, y: -3.6147}
       P2: {x: -3.5963998, y: -3.6147}
     maxHeight: 12.814699
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: -3.5963998, y: -3.6147}
-      P2: {x: -3.5963998, y: -3.6147}
-    maxHeight: 9.4747
-    oneWayPlatform: 0
-  - segment:
-      P1: {x: 3.6569, y: 6.3353}
-      P2: {x: 3.6569, y: 6.3353}
-    maxHeight: 2.864699
     oneWayPlatform: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
