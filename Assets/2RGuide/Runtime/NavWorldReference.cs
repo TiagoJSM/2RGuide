@@ -1,11 +1,16 @@
-﻿using UnityEditor;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace _2RGuide
 {
-    [InitializeOnLoad]
     public class NavWorldReference : Singleton<NavWorldReference>
     {
+        [RuntimeInitializeOnLoadMethod]
+        private static void OnRuntimeMethodLoad()
+        {
+            var tmp = Instance;
+        }
+
         private NavWorld _navWorld;
 
         public NavWorld NavWorld => _navWorld;
