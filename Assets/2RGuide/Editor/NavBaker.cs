@@ -6,6 +6,7 @@ using _2RGuide.Math;
 using System.Collections.Generic;
 using System.Linq;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Editor;
 
 namespace _2RGuide.Editor
 {
@@ -15,7 +16,7 @@ namespace _2RGuide.Editor
         {
             get
             {
-                var instance = Nav2RGuideSettings.GetOrCreateSettings();
+                var instance = Nav2RGuideSettingsRegister.GetOrCreateSettings();
                 return new NodeHelpers.Settings()
                 {
                     segmentDivision = instance.SegmentDivisionDistance,
@@ -29,7 +30,7 @@ namespace _2RGuide.Editor
         {
             get
             {
-                var instance = Nav2RGuideSettings.GetOrCreateSettings();
+                var instance = Nav2RGuideSettingsRegister.GetOrCreateSettings();
                 return new JumpsHelper.Settings()
                 {
                     maxJumpHeight = instance.MaxJumpHeight,
@@ -43,7 +44,7 @@ namespace _2RGuide.Editor
         {
             get
             {
-                var instance = Nav2RGuideSettings.GetOrCreateSettings();
+                var instance = Nav2RGuideSettingsRegister.GetOrCreateSettings();
                 return new DropsHelper.Settings()
                 {
                     maxHeight = instance.MaxDropHeight,
@@ -194,7 +195,7 @@ namespace _2RGuide.Editor
                 c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
-            var edgeSegmentsInfo = colliders.GetEdgeSegments(closedPathSegments, otherColliders, nodePathSettings.oneWayPlatformMask, closedPath).ToArray();
+            var edgeSegmentsInfo = colliders.GetEdgeSegments(nodePathSettings.oneWayPlatformMask, closedPath).ToArray();
             var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();
 
             // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections

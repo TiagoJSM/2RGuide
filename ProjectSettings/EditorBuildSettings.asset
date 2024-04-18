@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToNonReachablePositionRepeatPathfindingTestScene.unity
     guid: 3ede06070a075da41beb8c93f1f4cbdb
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionPartiallyTestScene.unity
+    guid: 9865068dc77f7d04cacc4b4066b26a59
   m_configObjects: {}

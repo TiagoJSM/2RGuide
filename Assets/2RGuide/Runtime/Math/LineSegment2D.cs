@@ -238,7 +238,28 @@ namespace _2RGuide.Math
 
         public Vector2 ClosestPointOnLine(Vector2 point)
         {
-            var vVector1 = point - P1;
+            Vector2 AP = point - P1;       //Vector from A to P   
+            Vector2 AB = P2 - P1;       //Vector from A to B  
+
+            float magnitudeAB = AB.sqrMagnitude;     //Magnitude of AB vector (it's length squared)     
+            float ABAPproduct = Vector2.Dot(AP, AB);    //The DOT product of a_to_p and a_to_b     
+            float distance = ABAPproduct / magnitudeAB; //The normalized "distance" from a to your closest point  
+
+            if (distance < 0)     //Check if P projection is over vectorAB     
+            {
+                return P1;
+
+            }
+            else if (distance > 1)
+            {
+                return P2;
+            }
+            else
+            {
+                return P1 + AB * distance;
+            }
+
+            /*var vVector1 = point - P1;
             var vVector2 = (P2 - P1).normalized;
 
             var d = Vector2.Distance(P1, P2);
@@ -258,7 +279,7 @@ namespace _2RGuide.Math
 
             var closestPoint = P1 + vVector3;
 
-            return closestPoint;
+            return closestPoint;*/
         }
 
         public bool OnSegment(Vector2 p)

@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Helpers;
+using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using System;
 using System.Collections;
@@ -13,7 +14,7 @@ namespace _2RGuide
         private struct PathfindingResult
         {
             public PathStatus pathStatus;
-            public Node[] nodes;
+            public AgentSegment[] segmentPath;
         }
 
         public struct AgentSegment
@@ -43,6 +44,7 @@ namespace _2RGuide
         private Vector2? _desiredDestination;
         private AgentStatus _agentStatus = AgentStatus.Iddle;
         private Coroutine _coroutine;
+        private Nav2RGuideSettings _settings;
 
         [SerializeField]
         private float _speed;
@@ -91,16 +93,7 @@ namespace _2RGuide
 
         public void CancelPathFinding()
         {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
-            _currentDestination = null;
-            _desiredDestination = null;
-            _agentStatus = AgentStatus.Iddle;
-            CurrentPathStatus = PathStatus.Invalid;
-            _path = null;
+            ResetInternalState();
         }
 
         public void CompleteCurrentSegment()
@@ -113,17 +106,14 @@ namespace _2RGuide
             _targetPathIndex++;
             if (_targetPathIndex >= _path.Length)
             {
-                _desiredDestination = null;
-                _agentStatus = AgentStatus.Iddle;
-                CurrentPathStatus = PathStatus.Invalid;
-                _path = null;
-                DesiredMovement = Vector2.zero;
+                ResetInternalState();
             }
         }
 
         private void Start()
         {
             var navWorld = NavWorldReference.Instance.NavWorld;
+            _settings = Nav2RGuideSettings.Load();
 
             if (navWorld == null)
             {
@@ -177,6 +167,10 @@ namespace _2RGuide
 
         private IEnumerator FindPath(Vector2 start, Vector2 end)
         {
+            var currentDestination = _currentDestination.Value;
+            var referencePositon = ReferencePosition;
+            var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
+
             var pathfindingTask = Task.Run(() => 
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
@@ -185,14 +179,23 @@ namespace _2RGuide
                 var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
                 var pathStatus = PathStatus.Invalid;
 
-                if(nodes != null && nodes.Length > 0)
+                if(nodes == null)
                 {
-                    pathStatus = nodes.Last().Equals(endN) ? PathStatus.Complete : PathStatus.Incomplete;
+                    return new PathfindingResult()
+                    {
+                        segmentPath = null,
+                        pathStatus = pathStatus
+                    };
                 }
+
+                var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(referencePositon, currentDestination, nodes);
+
+                var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
+                pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
 
                 return new PathfindingResult()
                 {
-                    nodes = nodes,
+                    segmentPath = segmentPath,
                     pathStatus = pathStatus
                 };
             });
@@ -203,14 +206,13 @@ namespace _2RGuide
             }
 
             var result = pathfindingTask.Result;
-            var path = result.nodes;
 
             CurrentPathStatus = result.pathStatus;
 
-            if (path == null)
+            if (result.segmentPath == null)
             {
                 _coroutine = null;
-                _path = null;
+                _path = result.segmentPath;
                 _agentStatus = AgentStatus.Iddle;
                 yield break;
             }
@@ -218,9 +220,7 @@ namespace _2RGuide
             _agentStatus = AgentStatus.Moving;
             _targetPathIndex = 0;
 
-            var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(ReferencePosition, _currentDestination.Value, path);
-
-            if (segmentPath.Length < 2)
+            if (result.segmentPath.Length < 2)
             {
                 _coroutine = null;
                 _path = null;
@@ -229,7 +229,23 @@ namespace _2RGuide
             }
 
             _coroutine = null;
-            _path = segmentPath;
+            _path = result.segmentPath;
+        }
+
+        private void ResetInternalState()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _coroutine = null;
+            }
+
+            _currentDestination = null;
+            _desiredDestination = null;
+            _agentStatus = AgentStatus.Iddle;
+            //CurrentPathStatus = PathStatus.Invalid;
+            _path = null;
+            DesiredMovement = Vector2.zero;
         }
 
         private void OnDrawGizmosSelected()

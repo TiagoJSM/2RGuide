@@ -11,21 +11,17 @@ namespace _2RGuide.Helpers
     public static class EdgeColliderHelper
     {
         public static IEnumerable<(LineSegment2D, bool)> GetEdgeSegments(
-            this Collider2D[] colliders, 
-            LineSegment2D[] segmentsFromPaths, 
-            Collider2D[] otherColliders, 
+            this Collider2D[] colliders,
             LayerMask oneWayPlatformMask,
             PathsD closedPaths)
         {
-            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask, closedPaths);
-            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, segmentsFromPaths, otherColliders, oneWayPlatformMask, closedPaths);
+            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, oneWayPlatformMask, closedPaths);
+            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, oneWayPlatformMask, closedPaths);
             return linesFromEdgeColliders.Concat(linesFromBoxColliders);
         }
 
         private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(
             Collider2D[] colliders, 
-            LineSegment2D[] segmentsFromPaths, 
-            Collider2D[] otherColliders, 
             LayerMask oneWayPlatformMask,
             PathsD closedPaths)
         {
@@ -36,14 +32,12 @@ namespace _2RGuide.Helpers
                     .SelectMany(c =>
                     {
                         var isOneWay = oneWayPlatformMask.Includes(c.gameObject);
-                        return GetSegments(c, segmentsFromPaths, otherColliders, closedPaths).Select(s => (s, isOneWay));
+                        return GetSegments(c, closedPaths).Select(s => (s, isOneWay));
                     });
         }
 
         private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromBoxColliders(
-            Collider2D[] colliders, 
-            LineSegment2D[] segmentsFromPaths, 
-            Collider2D[] otherColliders, 
+            Collider2D[] colliders,
             LayerMask oneWayPlatformMask,
             PathsD closedPaths)
         {
@@ -56,20 +50,13 @@ namespace _2RGuide.Helpers
                     {
                         var bounds = c.bounds;
                         var segment = new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y));
-                        var closedPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
+                        var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
 
-                        // the result of difference is in closed path, but it represents the open path
-                        return NavHelper.ConvertOpenPathToSegments(closedPath).Select(s => (s, true));
-
-                        var segments = new LineSegment2D[]
-                        {
-                            new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y))
-                        };
-                        return SplitSegments(segments, segmentsFromPaths, otherColliders).Select(s => (s, true));
+                        return NavHelper.ConvertOpenPathToSegments(resultOpenPath).Select(s => (s, true));
                     });
         }
 
-        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, LineSegment2D[] segments, Collider2D[] colliders, PathsD closedPaths)
+        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, PathsD closedPaths)
         {
             var edgeSegments = new List<LineSegment2D>();
             
@@ -88,30 +75,10 @@ namespace _2RGuide.Helpers
 
             return edgeSegments.SelectMany(s =>
             {
-                var closedPath = ClipperUtils.GetSubtractedPathFromClosedPaths(s, closedPaths);
-                return NavHelper.ConvertOpenPathToSegments(closedPath);
+                var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(s, closedPaths);
+                return NavHelper.ConvertOpenPathToSegments(resultOpenPath);
             })
             .ToArray();
-            
-            //return SplitSegments(edgeSegments, segments, colliders);
         }
-
-        private static LineSegment2D[] SplitSegments(IEnumerable<LineSegment2D> edgeSegments, LineSegment2D[] segments, Collider2D[] colliders)
-        {
-            var splitEdgeSegments =
-                edgeSegments
-                    .SelectMany(es =>
-                    {
-                        var intersections = es.GetIntersections(segments);
-                        return es.Split(intersections);
-                    })
-                    .Where(s =>
-                        !colliders.Any(c =>
-                            c.OverlapPoint(s.P1) && c.OverlapPoint(s.P2)))
-                    .ToArray();
-
-            return splitEdgeSegments;
-        }
-
     }
 }

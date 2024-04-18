@@ -1,6 +1,7 @@
 ﻿using _2RGuide;
 using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace _2RGuide.Editor
             {
                 return;
             }
-            var instance = Nav2RGuideSettings.GetOrCreateSettings();
+            var instance = Nav2RGuideSettingsRegister.GetOrCreateSettings();
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;

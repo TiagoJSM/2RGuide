@@ -26,9 +26,9 @@ namespace Assets._2RGuide.Runtime.Helpers
             clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
             var resultOpenPath = new PathsD();
             var resultClosedPath = new PathsD();
-            var res = clipper.Execute(ClipType.Difference, FillRule.NonZero, resultOpenPath, resultClosedPath);
+            var res = clipper.Execute(ClipType.Difference, FillRule.NonZero, resultClosedPath, resultOpenPath);
 
-            return res ? resultClosedPath : new PathsD();
+            return res ? resultOpenPath : new PathsD();
         }
     }
 }
