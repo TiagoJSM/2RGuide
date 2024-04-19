@@ -19,13 +19,7 @@ namespace _2RGuide.Editor
 
             private static void OnSceneSaving(Scene scene, string path)
             {
-                var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
-
-                if (navWorld != null)
-                {
-                    NavBaker.BakePathfinding(navWorld);
-                    EditorUtility.SetDirty(navWorld);
-                }
+                //NavBaker.BakePathfindingInBackground();
             }
         }
 
@@ -41,10 +35,7 @@ namespace _2RGuide.Editor
 
         private void BakePathfinding()
         {
-            var world = (NavWorld)target;
-            NavBaker.BakePathfinding(world);
-            EditorUtility.SetDirty(world);
-            serializedObject.ApplyModifiedProperties();
+            NavBaker.BakePathfindingInBackground();
         }
 
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy, typeof(NavWorld))]

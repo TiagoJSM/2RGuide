@@ -13,22 +13,22 @@ namespace _2RGuide.Editor
 
         public static void RenderWorldNav(NavWorld world)
         {
-            var segments = world.segments;
+            var segments = world.Segments;
 
             RenderSegments(segments, new Color(173f / 255f, 216f / 255f, 230f / 255f), new Color(0, 0, 1.0f));
 
-            if (world.drops != null)
+            if (world.Drops != null)
             {
-                RenderDrops(world.drops, Color.yellow);
+                RenderDrops(world.Drops, Color.yellow);
             }
-            if (world.jumps != null)
+            if (world.Jumps != null)
             {
-                RenderJumps(world.jumps, Color.gray);
+                RenderJumps(world.Jumps, Color.gray);
             }
 
             RenderNormals(segments, Color.magenta);
 
-            RenderNodes(world.nodeStore.ToArray());
+            RenderNodes(world.Nodes);
         }
 
         private static void RenderSegments(NavSegment[] navSegments, Color minHeightColor, Color maxHeightColor)

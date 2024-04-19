@@ -7,11 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Editor;
+using System.Threading.Tasks;
+using UnityEditor;
+using System.Collections;
+using Unity.EditorCoroutines.Editor;
 
 namespace _2RGuide.Editor
 {
     public static class NavBaker
     {
+        private static EditorCoroutine _bakingCoroutine;
+
         private static NodeHelpers.Settings NodePathSettings
         {
             get
@@ -54,24 +60,50 @@ namespace _2RGuide.Editor
             }
         }
 
+        public static void BakePathfindingInBackground()
+        {
+            if(_bakingCoroutine != null)
+            {
+                return;
+            }
+
+            _bakingCoroutine = EditorCoroutineUtility.StartCoroutineOwnerless(BakePathfindingRoutine());
+        }
+
         public static void BakePathfinding(NavWorld world)
         {
             var colliders = GetColliders(world);
             var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
-
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
+            world.AssignData(navResult);
+        }
 
-            world.nodeStore = navResult.nodeStore;
-            world.segments = navResult.segments;
-            world.drops = navResult.drops;
-            world.jumps = navResult.jumps;
-            world.uniqueSegments = navResult.nodeStore.GetUniqueNodeConnections().Select(nc => 
-                new NavSegment() 
-                { 
-                    maxHeight = nc.MaxHeight,
-                    oneWayPlatform = nc.ConnectionType == ConnectionType.OneWayPlatformJump,
-                    segment = nc.Segment
-                }).ToArray();
+        private static IEnumerator BakePathfindingRoutine()
+        {
+            var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
+
+            var colliders = GetColliders(navWorld);
+            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
+            var jumpSettings = JumpSettings;
+            var dropSettings = DropSettings;
+            var navResultTask = Task.Run(() => NavHelper.Build(navBuildContext, jumpSettings, dropSettings));
+
+            var progressId = Progress.Start("Baking 2D nav", options: Progress.Options.Indefinite);
+
+            while (!navResultTask.IsCompleted)
+            {
+                yield return null;
+            }
+
+            Progress.Remove(progressId);
+
+            if (navWorld != null)
+            {
+                navWorld.AssignData(navResultTask.Result);
+                EditorUtility.SetDirty(navWorld);
+            }
+
+            _bakingCoroutine = null;
         }
 
         private static void CollectSegments(Collider2D collider, LayerMask oneWayPlatformer, ClipperD clipper)
