@@ -7,7 +7,7 @@
   "unityRelease": "7f1",
   "licensesUrl": "https://opensource.org/license/mit/",
   "dependencies": {
-    "editorcoroutines": "1.0.0"
+    "com.unity.editorcoroutines": "1.0.0"
   },
   "keywords": [
     "Pathfinding",
