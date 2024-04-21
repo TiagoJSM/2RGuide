@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Utils;
+using static _2RGuide.GuideAgent;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -97,6 +98,23 @@ namespace Assets.Tests.PlayModeTests
             agent.Target = target.transform;
             yield return new WaitForSeconds(1.0f);
             Assert.That(agent.transform.position, Is.EqualTo(new Vector3(6.62f, -3.615f)).Using(comparer));
+        }
+
+        [UnityTest]
+        public IEnumerator VerifyAgentCanMovePartiallyCloseToTarget()
+        {
+            SceneManager.LoadScene("MoveToPositionPartiallyTestScene");
+            yield return null;
+            var agent = GameObject.Find("Agent").GetComponent<TransformMovement>();
+            var guide = agent.GuideAgent;
+            var target = GameObject.Find("Target");
+            var finalPos = GameObject.Find("FinalPosition");
+            Assert.That(agent, Is.Not.Null);
+            var comparer = new Vector3EqualityComparer(0.25f);
+            agent.Target = target.transform;
+            yield return new WaitForSeconds(1.0f);
+            Assert.IsTrue(guide.CurrentPathStatus == PathStatus.Incomplete);
+            Assert.That(agent.transform.position, Is.EqualTo(finalPos.transform.position).Using(comparer));
         }
     }
 }

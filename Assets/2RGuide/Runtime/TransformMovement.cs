@@ -7,6 +7,8 @@ namespace _2RGuide
     {
         private GuideAgent _guideAgent;
 
+        public GuideAgent GuideAgent => _guideAgent;
+
         [SerializeField]
         private Transform _target;
 

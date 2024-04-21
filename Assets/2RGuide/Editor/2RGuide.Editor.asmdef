@@ -2,9 +2,8 @@
     "name": "2RGuide.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:5cb2ec59697a4f9438a8f30dc412b4a9",
-        "GUID:6ec20d7bf46e38347a93da7ecf751332",
-        "GUID:ef634a8424d6016438347be502214035"
+        "GUID:ef634a8424d6016438347be502214035",
+        "GUID:478a2357cc57436488a56e564b08d223"
     ],
     "includePlatforms": [
         "Editor"

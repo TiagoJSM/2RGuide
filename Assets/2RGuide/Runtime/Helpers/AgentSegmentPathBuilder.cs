@@ -25,14 +25,14 @@ namespace Assets._2RGuide.Runtime.Helpers
             var segmentPath = agentSegmentPath.ToArray();
 
             // if character is already in between first and second node no need to go back to first
-            if (path.Count() > 1)
+            if (path.Count() > 1 && path[0].ConnectionWith(path[1]).Value.ConnectionType == ConnectionType.Walk)
             {
                 var closestPositionWithStart = path[0].ConnectionWith(path[1]).Value.Segment.ClosestPointOnLine(startPosition);
                 segmentPath[0].position = closestPositionWithStart;
             }
 
             // if character doesn't want to move to last node it should stay "half way"
-            if (path.Count() > 1)
+            if (path.Count() > 1 && path[path.Length - 2].ConnectionWith(path.Last()).Value.ConnectionType == ConnectionType.Walk)
             {
                 //ToDo: first check if on segment between length-2 and length-1, if yes run code bellow, otherwise check connections for last node for closest value on segment
                 var closestPositionWithTarget = path[path.Length - 2].ConnectionWith(path.Last()).Value.Segment.ClosestPointOnLine(targetPosition);

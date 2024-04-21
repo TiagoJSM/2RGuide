@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4550598b52b6647be036fa2c3fb8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeStore:
+  _nodeStore:
     _nodes:
     - _nodeStore:
         id: 0
@@ -745,7 +745,7 @@ MonoBehaviour:
           P1: {x: 1.934, y: 0.5}
           P2: {x: 1.434, y: 3.06}
         _maxHeight: Infinity
-  segments:
+  _segments:
   - segment:
       P1: {x: 0.434, y: 2.06}
       P2: {x: 0.434, y: 3.06}
@@ -806,15 +806,15 @@ MonoBehaviour:
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-  drops: []
-  jumps:
+  _drops: []
+  _jumps:
   - P1: {x: 0.434, y: 3.06}
     P2: {x: -0.066000015, y: 0.5}
   - P1: {x: 1.434, y: 3.06}
     P2: {x: 1.934, y: 0.5}
   - P1: {x: 1.434, y: 3.06}
     P2: {x: 2, y: 0.5}
-  uniqueSegments:
+  _uniqueSegments:
   - segment:
       P1: {x: 0.434, y: 2.06}
       P2: {x: 0.434, y: 3.06}
