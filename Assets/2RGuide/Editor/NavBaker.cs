@@ -208,7 +208,6 @@ namespace _2RGuide.Editor
 
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
         {
-            var paths = new PathsD();
             var clipper = ClipperUtils.ConfiguredClipperD();
             
             foreach (var collider in colliders)

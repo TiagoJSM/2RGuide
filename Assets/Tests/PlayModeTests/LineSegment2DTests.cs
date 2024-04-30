@@ -1,6 +1,7 @@
 ﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using System;
 using UnityEngine;
 using UnityEngine.TestTools.Utils;
@@ -160,6 +161,15 @@ namespace _2RGuide.Tests.PlayModeTests
             Assert.AreEqual(50.0f, splits[1].maxHeight);
             Assert.AreEqual(6.0f, splits[2].maxHeight);
             Assert.AreEqual(50.0f, splits[3].maxHeight);
+        }
+
+
+        [Test]
+        public void TestSlopeRadians()
+        {
+            var segment = new LineSegment2D(Vector2.zero, new Vector2(10.0f, 10.0f));
+
+            Assert.That(segment.SlopeRadians, Is.EqualTo(0.785398f).Within(0.1f));
         }
     }
 }

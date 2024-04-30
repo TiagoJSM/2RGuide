@@ -188,7 +188,7 @@ namespace _2RGuide
                     };
                 }
 
-                var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(referencePositon, currentDestination, nodes);
+                var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(referencePositon, currentDestination, nodes, segmentProximityMaxDistance, _maxSlopeDegrees);
 
                 var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
                 pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;

@@ -9,7 +9,7 @@ namespace _2RGuide
 {
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlope, ConnectionType allowedConnectionTypes, float maxDistance)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float maxDistance)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -40,7 +40,7 @@ namespace _2RGuide
                     {
                         continue;
                     }
-                    if (neighbor.Segment.SlopeRadians > maxSlope)
+                    if (neighbor.ConnectionType == ConnectionType.Walk && neighbor.Segment.SlopeRadians > (maxSlopeDegrees * Mathf.Deg2Rad))
                     {
                         continue;
                     }
