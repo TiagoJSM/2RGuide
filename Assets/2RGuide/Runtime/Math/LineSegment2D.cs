@@ -143,7 +143,7 @@ namespace _2RGuide.Math
             }
         }
 
-        public float SlopeRadians => Slope == null ? 90.0f : Mathf.Atan(Slope.Value);
+        public float SlopeRadians => Slope == null ? 90.0f * Mathf.Deg2Rad : Mathf.Atan(Slope.Value);
 
         public bool DoLinesIntersect(LineSegment2D other, bool validateLineEndingIntersection = true)
         {
