@@ -187,7 +187,7 @@ namespace _2RGuide
             }
 
             var maxHeight = connection.Value.MaxHeight;
-            var obsctacle = connection.Value.Obstacle;
+            var obstacle = connection.Value.Obstacle;
 
             splitNode = NewNode(position);
 
@@ -197,15 +197,15 @@ namespace _2RGuide
             if (connectedNode1 != null)
             {
                 var connectionSegment = new LineSegment2D(segment.P1, splitNode.Position);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight, obsctacle);
-                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obsctacle);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight, obstacle);
+                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obstacle);
             }
             
             if (connectedNode2 != null)
             {
                 var connectionSegment = new LineSegment2D(splitNode.Position, segment.P2);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight, obsctacle);
-                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obsctacle);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight, obstacle);
+                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obstacle);
             }
 
             return splitNode;

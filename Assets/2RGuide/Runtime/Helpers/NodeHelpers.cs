@@ -16,22 +16,9 @@ namespace _2RGuide.Helpers
         {
             foreach (var navSegment in navSegments)
             {
-                nodeStore.NewNode(navSegment.segment.P1);
-                nodeStore.NewNode(navSegment.segment.P2);
-            }
-
-            CreateNodeConnections(navSegments, nodeStore);
-        }
-
-        private static void CreateNodeConnections(IEnumerable<NavSegment> navSegments, NodeStore nodeStore)
-        {
-            foreach (var navSegment in navSegments)
-            {
-                var n1 = nodeStore.Get(navSegment.segment.P1);
-                var n2 = nodeStore.Get(navSegment.segment.P2);
-
-                n1.AddConnection(ConnectionType.Walk, n2, navSegment.segment, navSegment.maxHeight, navSegment.obstacle);
-                n2.AddConnection(ConnectionType.Walk, n1, navSegment.segment, navSegment.maxHeight, navSegment.obstacle);
+                var n1 = nodeStore.NewNodeOrExisting(navSegment.segment.P1);
+                var n2 = nodeStore.NewNodeOrExisting(navSegment.segment.P2);
+                nodeStore.ConnectNodes(n1, n2, navSegment.maxHeight, ConnectionType.Walk, navSegment.obstacle);
             }
         }
     }
