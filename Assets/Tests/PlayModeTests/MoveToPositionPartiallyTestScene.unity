@@ -665,36 +665,43 @@ MonoBehaviour:
       P2: {x: -5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5.486, y: 3.06}
       P2: {x: 5.5, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 1
+    obstacle: 0
   - segment:
       P1: {x: 5.5, y: 3.06}
       P2: {x: 6.486, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 1
+    obstacle: 0
   - segment:
       P1: {x: -5, y: 0.5}
       P2: {x: 4.986, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 4.986, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   _drops: []
   _jumps:
   - P1: {x: 5, y: 0.5}
@@ -707,46 +714,55 @@ MonoBehaviour:
       P2: {x: -5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5, y: 0.5}
       P2: {x: 4.986, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5.5, y: 3.06}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 4.986, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5.486, y: 3.06}
       P2: {x: 5.5, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5.486, y: 3.06}
       P2: {x: 4.986, y: 0.5}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 5.5, y: 3.06}
       P2: {x: 6.486, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   references:
     version: 1
     00000000:

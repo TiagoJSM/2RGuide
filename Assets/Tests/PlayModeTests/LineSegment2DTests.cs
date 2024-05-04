@@ -1,5 +1,7 @@
 ﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Runtime.Helpers;
+using Clipper2Lib;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using System;
@@ -170,6 +172,37 @@ namespace _2RGuide.Tests.PlayModeTests
             var segment = new LineSegment2D(Vector2.zero, new Vector2(10.0f, 10.0f));
 
             Assert.That(segment.SlopeRadians, Is.EqualTo(0.785398f).Within(0.1f));
+        }
+
+        [Test]
+        public void SplitPath()
+        {
+            var closedPath = Clipper.MakePath(new double[]
+                {
+                    -5f, -5f,
+                    -5f, 5f,
+                    5f, 5f,
+                    5f, -5f,
+                });
+
+            var line = new LineSegment2D(new Vector2(-10.0f, 0.0f), new Vector2(10.0f, 0.0f));
+
+            var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(line, new PathsD() { closedPath });
+
+            Assert.That(resultOutsidePath.Count, Is.EqualTo(2));
+            Assert.That(resultInsidePath.Count, Is.EqualTo(1));
+
+            var outsideSegments = NavHelper.ConvertOpenPathToSegments(resultOutsidePath);
+            var insideSegments = NavHelper.ConvertOpenPathToSegments(resultInsidePath);
+
+            Assert.That(outsideSegments[0].P1.Approximately(new Vector2(-10.0f, 0.0f)));
+            Assert.That(outsideSegments[0].P2.Approximately(new Vector2(-5.0f, 0.0f)));
+
+            Assert.That(outsideSegments[1].P1.Approximately(new Vector2(5.0f, 0.0f)));
+            Assert.That(outsideSegments[1].P2.Approximately(new Vector2(10.0f, 0.0f)));
+
+            Assert.That(insideSegments[0].P1.Approximately(new Vector2(-5.0f, 0.0f)));
+            Assert.That(insideSegments[0].P2.Approximately(new Vector2(5.0f, 0.0f)));
         }
     }
 }

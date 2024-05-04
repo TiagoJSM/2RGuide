@@ -1,10 +1,12 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Networking.UnityWebRequest;
 
 namespace _2RGuide.Helpers
 {
@@ -14,6 +16,7 @@ namespace _2RGuide.Helpers
         public LineSegment2D segment;
         public float maxHeight;
         public bool oneWayPlatform;
+        public bool obstacle;
 
         public static implicit operator bool(NavSegment navSegment)
         {
@@ -40,8 +43,8 @@ namespace _2RGuide.Helpers
             var splits = segment.DivideSegment(segmentDivision, segments, maxHeight);
 
             var index = 0;
-            
-            while(index < splits.Length)
+
+            while (index < splits.Length)
             {
                 var segmentSplits = splits.Skip(index);
                 var referenceHeight = segmentSplits.First().maxHeight;
@@ -79,15 +82,15 @@ namespace _2RGuide.Helpers
             var normal = segment.NormalVector.normalized;
             var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
-            if(hit && hit.HitLineEnd)
+            if (hit && hit.HitLineEnd)
             {
                 var sameDir = SameDirection(segment.P1, segment.P2, hit.LineSegment, hit.HitPosition.Value);
-                if(!sameDir)
+                if (!sameDir)
                 {
                     p1Height = maxHeight;
                 }
             }
-            
+
             var divisionStep = segmentDivision;
 
             while (p1 != segment.P2)
@@ -122,7 +125,7 @@ namespace _2RGuide.Helpers
 
         public static LineSegment2D[] Split(this LineSegment2D segment, params Vector2[] splitPoints)
         {
-            var pointsOnSegment = 
+            var pointsOnSegment =
                 splitPoints
                     .Where(p => segment.OnSegment(p))
                     .OrderBy(p => Vector2.Distance(segment.P1, p));
@@ -131,7 +134,7 @@ namespace _2RGuide.Helpers
 
             var p1 = segment.P1;
 
-            foreach(var splitPoint in splitPoints)
+            foreach (var splitPoint in splitPoints)
             {
                 result.Add(new LineSegment2D(p1, splitPoint));
                 p1 = splitPoint;
@@ -165,7 +168,7 @@ namespace _2RGuide.Helpers
             var openPath = new PathsD();
             var closedPath = new PathsD();
             var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-            
+
             if (closedPath.Count == 0)
             {
                 return true;
@@ -183,6 +186,30 @@ namespace _2RGuide.Helpers
         public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
         {
             return segments.FirstOrDefault(s => s.OnSegment(position));
+        }
+
+        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<Obstacle> obstacles)
+        {
+            var paths = new PathsD(obstacles.Select(o => ClipperUtils.MakePath(o.Collider)));
+            var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(segment, paths);
+            return (
+                NavHelper.ConvertOpenPathToSegments(resultOutsidePath),
+                NavHelper.ConvertOpenPathToSegments(resultInsidePath));
+        }
+
+        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<Obstacle> obstacles)
+        {
+            var resultOutsidePath = new List<LineSegment2D>();
+            var resultInsidePath = new List<LineSegment2D>();
+
+            foreach(var segment in segments)
+            {
+                var splits = segment.SplitLineSegment(obstacles);
+                resultOutsidePath.AddRange(splits.Item1);
+                resultInsidePath.AddRange(splits.Item2);
+            }
+
+            return (resultOutsidePath, resultInsidePath);
         }
 
         private static bool SameDirection(Vector2 s1P1, Vector2 s1P2, LineSegment2D s, Vector2 hitPosition)

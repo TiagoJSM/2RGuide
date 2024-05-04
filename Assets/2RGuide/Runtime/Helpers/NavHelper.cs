@@ -83,7 +83,7 @@ namespace _2RGuide.Helpers
             return segments.ToArray();
         }
 
-        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight)
+        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, IEnumerable<LineSegment2D> obstacleSegments)
         {
             return
                 segments
@@ -93,6 +93,7 @@ namespace _2RGuide.Helpers
                         for (var idx = 0; idx < dividedSegs.Length; idx++)
                         {
                             dividedSegs[idx].oneWayPlatform = edgeSegments.Contains(s);
+                            dividedSegs[idx].obstacle = obstacleSegments.Contains(s);
                         }
                         return dividedSegs;
                     })

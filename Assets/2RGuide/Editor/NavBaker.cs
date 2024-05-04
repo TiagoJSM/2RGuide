@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using System.Collections;
 using Unity.EditorCoroutines.Editor;
+using Assets._2RGuide.Runtime;
 
 namespace _2RGuide.Editor
 {
@@ -73,7 +74,8 @@ namespace _2RGuide.Editor
         public static void BakePathfinding(NavWorld world)
         {
             var colliders = GetColliders(world);
-            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
+            var obstacles = UnityEngine.Object.FindObjectsOfType<Obstacle>();
+            var navBuildContext = GetNavBuildContext(colliders, obstacles, NodePathSettings);
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
             world.AssignData(navResult);
         }
@@ -81,9 +83,10 @@ namespace _2RGuide.Editor
         private static IEnumerator BakePathfindingRoutine()
         {
             var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
+            var obstacles = UnityEngine.Object.FindObjectsOfType<Obstacle>();
 
             var colliders = GetColliders(navWorld);
-            var navBuildContext = GetNavBuildContext(colliders, NodePathSettings);
+            var navBuildContext = GetNavBuildContext(colliders, obstacles, NodePathSettings);
             var jumpSettings = JumpSettings;
             var dropSettings = DropSettings;
             var navResultTask = Task.Run(() => NavHelper.Build(navBuildContext, jumpSettings, dropSettings));
@@ -124,89 +127,28 @@ namespace _2RGuide.Editor
 
         private static void CollectSegments(BoxCollider2D collider, ClipperD clipper)
         {
-            var bounds = collider.bounds;
-
-            var shape = Clipper.MakePath(new double[]
-                {
-                    bounds.min.x, bounds.min.y,
-                    bounds.min.x, bounds.max.y,
-                    bounds.max.x, bounds.max.y,
-                    bounds.max.x, bounds.min.y,
-                });
+            var shape = ClipperUtils.MakePath(collider);
             clipper.AddPath(shape, PathType.Subject);
         }
 
         private static void CollectSegments(PolygonCollider2D collider, ClipperD clipper)
         {
-            for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
-            {
-                var path = collider.GetPath(pathIdx);
-
-                if (path.Length < 1)
-                {
-                    return;
-                }
-
-                var points = path.SelectMany(p =>
-                {
-                    p = collider.transform.TransformPoint(p);
-                    return new double[] { p.x, p.y };
-                });
-
-                var shape = Clipper.MakePath(points.ToArray());
-                clipper.AddPath(shape, PathType.Subject);
-            }
+            var paths = ClipperUtils.MakePaths(collider);
+            clipper.AddPaths(paths, PathType.Subject);
         }
 
         private static void CollectSegments(CompositeCollider2D collider, ClipperD clipper)
         {
-            for (var pathIdx = 0; pathIdx < collider.pathCount; pathIdx++)
-            {
-                var path = new List<Vector2>();
-                var _ = collider.GetPath(pathIdx, path);
-
-                if (path.Count < 1)
-                {
-                    return;
-                }
-
-                var points = path.SelectMany(p =>
-                {
-                    p = collider.transform.TransformPoint(p);
-                    return new double[] { p.x, p.y };
-                });
-
-                var shape = Clipper.MakePath(points.ToArray());
-                clipper.AddPath(shape, PathType.Subject);
-            }
+            var paths = ClipperUtils.MakePaths(collider);
+            clipper.AddPaths(paths, PathType.Subject);
         }
 
         private static Collider2D[] GetColliders(NavWorld world)
         {
-            var colliders = new List<Collider2D>();
-            GetColliders(world.gameObject, colliders);
-            return colliders.ToArray();
+            return world.gameObject.GetComponentsInChildren<Collider2D>(false);
         }
 
-        private static void GetColliders(GameObject go, List<Collider2D> colliders)
-        {
-            var children = go.transform.childCount;
-            for (var idx = 0; idx < children; idx++)
-            {
-                var child = go.transform.GetChild(idx);
-                if (child.gameObject.activeInHierarchy)
-                {
-                    var collider = child.GetComponent<Collider2D>();
-                    if (collider != null)
-                    {
-                        colliders.Add(collider);
-                    }
-                    GetColliders(child.gameObject, colliders);
-                }
-            }
-        }
-
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NodeHelpers.Settings nodePathSettings)
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, Obstacle[] obstacles, NodeHelpers.Settings nodePathSettings)
         {
             var clipper = ClipperUtils.ConfiguredClipperD();
             
@@ -239,13 +181,18 @@ namespace _2RGuide.Editor
                     })
                     .ToArray();
 
-            var result = new List<LineSegment2D>();
-            result.AddRange(closedPathSegments);
-            result.AddRange(edgeSegments);
+            var segments = new List<LineSegment2D>();
+            segments.AddRange(closedPathSegments);
+            segments.AddRange(edgeSegments);
+
+            var splits = segments.SplitLineSegments(obstacles);
+            segments = new List<LineSegment2D>();
+            segments.AddRange(splits.Item1);
+            segments.AddRange(splits.Item2);
 
             var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
 
-            var navSegments = NavHelper.ConvertToNavSegments(result, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight);
+            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, splits.Item2);
 
             return new NavBuildContext()
             {

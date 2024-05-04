@@ -1790,216 +1790,259 @@ MonoBehaviour:
       P2: {x: -8.6531, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -8.6531, y: 9.8753}
       P2: {x: -7.5964, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 9.8753}
       P2: {x: 7.2669, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 9.8753}
       P2: {x: 7.446, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.446, y: 9.8753}
       P2: {x: 8.3236, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 8.3236, y: 9.8753}
       P2: {x: 8.3236, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 8.3236, y: -4.951}
       P2: {x: 7.2669, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -4.951}
       P2: {x: 7.2669, y: -4.29}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -4.29}
       P2: {x: -7.5964, y: -4.29}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -4.29}
       P2: {x: -7.5964, y: -4.951}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -4.951}
       P2: {x: -8.6531, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -3.6147}
       P2: {x: -4.5964, y: -3.6147}
     maxHeight: 3.3647
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.4036002, y: -3.6147}
       P2: {x: 7.2669, y: -3.6147}
     maxHeight: 9.2747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -3.6147}
       P2: {x: 7.2669, y: -0.6147001}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -0.6147001}
       P2: {x: 7.2669, y: 1.3852999}
     maxHeight: 12.3382
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 1.3852999}
       P2: {x: 7.2669, y: 5.66}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 5.66}
       P2: {x: 3.6569, y: 5.66}
     maxHeight: 9.2747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 5.66}
       P2: {x: 3.6569, y: 6.3353}
     maxHeight: 2.8181999
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 6.3353}
       P2: {x: 7.2669, y: 9.2}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 9.2}
       P2: {x: 3.2669, y: 9.2}
     maxHeight: 2.8646994
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.2669, y: 9.2}
       P2: {x: 1.2669001, y: 9.2}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.2669001, y: 9.2}
       P2: {x: -3.7331, y: 9.2}
     maxHeight: 2.6647
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.7331, y: 9.2}
       P2: {x: -4.7331, y: 9.2}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.7331, y: 9.2}
       P2: {x: -7.5964, y: 9.2}
     maxHeight: 8.7747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 9.2}
       P2: {x: -7.5964, y: 7.2}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 7.2}
       P2: {x: -7.5964, y: 5.2}
     maxHeight: 4.8533
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 5.2}
       P2: {x: -7.5964, y: 0.4253}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 0.4253}
       P2: {x: -5.0713, y: 0.4253}
     maxHeight: 8.774699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
       P2: {x: -5.0713, y: -0.25}
     maxHeight: 12.3382
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5.0713, y: -0.25}
       P2: {x: -7.5964, y: -0.25}
     maxHeight: 3.3646998
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -0.25}
       P2: {x: -7.5964, y: -3.6147}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -2.7431, y: 5.86}
       P2: {x: -2.7431, y: 6.5353}
     maxHeight: 4.853299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 0.8387, y: 6.5353}
       P2: {x: 0.8387, y: 5.86}
     maxHeight: 2.8181999
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 0.8387, y: 5.86}
       P2: {x: -2.7431, y: 5.86}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -2.7431, y: 6.5353}
       P2: {x: 0.8387, y: 6.5353}
     maxHeight: 2.664699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.5964, y: -3.6147}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.5713, y: -3.6147}
       P2: {x: -3.5963998, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
       P2: {x: 7.2669, y: 6.3353}
     maxHeight: 2.864699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.4036002, y: -3.6147}
       P2: {x: 3.1569, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.1569, y: -3.6147}
       P2: {x: 3.4036002, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
       P2: {x: -3.2431, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.2431, y: -3.6147}
       P2: {x: 1.3387, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.3387, y: -3.6147}
       P2: {x: 1.4036002, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   _drops:
   - P1: {x: 3.6569, y: 6.3353}
     P2: {x: 3.1569, y: -3.6147}
@@ -2020,246 +2063,295 @@ MonoBehaviour:
       P2: {x: -8.6531, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -4.951}
       P2: {x: -8.6531, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -8.6531, y: 9.8753}
       P2: {x: -7.5964, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 9.8753}
       P2: {x: 7.2669, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 9.8753}
       P2: {x: 7.446, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.446, y: 9.8753}
       P2: {x: 8.3236, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 8.3236, y: 9.8753}
       P2: {x: 8.3236, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 8.3236, y: -4.951}
       P2: {x: 7.2669, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -4.951}
       P2: {x: 7.2669, y: -4.29}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -4.29}
       P2: {x: -7.5964, y: -4.29}
     maxHeight: 50
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -4.29}
       P2: {x: -7.5964, y: -4.951}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -3.6147}
       P2: {x: -4.5964, y: -3.6147}
     maxHeight: 3.3647
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: -0.25}
       P2: {x: -7.5964, y: -3.6147}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.5964, y: -3.6147}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.5713, y: -3.6147}
       P2: {x: -3.5963998, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
       P2: {x: -5.0713, y: 0.4253}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
       P2: {x: -3.2431, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.4036002, y: -3.6147}
       P2: {x: 3.1569, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.3387, y: -3.6147}
       P2: {x: 1.4036002, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.4036002, y: -3.6147}
       P2: {x: 7.2669, y: -3.6147}
     maxHeight: 9.2747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.1569, y: -3.6147}
       P2: {x: 3.4036002, y: -3.6147}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -3.6147}
       P2: {x: 7.2669, y: -0.6147001}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: -0.6147001}
       P2: {x: 7.2669, y: 1.3852999}
     maxHeight: 12.3382
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 1.3852999}
       P2: {x: 7.2669, y: 5.66}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 5.66}
       P2: {x: 3.6569, y: 5.66}
     maxHeight: 9.2747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 5.66}
       P2: {x: 3.6569, y: 6.3353}
     maxHeight: 2.8181999
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
       P2: {x: 7.2669, y: 6.3353}
     maxHeight: 2.864699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
       P2: {x: 0.8387, y: 6.5353}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
       P2: {x: 3.1569, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 6.3353}
       P2: {x: 7.2669, y: 9.2}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 7.2669, y: 9.2}
       P2: {x: 3.2669, y: 9.2}
     maxHeight: 2.8646994
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 3.2669, y: 9.2}
       P2: {x: 1.2669001, y: 9.2}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 1.2669001, y: 9.2}
       P2: {x: -3.7331, y: 9.2}
     maxHeight: 2.6647
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.7331, y: 9.2}
       P2: {x: -4.7331, y: 9.2}
     maxHeight: 12.814699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -4.7331, y: 9.2}
       P2: {x: -7.5964, y: 9.2}
     maxHeight: 8.7747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 9.2}
       P2: {x: -7.5964, y: 7.2}
     maxHeight: 14.8633
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 7.2}
       P2: {x: -7.5964, y: 5.2}
     maxHeight: 4.8533
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 5.2}
       P2: {x: -7.5964, y: 0.4253}
     maxHeight: 14.863299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -7.5964, y: 0.4253}
       P2: {x: -5.0713, y: 0.4253}
     maxHeight: 8.774699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
       P2: {x: -5.0713, y: -0.25}
     maxHeight: 12.3382
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
       P2: {x: -4.5713, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -5.0713, y: -0.25}
       P2: {x: -7.5964, y: -0.25}
     maxHeight: 3.3646998
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -2.7431, y: 5.86}
       P2: {x: -2.7431, y: 6.5353}
     maxHeight: 4.853299
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 0.8387, y: 5.86}
       P2: {x: -2.7431, y: 5.86}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -2.7431, y: 6.5353}
       P2: {x: 0.8387, y: 6.5353}
     maxHeight: 2.664699
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -2.7431, y: 6.5353}
       P2: {x: -3.2431, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 0.8387, y: 6.5353}
       P2: {x: 0.8387, y: 5.86}
     maxHeight: 2.8181999
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: 0.8387, y: 6.5353}
       P2: {x: 1.3387, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
+    obstacle: 0
   - segment:
       P1: {x: -3.2431, y: -3.6147}
       P2: {x: 1.3387, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
+    obstacle: 0
   references:
     version: 1
     00000000:

@@ -1,5 +1,4 @@
-﻿using _2RGuide;
-using _2RGuide.Helpers;
+﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
 using Assets._2RGuide.Editor;
 using UnityEditor;
@@ -86,7 +85,8 @@ namespace _2RGuide.Editor
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalVector.normalized * normalSize, 0.08f);
-                Handles.Label(middle, $"N: {segment.NormalVector.normalized}; Slope: {segment.Slope}");
+                var obstacleTag = navSegment.obstacle ? "Obstacle;" : string.Empty;
+                Handles.Label(middle, $"N: {segment.NormalVector.normalized}; Slope: {segment.Slope}; {obstacleTag}");
             }
         }
 
