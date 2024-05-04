@@ -20,11 +20,11 @@ namespace _2RGuide.Math
             }
         }
 
-        public Vector2 NormalVector
+        public Vector2 NormalizedNormalVector
         {
             get
             {
-                return new Vector2(-(P2.y - P1.y), (P2.x - P1.x));
+                return (new Vector2(-(P2.y - P1.y), P2.x - P1.x)).normalized;
             }
         }
 
@@ -143,7 +143,8 @@ namespace _2RGuide.Math
             }
         }
 
-        public float SlopeRadians => Slope == null ? 90.0f * Mathf.Deg2Rad : Mathf.Atan(Slope.Value);
+        public float SlopeRadians => Slope == null ? (90.0f * NormalizedNormalVector.x) * Mathf.Deg2Rad : Mathf.Atan(Slope.Value);
+        public float SlopeDegrees => SlopeRadians * Mathf.Rad2Deg;
 
         public bool DoLinesIntersect(LineSegment2D other, bool validateLineEndingIntersection = true)
         {

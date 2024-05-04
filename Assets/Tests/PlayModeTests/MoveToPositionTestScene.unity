@@ -458,6 +458,7 @@ MonoBehaviour:
           P1: {x: 0.434, y: 2.06}
           P2: {x: 0.434, y: 3.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 3
@@ -466,6 +467,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 2.06}
           P2: {x: 0.434, y: 2.06}
         _maxHeight: 1.56
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 1
@@ -479,6 +481,7 @@ MonoBehaviour:
           P1: {x: 0.434, y: 2.06}
           P2: {x: 0.434, y: 3.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 2
@@ -487,6 +490,7 @@ MonoBehaviour:
           P1: {x: 0.434, y: 3.06}
           P2: {x: 1.434, y: 3.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 10
@@ -495,6 +499,7 @@ MonoBehaviour:
           P1: {x: 0.434, y: 3.06}
           P2: {x: -0.066000015, y: 0.5}
         _maxHeight: Infinity
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 2
@@ -508,6 +513,7 @@ MonoBehaviour:
           P1: {x: 0.434, y: 3.06}
           P2: {x: 1.434, y: 3.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 3
@@ -516,6 +522,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 3.06}
           P2: {x: 1.434, y: 2.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 11
@@ -524,6 +531,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 3.06}
           P2: {x: 1.934, y: 0.5}
         _maxHeight: Infinity
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 7
@@ -532,6 +540,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 3.06}
           P2: {x: 2, y: 0.5}
         _maxHeight: Infinity
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 3
@@ -545,6 +554,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 3.06}
           P2: {x: 1.434, y: 2.06}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 0
@@ -553,6 +563,7 @@ MonoBehaviour:
           P1: {x: 1.434, y: 2.06}
           P2: {x: 0.434, y: 2.06}
         _maxHeight: 1.56
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 4
@@ -566,6 +577,7 @@ MonoBehaviour:
           P1: {x: -5, y: -0.5}
           P2: {x: -5, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 9
@@ -574,6 +586,7 @@ MonoBehaviour:
           P1: {x: 5, y: -0.5}
           P2: {x: -5, y: -0.5}
         _maxHeight: 50
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 5
@@ -587,6 +600,7 @@ MonoBehaviour:
           P1: {x: -5, y: -0.5}
           P2: {x: -5, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 10
@@ -595,6 +609,7 @@ MonoBehaviour:
           P1: {x: -5, y: 0.5}
           P2: {x: -0.066000015, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 6
@@ -608,6 +623,7 @@ MonoBehaviour:
           P1: {x: -0.066000015, y: 0.5}
           P2: {x: 0, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 11
@@ -616,6 +632,7 @@ MonoBehaviour:
           P1: {x: 0, y: 0.5}
           P2: {x: 1.934, y: 0.5}
         _maxHeight: 1.56
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 7
@@ -629,6 +646,7 @@ MonoBehaviour:
           P1: {x: 2, y: 0.5}
           P2: {x: 5, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 11
@@ -637,6 +655,7 @@ MonoBehaviour:
           P1: {x: 1.934, y: 0.5}
           P2: {x: 2, y: 0.5}
         _maxHeight: 1.56
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 2
@@ -645,6 +664,7 @@ MonoBehaviour:
           P1: {x: 2, y: 0.5}
           P2: {x: 1.434, y: 3.06}
         _maxHeight: Infinity
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 8
@@ -658,6 +678,7 @@ MonoBehaviour:
           P1: {x: 2, y: 0.5}
           P2: {x: 5, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 9
@@ -666,6 +687,7 @@ MonoBehaviour:
           P1: {x: 5, y: 0.5}
           P2: {x: 5, y: -0.5}
         _maxHeight: 50
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 9
@@ -679,6 +701,7 @@ MonoBehaviour:
           P1: {x: 5, y: 0.5}
           P2: {x: 5, y: -0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 4
@@ -687,6 +710,7 @@ MonoBehaviour:
           P1: {x: 5, y: -0.5}
           P2: {x: -5, y: -0.5}
         _maxHeight: 50
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 10
@@ -700,6 +724,7 @@ MonoBehaviour:
           P1: {x: -5, y: 0.5}
           P2: {x: -0.066000015, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 6
@@ -708,6 +733,7 @@ MonoBehaviour:
           P1: {x: -0.066000015, y: 0.5}
           P2: {x: 0, y: 0.5}
         _maxHeight: 50
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 1
@@ -716,6 +742,7 @@ MonoBehaviour:
           P1: {x: -0.066000015, y: 0.5}
           P2: {x: 0.434, y: 3.06}
         _maxHeight: Infinity
+        _obstacle: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 11
@@ -729,6 +756,7 @@ MonoBehaviour:
           P1: {x: 0, y: 0.5}
           P2: {x: 1.934, y: 0.5}
         _maxHeight: 1.56
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 7
@@ -737,6 +765,7 @@ MonoBehaviour:
           P1: {x: 1.934, y: 0.5}
           P2: {x: 2, y: 0.5}
         _maxHeight: 1.56
+        _obstacle: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 2
@@ -745,6 +774,7 @@ MonoBehaviour:
           P1: {x: 1.934, y: 0.5}
           P2: {x: 1.434, y: 3.06}
         _maxHeight: Infinity
+        _obstacle: 0
   _segments:
   - segment:
       P1: {x: 0.434, y: 2.06}
@@ -936,6 +966,7 @@ MonoBehaviour:
               P1: {x: 0.434, y: 2.06}
               P2: {x: 0.434, y: 3.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 3
@@ -944,6 +975,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 2.06}
               P2: {x: 0.434, y: 2.06}
             _maxHeight: 1.56
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 1
@@ -957,6 +989,7 @@ MonoBehaviour:
               P1: {x: 0.434, y: 2.06}
               P2: {x: 0.434, y: 3.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 2
@@ -965,6 +998,7 @@ MonoBehaviour:
               P1: {x: 0.434, y: 3.06}
               P2: {x: 1.434, y: 3.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 10
@@ -973,6 +1007,7 @@ MonoBehaviour:
               P1: {x: 0.434, y: 3.06}
               P2: {x: -0.066000015, y: 0.5}
             _maxHeight: Infinity
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 2
@@ -986,6 +1021,7 @@ MonoBehaviour:
               P1: {x: 0.434, y: 3.06}
               P2: {x: 1.434, y: 3.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 3
@@ -994,6 +1030,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 3.06}
               P2: {x: 1.434, y: 2.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 11
@@ -1002,6 +1039,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 3.06}
               P2: {x: 1.934, y: 0.5}
             _maxHeight: Infinity
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 7
@@ -1010,6 +1048,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 3.06}
               P2: {x: 2, y: 0.5}
             _maxHeight: Infinity
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 3
@@ -1023,6 +1062,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 3.06}
               P2: {x: 1.434, y: 2.06}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 0
@@ -1031,6 +1071,7 @@ MonoBehaviour:
               P1: {x: 1.434, y: 2.06}
               P2: {x: 0.434, y: 2.06}
             _maxHeight: 1.56
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 4
@@ -1044,6 +1085,7 @@ MonoBehaviour:
               P1: {x: -5, y: -0.5}
               P2: {x: -5, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 9
@@ -1052,6 +1094,7 @@ MonoBehaviour:
               P1: {x: 5, y: -0.5}
               P2: {x: -5, y: -0.5}
             _maxHeight: 50
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 5
@@ -1065,6 +1108,7 @@ MonoBehaviour:
               P1: {x: -5, y: -0.5}
               P2: {x: -5, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 10
@@ -1073,6 +1117,7 @@ MonoBehaviour:
               P1: {x: -5, y: 0.5}
               P2: {x: -0.066000015, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 6
@@ -1086,6 +1131,7 @@ MonoBehaviour:
               P1: {x: -0.066000015, y: 0.5}
               P2: {x: 0, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 11
@@ -1094,6 +1140,7 @@ MonoBehaviour:
               P1: {x: 0, y: 0.5}
               P2: {x: 1.934, y: 0.5}
             _maxHeight: 1.56
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 7
@@ -1107,6 +1154,7 @@ MonoBehaviour:
               P1: {x: 2, y: 0.5}
               P2: {x: 5, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 11
@@ -1115,6 +1163,7 @@ MonoBehaviour:
               P1: {x: 1.934, y: 0.5}
               P2: {x: 2, y: 0.5}
             _maxHeight: 1.56
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 2
@@ -1123,6 +1172,7 @@ MonoBehaviour:
               P1: {x: 2, y: 0.5}
               P2: {x: 1.434, y: 3.06}
             _maxHeight: Infinity
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 8
@@ -1136,6 +1186,7 @@ MonoBehaviour:
               P1: {x: 2, y: 0.5}
               P2: {x: 5, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 9
@@ -1144,6 +1195,7 @@ MonoBehaviour:
               P1: {x: 5, y: 0.5}
               P2: {x: 5, y: -0.5}
             _maxHeight: 50
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 9
@@ -1157,6 +1209,7 @@ MonoBehaviour:
               P1: {x: 5, y: 0.5}
               P2: {x: 5, y: -0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 4
@@ -1165,6 +1218,7 @@ MonoBehaviour:
               P1: {x: 5, y: -0.5}
               P2: {x: -5, y: -0.5}
             _maxHeight: 50
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 10
@@ -1178,6 +1232,7 @@ MonoBehaviour:
               P1: {x: -5, y: 0.5}
               P2: {x: -0.066000015, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 6
@@ -1186,6 +1241,7 @@ MonoBehaviour:
               P1: {x: -0.066000015, y: 0.5}
               P2: {x: 0, y: 0.5}
             _maxHeight: 50
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 1
@@ -1194,6 +1250,7 @@ MonoBehaviour:
               P1: {x: -0.066000015, y: 0.5}
               P2: {x: 0.434, y: 3.06}
             _maxHeight: Infinity
+            _obstacle: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 11
@@ -1207,6 +1264,7 @@ MonoBehaviour:
               P1: {x: 0, y: 0.5}
               P2: {x: 1.934, y: 0.5}
             _maxHeight: 1.56
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 7
@@ -1215,6 +1273,7 @@ MonoBehaviour:
               P1: {x: 1.934, y: 0.5}
               P2: {x: 2, y: 0.5}
             _maxHeight: 1.56
+            _obstacle: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 2
@@ -1223,6 +1282,7 @@ MonoBehaviour:
               P1: {x: 1.934, y: 0.5}
               P2: {x: 1.434, y: 3.06}
             _maxHeight: Infinity
+            _obstacle: 0
 --- !u!4 &2128047355
 Transform:
   m_ObjectHideFlags: 0

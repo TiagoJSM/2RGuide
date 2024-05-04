@@ -34,24 +34,29 @@ namespace _2RGuide
         private LineSegment2D _segment;
         [SerializeField]
         private float _maxHeight;
+        [SerializeField]
+        private bool _obstacle;
 
         public Node Node => _nodeStore.Get(_nodeIndex);
         public ConnectionType ConnectionType => _connectionType;
         public LineSegment2D Segment => _segment;
         public float MaxHeight => _maxHeight;
+        public bool Obstacle => _obstacle;
 
         public NodeConnection(
             NodeStore store, 
             int nodeIndex, 
             ConnectionType connectionType, 
             LineSegment2D segment, 
-            float maxHeight)
+            float maxHeight,
+            bool obstacle)
         {
             _nodeStore = store;
             _nodeIndex = nodeIndex;
             _connectionType = connectionType;
             _segment = segment;
             _maxHeight = maxHeight;
+            _obstacle = obstacle;
         }
     }
 
@@ -90,12 +95,12 @@ namespace _2RGuide
             _connections = new List<NodeConnection>();
         }
 
-        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight)
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight, bool obstacle)
         {
             var hasSegment = _connections.Any(c => c.Segment.IsCoincident(segment));
             if (!hasSegment)
             {
-                var connection = new NodeConnection(_nodeStore, other._nodeIndex, connectionType, segment, maxHeight);
+                var connection = new NodeConnection(_nodeStore, other._nodeIndex, connectionType, segment, maxHeight, obstacle);
                 _connections.Add(connection);
             }
 
@@ -182,6 +187,7 @@ namespace _2RGuide
             }
 
             var maxHeight = connection.Value.MaxHeight;
+            var obsctacle = connection.Value.Obstacle;
 
             splitNode = NewNode(position);
 
@@ -191,15 +197,15 @@ namespace _2RGuide
             if (connectedNode1 != null)
             {
                 var connectionSegment = new LineSegment2D(segment.P1, splitNode.Position);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight);
-                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight, obsctacle);
+                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obsctacle);
             }
             
             if (connectedNode2 != null)
             {
                 var connectionSegment = new LineSegment2D(splitNode.Position, segment.P2);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight);
-                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight);
+                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight, obsctacle);
+                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obsctacle);
             }
 
             return splitNode;
@@ -230,12 +236,12 @@ namespace _2RGuide
             return _nodes.ToArray();
         }
 
-        public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType = ConnectionType.Walk)
+        public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType, bool obstacle)
         {
             var s = new LineSegment2D(node1.Position, node2.Position);
 
-            node1.AddConnection(connectionType, node2, s, maxHeight);
-            node2.AddConnection(connectionType, node1, s, maxHeight);
+            node1.AddConnection(connectionType, node2, s, maxHeight, obstacle);
+            node2.AddConnection(connectionType, node1, s, maxHeight, obstacle);
 
             return s;
         }

@@ -30,8 +30,8 @@ namespace _2RGuide.Helpers
                 var n1 = nodeStore.Get(navSegment.segment.P1);
                 var n2 = nodeStore.Get(navSegment.segment.P2);
 
-                n1.AddConnection(ConnectionType.Walk, n2, navSegment.segment, navSegment.maxHeight);
-                n2.AddConnection(ConnectionType.Walk, n1, navSegment.segment, navSegment.maxHeight);
+                n1.AddConnection(ConnectionType.Walk, n2, navSegment.segment, navSegment.maxHeight, navSegment.obstacle);
+                n2.AddConnection(ConnectionType.Walk, n1, navSegment.segment, navSegment.maxHeight, navSegment.obstacle);
             }
         }
     }

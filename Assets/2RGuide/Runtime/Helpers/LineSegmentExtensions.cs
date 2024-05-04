@@ -31,7 +31,7 @@ namespace _2RGuide.Helpers
             var slope = segment.Slope;
             if (slope != null)
             {
-                return Mathf.Abs(slope.Value) > maxSlope || segment.NormalVector.y < 0.0f;
+                return Mathf.Abs(slope.Value) > maxSlope || segment.NormalizedNormalVector.y < 0.0f;
             }
             return true;
         }
@@ -79,7 +79,7 @@ namespace _2RGuide.Helpers
             var splits = new List<NavSegment>();
 
             var p1 = segment.P1;
-            var normal = segment.NormalVector.normalized;
+            var normal = segment.NormalizedNormalVector;
             var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)

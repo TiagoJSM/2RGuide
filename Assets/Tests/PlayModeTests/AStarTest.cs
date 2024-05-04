@@ -5,9 +5,14 @@ using _2RGuide;
 using _2RGuide.Helpers;
 using _2RGuide.Math;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets.Tests.PlayModeTests.Attributes;
 using Clipper2Lib;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools.Utils;
+using UnityEngine.TestTools;
+using NUnit;
+using System.IO;
 
 namespace _2RGuide.Tests.PlayModeTests
 {
@@ -21,8 +26,8 @@ namespace _2RGuide.Tests.PlayModeTests
             var n1 = store.NewNode(Vector2.zero);
             var n2 = store.NewNode(Vector2.one);
 
-            n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity);
-            n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity);
+            n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity, false);
+            n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity, false);
 
             var path = AStar.Resolve(n1, n2, 0, 91f, ConnectionType.All, float.PositiveInfinity);
 
@@ -145,6 +150,23 @@ namespace _2RGuide.Tests.PlayModeTests
             var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity);
 
             Assert.AreEqual(6, path.Length);
+        }
+
+        [UnityTest, TestScene("VerifyAStarPathWithObstacle")]
+        public IEnumerator VerifyAStarPathWithObstacle()
+        {
+            yield return null;
+            var agentGO = GameObject.Find("Agent");
+            Assert.That(agentGO, Is.Not.Null);
+            var targetGO = GameObject.Find("Target");
+            Assert.That(targetGO, Is.Not.Null);
+
+            var navWorld = NavWorldReference.Instance.NavWorld;
+            var startN = navWorld.GetClosestNodeInSegment(agentGO.transform.position);
+            var endN = navWorld.GetClosestNodeInSegment(targetGO.transform.position);
+            var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity);
+
+            Assert.AreEqual(4, nodes.Length);
         }
     }
 }

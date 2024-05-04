@@ -67,7 +67,7 @@ namespace _2RGuide.Helpers
                 var oneWayPlatformNode = nodes.SplitSegmentAt(oneWayPlatform.segment, oneWayPlatform.segment.HalfPoint);
                 var targetNode = nodes.SplitSegmentAt(targetPlatformSegment, hit.HitPosition.Value);
 
-                var segment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, connectionType);
+                var segment = nodes.ConnectNodes(oneWayPlatformNode, targetNode, float.PositiveInfinity, connectionType, false);
 
                 resultSegments.Add(segment);
             }
@@ -78,14 +78,14 @@ namespace _2RGuide.Helpers
             switch (connectionType)
             {
                 case ConnectionType.Walk:
-                    startNode.AddConnection(ConnectionType.Walk, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight);
+                    startNode.AddConnection(ConnectionType.Walk, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight, false);
                     break;
                 case ConnectionType.Drop:
-                    startNode.AddConnection(ConnectionType.Drop, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight);
+                    startNode.AddConnection(ConnectionType.Drop, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight, false);
                     break;
                 case ConnectionType.Jump:
-                    startNode.AddConnection(ConnectionType.Jump, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight);
-                    endNode.AddConnection(ConnectionType.Jump, startNode, new LineSegment2D(endNode.Position, startNode.Position), maxHeight);
+                    startNode.AddConnection(ConnectionType.Jump, endNode, new LineSegment2D(startNode.Position, endNode.Position), maxHeight, false);
+                    endNode.AddConnection(ConnectionType.Jump, startNode, new LineSegment2D(endNode.Position, startNode.Position), maxHeight, false);
                     break;
             }
         }
