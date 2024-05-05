@@ -25,7 +25,8 @@ namespace _2RGuide.Helpers
                 {
                     segment = new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position),
                     maxHeight = dropTargetSegment.maxHeight,
-                    oneWayPlatform = dropTargetSegment.oneWayPlatform
+                    oneWayPlatform = dropTargetSegment.oneWayPlatform,
+                    obstacle = dropTargetSegment.obstacle,
                 });
             }
             if (!targetNode.Position.Approximately(dropTargetSegment.segment.P2))
@@ -34,7 +35,8 @@ namespace _2RGuide.Helpers
                 {
                     segment = new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2),
                     maxHeight = dropTargetSegment.maxHeight,
-                    oneWayPlatform = dropTargetSegment.oneWayPlatform
+                    oneWayPlatform = dropTargetSegment.oneWayPlatform,
+                    obstacle = dropTargetSegment.obstacle,
                 });
             }
 
