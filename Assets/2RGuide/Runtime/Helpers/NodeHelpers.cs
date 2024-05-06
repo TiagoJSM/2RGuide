@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _2RGuide.Helpers
@@ -12,13 +13,11 @@ namespace _2RGuide.Helpers
             public float segmentMaxHeight;
         }
 
-        public static void BuildNodes(NodeStore nodeStore, IEnumerable<NavSegment> navSegments)
+        public static void BuildNodes(NavBuilder navBuilder, IEnumerable<NavSegment> navSegments)
         {
             foreach (var navSegment in navSegments)
             {
-                var n1 = nodeStore.NewNodeOrExisting(navSegment.segment.P1);
-                var n2 = nodeStore.NewNodeOrExisting(navSegment.segment.P2);
-                nodeStore.ConnectNodes(n1, n2, navSegment.maxHeight, ConnectionType.Walk, navSegment.obstacle);
+                navBuilder.AddNavSegment(navSegment);
             }
         }
     }

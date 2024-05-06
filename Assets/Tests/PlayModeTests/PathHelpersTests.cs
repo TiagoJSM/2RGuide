@@ -40,7 +40,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>());
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), true, ConnectionType.Walk);
 
             var navBuildContext = new NavBuildContext()
             {
@@ -48,7 +48,8 @@ namespace _2RGuide.Tests.PlayModeTests
                 closedPath = closedPath
             };
 
-            NodeHelpers.BuildNodes(nodes, navSegments);
+            var navBuilder = new NavBuilder(nodes);
+            NodeHelpers.BuildNodes(navBuilder, navSegments);
 
             Assert.AreEqual(10, nodes.ToArray().Length);
 

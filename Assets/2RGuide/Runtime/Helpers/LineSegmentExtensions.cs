@@ -6,24 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.Networking.UnityWebRequest;
 
 namespace _2RGuide.Helpers
 {
-    [Serializable]
-    public struct NavSegment
-    {
-        public LineSegment2D segment;
-        public float maxHeight;
-        public bool oneWayPlatform;
-        public bool obstacle;
-
-        public static implicit operator bool(NavSegment navSegment)
-        {
-            return navSegment.segment;
-        }
-    }
-
     public static class LineSegmentExtensions
     {
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
@@ -36,11 +21,11 @@ namespace _2RGuide.Helpers
             return true;
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight, bool isBidirectional, ConnectionType connectionType)
         {
             var result = new List<NavSegment>();
 
-            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight);
+            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight, isBidirectional, connectionType);
 
             var index = 0;
 
@@ -65,7 +50,9 @@ namespace _2RGuide.Helpers
                 result.Add(new NavSegment()
                 {
                     segment = new LineSegment2D(first.segment.P1, last.segment.P2),
-                    maxHeight = referenceHeight
+                    maxHeight = referenceHeight,
+                    isBidirectional = isBidirectional,
+                    connectionType = connectionType,
                 });
 
                 index += groupedSplits.Length;
@@ -74,7 +61,7 @@ namespace _2RGuide.Helpers
             return result.ToArray();
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight, bool isBidirectional, ConnectionType connectionType)
         {
             var splits = new List<NavSegment>();
 
@@ -114,7 +101,9 @@ namespace _2RGuide.Helpers
                 splits.Add(new NavSegment()
                 {
                     segment = new LineSegment2D(p1, p2),
-                    maxHeight = Mathf.Min(p1Height, p2Height)
+                    maxHeight = Mathf.Min(p1Height, p2Height),
+                    isBidirectional = isBidirectional,
+                    connectionType = connectionType,
                 });
                 p1 = p2;
                 p1Height = p2Height;

@@ -29,8 +29,11 @@ namespace _2RGuide.Helpers
 
             var navSegments = navBuildContext.segments;
 
-            NodeHelpers.BuildNodes(nodeStore, navSegments);
+            var builder = new NavBuilder(nodeStore);
+            NodeHelpers.BuildNodes(builder, navSegments);
+            navBuildContext.segments = builder.NavSegments.ToList();
             var jumps = JumpsHelper.BuildJumps(navBuildContext, nodeStore, jumpSettings);
+            navBuildContext.segments = builder.NavSegments.ToList();
             var drops = DropsHelper.BuildDrops(navBuildContext, nodeStore, jumps, dropSettings);
 
             return new NavResult()
@@ -83,13 +86,13 @@ namespace _2RGuide.Helpers
             return segments.ToArray();
         }
 
-        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, IEnumerable<LineSegment2D> obstacleSegments)
+        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, IEnumerable<LineSegment2D> obstacleSegments, bool isBidirectional, ConnectionType connectionType)
         {
             return
                 segments
                     .SelectMany(s =>
                     {
-                        var dividedSegs = s.DivideSegment(segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }), maxHeight);
+                        var dividedSegs = s.DivideSegment(segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }), maxHeight, isBidirectional, connectionType);
                         for (var idx = 0; idx < dividedSegs.Length; idx++)
                         {
                             dividedSegs[idx].oneWayPlatform = edgeSegments.Contains(s);

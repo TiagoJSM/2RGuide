@@ -782,54 +782,56 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-  - segment:
-      P1: {x: 5, y: 0.5}
-      P2: {x: 5, y: -0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-    obstacle: 0
-  - segment:
-      P1: {x: 5, y: -0.5}
-      P2: {x: -5, y: -0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-    obstacle: 0
-  - segment:
-      P1: {x: 0.434, y: 3.06}
-      P2: {x: 1.434, y: 3.06}
-    maxHeight: 50
-    oneWayPlatform: 1
-    obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
   - segment:
       P1: {x: -5, y: 0.5}
-      P2: {x: -0.066000015, y: 0.5}
-    maxHeight: 50
-    oneWayPlatform: 0
-    obstacle: 0
-  - segment:
-      P1: {x: -0.066000015, y: 0.5}
       P2: {x: 0, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
   - segment:
       P1: {x: 0, y: 0.5}
-      P2: {x: 1.934, y: 0.5}
-    maxHeight: 2.56
-    oneWayPlatform: 0
-    obstacle: 0
-  - segment:
-      P1: {x: 1.934, y: 0.5}
       P2: {x: 2, y: 0.5}
     maxHeight: 2.56
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
   - segment:
       P1: {x: 2, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
+  - segment:
+      P1: {x: 5, y: 0.5}
+      P2: {x: 5, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+    obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
+  - segment:
+      P1: {x: 5, y: -0.5}
+      P2: {x: -5, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+    obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
+  - segment:
+      P1: {x: 0.434, y: 3.06}
+      P2: {x: 1.434, y: 3.06}
+    maxHeight: 50
+    oneWayPlatform: 1
+    obstacle: 0
+    isBidirectional: 1
+    connectionType: 2
   _drops: []
   _jumps:
   - P1: {x: 0.434, y: 3.06}
@@ -847,90 +849,120 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: -5, y: 0.5}
       P2: {x: -0.066000015, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: -0.066000015, y: 0.5}
       P2: {x: 0, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0, y: 0.5}
       P2: {x: 0.934, y: 0.5}
     maxHeight: 2.56
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 2, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 1.934, y: 0.5}
       P2: {x: 2, y: 0.5}
     maxHeight: 2.56
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 2, y: 0.5}
       P2: {x: 1.434, y: 3.06}
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0.434, y: 3.06}
       P2: {x: -0.066000015, y: 0.5}
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0.434, y: 3.06}
       P2: {x: 0.934, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 1.434, y: 3.06}
       P2: {x: 1.934, y: 0.5}
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0.934, y: 3.06}
       P2: {x: 1.434, y: 3.06}
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0.934, y: 0.5}
       P2: {x: 1.934, y: 0.5}
     maxHeight: 2.56
     oneWayPlatform: 0
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   - segment:
       P1: {x: 0.934, y: 3.06}
       P2: {x: 0.934, y: 0.5}
     maxHeight: Infinity
     oneWayPlatform: 1
     obstacle: 0
+    isBidirectional: 0
+    connectionType: 0
   references:
     version: 1
     00000000:
