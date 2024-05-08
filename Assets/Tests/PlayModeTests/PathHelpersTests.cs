@@ -6,6 +6,7 @@ using Clipper2Lib;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using static UnityEditor.ObjectChangeEventStream;
 
 namespace _2RGuide.Tests.PlayModeTests
 {
@@ -53,7 +54,8 @@ namespace _2RGuide.Tests.PlayModeTests
 
             Assert.AreEqual(10, nodes.ToArray().Length);
 
-            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            DropsHelper.BuildDrops(navBuildContext, nodes, navBuilder, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = navBuilder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
 
             Assert.AreEqual(1, dropSegments.Length);
         }

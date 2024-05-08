@@ -16,14 +16,13 @@ namespace Assets._2RGuide.Runtime.Helpers
             public float maxSlope;
         }
 
-        public static LineSegment2D[] BuildDrops(
+        public static void BuildDrops(
             NavBuildContext navBuildContext, 
-            NodeStore nodes, 
+            NodeStore nodes,
+            NavBuilder navBuilder,
             LineSegment2D[] jumps,
             Settings settings)
         {
-            var resultSegments = new List<LineSegment2D>();
-
             foreach (var node in nodes.ToArray())
             {
                 var canJumpOrDropToLeftSide = node.CanJumpOrDropToLeftSide(settings.maxSlope);
@@ -33,8 +32,8 @@ namespace Assets._2RGuide.Runtime.Helpers
                     var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navBuildContext.segments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
-                        resultSegments.Add(target);
+                        //PathBuilderHelper.AddTargetNodeForSegment(target, navBuilder, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
+                        AddDropNavSegment(target, navBuilder);
                     }
                 }
 
@@ -45,15 +44,13 @@ namespace Assets._2RGuide.Runtime.Helpers
                     var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        PathBuilderHelper.AddTargetNodeForSegment(target, nodes, navBuildContext.segments, node, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
-                        resultSegments.Add(target);
+                        //PathBuilderHelper.AddTargetNodeForSegment(target, navBuilder, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
+                        AddDropNavSegment(target, navBuilder);
                     }
                 }
             }
 
-            GetOneWayPlatformSegments(navBuildContext, nodes, settings, jumps, resultSegments);
-
-            return resultSegments.ToArray();
+            GetOneWayPlatformSegments(navBuildContext, navBuilder, settings, jumps);
         }
 
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
@@ -99,9 +96,22 @@ namespace Assets._2RGuide.Runtime.Helpers
             return default;
         }
 
-        private static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, LineSegment2D[] jumps, List<LineSegment2D> resultSegments)
+        private static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Settings settings, LineSegment2D[] jumps)
         {
-            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps, resultSegments);
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, Vector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps);
+        }
+
+        private static void AddDropNavSegment(LineSegment2D segment, NavBuilder navBuilder)
+        {
+            var ns = new NavSegment()
+            {
+                segment = segment,
+                maxHeight = float.PositiveInfinity,
+                oneWayPlatform = false,
+                obstacle = false,
+                connectionType = ConnectionType.Drop
+            };
+            navBuilder.AddNavSegment(ns);
         }
     }
 }

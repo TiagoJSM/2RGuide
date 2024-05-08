@@ -604,7 +604,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -5, y: 0.5}
@@ -612,7 +611,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 1, y: 0.5}
@@ -620,7 +618,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 5, y: 0.5}
@@ -628,7 +625,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 5, y: -0.5}
@@ -636,7 +632,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -1, y: 0.5}
@@ -644,7 +639,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 1
-    isBidirectional: 1
     connectionType: 2
   _drops: []
   _jumps: []
@@ -655,7 +649,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 5, y: -0.5}
@@ -663,7 +656,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -5, y: 0.5}
@@ -671,7 +663,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -1, y: 0.5}
@@ -679,7 +670,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 1, y: 0.5}
@@ -687,7 +677,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 5, y: 0.5}
@@ -695,7 +684,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   references:
     version: 1

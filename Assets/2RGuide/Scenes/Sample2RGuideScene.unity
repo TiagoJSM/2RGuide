@@ -1127,8 +1127,8 @@ MonoBehaviour:
         _nodeIndex: 32
         _connectionType: 8
         _segment:
-          P1: {x: -3.5963998, y: -3.6147}
-          P2: {x: -5.0713, y: 0.4253}
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -3.5963998, y: -3.6147}
         _maxHeight: Infinity
         _obstacle: 0
       - _nodeStore:
@@ -1811,8 +1811,8 @@ MonoBehaviour:
         _nodeIndex: 32
         _connectionType: 8
         _segment:
-          P1: {x: -2.7431, y: 3.4953}
-          P2: {x: -5.0713, y: 0.4253}
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -2.7431, y: 3.4953}
         _maxHeight: Infinity
         _obstacle: 0
       - _nodeStore:
@@ -1852,8 +1852,8 @@ MonoBehaviour:
         _nodeIndex: 36
         _connectionType: 8
         _segment:
-          P1: {x: 0.8387, y: 3.4953}
-          P2: {x: 3.6569, y: 6.3353}
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 0.8387, y: 3.4953}
         _maxHeight: Infinity
         _obstacle: 0
       - _nodeStore:
@@ -1916,8 +1916,8 @@ MonoBehaviour:
         _nodeIndex: 32
         _connectionType: 8
         _segment:
-          P1: {x: -4.5713, y: -3.6147}
-          P2: {x: -5.0713, y: 0.4253}
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -4.5713, y: -3.6147}
         _maxHeight: Infinity
         _obstacle: 0
     - _nodeStore:
@@ -1996,7 +1996,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -8.6531, y: 9.8753}
@@ -2004,7 +2003,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 9.8753}
@@ -2012,7 +2010,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: 9.8753}
@@ -2020,7 +2017,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.446, y: 9.8753}
@@ -2028,7 +2024,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 8.3236, y: 9.8753}
@@ -2036,7 +2031,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 8.3236, y: -4.951}
@@ -2044,7 +2038,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: -4.951}
@@ -2052,7 +2045,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: -4.29}
@@ -2060,7 +2052,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: -4.29}
@@ -2068,7 +2059,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: -4.951}
@@ -2076,7 +2066,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: -3.6147}
@@ -2084,7 +2073,6 @@ MonoBehaviour:
     maxHeight: 3.3647
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -4.5964, y: -3.6147}
@@ -2092,7 +2080,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
@@ -2100,7 +2087,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 1.4036002, y: -3.6147}
@@ -2108,7 +2094,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 3.4036002, y: -3.6147}
@@ -2116,7 +2101,6 @@ MonoBehaviour:
     maxHeight: 9.2747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: -3.6147}
@@ -2124,7 +2108,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: -0.6147001}
@@ -2132,7 +2115,6 @@ MonoBehaviour:
     maxHeight: 12.3382
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: 1.3852999}
@@ -2140,7 +2122,6 @@ MonoBehaviour:
     maxHeight: 14.863299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: 2.3853}
@@ -2148,7 +2129,6 @@ MonoBehaviour:
     maxHeight: 6.4282002
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: 4.3852997}
@@ -2156,7 +2136,6 @@ MonoBehaviour:
     maxHeight: 14.863299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2669, y: 9.2}
@@ -2164,7 +2143,6 @@ MonoBehaviour:
     maxHeight: 2.8646994
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 3.2669, y: 9.2}
@@ -2172,7 +2150,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 1.2669001, y: 9.2}
@@ -2180,7 +2157,6 @@ MonoBehaviour:
     maxHeight: 5.7046995
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -3.7331, y: 9.2}
@@ -2188,7 +2164,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -4.7331, y: 9.2}
@@ -2196,7 +2171,6 @@ MonoBehaviour:
     maxHeight: 8.7747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 9.2}
@@ -2204,7 +2178,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 7.2}
@@ -2212,7 +2185,6 @@ MonoBehaviour:
     maxHeight: 11.2533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 5.2}
@@ -2220,7 +2192,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 4.2}
@@ -2228,7 +2199,6 @@ MonoBehaviour:
     maxHeight: 4.8533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 2.1999998}
@@ -2236,7 +2206,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: 0.4253}
@@ -2244,7 +2213,6 @@ MonoBehaviour:
     maxHeight: 8.774699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -5.0713, y: 0.4253}
@@ -2252,7 +2220,6 @@ MonoBehaviour:
     maxHeight: 12.338201
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -5.0713, y: -0.25}
@@ -2260,7 +2227,6 @@ MonoBehaviour:
     maxHeight: 3.3646998
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -7.5964, y: -0.25}
@@ -2268,7 +2234,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 3.6569, y: 5.66}
@@ -2276,7 +2241,6 @@ MonoBehaviour:
     maxHeight: 11.2533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 3.6569, y: 6.3353}
@@ -2284,7 +2248,6 @@ MonoBehaviour:
     maxHeight: 2.864699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2387, y: 6.3353}
@@ -2292,7 +2255,6 @@ MonoBehaviour:
     maxHeight: 0.028200626
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 7.2387, y: 5.66}
@@ -2300,7 +2262,6 @@ MonoBehaviour:
     maxHeight: 9.2747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -2.7431, y: 2.82}
@@ -2308,7 +2269,6 @@ MonoBehaviour:
     maxHeight: 4.853299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: -2.7431, y: 3.4953}
@@ -2316,7 +2276,6 @@ MonoBehaviour:
     maxHeight: 5.7046986
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 0.8387, y: 3.4953}
@@ -2324,7 +2283,6 @@ MonoBehaviour:
     maxHeight: 6.4282007
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   - segment:
       P1: {x: 0.8387, y: 2.82}
@@ -2332,7 +2290,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 1
     connectionType: 2
   _drops:
   - P1: {x: 3.6569, y: 6.3353}
@@ -2350,6 +2307,10 @@ MonoBehaviour:
     P2: {x: -2.7431, y: 3.4953}
   - P1: {x: 3.6569, y: 6.3353}
     P2: {x: 0.8387, y: 3.4953}
+  - P1: {x: -2.7431, y: 3.4953}
+    P2: {x: -5.0713, y: 0.4253}
+  - P1: {x: 0.8387, y: 3.4953}
+    P2: {x: 3.6569, y: 6.3353}
   _uniqueSegments:
   - segment:
       P1: {x: -8.6531, y: -4.951}
@@ -2357,7 +2318,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: -4.951}
@@ -2365,7 +2325,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -8.6531, y: 9.8753}
@@ -2373,7 +2332,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 9.8753}
@@ -2381,7 +2339,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: 9.8753}
@@ -2389,7 +2346,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.446, y: 9.8753}
@@ -2397,7 +2353,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 8.3236, y: 9.8753}
@@ -2405,7 +2360,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 8.3236, y: -4.951}
@@ -2413,7 +2367,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: -4.951}
@@ -2421,7 +2374,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: -4.29}
@@ -2429,7 +2381,6 @@ MonoBehaviour:
     maxHeight: 50
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: -4.29}
@@ -2437,7 +2388,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: -3.6147}
@@ -2445,7 +2395,6 @@ MonoBehaviour:
     maxHeight: 3.3647
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: -0.25}
@@ -2453,7 +2402,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -4.5964, y: -3.6147}
@@ -2461,7 +2409,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -4.5713, y: -3.6147}
@@ -2469,15 +2416,13 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
-      P1: {x: -3.5963998, y: -3.6147}
-      P2: {x: -5.0713, y: 0.4253}
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -3.5963998, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -3.5963998, y: -3.6147}
@@ -2485,7 +2430,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 1.4036002, y: -3.6147}
@@ -2493,7 +2437,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 1.3387, y: -3.6147}
@@ -2501,7 +2444,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.4036002, y: -3.6147}
@@ -2509,7 +2451,6 @@ MonoBehaviour:
     maxHeight: 9.2747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.1569, y: -3.6147}
@@ -2517,7 +2458,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: -3.6147}
@@ -2525,7 +2465,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: -0.6147001}
@@ -2533,7 +2472,6 @@ MonoBehaviour:
     maxHeight: 12.3382
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: 1.3852999}
@@ -2541,7 +2479,6 @@ MonoBehaviour:
     maxHeight: 14.863299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: 2.3853}
@@ -2549,7 +2486,6 @@ MonoBehaviour:
     maxHeight: 6.4282002
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: 4.3852997}
@@ -2557,7 +2493,6 @@ MonoBehaviour:
     maxHeight: 14.863299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2669, y: 9.2}
@@ -2565,7 +2500,6 @@ MonoBehaviour:
     maxHeight: 2.8646994
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.2669, y: 9.2}
@@ -2573,7 +2507,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 1.2669001, y: 9.2}
@@ -2581,7 +2514,6 @@ MonoBehaviour:
     maxHeight: 5.7046995
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -3.7331, y: 9.2}
@@ -2589,7 +2521,6 @@ MonoBehaviour:
     maxHeight: 12.814699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -4.7331, y: 9.2}
@@ -2597,7 +2528,6 @@ MonoBehaviour:
     maxHeight: 8.7747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 9.2}
@@ -2605,7 +2535,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 7.2}
@@ -2613,7 +2542,6 @@ MonoBehaviour:
     maxHeight: 11.2533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 5.2}
@@ -2621,7 +2549,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 4.2}
@@ -2629,7 +2556,6 @@ MonoBehaviour:
     maxHeight: 4.8533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 2.1999998}
@@ -2637,7 +2563,6 @@ MonoBehaviour:
     maxHeight: 14.8633
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -7.5964, y: 0.4253}
@@ -2645,7 +2570,6 @@ MonoBehaviour:
     maxHeight: 8.774699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
@@ -2653,7 +2577,6 @@ MonoBehaviour:
     maxHeight: 12.338201
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
@@ -2661,7 +2584,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -5.0713, y: 0.4253}
@@ -2669,7 +2591,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -5.0713, y: -0.25}
@@ -2677,7 +2598,6 @@ MonoBehaviour:
     maxHeight: 3.3646998
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.6569, y: 5.66}
@@ -2685,7 +2605,6 @@ MonoBehaviour:
     maxHeight: 11.2533
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2387, y: 5.66}
@@ -2693,7 +2612,6 @@ MonoBehaviour:
     maxHeight: 9.2747
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
@@ -2701,7 +2619,6 @@ MonoBehaviour:
     maxHeight: 2.864699
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
@@ -2709,7 +2626,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 3.6569, y: 6.3353}
@@ -2717,7 +2633,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 7.2387, y: 6.3353}
@@ -2725,7 +2640,6 @@ MonoBehaviour:
     maxHeight: 0.028200626
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -2.7431, y: 2.82}
@@ -2733,7 +2647,6 @@ MonoBehaviour:
     maxHeight: 4.853299
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 0.8387, y: 2.82}
@@ -2741,7 +2654,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -2.7431, y: 3.4953}
@@ -2749,7 +2661,6 @@ MonoBehaviour:
     maxHeight: 5.7046986
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -2.7431, y: 3.4953}
@@ -2757,7 +2668,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 0.8387, y: 3.4953}
@@ -2765,7 +2675,6 @@ MonoBehaviour:
     maxHeight: 6.4282007
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: 0.8387, y: 3.4953}
@@ -2773,7 +2682,6 @@ MonoBehaviour:
     maxHeight: Infinity
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   - segment:
       P1: {x: -3.2431, y: -3.6147}
@@ -2781,7 +2689,6 @@ MonoBehaviour:
     maxHeight: 6.4347
     oneWayPlatform: 0
     obstacle: 0
-    isBidirectional: 0
     connectionType: 0
   references:
     version: 1
@@ -3107,8 +3014,8 @@ MonoBehaviour:
             _nodeIndex: 32
             _connectionType: 8
             _segment:
-              P1: {x: -3.5963998, y: -3.6147}
-              P2: {x: -5.0713, y: 0.4253}
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -3.5963998, y: -3.6147}
             _maxHeight: Infinity
             _obstacle: 0
           - _nodeStore:
@@ -3791,8 +3698,8 @@ MonoBehaviour:
             _nodeIndex: 32
             _connectionType: 8
             _segment:
-              P1: {x: -2.7431, y: 3.4953}
-              P2: {x: -5.0713, y: 0.4253}
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -2.7431, y: 3.4953}
             _maxHeight: Infinity
             _obstacle: 0
           - _nodeStore:
@@ -3832,8 +3739,8 @@ MonoBehaviour:
             _nodeIndex: 36
             _connectionType: 8
             _segment:
-              P1: {x: 0.8387, y: 3.4953}
-              P2: {x: 3.6569, y: 6.3353}
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 0.8387, y: 3.4953}
             _maxHeight: Infinity
             _obstacle: 0
           - _nodeStore:
@@ -3896,8 +3803,8 @@ MonoBehaviour:
             _nodeIndex: 32
             _connectionType: 8
             _segment:
-              P1: {x: -4.5713, y: -3.6147}
-              P2: {x: -5.0713, y: 0.4253}
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -4.5713, y: -3.6147}
             _maxHeight: Infinity
             _obstacle: 0
         - _nodeStore:

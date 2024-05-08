@@ -21,11 +21,11 @@ namespace _2RGuide.Helpers
             return true;
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight, bool isBidirectional, ConnectionType connectionType)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
         {
             var result = new List<NavSegment>();
 
-            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight, isBidirectional, connectionType);
+            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight, connectionType);
 
             var index = 0;
 
@@ -51,7 +51,6 @@ namespace _2RGuide.Helpers
                 {
                     segment = new LineSegment2D(first.segment.P1, last.segment.P2),
                     maxHeight = referenceHeight,
-                    isBidirectional = isBidirectional,
                     connectionType = connectionType,
                 });
 
@@ -61,7 +60,7 @@ namespace _2RGuide.Helpers
             return result.ToArray();
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight, bool isBidirectional, ConnectionType connectionType)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
         {
             var splits = new List<NavSegment>();
 
@@ -102,7 +101,6 @@ namespace _2RGuide.Helpers
                 {
                     segment = new LineSegment2D(p1, p2),
                     maxHeight = Mathf.Min(p1Height, p2Height),
-                    isBidirectional = isBidirectional,
                     connectionType = connectionType,
                 });
                 p1 = p2;
