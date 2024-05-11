@@ -20,7 +20,7 @@ namespace _2RGuide.Helpers
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
-                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !ss.obstacle && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if (node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {

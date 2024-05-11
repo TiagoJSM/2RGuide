@@ -1965,27 +1965,6 @@ MonoBehaviour:
     obstacle: 0
     connectionType: 2
   - segment:
-      P1: {x: -4.5964, y: -3.6147}
-      P2: {x: -3.5963998, y: -3.6147}
-    maxHeight: 12.814699
-    oneWayPlatform: 0
-    obstacle: 0
-    connectionType: 2
-  - segment:
-      P1: {x: -3.5963998, y: -3.6147}
-      P2: {x: 1.4036002, y: -3.6147}
-    maxHeight: 9.4747
-    oneWayPlatform: 0
-    obstacle: 0
-    connectionType: 2
-  - segment:
-      P1: {x: 1.4036002, y: -3.6147}
-      P2: {x: 3.4036002, y: -3.6147}
-    maxHeight: 12.814699
-    oneWayPlatform: 0
-    obstacle: 0
-    connectionType: 2
-  - segment:
       P1: {x: 3.4036002, y: -3.6147}
       P2: {x: 7.2669, y: -3.6147}
     maxHeight: 9.2747
@@ -2149,6 +2128,55 @@ MonoBehaviour:
   - segment:
       P1: {x: 0.8387, y: 5.86}
       P2: {x: -2.7431, y: 5.86}
+    maxHeight: 9.4747
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: -4.5964, y: -3.6147}
+      P2: {x: -4.5713, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: -4.5713, y: -3.6147}
+      P2: {x: -3.5963998, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: 1.4036002, y: -3.6147}
+      P2: {x: 3.1569, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: 3.1569, y: -3.6147}
+      P2: {x: 3.4036002, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: -3.5963998, y: -3.6147}
+      P2: {x: -3.2431, y: -3.6147}
+    maxHeight: 9.4747
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: -3.2431, y: -3.6147}
+      P2: {x: 1.3387, y: -3.6147}
+    maxHeight: 9.4747
+    oneWayPlatform: 0
+    obstacle: 0
+    connectionType: 2
+  - segment:
+      P1: {x: 1.3387, y: -3.6147}
+      P2: {x: 1.4036002, y: -3.6147}
     maxHeight: 9.4747
     oneWayPlatform: 0
     obstacle: 0

@@ -35,11 +35,12 @@ namespace _2RGuide.Helpers
             var jumps = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Jump || ns.connectionType == ConnectionType.OneWayPlatformJump).Select(ns => ns.segment).ToArray();
             DropsHelper.BuildDrops(navBuildContext, nodeStore, builder, jumps, dropSettings);
             var drops = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
+            var segments = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Walk).ToArray();
 
             return new NavResult()
             {
                 nodeStore = nodeStore,
-                segments = navSegments.ToArray(),
+                segments = segments,
                 jumps = jumps,
                 drops = drops
             };

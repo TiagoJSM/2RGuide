@@ -188,25 +188,15 @@ namespace _2RGuide
 
             var maxHeight = connection.Value.MaxHeight;
             var obstacle = connection.Value.Obstacle;
+            var connectionType = connection.Value.ConnectionType;
 
             splitNode = NewNode(position);
 
             connectedNode1.RemoveConnectionWith(connectedNode2);
             connectedNode2.RemoveConnectionWith(connectedNode1);
 
-            if (connectedNode1 != null)
-            {
-                var connectionSegment = new LineSegment2D(segment.P1, splitNode.Position);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode1, connectionSegment, maxHeight, obstacle);
-                connectedNode1.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obstacle);
-            }
-            
-            if (connectedNode2 != null)
-            {
-                var connectionSegment = new LineSegment2D(splitNode.Position, segment.P2);
-                splitNode.AddConnection(ConnectionType.Walk, connectedNode2, connectionSegment, maxHeight, obstacle);
-                connectedNode2.AddConnection(ConnectionType.Walk, splitNode, connectionSegment, maxHeight, obstacle);
-            }
+            ConnectNodes(connectedNode1, splitNode, maxHeight, connectionType, obstacle);
+            ConnectNodes(splitNode, connectedNode2, maxHeight, connectionType, obstacle);
 
             return splitNode;
         }

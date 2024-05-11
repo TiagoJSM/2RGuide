@@ -60,6 +60,10 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var navSegment = navSegments.Where(ss =>
             {
+                if(ss.obstacle)
+                {
+                    return false;
+                }
                 var position = ss.segment.PositionInX(originX);
                 if (!position.HasValue)
                 {

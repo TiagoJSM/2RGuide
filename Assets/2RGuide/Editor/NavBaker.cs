@@ -145,7 +145,7 @@ namespace _2RGuide.Editor
 
         private static Collider2D[] GetColliders(NavWorld world)
         {
-            return world.gameObject.GetComponentsInChildren<Collider2D>(false);
+            return world.gameObject.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<Obstacle>() == null).ToArray();
         }
 
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, Obstacle[] obstacles, NodeHelpers.Settings nodePathSettings)
