@@ -35,4 +35,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToAdjacentSegmentButCloserNodeTestScene.unity
     guid: 4318f4488f90e6e4f919d0c4fac47074
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionThroughObstacleTestScene.unity
+    guid: 1d551d7ec94967a4a98bb1caf33e352a
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/VerifyAStarPathWithObstacle.unity
+    guid: 7dde2c6f2b384d24eafa74fa8e09f33b
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionJumpThroughObstacle.unity
+    guid: 4cfa6ba37c4312a4fb355c53064e781d
   m_configObjects: {}

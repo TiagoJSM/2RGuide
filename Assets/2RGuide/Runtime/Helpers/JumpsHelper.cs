@@ -15,14 +15,12 @@ namespace _2RGuide.Helpers
             public float minJumpDistanceX;
         }
 
-        public static LineSegment2D[] BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, Settings settings)
+        public static void BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, NavBuilder navBuilder, Settings settings)
         {
-            var resultSegments = new List<LineSegment2D>();
-
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
-                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !ss.obstacle && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if (node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
@@ -36,12 +34,11 @@ namespace _2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navBuildContext.segments, settings.maxSlope, resultSegments);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments, settings.maxSlope);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
                 {
-
                     var closestPoints =
                         segmentsInRange
                             .Select(ss => CutSegmentToTheRight(ss.segment, node.Position.x + settings.minJumpDistanceX))
@@ -52,16 +49,14 @@ namespace _2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    GetJumpSegments(navBuildContext, node, closestPoints, nodes, navBuildContext.segments, settings.maxSlope, resultSegments);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments, settings.maxSlope);
                 }
             }
 
-            GetOneWayPlatformJumpSegments(navBuildContext, nodes, settings, resultSegments);
-
-            return resultSegments.ToArray();
+            BuildOneWayPlatformJumpSegments(navBuildContext, navBuilder, settings);
         }
 
-        private static void GetJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NodeStore nodes, List<NavSegment> navSegments, float maxSlope, List<LineSegment2D> resultSegments)
+        private static void BuildJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NavBuilder navBuilder, List<NavSegment> navSegments, float maxSlope)
         {
             var jumpSegments =
                 closestPoints
@@ -76,12 +71,17 @@ namespace _2RGuide.Helpers
 
             foreach (var jumpSegment in jumpSegments)
             {
-                PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, nodes, navSegments, node, ConnectionType.Jump, maxSlope, float.PositiveInfinity);
+                var ns = new NavSegment()
+                {
+                    segment = jumpSegment,
+                    maxHeight = float.PositiveInfinity,
+                    oneWayPlatform = false,
+                    obstacle = false,
+                    connectionType = ConnectionType.Jump
+                };
+                navBuilder.AddNavSegment(ns);
+                //PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, navBuilder, ConnectionType.Jump, maxSlope, float.PositiveInfinity);
             }
-
-            resultSegments.AddRange(
-                jumpSegments.Where(js => !resultSegments.Any(rs => rs.IsCoincident(js)))
-            );
         }
 
         private static LineSegment2D CutSegmentToTheLeft(LineSegment2D segment, float x)
@@ -118,9 +118,9 @@ namespace _2RGuide.Helpers
             return result;
         }
 
-        private static void GetOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NodeStore nodes, Settings settings, List<LineSegment2D> resultSegments)
+        private static void BuildOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Settings settings)
         {
-            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, nodes, Vector2.down, settings.maxJumpHeight, settings.maxSlope, ConnectionType.OneWayPlatformJump, new LineSegment2D[0], resultSegments);
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, Vector2.down, settings.maxJumpHeight, settings.maxSlope, ConnectionType.OneWayPlatformJump, new LineSegment2D[0]);
         }
     }
 }

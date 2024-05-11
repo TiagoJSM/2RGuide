@@ -2,7 +2,7 @@
 ===
 Unity3D navigation solution for 2D platformers using 2D colliders.
 
-This is still early work in progress, should never be used on a production project
+This is still early work in progress, it's not advised to use on a production project
 
 Add Dependency
 ===
@@ -14,6 +14,7 @@ Features
 * Agent to traverse the shortest paths to reach a target position.
 * Support for auto generated jumps and drops to connect segments segments
 * Support for one way platforms jumps
+* Areas that forbid agent to move into to avoid obstacles
 
 Getting Started
 ===
@@ -22,10 +23,10 @@ Getting Started
 * Add the `NavWorld` component to the parent `GameObject`
 * On the component's inspector panel press bake to generate the navigation segments
 * To tweat the bake procedure go to `Edit` > `Project Settings` > `Nav2RGuide Settings` and modify the values to your liking
+* Add Obstacle component to define obstacle nav segments  
 
 Planned Features
 ===
-* Areas that forbid agent to move into to avoid obstacles
 * Support for user designed jumps and drops to connect segments
 
 Examples

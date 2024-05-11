@@ -36,11 +36,15 @@ namespace _2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
+                    if (neighbor.Obstacle)
+                    {
+                        continue;
+                    }
                     if (neighbor.MaxHeight < maxHeight)
                     {
                         continue;
                     }
-                    if (neighbor.ConnectionType == ConnectionType.Walk && neighbor.Segment.SlopeRadians > (maxSlopeDegrees * Mathf.Deg2Rad))
+                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees)
                     {
                         continue;
                     }

@@ -1,7 +1,7 @@
-﻿using _2RGuide;
-using _2RGuide.Helpers;
+﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
 using Assets._2RGuide.Editor;
+using Assets._2RGuide.Runtime.Helpers;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,7 +41,9 @@ namespace _2RGuide.Editor
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;
-                Handles.color = Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
+                Handles.color = navSegment.obstacle
+                    ? Color.red
+                    : Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
                 Handles.DrawLine(segment.P1, segment.P2, LineThickness);
             }
         }
@@ -85,8 +87,8 @@ namespace _2RGuide.Editor
             {
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
-                RenderArrow(middle, middle + segment.NormalVector.normalized * normalSize, 0.08f);
-                Handles.Label(middle, $"N: {segment.NormalVector.normalized}; Slope: {segment.Slope}");
+                RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
+                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees};");
             }
         }
 

@@ -6,6 +6,7 @@ using Clipper2Lib;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using static UnityEditor.ObjectChangeEventStream;
 
 namespace _2RGuide.Tests.PlayModeTests
 {
@@ -40,7 +41,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), true, ConnectionType.Walk);
 
             var navBuildContext = new NavBuildContext()
             {
@@ -48,11 +49,13 @@ namespace _2RGuide.Tests.PlayModeTests
                 closedPath = closedPath
             };
 
-            NodeHelpers.BuildNodes(nodes, navSegments);
+            var navBuilder = new NavBuilder(nodes);
+            NodeHelpers.BuildNodes(navBuilder, navSegments);
 
             Assert.AreEqual(10, nodes.ToArray().Length);
 
-            var dropSegments = DropsHelper.BuildDrops(navBuildContext, nodes, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            DropsHelper.BuildDrops(navBuildContext, nodes, navBuilder, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f });
+            var dropSegments = navBuilder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
 
             Assert.AreEqual(1, dropSegments.Length);
         }
