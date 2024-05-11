@@ -41,7 +41,9 @@ namespace _2RGuide.Editor
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;
-                Handles.color = Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
+                Handles.color = navSegment.obstacle
+                    ? Color.red
+                    : Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
                 Handles.DrawLine(segment.P1, segment.P2, LineThickness);
             }
         }
@@ -86,8 +88,7 @@ namespace _2RGuide.Editor
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
-                var obstacleTag = navSegment.obstacle ? "Obstacle;" : string.Empty;
-                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; {obstacleTag}");
+                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees};");
             }
         }
 
