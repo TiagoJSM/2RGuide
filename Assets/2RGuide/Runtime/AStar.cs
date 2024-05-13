@@ -1,5 +1,6 @@
 ﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace _2RGuide
 {
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float maxDistance)
+        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float maxDistance, NavTag[] navTagCapable)
         {
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
@@ -36,7 +37,7 @@ namespace _2RGuide
 
                 foreach (var neighbor in current.Connections)
                 {
-                    if (neighbor.Obstacle)
+                    if (neighbor.NavTag && !navTagCapable.Contains(neighbor.NavTag))
                     {
                         continue;
                     }

@@ -8,12 +8,14 @@ namespace Assets._2RGuide.Editor
 {
     static class Nav2RGuideSettingsRegister
     {
+        public static readonly string SettingsPath = "Project/Nav2RGuide Settings";  
+
         [SettingsProvider]
         public static SettingsProvider CreateMyCustomSettingsProvider()
         {
             var fields = Nav2RGuideSettings.SettingFields;
 
-            var provider = new SettingsProvider("Project/Nav2RGuide Settings", SettingsScope.Project)
+            var provider = new SettingsProvider(SettingsPath, SettingsScope.Project)
             {
                 guiHandler = (searchContext) =>
                 {

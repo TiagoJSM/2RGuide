@@ -26,7 +26,7 @@ namespace _2RGuide.Helpers
                     segment = new LineSegment2D(dropTargetSegment.segment.P1, targetNode.Position),
                     maxHeight = maxHeight,
                     oneWayPlatform = dropTargetSegment.oneWayPlatform,
-                    obstacle = dropTargetSegment.obstacle,
+                    navTag = dropTargetSegment.navTag,
                     connectionType = connectionType
                 };
                 navBuilder.AddNavSegment(ns);
@@ -38,7 +38,7 @@ namespace _2RGuide.Helpers
                     segment = new LineSegment2D(targetNode.Position, dropTargetSegment.segment.P2),
                     maxHeight = maxHeight,
                     oneWayPlatform = dropTargetSegment.oneWayPlatform,
-                    obstacle = dropTargetSegment.obstacle,
+                    navTag = dropTargetSegment.navTag,
                     connectionType = connectionType
                 };
                 navBuilder.AddNavSegment(ns);
@@ -77,7 +77,7 @@ namespace _2RGuide.Helpers
                         segment = new LineSegment2D() { P1 = n1.Position, P2 = n2.Position },
                         connectionType = connectionType,
                         maxHeight = float.PositiveInfinity,
-                        obstacle = false,
+                        navTag = null,
                         oneWayPlatform = true
                     });
 

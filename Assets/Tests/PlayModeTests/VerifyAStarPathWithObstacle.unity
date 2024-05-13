@@ -173,6 +173,7 @@ MonoBehaviour:
   _proximityThreshold: 0
   _allowedConnectionTypes: 30
   _pathfindingMaxDistance: Infinity
+  _navTagCapable: []
 --- !u!4 &720845718
 Transform:
   m_ObjectHideFlags: 0
@@ -196,8 +197,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 856874966}
-  - component: {fileID: 856874965}
   - component: {fileID: 856874964}
+  - component: {fileID: 856874965}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -240,10 +241,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 856874963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e0a01d6c1653a4790d9ef6aed440da, type: 3}
+  m_Script: {fileID: 11500000, guid: d69c8f7d3fcbd534e89213ed1da1b91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 856874964}
+  _navTag:
+    _tag: 0
 --- !u!4 &856874966
 Transform:
   m_ObjectHideFlags: 0
@@ -472,7 +475,8 @@ MonoBehaviour:
           P1: {x: -5, y: -0.5}
           P2: {x: -5, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 5
@@ -481,7 +485,8 @@ MonoBehaviour:
           P1: {x: 5, y: -0.5}
           P2: {x: -5, y: -0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 1
@@ -495,7 +500,8 @@ MonoBehaviour:
           P1: {x: -5, y: -0.5}
           P2: {x: -5, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 2
@@ -504,7 +510,8 @@ MonoBehaviour:
           P1: {x: -5, y: 0.5}
           P2: {x: -1, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 2
@@ -518,7 +525,8 @@ MonoBehaviour:
           P1: {x: -5, y: 0.5}
           P2: {x: -1, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 3
@@ -527,7 +535,8 @@ MonoBehaviour:
           P1: {x: -1, y: 0.5}
           P2: {x: 1, y: 0.5}
         _maxHeight: 50
-        _obstacle: 1
+        _navTag:
+          _tag: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 3
@@ -541,7 +550,8 @@ MonoBehaviour:
           P1: {x: 1, y: 0.5}
           P2: {x: 5, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 2
@@ -550,7 +560,8 @@ MonoBehaviour:
           P1: {x: -1, y: 0.5}
           P2: {x: 1, y: 0.5}
         _maxHeight: 50
-        _obstacle: 1
+        _navTag:
+          _tag: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 4
@@ -564,7 +575,8 @@ MonoBehaviour:
           P1: {x: 1, y: 0.5}
           P2: {x: 5, y: 0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 5
@@ -573,7 +585,8 @@ MonoBehaviour:
           P1: {x: 5, y: 0.5}
           P2: {x: 5, y: -0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 5
@@ -587,7 +600,8 @@ MonoBehaviour:
           P1: {x: 5, y: 0.5}
           P2: {x: 5, y: -0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 0
@@ -596,49 +610,56 @@ MonoBehaviour:
           P1: {x: 5, y: -0.5}
           P2: {x: -5, y: -0.5}
         _maxHeight: 50
-        _obstacle: 0
+        _navTag:
+          _tag: -1
   _segments:
   - segment:
       P1: {x: -5, y: -0.5}
       P2: {x: -5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 2
   - segment:
       P1: {x: -5, y: 0.5}
       P2: {x: -1, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 2
   - segment:
       P1: {x: 1, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 2
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 2
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 2
   - segment:
       P1: {x: -1, y: 0.5}
       P2: {x: 1, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 1
+    navTag:
+      _tag: 0
     connectionType: 2
   _drops: []
   _jumps: []
@@ -648,42 +669,48 @@ MonoBehaviour:
       P2: {x: -5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   - segment:
       P1: {x: 5, y: -0.5}
       P2: {x: -5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   - segment:
       P1: {x: -5, y: 0.5}
       P2: {x: -1, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   - segment:
       P1: {x: -1, y: 0.5}
       P2: {x: 1, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   - segment:
       P1: {x: 1, y: 0.5}
       P2: {x: 5, y: 0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   - segment:
       P1: {x: 5, y: 0.5}
       P2: {x: 5, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
-    obstacle: 0
+    navTag:
+      _tag: -1
     connectionType: 0
   references:
     version: 1
@@ -704,7 +731,8 @@ MonoBehaviour:
               P1: {x: -5, y: -0.5}
               P2: {x: -5, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 5
@@ -713,7 +741,8 @@ MonoBehaviour:
               P1: {x: 5, y: -0.5}
               P2: {x: -5, y: -0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 1
@@ -727,7 +756,8 @@ MonoBehaviour:
               P1: {x: -5, y: -0.5}
               P2: {x: -5, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 2
@@ -736,7 +766,8 @@ MonoBehaviour:
               P1: {x: -5, y: 0.5}
               P2: {x: -1, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 2
@@ -750,7 +781,8 @@ MonoBehaviour:
               P1: {x: -5, y: 0.5}
               P2: {x: -1, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 3
@@ -759,7 +791,8 @@ MonoBehaviour:
               P1: {x: -1, y: 0.5}
               P2: {x: 1, y: 0.5}
             _maxHeight: 50
-            _obstacle: 1
+            _navTag:
+              _tag: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 3
@@ -773,7 +806,8 @@ MonoBehaviour:
               P1: {x: 1, y: 0.5}
               P2: {x: 5, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 2
@@ -782,7 +816,8 @@ MonoBehaviour:
               P1: {x: -1, y: 0.5}
               P2: {x: 1, y: 0.5}
             _maxHeight: 50
-            _obstacle: 1
+            _navTag:
+              _tag: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 4
@@ -796,7 +831,8 @@ MonoBehaviour:
               P1: {x: 1, y: 0.5}
               P2: {x: 5, y: 0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 5
@@ -805,7 +841,8 @@ MonoBehaviour:
               P1: {x: 5, y: 0.5}
               P2: {x: 5, y: -0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 5
@@ -819,7 +856,8 @@ MonoBehaviour:
               P1: {x: 5, y: 0.5}
               P2: {x: 5, y: -0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 0
@@ -828,7 +866,8 @@ MonoBehaviour:
               P1: {x: 5, y: -0.5}
               P2: {x: -5, y: -0.5}
             _maxHeight: 50
-            _obstacle: 0
+            _navTag:
+              _tag: -1
 --- !u!4 &2128047355
 Transform:
   m_ObjectHideFlags: 0

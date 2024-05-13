@@ -13,6 +13,7 @@ using UnityEngine.TestTools.Utils;
 using UnityEngine.TestTools;
 using NUnit;
 using System.IO;
+using Assets._2RGuide.Runtime;
 
 namespace _2RGuide.Tests.PlayModeTests
 {
@@ -26,10 +27,10 @@ namespace _2RGuide.Tests.PlayModeTests
             var n1 = store.NewNode(Vector2.zero);
             var n2 = store.NewNode(Vector2.one);
 
-            n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity, false);
-            n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity, false);
+            n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity, null);
+            n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity, null);
 
-            var path = AStar.Resolve(n1, n2, 0, 91f, ConnectionType.All, float.PositiveInfinity);
+            var path = AStar.Resolve(n1, n2, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
 
             Assert.AreEqual(2, path.Length);
         }
@@ -41,14 +42,16 @@ namespace _2RGuide.Tests.PlayModeTests
             {
                 maxJumpHeight = 3.0f,
                 maxSlope = 60.0f,
-                minJumpDistanceX = 0.5f
+                minJumpDistanceX = 0.5f,
+                noJumpsTargetTags = Array.Empty<NavTag>(),
             };
 
             var dropSettings = new DropsHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,
-                maxHeight = 20.0f
+                maxHeight = 20.0f,
+                noDropsTargetTags = Array.Empty<NavTag>(),
             };
 
             var clipper = new ClipperD();
@@ -75,7 +78,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), true, ConnectionType.Walk);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), ConnectionType.Walk, Array.Empty<NavTagBounds>());
 
             var navBuildContext = new NavBuildContext()
             {
@@ -88,7 +91,7 @@ namespace _2RGuide.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(1.5f, -1.5f));
             var end = navResult.nodeStore.Get(new Vector2(0.0f, 3.5f));
 
-            var path = AStar.Resolve(start, end, 0, 91f, ConnectionType.All, float.PositiveInfinity);
+            var path = AStar.Resolve(start, end, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
 
             Assert.AreEqual(4, path.Length);
         }
@@ -100,14 +103,16 @@ namespace _2RGuide.Tests.PlayModeTests
             {
                 maxJumpHeight = 10.0f,
                 maxSlope = 60.0f,
-                minJumpDistanceX = 0.5f
+                minJumpDistanceX = 0.5f,
+                noJumpsTargetTags = Array.Empty<NavTag>(),
             };
 
             var dropSettings = new DropsHelper.Settings
             {
                 horizontalDistance = 0.5f,
                 maxSlope = 60.0f,
-                maxHeight = 20.0f
+                maxHeight = 20.0f,
+                noDropsTargetTags = Array.Empty<NavTag>(),
             };
 
             var clipper = new ClipperD();
@@ -134,7 +139,7 @@ namespace _2RGuide.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), true, ConnectionType.Walk);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), ConnectionType.Walk, Array.Empty<NavTagBounds>());
 
             var navBuildContext = new NavBuildContext()
             {
@@ -147,7 +152,7 @@ namespace _2RGuide.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(0.0f, 0.0f));
             var end = navResult.nodeStore.Get(new Vector2(30.0f, 0.0f));
 
-            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity);
+            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
 
             Assert.AreEqual(6, path.Length);
         }
@@ -164,7 +169,7 @@ namespace _2RGuide.Tests.PlayModeTests
             var navWorld = NavWorldReference.Instance.NavWorld;
             var startN = navWorld.GetClosestNodeInSegment(agentGO.transform.position);
             var endN = navWorld.GetClosestNodeInSegment(targetGO.transform.position);
-            var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity);
+            var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>());
 
             Assert.AreEqual(4, nodes.Length);
         }

@@ -29,6 +29,11 @@ namespace Assets._2RGuide.Runtime
         private float _segmentMaxHeight = 50.0f;
         [SerializeField]
         private float _segmentProximityMaxDistance = 0.0f;
+        [SerializeField]
+        [NonReorderable]
+        private NavTagSetting[] _navTags;
+        [SerializeField]
+        private NavTag[] _noDropsOrJumpsTargetTags;
 
         public float MaxDropHeight => _maxDropHeight;
         public float JumpDropHorizontalDistance => _jumpDropHorizontalDistance;
@@ -38,6 +43,8 @@ namespace Assets._2RGuide.Runtime
         public LayerMask OneWayPlatformMask => _oneWayPlatformMask;
         public float SegmentMaxHeight => _segmentMaxHeight;
         public float SegmentProximityMaxDistance => _segmentProximityMaxDistance;
+        public NavTagSetting[] NavTagsSettings => _navTags;
+        public NavTag[] NoDropsOrJumpsTargetTags => _noDropsOrJumpsTargetTags;
 
         public static string[] SettingFields => new string[]
             {
@@ -49,11 +56,22 @@ namespace Assets._2RGuide.Runtime
                 nameof(_oneWayPlatformMask),
                 nameof(_segmentMaxHeight),
                 nameof(_segmentProximityMaxDistance),
+                nameof(_navTags),
+                nameof(_noDropsOrJumpsTargetTags),
             };
 
         public static Nav2RGuideSettings Load()
         {
             return Resources.Load<Nav2RGuideSettings>(ResourceLoadPath);
+        }
+
+        public NavTagSetting GetSettingForNavTag(NavTag navTag)
+        {
+            if(navTag)
+            {
+                return _navTags[navTag.Tag];
+            }
+            return null;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         public LineSegment2D segment;
         public float maxHeight;
         public bool oneWayPlatform;
-        public bool obstacle;
+        public NavTag navTag;
         public ConnectionType connectionType;
 
         public static implicit operator bool(NavSegment navSegment)
@@ -53,11 +53,11 @@ namespace Assets._2RGuide.Runtime.Helpers
                 case ConnectionType.Walk:
                 case ConnectionType.Jump:
                 case ConnectionType.OneWayPlatformJump:
-                    _nodeStore.ConnectNodes(n1, n2, navSegment.maxHeight, navSegment.connectionType, navSegment.obstacle);
+                    _nodeStore.ConnectNodes(n1, n2, navSegment.maxHeight, navSegment.connectionType, navSegment.navTag);
                     break;
                 case ConnectionType.Drop:
                 case ConnectionType.OneWayPlatformDrop:
-                    n1.AddConnection(navSegment.connectionType, n2, new LineSegment2D(n1.Position, n2.Position), navSegment.maxHeight, navSegment.obstacle);
+                    n1.AddConnection(navSegment.connectionType, n2, new LineSegment2D(n1.Position, n2.Position), navSegment.maxHeight, navSegment.navTag);
                     break;
             }
         }
