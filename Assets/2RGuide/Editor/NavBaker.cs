@@ -12,6 +12,7 @@ using UnityEditor;
 using System.Collections;
 using Unity.EditorCoroutines.Editor;
 using Assets._2RGuide.Runtime;
+using System;
 
 namespace _2RGuide.Editor
 {
@@ -43,6 +44,7 @@ namespace _2RGuide.Editor
                     maxJumpHeight = instance.MaxJumpHeight,
                     minJumpDistanceX = instance.JumpDropHorizontalDistance,
                     maxSlope = instance.MaxSlope,
+                    noJumpsTargetTags = instance.NoDropsOrJumpsTargetTags,
                 };
             }
         }
@@ -57,6 +59,7 @@ namespace _2RGuide.Editor
                     maxHeight = instance.MaxDropHeight,
                     horizontalDistance = instance.JumpDropHorizontalDistance,
                     maxSlope = instance.MaxSlope,
+                    noDropsTargetTags = instance.NoDropsOrJumpsTargetTags,
                 };
             }
         }
@@ -74,8 +77,8 @@ namespace _2RGuide.Editor
         public static void BakePathfinding(NavWorld world)
         {
             var colliders = GetColliders(world);
-            var obstacles = UnityEngine.Object.FindObjectsOfType<Obstacle>();
-            var navBuildContext = GetNavBuildContext(colliders, obstacles, NodePathSettings);
+            var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
+            var navBuildContext = GetNavBuildContext(colliders, navTagBounds, NodePathSettings);
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
             world.AssignData(navResult);
         }
@@ -83,10 +86,10 @@ namespace _2RGuide.Editor
         private static IEnumerator BakePathfindingRoutine()
         {
             var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
-            var obstacles = UnityEngine.Object.FindObjectsOfType<Obstacle>();
+            var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
 
             var colliders = GetColliders(navWorld);
-            var navBuildContext = GetNavBuildContext(colliders, obstacles, NodePathSettings);
+            var navBuildContext = GetNavBuildContext(colliders, navTagBounds, NodePathSettings);
             var jumpSettings = JumpSettings;
             var dropSettings = DropSettings;
             var navResultTask = Task.Run(() => NavHelper.Build(navBuildContext, jumpSettings, dropSettings));
@@ -145,10 +148,10 @@ namespace _2RGuide.Editor
 
         private static Collider2D[] GetColliders(NavWorld world)
         {
-            return world.gameObject.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<Obstacle>() == null).ToArray();
+            return world.gameObject.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<NavTagBounds>() == null).ToArray();
         }
 
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, Obstacle[] obstacles, NodeHelpers.Settings nodePathSettings)
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
         {
             var clipper = ClipperUtils.ConfiguredClipperD();
             
@@ -185,14 +188,14 @@ namespace _2RGuide.Editor
             segments.AddRange(closedPathSegments);
             segments.AddRange(edgeSegments);
 
-            var splits = segments.SplitLineSegments(obstacles);
+            var splits = segments.SplitLineSegments(navTagBounds);
             segments = new List<LineSegment2D>();
             segments.AddRange(splits.Item1);
             segments.AddRange(splits.Item2);
 
             var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
 
-            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, splits.Item2, true, ConnectionType.Walk);
+            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, splits.Item2, ConnectionType.Walk, navTagBounds);
 
             return new NavBuildContext()
             {

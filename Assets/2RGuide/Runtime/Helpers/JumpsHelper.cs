@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace _2RGuide.Helpers
             public float maxJumpHeight;
             public float maxSlope;
             public float minJumpDistanceX;
+            public NavTag[] noJumpsTargetTags;
         }
 
         public static void BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, NavBuilder navBuilder, Settings settings)
@@ -20,7 +22,7 @@ namespace _2RGuide.Helpers
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
-                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !ss.obstacle && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !settings.noJumpsTargetTags.Contains(ss.navTag) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if (node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
@@ -76,7 +78,7 @@ namespace _2RGuide.Helpers
                     segment = jumpSegment,
                     maxHeight = float.PositiveInfinity,
                     oneWayPlatform = false,
-                    obstacle = false,
+                    navTag = null,
                     connectionType = ConnectionType.Jump
                 };
                 navBuilder.AddNavSegment(ns);

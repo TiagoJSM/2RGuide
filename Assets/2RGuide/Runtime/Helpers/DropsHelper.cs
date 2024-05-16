@@ -14,6 +14,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             public float maxHeight;
             public float horizontalDistance;
             public float maxSlope;
+            public NavTag[] noDropsTargetTags;
         }
 
         public static void BuildDrops(
@@ -60,7 +61,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var navSegment = navSegments.Where(ss =>
             {
-                if(ss.obstacle)
+                if(settings.noDropsTargetTags.Contains(ss.navTag))
                 {
                     return false;
                 }
@@ -112,7 +113,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 segment = segment,
                 maxHeight = float.PositiveInfinity,
                 oneWayPlatform = false,
-                obstacle = false,
+                navTag = null,
                 connectionType = ConnectionType.Drop
             };
             navBuilder.AddNavSegment(ns);

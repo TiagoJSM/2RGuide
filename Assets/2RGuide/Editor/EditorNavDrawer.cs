@@ -2,6 +2,7 @@
 using _2RGuide.Math;
 using Assets._2RGuide.Editor;
 using Assets._2RGuide.Runtime.Helpers;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,8 +42,9 @@ namespace _2RGuide.Editor
             foreach (var navSegment in navSegments)
             {
                 var segment = navSegment.segment;
-                Handles.color = navSegment.obstacle
-                    ? Color.red
+                var navTagSetting = instance.GetSettingForNavTag(navSegment.navTag);
+                Handles.color = navTagSetting != null
+                    ? navTagSetting.Color
                     : Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
                 Handles.DrawLine(segment.P1, segment.P2, LineThickness);
             }

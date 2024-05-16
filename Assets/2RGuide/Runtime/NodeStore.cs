@@ -1,5 +1,6 @@
 ﻿using _2RGuide.Helpers;
 using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,13 @@ namespace _2RGuide
         [SerializeField]
         private float _maxHeight;
         [SerializeField]
-        private bool _obstacle;
+        private NavTag _navTag;
 
         public Node Node => _nodeStore.Get(_nodeIndex);
         public ConnectionType ConnectionType => _connectionType;
         public LineSegment2D Segment => _segment;
         public float MaxHeight => _maxHeight;
-        public bool Obstacle => _obstacle;
+        public NavTag NavTag => _navTag;
 
         public NodeConnection(
             NodeStore store, 
@@ -49,14 +50,14 @@ namespace _2RGuide
             ConnectionType connectionType, 
             LineSegment2D segment, 
             float maxHeight,
-            bool obstacle)
+            NavTag navTags)
         {
             _nodeStore = store;
             _nodeIndex = nodeIndex;
             _connectionType = connectionType;
             _segment = segment;
             _maxHeight = maxHeight;
-            _obstacle = obstacle;
+            _navTag = navTags;
         }
     }
 
@@ -95,12 +96,12 @@ namespace _2RGuide
             _connections = new List<NodeConnection>();
         }
 
-        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight, bool obstacle)
+        public bool AddConnection(ConnectionType connectionType, Node other, LineSegment2D segment, float maxHeight, NavTag navTag)
         {
             var hasSegment = _connections.Any(c => c.Segment.IsCoincident(segment));
             if (!hasSegment)
             {
-                var connection = new NodeConnection(_nodeStore, other._nodeIndex, connectionType, segment, maxHeight, obstacle);
+                var connection = new NodeConnection(_nodeStore, other._nodeIndex, connectionType, segment, maxHeight, navTag);
                 _connections.Add(connection);
             }
 
@@ -187,7 +188,7 @@ namespace _2RGuide
             }
 
             var maxHeight = connection.Value.MaxHeight;
-            var obstacle = connection.Value.Obstacle;
+            var navTag = connection.Value.NavTag;
             var connectionType = connection.Value.ConnectionType;
 
             splitNode = NewNode(position);
@@ -195,8 +196,8 @@ namespace _2RGuide
             connectedNode1.RemoveConnectionWith(connectedNode2);
             connectedNode2.RemoveConnectionWith(connectedNode1);
 
-            ConnectNodes(connectedNode1, splitNode, maxHeight, connectionType, obstacle);
-            ConnectNodes(splitNode, connectedNode2, maxHeight, connectionType, obstacle);
+            ConnectNodes(connectedNode1, splitNode, maxHeight, connectionType, navTag);
+            ConnectNodes(splitNode, connectedNode2, maxHeight, connectionType, navTag);
 
             return splitNode;
         }
@@ -226,12 +227,12 @@ namespace _2RGuide
             return _nodes.ToArray();
         }
 
-        public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType, bool obstacle)
+        public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType, NavTag navTag)
         {
             var s = new LineSegment2D(node1.Position, node2.Position);
 
-            node1.AddConnection(connectionType, node2, s, maxHeight, obstacle);
-            node2.AddConnection(connectionType, node1, s, maxHeight, obstacle);
+            node1.AddConnection(connectionType, node2, s, maxHeight, navTag);
+            node2.AddConnection(connectionType, node1, s, maxHeight, navTag);
 
             return s;
         }

@@ -175,23 +175,23 @@ namespace _2RGuide.Helpers
             return segments.FirstOrDefault(s => s.OnSegment(position));
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<Obstacle> obstacles)
+        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
         {
-            var paths = new PathsD(obstacles.Select(o => ClipperUtils.MakePath(o.Collider)));
+            var paths = new PathsD(navTags.Select(o => ClipperUtils.MakePath(o.Collider)));
             var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(segment, paths);
             return (
                 NavHelper.ConvertOpenPathToSegments(resultOutsidePath),
                 NavHelper.ConvertOpenPathToSegments(resultInsidePath));
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<Obstacle> obstacles)
+        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBounds> navTags)
         {
             var resultOutsidePath = new List<LineSegment2D>();
             var resultInsidePath = new List<LineSegment2D>();
 
             foreach(var segment in segments)
             {
-                var splits = segment.SplitLineSegment(obstacles);
+                var splits = segment.SplitLineSegment(navTags);
                 resultOutsidePath.AddRange(splits.Item1);
                 resultInsidePath.AddRange(splits.Item2);
             }

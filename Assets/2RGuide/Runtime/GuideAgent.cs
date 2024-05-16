@@ -61,6 +61,8 @@ namespace _2RGuide
         private ConnectionType _allowedConnectionTypes = ConnectionType.All;
         [SerializeField]
         private float _pathfindingMaxDistance = float.PositiveInfinity;
+        [SerializeField]
+        private NavTag[] _navTagCapable;
 
         private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
         private bool RequiresFindingNewPath => !_currentDestination.HasValue && _desiredDestination.HasValue;
@@ -176,7 +178,7 @@ namespace _2RGuide
                 var navWorld = NavWorldReference.Instance.NavWorld;
                 var startN = navWorld.GetClosestNodeInSegment(start);
                 var endN = navWorld.GetClosestNodeInSegment(end);
-                var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance);
+                var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, _navTagCapable);
                 var pathStatus = PathStatus.Invalid;
 
                 if(nodes == null)

@@ -1,4 +1,5 @@
 ﻿using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using Clipper2Lib;
 using System.Collections.Generic;
@@ -87,7 +88,7 @@ namespace _2RGuide.Helpers
             return segments.ToArray();
         }
 
-        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, IEnumerable<LineSegment2D> obstacleSegments, bool isBidirectional, ConnectionType connectionType)
+        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, IEnumerable<LineSegment2D> navTaggedSegments, ConnectionType connectionType, NavTagBounds[] navTagBounds)
         {
             return
                 segments
@@ -96,8 +97,10 @@ namespace _2RGuide.Helpers
                         var dividedSegs = s.DivideSegment(segmentDivision, 1.0f, segments.Except(new LineSegment2D[] { s }), maxHeight, connectionType);
                         for (var idx = 0; idx < dividedSegs.Length; idx++)
                         {
+                            var overlappingNavTagBounds = navTagBounds.FirstOrDefault(b => b.Contains(dividedSegs[idx].segment));
+
                             dividedSegs[idx].oneWayPlatform = edgeSegments.Contains(s);
-                            dividedSegs[idx].obstacle = obstacleSegments.Contains(s);
+                            dividedSegs[idx].navTag = overlappingNavTagBounds == null ? null : overlappingNavTagBounds.NavTag;
                         }
                         return dividedSegs;
                     })

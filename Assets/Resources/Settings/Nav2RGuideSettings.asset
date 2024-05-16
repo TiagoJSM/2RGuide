@@ -22,3 +22,8 @@ MonoBehaviour:
     m_Bits: 64
   _segmentMaxHeight: 50
   _segmentProximityMaxDistance: 1
+  _navTags:
+  - _tag: Obstacle
+    _color: {r: 1, g: 0, b: 0, a: 1}
+  _noDropsOrJumpsTargetTags:
+  - _tag: 0
