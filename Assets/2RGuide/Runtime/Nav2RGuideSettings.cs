@@ -34,6 +34,11 @@ namespace Assets._2RGuide.Runtime
         private NavTagSetting[] _navTags;
         [SerializeField]
         private NavTag[] _noDropsOrJumpsTargetTags;
+        [Header("Debug")]
+        [SerializeField]
+        private float _agentTargetPositionDebugSphereRadius;
+        [SerializeField]
+        private float _agentDebugPathVerticalOffset;
 
         public float MaxDropHeight => _maxDropHeight;
         public float JumpDropHorizontalDistance => _jumpDropHorizontalDistance;
@@ -45,6 +50,8 @@ namespace Assets._2RGuide.Runtime
         public float SegmentProximityMaxDistance => _segmentProximityMaxDistance;
         public NavTagSetting[] NavTagsSettings => _navTags;
         public NavTag[] NoDropsOrJumpsTargetTags => _noDropsOrJumpsTargetTags;
+        public float AgentTargetPositionDebugSphereRadius => _agentTargetPositionDebugSphereRadius;
+        public float AgentDebugPathVerticalOffset => _agentDebugPathVerticalOffset;
 
         public static string[] SettingFields => new string[]
             {
@@ -58,6 +65,8 @@ namespace Assets._2RGuide.Runtime
                 nameof(_segmentProximityMaxDistance),
                 nameof(_navTags),
                 nameof(_noDropsOrJumpsTargetTags),
+                nameof(_agentTargetPositionDebugSphereRadius),
+                nameof(_agentDebugPathVerticalOffset),
             };
 
         public static Nav2RGuideSettings Load()

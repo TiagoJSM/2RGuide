@@ -1,13 +1,13 @@
-﻿using _2RGuide.Helpers;
-using Assets._2RGuide.Runtime;
-using Assets._2RGuide.Runtime.Helpers;
-using System;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     public class GuideAgent : MonoBehaviour
     {
@@ -100,7 +100,7 @@ namespace _2RGuide
 
         public void CompleteCurrentSegment()
         {
-            if(_path == null)
+            if (_path == null)
             {
                 return;
             }
@@ -132,15 +132,8 @@ namespace _2RGuide
                 _desiredDestination = null;
                 _coroutine = StartCoroutine(FindPath(ReferencePosition, _currentDestination.Value));
             }
-            
-            Move();
-        }
 
-        private void LateUpdate()
-        {
-#if UNITY_EDITOR
-            DrawPath();
-#endif
+            Move();
         }
 
         private void Move()
@@ -173,7 +166,7 @@ namespace _2RGuide
             var referencePositon = ReferencePosition;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
 
-            var pathfindingTask = Task.Run(() => 
+            var pathfindingTask = Task.Run(() =>
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
                 var startN = navWorld.GetClosestNodeInSegment(start);
@@ -181,7 +174,7 @@ namespace _2RGuide
                 var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, _navTagCapable);
                 var pathStatus = PathStatus.Invalid;
 
-                if(nodes == null)
+                if (nodes == null)
                 {
                     return new PathfindingResult()
                     {
@@ -257,19 +250,25 @@ namespace _2RGuide
         }
 
 #if UNITY_EDITOR
-        private void DrawPath()
+        private static float LineThickness => EditorGUIUtility.pixelsPerPoint * 3;
+
+        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy, typeof(GuideAgent))]
+        private static void RenderCustomGizmo(GuideAgent objectTransform, GizmoType gizmoType)
         {
-            if (_path == null)
+            if (objectTransform._path == null || objectTransform._settings == null)
             {
                 return;
             }
 
-            var start = ReferencePosition;
+            var start = objectTransform.ReferencePosition;
+            var debugPathVerticalOffset = new Vector2(0, objectTransform._settings.AgentDebugPathVerticalOffset);
 
-            for (var idx = _targetPathIndex; idx < _path.Length; idx++)
+            for (var idx = objectTransform._targetPathIndex; idx < objectTransform._path.Length; idx++)
             {
-                Debug.DrawLine(start, _path[idx].position, Color.yellow);
-                start = _path[idx].position;
+                Handles.color = Gizmos.color = Color.green;
+                Handles.DrawLine(start + debugPathVerticalOffset, objectTransform._path[idx].position + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(objectTransform._path[idx].position + debugPathVerticalOffset, objectTransform._settings.AgentTargetPositionDebugSphereRadius);
+                start = objectTransform._path[idx].position;
             }
         }
 #endif

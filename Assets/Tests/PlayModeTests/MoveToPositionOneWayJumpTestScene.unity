@@ -1029,7 +1029,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: NodeStore, ns: _2RGuide, asm: 2RGuide}
+      type: {class: NodeStore, ns: Assets._2RGuide.Runtime, asm: 2RGuide}
       data:
         _nodes:
         - _nodeStore:

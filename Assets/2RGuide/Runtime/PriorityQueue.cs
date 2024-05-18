@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     class PriorityQueue<TData, TPriority> where TPriority : IComparable
     {

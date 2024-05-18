@@ -1,8 +1,8 @@
-﻿using _2RGuide.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using System;
 using UnityEngine;
 
-namespace _2RGuide.Math
+namespace Assets._2RGuide.Runtime.Math
 {
     [Serializable]
     public struct LineSegment2D
@@ -72,7 +72,7 @@ namespace _2RGuide.Math
             {
                 return null;
             }
-            if(!Slope.HasValue)
+            if (!Slope.HasValue)
             {
                 return null;
             }
@@ -227,7 +227,7 @@ namespace _2RGuide.Math
                     return true;
                 }
 
-                if(circle.IsInside(P1) || circle.IsInside(P2))
+                if (circle.IsInside(P1) || circle.IsInside(P2))
                 {
                     return true;
                 }

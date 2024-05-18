@@ -1,12 +1,8 @@
-﻿using _2RGuide;
-using _2RGuide.Helpers;
-using _2RGuide.Math;
+﻿using Assets._2RGuide.Runtime.Math;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
@@ -65,7 +61,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         public Node SplitSegment(NavSegment navSegment, Vector2 point)
         {
             var existingNode = _nodeStore.Get(point);
-            if(existingNode != null)
+            if (existingNode != null)
             {
                 return existingNode;
             }

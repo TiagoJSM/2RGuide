@@ -1,9 +1,8 @@
-﻿using _2RGuide.Math;
-using System;
+﻿using System;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class NodeExtensions
     {

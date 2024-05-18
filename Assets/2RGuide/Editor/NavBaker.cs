@@ -1,20 +1,16 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide;
-using UnityEngine;
+﻿using Assets._2RGuide.Runtime;
+using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
-using _2RGuide.Math;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets._2RGuide.Runtime.Helpers;
-using Assets._2RGuide.Editor;
 using System.Threading.Tasks;
-using UnityEditor;
-using System.Collections;
 using Unity.EditorCoroutines.Editor;
-using Assets._2RGuide.Runtime;
-using System;
+using UnityEditor;
+using UnityEngine;
 
-namespace _2RGuide.Editor
+namespace Assets._2RGuide.Editor
 {
     public static class NavBaker
     {
@@ -66,7 +62,7 @@ namespace _2RGuide.Editor
 
         public static void BakePathfindingInBackground()
         {
-            if(_bakingCoroutine != null)
+            if (_bakingCoroutine != null)
             {
                 return;
             }
@@ -154,20 +150,20 @@ namespace _2RGuide.Editor
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
         {
             var clipper = ClipperUtils.ConfiguredClipperD();
-            
+
             foreach (var collider in colliders)
             {
                 CollectSegments(collider, nodePathSettings.oneWayPlatformMask, clipper);
             }
-            
+
             var closedPath = new PathsD();
-            
+
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
-            
+
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
 
-            var otherColliders = colliders.Where(c => 
-                c is BoxCollider2D && !nodePathSettings.oneWayPlatformMask.Includes(c.gameObject) || 
+            var otherColliders = colliders.Where(c =>
+                c is BoxCollider2D && !nodePathSettings.oneWayPlatformMask.Includes(c.gameObject) ||
                 c is PolygonCollider2D).ToArray();
 
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately

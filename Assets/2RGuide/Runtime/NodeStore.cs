@@ -1,13 +1,11 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     [Flags]
     public enum ConnectionType
@@ -45,10 +43,10 @@ namespace _2RGuide
         public NavTag NavTag => _navTag;
 
         public NodeConnection(
-            NodeStore store, 
-            int nodeIndex, 
-            ConnectionType connectionType, 
-            LineSegment2D segment, 
+            NodeStore store,
+            int nodeIndex,
+            ConnectionType connectionType,
+            LineSegment2D segment,
             float maxHeight,
             NavTag navTags)
         {
@@ -86,8 +84,8 @@ namespace _2RGuide
         public Node() { }
 
         public Node(
-            NodeStore nodeStore, 
-            Vector2 position, 
+            NodeStore nodeStore,
+            Vector2 position,
             int nodeIndex)
         {
             _nodeStore = nodeStore;
@@ -173,7 +171,7 @@ namespace _2RGuide
         {
             var splitNode = Get(position);
 
-            if(splitNode != null)
+            if (splitNode != null)
             {
                 return splitNode;
             }
@@ -182,7 +180,7 @@ namespace _2RGuide
             var connectedNode2 = Get(segment.P2);
             var connection = connectedNode1.ConnectionWith(connectedNode2);
 
-            if(connection == null)
+            if (connection == null)
             {
                 return null;
             }

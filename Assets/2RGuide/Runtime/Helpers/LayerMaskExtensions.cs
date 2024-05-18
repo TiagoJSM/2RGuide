@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class LayerMaskExtensions
     {

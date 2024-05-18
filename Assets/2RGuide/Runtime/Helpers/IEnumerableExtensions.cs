@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class IEnumerableExtensions
     {
@@ -18,7 +18,7 @@ namespace _2RGuide.Helpers
                     continue;
                 }
 
-                if(keySelector(min).CompareTo(keySelector(value)) > 0)
+                if (keySelector(min).CompareTo(keySelector(value)) > 0)
                 {
                     min = value;
                 }

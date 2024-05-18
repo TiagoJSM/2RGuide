@@ -1,5 +1,4 @@
-﻿using _2RGuide;
-using System.Collections;
+﻿using Assets._2RGuide.Runtime;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ namespace Assets._2RGuide.Editor
             DrawDefaultInspector();
 
             var agent = (GuideAgent)target;
-            
+
             GUILayout.Label("");
             GUILayout.Label("Debug Info:", DebugLabelTitleStyle);
             GUILayout.Label($"State: {agent.Status}");

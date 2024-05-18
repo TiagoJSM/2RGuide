@@ -1,6 +1,4 @@
-﻿using _2RGuide.Helpers;
-using Assets._2RGuide.Runtime.Helpers;
-using System.Collections;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using UnityEngine;
 
 namespace RTree

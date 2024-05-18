@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     public class NavWorldReference : Singleton<NavWorldReference>
     {

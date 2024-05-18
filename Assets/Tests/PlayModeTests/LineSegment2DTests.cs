@@ -1,14 +1,12 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
+﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using System;
 using UnityEngine;
-using UnityEngine.TestTools.Utils;
 
-namespace _2RGuide.Tests.PlayModeTests
+namespace Assets.Tests.PlayModeTests
 {
     public class LineSegment2DTests
     {
@@ -126,12 +124,12 @@ namespace _2RGuide.Tests.PlayModeTests
         public void TestSplitCountAgainstOthers()
         {
             var ls = new LineSegment2D(new Vector2(0.0f, 0.0f), new Vector2(15.0f, 0.0f));
-            var splits = 
+            var splits =
                 ls.DivideSegment(
                     5.0f,
                     0.001f,
-                    new LineSegment2D[] 
-                    { 
+                    new LineSegment2D[]
+                    {
                         new LineSegment2D(new Vector2(0.0f, 10.0f), new Vector2(4.5f, 8.0f)),
                         new LineSegment2D(new Vector2(11.0f, 6.0f), new Vector2(20.0f, 6.0f))
                     },

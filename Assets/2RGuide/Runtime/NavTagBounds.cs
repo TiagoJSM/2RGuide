@@ -1,5 +1,4 @@
-﻿using _2RGuide.Math;
-using System.Collections;
+﻿using Assets._2RGuide.Runtime.Math;
 using UnityEngine;
 
 namespace Assets._2RGuide.Runtime
