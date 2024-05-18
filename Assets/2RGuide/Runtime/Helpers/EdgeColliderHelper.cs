@@ -1,12 +1,11 @@
-﻿using _2RGuide.Math;
-using Assets._2RGuide.Runtime.Helpers;
+﻿using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class EdgeColliderHelper
     {
@@ -21,7 +20,7 @@ namespace _2RGuide.Helpers
         }
 
         private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(
-            Collider2D[] colliders, 
+            Collider2D[] colliders,
             LayerMask oneWayPlatformMask,
             PathsD closedPaths)
         {
@@ -59,7 +58,7 @@ namespace _2RGuide.Helpers
         private static LineSegment2D[] GetSegments(EdgeCollider2D collider, PathsD closedPaths)
         {
             var edgeSegments = new List<LineSegment2D>();
-            
+
             if (collider.pointCount < 1)
             {
                 return Array.Empty<LineSegment2D>();

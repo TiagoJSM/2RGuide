@@ -1,11 +1,10 @@
-﻿using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
-using Assets._2RGuide.Runtime.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class JumpsHelper
     {
@@ -36,7 +35,7 @@ namespace _2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments, settings.maxSlope);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -51,14 +50,14 @@ namespace _2RGuide.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments, settings.maxSlope);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments);
                 }
             }
 
             BuildOneWayPlatformJumpSegments(navBuildContext, navBuilder, settings);
         }
 
-        private static void BuildJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NavBuilder navBuilder, List<NavSegment> navSegments, float maxSlope)
+        private static void BuildJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NavBuilder navBuilder, List<NavSegment> navSegments)
         {
             var jumpSegments =
                 closestPoints
@@ -82,7 +81,6 @@ namespace _2RGuide.Helpers
                     connectionType = ConnectionType.Jump
                 };
                 navBuilder.AddNavSegment(ns);
-                //PathBuilderHelper.AddTargetNodeForSegment(jumpSegment, navBuilder, ConnectionType.Jump, maxSlope, float.PositiveInfinity);
             }
         }
 

@@ -1,13 +1,10 @@
-﻿using _2RGuide.Helpers;
-using Assets._2RGuide.Runtime;
-using Assets._2RGuide.Runtime.Helpers;
-using System;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     public class GuideAgent : MonoBehaviour
     {
@@ -100,7 +97,7 @@ namespace _2RGuide
 
         public void CompleteCurrentSegment()
         {
-            if(_path == null)
+            if (_path == null)
             {
                 return;
             }
@@ -132,7 +129,7 @@ namespace _2RGuide
                 _desiredDestination = null;
                 _coroutine = StartCoroutine(FindPath(ReferencePosition, _currentDestination.Value));
             }
-            
+
             Move();
         }
 
@@ -173,7 +170,7 @@ namespace _2RGuide
             var referencePositon = ReferencePosition;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
 
-            var pathfindingTask = Task.Run(() => 
+            var pathfindingTask = Task.Run(() =>
             {
                 var navWorld = NavWorldReference.Instance.NavWorld;
                 var startN = navWorld.GetClosestNodeInSegment(start);
@@ -181,7 +178,7 @@ namespace _2RGuide
                 var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, _navTagCapable);
                 var pathStatus = PathStatus.Invalid;
 
-                if(nodes == null)
+                if (nodes == null)
                 {
                     return new PathfindingResult()
                     {

@@ -1,11 +1,8 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
+﻿using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {

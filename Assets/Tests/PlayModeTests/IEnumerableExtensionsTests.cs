@@ -1,8 +1,8 @@
-﻿using _2RGuide.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using NUnit.Framework;
 using System;
 
-namespace _2RGuide.Tests.PlayModeTests
+namespace Assets.Tests.PlayModeTests
 {
     public class IEnumerableExtensionsTests
     {

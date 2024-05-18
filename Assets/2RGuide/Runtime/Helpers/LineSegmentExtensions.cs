@@ -1,13 +1,11 @@
-﻿using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
-using Assets._2RGuide.Runtime.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class LineSegmentExtensions
     {
@@ -189,7 +187,7 @@ namespace _2RGuide.Helpers
             var resultOutsidePath = new List<LineSegment2D>();
             var resultInsidePath = new List<LineSegment2D>();
 
-            foreach(var segment in segments)
+            foreach (var segment in segments)
             {
                 var splits = segment.SplitLineSegment(navTags);
                 resultOutsidePath.AddRange(splits.Item1);

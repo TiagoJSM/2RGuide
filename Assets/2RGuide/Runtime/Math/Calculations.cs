@@ -1,9 +1,9 @@
-﻿using _2RGuide.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Math
+namespace Assets._2RGuide.Runtime.Math
 {
     public struct CalculationRaycastHit
     {
@@ -22,7 +22,7 @@ namespace _2RGuide.Math
         {
             get
             {
-                if(!HitPosition.HasValue)
+                if (!HitPosition.HasValue)
                 {
                     return false;
                 }
@@ -44,13 +44,13 @@ namespace _2RGuide.Math
         {
             var ray = new LineSegment2D(origin, end);
 
-            var min = 
+            var min =
                 segments
                     .Select(s =>
                         (s, ray.GetIntersection(s)))
-                    .Where(v => 
+                    .Where(v =>
                         v.Item2.HasValue)
-                    .MinBy(v => 
+                    .MinBy(v =>
                         Vector2.Distance(v.Item2.Value, origin));
 
             return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, Vector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();

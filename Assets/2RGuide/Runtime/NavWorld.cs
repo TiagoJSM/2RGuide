@@ -1,13 +1,11 @@
-using _2RGuide.Helpers;
-using _2RGuide.Math;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using RTree;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     //investigate GeometryUtils from https://docs.unity3d.com/Packages/com.unity.reflect@1.0/api/Unity.Labs.Utils.GeometryUtils.html
     public class NavWorld : MonoBehaviour

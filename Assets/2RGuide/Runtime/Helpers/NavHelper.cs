@@ -1,12 +1,11 @@
-﻿using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
-using Assets._2RGuide.Runtime.Helpers;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public struct NavResult
     {

@@ -1,11 +1,10 @@
-﻿using _2RGuide;
+﻿using Assets._2RGuide.Runtime;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Tests.PlayModeTests
 {

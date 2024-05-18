@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

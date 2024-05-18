@@ -1,16 +1,13 @@
-﻿using _2RGuide;
+﻿using Assets._2RGuide.Runtime;
 using Assets.Tests.PlayModeTests.Attributes;
 using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Utils;
-using static _2RGuide.GuideAgent;
-using static UnityEngine.GraphicsBuffer;
+using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -28,7 +25,7 @@ namespace Assets.Tests.PlayModeTests
             }
         }
 
-        static AgentTargetMovementParams[] MoveToTargetsTestValues = new []
+        static AgentTargetMovementParams[] MoveToTargetsTestValues = new[]
         {
             new AgentTargetMovementParams("MoveToPositionTestScene", new[] { "Target" }),
             new AgentTargetMovementParams("MoveToPositionWithJumpsTestScene", new[] { "Target" }),
@@ -52,8 +49,8 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(agent, Is.Not.Null);
 
             var targetGOs = values.Targets.Select(t => GameObject.Find(t));
-            
-            foreach(var targetGO in targetGOs)
+
+            foreach (var targetGO in targetGOs)
             {
                 Assert.That(targetGO, Is.Not.Null);
                 Assert.AreNotEqual(targetGO.transform.position, agent.transform.position);

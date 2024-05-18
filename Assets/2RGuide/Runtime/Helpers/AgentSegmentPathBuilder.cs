@@ -1,10 +1,6 @@
-﻿using _2RGuide;
-using _2RGuide.Helpers;
-using System.Collections;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
-using static _2RGuide.GuideAgent;
+using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
@@ -41,7 +37,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 //ToDo: first check if on segment between length-2 and length-1, if yes assign closest to last position,
                 //otherwise check connections for last node for closest value on segment
                 var closestPositionWithTarget = lastConnection.Segment.ClosestPointOnLine(targetPosition);
-                if(!closestPositionWithTarget.Approximately(lastConnection.Node.Position) && lastConnection.Segment.OnSegment(closestPositionWithTarget))
+                if (!closestPositionWithTarget.Approximately(lastConnection.Node.Position) && lastConnection.Segment.OnSegment(closestPositionWithTarget))
                 {
                     var lastElement = segmentPath.Last();
                     lastElement.position = closestPositionWithTarget;
@@ -70,7 +66,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                         return Vector2.Distance(closestPoint, targetPosition) < segmentProximityMaxDistance;
                     });
 
-                    if(eligibleConnections.Any())
+                    if (eligibleConnections.Any())
                     {
                         var closestConnection = eligibleConnections.MinBy(c =>
                         {

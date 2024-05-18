@@ -1,10 +1,10 @@
-﻿using _2RGuide;
+﻿using Assets._2RGuide.Runtime;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _2RGuide.Editor
+namespace Assets._2RGuide.Editor
 {
     [CustomEditor(typeof(NavWorld))]
     public class WorldEditor : UnityEditor.Editor

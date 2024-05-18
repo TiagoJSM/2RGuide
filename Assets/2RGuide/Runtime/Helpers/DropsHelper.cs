@@ -1,6 +1,4 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
-using _2RGuide;
+﻿using Assets._2RGuide.Runtime.Math;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,7 +16,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         }
 
         public static void BuildDrops(
-            NavBuildContext navBuildContext, 
+            NavBuildContext navBuildContext,
             NodeStore nodes,
             NavBuilder navBuilder,
             LineSegment2D[] jumps,
@@ -61,7 +59,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var navSegment = navSegments.Where(ss =>
             {
-                if(settings.noDropsTargetTags.Contains(ss.navTag))
+                if (settings.noDropsTargetTags.Contains(ss.navTag))
                 {
                     return false;
                 }

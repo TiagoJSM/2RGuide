@@ -1,12 +1,9 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
-using System;
+﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide
+namespace Assets._2RGuide.Runtime
 {
     public static class AStar
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _2RGuide.Math
+namespace Assets._2RGuide.Runtime.Math
 {
     public struct Circle
     {

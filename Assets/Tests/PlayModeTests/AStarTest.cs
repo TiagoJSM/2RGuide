@@ -1,21 +1,16 @@
-using System;
-using System.Collections;
-using System.Linq;
-using _2RGuide;
-using _2RGuide.Helpers;
-using _2RGuide.Math;
+using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Assets.Tests.PlayModeTests.Attributes;
 using Clipper2Lib;
 using NUnit.Framework;
+using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.TestTools.Utils;
 using UnityEngine.TestTools;
-using NUnit;
-using System.IO;
-using Assets._2RGuide.Runtime;
 
-namespace _2RGuide.Tests.PlayModeTests
+namespace Assets.Tests.PlayModeTests
 {
     public class AStarTest
     {

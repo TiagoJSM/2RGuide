@@ -1,10 +1,8 @@
-﻿using _2RGuide.Math;
-using Assets._2RGuide.Runtime.Helpers;
-using System.Collections.Generic;
+﻿using Assets._2RGuide.Runtime.Math;
 using System.Linq;
 using UnityEngine;
 
-namespace _2RGuide.Helpers
+namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class PathBuilderHelper
     {
@@ -63,23 +61,23 @@ namespace _2RGuide.Helpers
 
                 var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
                 var targetPlatformSegment = hit.LineSegment;
-                
+
                 var segmentAlreadyPresent = existingConnections.Any(s => s.IsCoincident(new LineSegment2D(oneWayPlatform.segment.HalfPoint, hit.HitPosition.Value)));
-                if(segmentAlreadyPresent)
+                if (segmentAlreadyPresent)
                 {
                     continue;
                 }
 
                 var n1 = navBuilder.SplitSegment(oneWayPlatform, oneWayPlatform.segment.HalfPoint);
                 var n2 = navBuilder.SplitSegment(hitNavSegment, hit.HitPosition.Value);
-                navBuilder.AddNavSegment(new NavSegment() 
-                    {
-                        segment = new LineSegment2D() { P1 = n1.Position, P2 = n2.Position },
-                        connectionType = connectionType,
-                        maxHeight = float.PositiveInfinity,
-                        navTag = null,
-                        oneWayPlatform = true
-                    });
+                navBuilder.AddNavSegment(new NavSegment()
+                {
+                    segment = new LineSegment2D() { P1 = n1.Position, P2 = n2.Position },
+                    connectionType = connectionType,
+                    maxHeight = float.PositiveInfinity,
+                    navTag = null,
+                    oneWayPlatform = true
+                });
 
                 //var oneWayPlatformNode = nodes.SplitSegmentAt(oneWayPlatform.segment, oneWayPlatform.segment.HalfPoint);
                 //var targetNode = nodes.SplitSegmentAt(targetPlatformSegment, hit.HitPosition.Value);

@@ -1,12 +1,10 @@
-﻿using _2RGuide.Helpers;
-using _2RGuide.Math;
-using Assets._2RGuide.Editor;
+﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
-using System.Linq;
+using Assets._2RGuide.Runtime.Math;
 using UnityEditor;
 using UnityEngine;
 
-namespace _2RGuide.Editor
+namespace Assets._2RGuide.Editor
 {
     public static class EditorNavDrawer
     {
@@ -34,7 +32,7 @@ namespace _2RGuide.Editor
 
         private static void RenderSegments(NavSegment[] navSegments, Color minHeightColor, Color maxHeightColor)
         {
-            if(navSegments == null)
+            if (navSegments == null)
             {
                 return;
             }
@@ -110,7 +108,7 @@ namespace _2RGuide.Editor
 
         private static void RenderNodes(Node[] nodes)
         {
-            if(nodes == null)
+            if (nodes == null)
             {
                 return;
             }

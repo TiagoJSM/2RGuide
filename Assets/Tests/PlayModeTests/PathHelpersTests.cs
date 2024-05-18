@@ -1,15 +1,12 @@
-﻿using _2RGuide;
-using _2RGuide.Helpers;
-using _2RGuide.Math;
-using Assets._2RGuide.Runtime;
+﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using static UnityEditor.ObjectChangeEventStream;
 
-namespace _2RGuide.Tests.PlayModeTests
+namespace Assets.Tests.PlayModeTests
 {
     public class PathHelpersTests
     {
