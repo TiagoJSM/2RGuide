@@ -27,3 +27,5 @@ MonoBehaviour:
     _color: {r: 1, g: 0, b: 0, a: 1}
   _noDropsOrJumpsTargetTags:
   - _tag: 0
+  _agentTargetPositionDebugSphereRadius: 0.25
+  _agentDebugPathVerticalOffset: 0.5

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Assets._2RGuide.Runtime
 {
@@ -133,13 +136,6 @@ namespace Assets._2RGuide.Runtime
             Move();
         }
 
-        private void LateUpdate()
-        {
-#if UNITY_EDITOR
-            DrawPath();
-#endif
-        }
-
         private void Move()
         {
             if (_path == null)
@@ -254,19 +250,25 @@ namespace Assets._2RGuide.Runtime
         }
 
 #if UNITY_EDITOR
-        private void DrawPath()
+        private static float LineThickness => EditorGUIUtility.pixelsPerPoint * 3;
+
+        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy, typeof(GuideAgent))]
+        private static void RenderCustomGizmo(GuideAgent objectTransform, GizmoType gizmoType)
         {
-            if (_path == null)
+            if (objectTransform._path == null || objectTransform._settings == null)
             {
                 return;
             }
 
-            var start = ReferencePosition;
+            var start = objectTransform.ReferencePosition;
+            var debugPathVerticalOffset = new Vector2(0, objectTransform._settings.AgentDebugPathVerticalOffset);
 
-            for (var idx = _targetPathIndex; idx < _path.Length; idx++)
+            for (var idx = objectTransform._targetPathIndex; idx < objectTransform._path.Length; idx++)
             {
-                Debug.DrawLine(start, _path[idx].position, Color.yellow);
-                start = _path[idx].position;
+                Handles.color = Gizmos.color = Color.green;
+                Handles.DrawLine(start + debugPathVerticalOffset, objectTransform._path[idx].position + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(objectTransform._path[idx].position + debugPathVerticalOffset, objectTransform._settings.AgentTargetPositionDebugSphereRadius);
+                start = objectTransform._path[idx].position;
             }
         }
 #endif
