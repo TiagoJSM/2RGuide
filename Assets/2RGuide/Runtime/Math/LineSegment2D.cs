@@ -318,6 +318,16 @@ namespace Assets._2RGuide.Runtime.Math
             return segment.P1 != Vector2.zero || segment.P2 != Vector2.zero;
         }
 
+        public static bool operator ==(LineSegment2D line1, LineSegment2D line2)
+        {
+            return line1.Equals(line2);
+        }
+
+        public static bool operator !=(LineSegment2D line1, LineSegment2D line2)
+        {
+            return !(line1 == line2);
+        }
+
         // Given three collinear points p, q, r, the function checks if
         // point q lies on line segment 'pr'
         private static bool OnSegment(Vector2 p, Vector2 q, Vector2 r)
@@ -425,6 +435,20 @@ namespace Assets._2RGuide.Runtime.Math
             if (o4 == 0 && OnSegment(p2, q1, q2)) return true;
 
             return false; // Doesn't fall in any of the above cases
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is LineSegment2D ls)
+            {
+                return ls.P1 == P1 && ls.P2 == P2;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

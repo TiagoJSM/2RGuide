@@ -1,6 +1,6 @@
 {
   "name": "com.amberfragment.2rguide",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "displayName": "2R Guide",
   "description": "Pathfinding solution for 2D platformer games",
   "unity": "2020.2",
