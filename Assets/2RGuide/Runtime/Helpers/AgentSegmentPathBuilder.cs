@@ -32,12 +32,12 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var lastConnection = path[path.Length - 2].ConnectionWith(path.Last()).Value;
             // if character doesn't want to move to last node it should stay "half way"
-            if (path.Count() > 1 && lastConnection.ConnectionType == ConnectionType.Walk)
+            if (path.Count() > 1)
             {
                 //ToDo: first check if on segment between length-2 and length-1, if yes assign closest to last position,
                 //otherwise check connections for last node for closest value on segment
                 var closestPositionWithTarget = lastConnection.Segment.ClosestPointOnLine(targetPosition);
-                if (!closestPositionWithTarget.Approximately(lastConnection.Node.Position) && lastConnection.Segment.OnSegment(closestPositionWithTarget))
+                if (!closestPositionWithTarget.Approximately(lastConnection.Node.Position) && lastConnection.Segment.OnSegment(closestPositionWithTarget) && lastConnection.ConnectionType == ConnectionType.Walk)
                 {
                     var lastElement = segmentPath.Last();
                     lastElement.position = closestPositionWithTarget;
