@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToPositionJumpThroughObstacle.unity
     guid: 4cfa6ba37c4312a4fb355c53064e781d
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionOneWayJumpWithJumpAsLastSegmentTestScene.unity
+    guid: 60b67a1ab4e590c4995b7450c8eaf287
   m_configObjects: {}
