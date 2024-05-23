@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets._2RGuide.Editor
 {
-    static class Nav2RGuideSettingsRegister
+    /*static class Nav2RGuideSettingsRegister
     {
         public static readonly string SettingsPath = "Project/Nav2RGuide Settings";  
 
@@ -78,5 +78,5 @@ namespace Assets._2RGuide.Editor
                 parentPath = dir;
             }
         }
-    }
+    }*/
 }
