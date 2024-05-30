@@ -34,7 +34,8 @@ namespace Assets.Tests.PlayModeTests
             new AgentTargetMovementParams("MoveToAdjacentSegmentButCloserNodeTestScene", new[] { "Target" }),
             new AgentTargetMovementParams("MoveToPositionThroughObstacleTestScene", new[] { "Target" }),
             new AgentTargetMovementParams("MoveToPositionJumpThroughObstacle", new[] { "Target" }),
-            new AgentTargetMovementParams("MoveToPositionOneWayJumpWithJumpAsLastSegmentTestScene", new[] { "Target" })
+            new AgentTargetMovementParams("MoveToPositionOneWayJumpWithJumpAsLastSegmentTestScene", new[] { "Target" }),
+            new AgentTargetMovementParams("MoveToPositionOnly1NodeTestScene", new[] { "Target" }),
         };
 
         [UnityTest]

@@ -1,6 +1,5 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -11,12 +10,6 @@ namespace Assets._2RGuide.Runtime
 {
     public class GuideAgent : MonoBehaviour
     {
-        private struct PathfindingResult
-        {
-            public PathStatus pathStatus;
-            public AgentSegment[] segmentPath;
-        }
-
         public struct AgentSegment
         {
             public Vector2 position;
@@ -162,37 +155,11 @@ namespace Assets._2RGuide.Runtime
 
         private IEnumerator FindPath(Vector2 start, Vector2 end)
         {
-            var currentDestination = _currentDestination.Value;
-            var referencePositon = ReferencePosition;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
 
             var pathfindingTask = Task.Run(() =>
             {
-                var navWorld = NavWorldReference.Instance.NavWorld;
-                var startN = navWorld.GetClosestNodeInSegment(start);
-                var endN = navWorld.GetClosestNodeInSegment(end);
-                var nodes = AStar.Resolve(startN, endN, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, _navTagCapable);
-                var pathStatus = PathStatus.Invalid;
-
-                if (nodes == null)
-                {
-                    return new PathfindingResult()
-                    {
-                        segmentPath = null,
-                        pathStatus = pathStatus
-                    };
-                }
-
-                var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(referencePositon, currentDestination, nodes, segmentProximityMaxDistance, _maxSlopeDegrees);
-
-                var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
-                pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
-
-                return new PathfindingResult()
-                {
-                    segmentPath = segmentPath,
-                    pathStatus = pathStatus
-                };
+                return GuideAgentHelper.PathfindingTask(start, end, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, segmentProximityMaxDistance, _navTagCapable);
             });
 
             while (!pathfindingTask.IsCompleted)
