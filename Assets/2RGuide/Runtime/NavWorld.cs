@@ -28,10 +28,9 @@ namespace Assets._2RGuide.Runtime
         public LineSegment2D[] Drops => _drops;
         public LineSegment2D[] Jumps => _jumps;
 
-        public Node GetClosestNodeInSegment(Vector2 position)
+        public Node GetClosestNode(Vector2 position, float? segmentProximityMaxDistance = null)
         {
-            var navSegment = GetClosestNavSegment(position);
-
+            var navSegment = GetClosestNavSegment(position, segmentProximityMaxDistance);
             var closestPoint = navSegment.segment.ClosestPointOnLine(position);
 
             var node1 = _nodeStore.Get(navSegment.segment.P1);
@@ -40,17 +39,37 @@ namespace Assets._2RGuide.Runtime
             return Vector2.Distance(closestPoint, node1.Position) < Vector2.Distance(closestPoint, node2.Position) ? node1 : node2;
         }
 
-        public NavSegment GetClosestNavSegment(Vector2 position)
+        public NavSegment GetClosestNavSegment(Vector2 position, float? segmentProximityMaxDistance = null)
         {
-            var navSegment =
-                _uniqueSegments
-                    .MinBy(ns =>
-                    {
-                        var closestPoint = ns.segment.ClosestPointOnLine(position);
-                        return Vector2.Distance(closestPoint, position);
-                    });
+            if (segmentProximityMaxDistance.HasValue)
+            {
+                var min = position - new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var max = position + new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var results = Search(new Envelope(min.x, min.y, max.x, max.y));
 
-            return navSegment;
+                if (!results.Any())
+                {
+                    return default;
+                }
+
+                return results.MinBy(ns =>
+                {
+                    var closestPoint = ns.NavSegment.segment.ClosestPointOnLine(position);
+                    return Vector2.Distance(closestPoint, position);
+                }).NavSegment;
+            }
+            else
+            {
+                var navSegment =
+                    _uniqueSegments
+                        .MinBy(ns =>
+                        {
+                            var closestPoint = ns.segment.ClosestPointOnLine(position);
+                            return Vector2.Distance(closestPoint, position);
+                        });
+
+                return navSegment;
+            }
         }
 
         public IEnumerable<NavSegmentPoint> Search(Envelope envelope)

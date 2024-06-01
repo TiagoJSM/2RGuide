@@ -162,8 +162,8 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(targetGO, Is.Not.Null);
 
             var navWorld = NavWorldReference.Instance.NavWorld;
-            var startN = navWorld.GetClosestNodeInSegment(agentGO.transform.position);
-            var endN = navWorld.GetClosestNodeInSegment(targetGO.transform.position);
+            var startN = navWorld.GetClosestNode(agentGO.transform.position, 100.0f);
+            var endN = navWorld.GetClosestNode(targetGO.transform.position, 100.0f);
             var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>());
 
             Assert.AreEqual(4, nodes.Length);
