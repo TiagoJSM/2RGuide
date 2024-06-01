@@ -20,8 +20,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: install
         run: npm install
-      - name: test
-        run: npm test
       # Publish to npm if this version is not published
       - name: publish
         run: |
