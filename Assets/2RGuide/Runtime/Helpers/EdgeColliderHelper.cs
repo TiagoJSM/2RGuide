@@ -47,8 +47,8 @@ namespace Assets._2RGuide.Runtime.Helpers
                     .Where(c => c != null)
                     .SelectMany(c =>
                     {
-                        var bounds = c.bounds;
-                        var segment = new LineSegment2D(new Vector2(bounds.min.x, bounds.max.y), new Vector2(bounds.max.x, bounds.max.y));
+                        var bounds = new Box(c);
+                        var segment = new LineSegment2D(bounds.TopLeft, bounds.TopRight);
                         var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
 
                         return NavHelper.ConvertOpenPathToSegments(resultOpenPath).Select(s => (s, true));

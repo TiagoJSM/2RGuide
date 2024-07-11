@@ -15,15 +15,19 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         public static PathD MakePath(BoxCollider2D collider)
         {
-            var bounds = collider.bounds;
+            var bounds = new Box(collider);
 
-            return Clipper.MakePath(new double[]
-                {
-                    bounds.min.x, bounds.min.y,
-                    bounds.min.x, bounds.max.y,
-                    bounds.max.x, bounds.max.y,
-                    bounds.max.x, bounds.min.y,
-                });
+            var vertices = new[]
+            {
+                bounds.BottomLeft,
+                bounds.TopLeft,
+                bounds.TopRight,
+                bounds.BottomRight
+            }
+            .SelectMany(v => new double[] { v.x, v.y })
+            .ToArray();
+
+            return Clipper.MakePath(vertices);
         }
 
         public static PathsD MakePaths(PolygonCollider2D collider)

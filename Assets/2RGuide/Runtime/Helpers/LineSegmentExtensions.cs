@@ -64,7 +64,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var p1 = segment.P1;
             var normal = segment.NormalizedNormalVector;
-            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments);
+            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments.ToArray());
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)
             {
