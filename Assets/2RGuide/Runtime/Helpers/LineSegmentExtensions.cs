@@ -64,7 +64,8 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var p1 = segment.P1;
             var normal = segment.NormalizedNormalVector;
-            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments.ToArray());
+            var nonConnectingSegments = segments.Where(s => s.P1 != p1 && s.P2 != p1);
+            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, nonConnectingSegments);
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)
             {
@@ -80,7 +81,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             while (p1 != segment.P2)
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                hit = Calculations.Raycast(p2, p2 + normal * maxHeight, segments);
+                nonConnectingSegments = segments.Where(s => s.P1 != p2 && s.P2 != p2);
+                hit = Calculations.Raycast(p2, p2 + normal * maxHeight, nonConnectingSegments);
                 var p2Height = hit ? hit.Distance : maxHeight;
 
                 if (p2 == segment.P2)

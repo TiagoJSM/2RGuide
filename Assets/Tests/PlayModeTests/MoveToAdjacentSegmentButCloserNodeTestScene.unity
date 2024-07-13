@@ -813,40 +813,40 @@ MonoBehaviour:
     - _nodeStore:
         id: 0
       _nodeIndex: 0
-      _position: {x: -0.5283, y: 3.2869}
+      _position: {x: -8.6531, y: -4.951}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 1
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 3.2869}
-          P2: {x: -0.5283, y: 10.3624}
+          P1: {x: -8.6531, y: -4.951}
+          P2: {x: -8.6531, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 18
+        _nodeIndex: 10
         _connectionType: 2
         _segment:
-          P1: {x: 0.5283, y: 3.2869}
-          P2: {x: -0.5283, y: 3.2869}
-        _maxHeight: 1.6993
+          P1: {x: -7.5964, y: -4.951}
+          P2: {x: -8.6531, y: -4.951}
+        _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 1
-      _position: {x: -0.5283, y: 10.3624}
+      _position: {x: -8.6531, y: 9.8753}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 0
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 3.2869}
-          P2: {x: -0.5283, y: 10.3624}
+          P1: {x: -8.6531, y: -4.951}
+          P2: {x: -8.6531, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
@@ -855,24 +855,24 @@ MonoBehaviour:
         _nodeIndex: 2
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 10.3624}
-          P2: {x: -2.5283, y: 10.3624}
-        _maxHeight: 8.7748
+          P1: {x: -8.6531, y: 9.8753}
+          P2: {x: -7.5964, y: 9.8753}
+        _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 2
-      _position: {x: -2.5283, y: 10.3624}
+      _position: {x: -7.5964, y: 9.8753}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 1
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 10.3624}
-          P2: {x: -2.5283, y: 10.3624}
-        _maxHeight: 8.7748
+          P1: {x: -8.6531, y: 9.8753}
+          P2: {x: -7.5964, y: 9.8753}
+        _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -880,24 +880,24 @@ MonoBehaviour:
         _nodeIndex: 3
         _connectionType: 2
         _segment:
-          P1: {x: -2.5283, y: 10.3624}
-          P2: {x: -8.0495, y: 10.3624}
-        _maxHeight: 12.8148
+          P1: {x: -7.5964, y: 9.8753}
+          P2: {x: 7.2669, y: 9.8753}
+        _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 3
-      _position: {x: -8.0495, y: 10.3624}
+      _position: {x: 7.2669, y: 9.8753}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 2
         _connectionType: 2
         _segment:
-          P1: {x: -2.5283, y: 10.3624}
-          P2: {x: -8.0495, y: 10.3624}
-        _maxHeight: 12.8148
+          P1: {x: -7.5964, y: 9.8753}
+          P2: {x: 7.2669, y: 9.8753}
+        _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -905,73 +905,73 @@ MonoBehaviour:
         _nodeIndex: 4
         _connectionType: 2
         _segment:
-          P1: {x: -8.0495, y: 10.3624}
-          P2: {x: -8.0495, y: 11.0376}
+          P1: {x: 7.2669, y: 9.8753}
+          P2: {x: 7.446, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 4
-      _position: {x: -8.0495, y: 11.0376}
+      _position: {x: 7.446, y: 9.8753}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 3
         _connectionType: 2
         _segment:
-          P1: {x: -8.0495, y: 10.3624}
-          P2: {x: -8.0495, y: 11.0376}
+          P1: {x: 7.2669, y: 9.8753}
+          P2: {x: 7.446, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 50
+        _nodeIndex: 5
         _connectionType: 2
         _segment:
-          P1: {x: -8.0495, y: 11.0376}
-          P2: {x: -1.0283, y: 11.0376}
+          P1: {x: 7.446, y: 9.8753}
+          P2: {x: 8.3236, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 5
-      _position: {x: -0.5283, y: 11.0376}
+      _position: {x: 8.3236, y: 9.8753}
       _connections:
       - _nodeStore:
           id: 0
-        _nodeIndex: 6
+        _nodeIndex: 4
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 11.0376}
-          P2: {x: -0.5283, y: 18.1131}
+          P1: {x: 7.446, y: 9.8753}
+          P2: {x: 8.3236, y: 9.8753}
         _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 50
+        _nodeIndex: 6
         _connectionType: 2
         _segment:
-          P1: {x: -1.0283, y: 11.0376}
-          P2: {x: -0.5283, y: 11.0376}
+          P1: {x: 8.3236, y: 9.8753}
+          P2: {x: 8.3236, y: -4.951}
         _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 6
-      _position: {x: -0.5283, y: 18.1131}
+      _position: {x: 8.3236, y: -4.951}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 5
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 11.0376}
-          P2: {x: -0.5283, y: 18.1131}
+          P1: {x: 8.3236, y: 9.8753}
+          P2: {x: 8.3236, y: -4.951}
         _maxHeight: 50
         _navTag:
           _tag: -1
@@ -980,33 +980,23 @@ MonoBehaviour:
         _nodeIndex: 7
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 18.1131}
-          P2: {x: 0.5283, y: 18.1131}
+          P1: {x: 8.3236, y: -4.951}
+          P2: {x: 7.2669, y: -4.951}
         _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 50
-        _connectionType: 4
-        _segment:
-          P1: {x: -0.5283, y: 18.1131}
-          P2: {x: -1.0283, y: 11.0376}
-        _maxHeight: Infinity
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 7
-      _position: {x: 0.5283, y: 18.1131}
+      _position: {x: 7.2669, y: -4.951}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 6
         _connectionType: 2
         _segment:
-          P1: {x: -0.5283, y: 18.1131}
-          P2: {x: 0.5283, y: 18.1131}
+          P1: {x: 8.3236, y: -4.951}
+          P2: {x: 7.2669, y: -4.951}
         _maxHeight: 50
         _navTag:
           _tag: -1
@@ -1015,294 +1005,74 @@ MonoBehaviour:
         _nodeIndex: 8
         _connectionType: 2
         _segment:
-          P1: {x: 0.5283, y: 18.1131}
-          P2: {x: 0.5283, y: 11.0376}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 51
-        _connectionType: 4
-        _segment:
-          P1: {x: 0.5283, y: 18.1131}
-          P2: {x: 1.0283, y: 11.0376}
-        _maxHeight: Infinity
+          P1: {x: 7.2669, y: -4.951}
+          P2: {x: 7.2669, y: -4.29}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 8
-      _position: {x: 0.5283, y: 11.0376}
+      _position: {x: 7.2669, y: -4.29}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 7
         _connectionType: 2
         _segment:
-          P1: {x: 0.5283, y: 18.1131}
-          P2: {x: 0.5283, y: 11.0376}
-        _maxHeight: 14.8633995
+          P1: {x: 7.2669, y: -4.951}
+          P2: {x: 7.2669, y: -4.29}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 51
+        _nodeIndex: 9
         _connectionType: 2
         _segment:
-          P1: {x: 0.5283, y: 11.0376}
-          P2: {x: 1.0283, y: 11.0376}
+          P1: {x: 7.2669, y: -4.29}
+          P2: {x: -7.5964, y: -4.29}
         _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 9
-      _position: {x: 8.0495, y: 11.0376}
+      _position: {x: -7.5964, y: -4.29}
       _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 8
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: -4.29}
+          P2: {x: -7.5964, y: -4.29}
+        _maxHeight: 50
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 10
         _connectionType: 2
         _segment:
-          P1: {x: 8.0495, y: 11.0376}
-          P2: {x: 8.0495, y: 10.3624}
-        _maxHeight: 7.3421993
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 27
-        _connectionType: 8
-        _segment:
-          P1: {x: 8.0495, y: 11.0376}
-          P2: {x: 10.1899, y: 7.4976}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 51
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.0283, y: 11.0376}
-          P2: {x: 8.0495, y: 11.0376}
-        _maxHeight: 50
+          P1: {x: -7.5964, y: -4.29}
+          P2: {x: -7.5964, y: -4.951}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 10
-      _position: {x: 8.0495, y: 10.3624}
+      _position: {x: -7.5964, y: -4.951}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 9
         _connectionType: 2
         _segment:
-          P1: {x: 8.0495, y: 11.0376}
-          P2: {x: 8.0495, y: 10.3624}
-        _maxHeight: 7.3421993
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 11
-        _connectionType: 2
-        _segment:
-          P1: {x: 8.0495, y: 10.3624}
-          P2: {x: 4.0495005, y: 10.3624}
-        _maxHeight: 5.7048
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 11
-      _position: {x: 4.0495005, y: 10.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 10
-        _connectionType: 2
-        _segment:
-          P1: {x: 8.0495, y: 10.3624}
-          P2: {x: 4.0495005, y: 10.3624}
-        _maxHeight: 5.7048
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 12
-        _connectionType: 2
-        _segment:
-          P1: {x: 4.0495005, y: 10.3624}
-          P2: {x: 2.0495005, y: 10.3624}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 12
-      _position: {x: 2.0495005, y: 10.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 11
-        _connectionType: 2
-        _segment:
-          P1: {x: 4.0495005, y: 10.3624}
-          P2: {x: 2.0495005, y: 10.3624}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 13
-        _connectionType: 2
-        _segment:
-          P1: {x: 2.0495005, y: 10.3624}
-          P2: {x: 0.5283, y: 10.3624}
-        _maxHeight: 8.7748
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 13
-      _position: {x: 0.5283, y: 10.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 12
-        _connectionType: 2
-        _segment:
-          P1: {x: 2.0495005, y: 10.3624}
-          P2: {x: 0.5283, y: 10.3624}
-        _maxHeight: 8.7748
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 14
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 10.3624}
-          P2: {x: 0.5283, y: 8.3624}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 14
-      _position: {x: 0.5283, y: 8.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 13
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 10.3624}
-          P2: {x: 0.5283, y: 8.3624}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 15
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 8.3624}
-          P2: {x: 0.5283, y: 6.3624}
-        _maxHeight: 9.6616
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 15
-      _position: {x: 0.5283, y: 6.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 14
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 8.3624}
-          P2: {x: 0.5283, y: 6.3624}
-        _maxHeight: 9.6616
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 16
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 6.3624}
-          P2: {x: 0.5283, y: 5.3624}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 16
-      _position: {x: 0.5283, y: 5.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 15
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 6.3624}
-          P2: {x: 0.5283, y: 5.3624}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 17
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 5.3624}
-          P2: {x: 0.5283, y: 3.3624}
-        _maxHeight: 3.5908
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 17
-      _position: {x: 0.5283, y: 3.3624}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 16
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 5.3624}
-          P2: {x: 0.5283, y: 3.3624}
-        _maxHeight: 3.5908
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 18
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 3.3624}
-          P2: {x: 0.5283, y: 3.2869}
-        _maxHeight: 14.8633995
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 18
-      _position: {x: 0.5283, y: 3.2869}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 17
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 3.3624}
-          P2: {x: 0.5283, y: 3.2869}
-        _maxHeight: 14.8633995
+          P1: {x: -7.5964, y: -4.29}
+          P2: {x: -7.5964, y: -4.951}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1310,49 +1080,259 @@ MonoBehaviour:
         _nodeIndex: 0
         _connectionType: 2
         _segment:
-          P1: {x: 0.5283, y: 3.2869}
-          P2: {x: -0.5283, y: 3.2869}
-        _maxHeight: 1.6993
+          P1: {x: -7.5964, y: -4.951}
+          P2: {x: -8.6531, y: -4.951}
+        _maxHeight: 50
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 11
+      _position: {x: -7.5964, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 12
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.5964, y: -3.6147}
+          P2: {x: -4.5964, y: -3.6147}
+        _maxHeight: 3.3647
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 38
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.5964, y: -0.25}
+          P2: {x: -7.5964, y: -3.6147}
+        _maxHeight: 14.863299
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 12
+      _position: {x: -4.5964, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 11
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.5964, y: -3.6147}
+          P2: {x: -4.5964, y: -3.6147}
+        _maxHeight: 3.3647
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 43
+        _connectionType: 2
+        _segment:
+          P1: {x: -4.5964, y: -3.6147}
+          P2: {x: -4.5713, y: -3.6147}
+        _maxHeight: 12.814699
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 13
+      _position: {x: -3.5963998, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 43
+        _connectionType: 2
+        _segment:
+          P1: {x: -4.5713, y: -3.6147}
+          P2: {x: -3.5963998, y: -3.6147}
+        _maxHeight: 12.814699
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 36
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -3.5963998, y: -3.6147}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 45
+        _connectionType: 2
+        _segment:
+          P1: {x: -3.5963998, y: -3.6147}
+          P2: {x: -3.2431, y: -3.6147}
+        _maxHeight: 6.4347
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 14
+      _position: {x: 1.4036002, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 44
+        _connectionType: 2
+        _segment:
+          P1: {x: 1.4036002, y: -3.6147}
+          P2: {x: 3.1569, y: -3.6147}
+        _maxHeight: 12.814699
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 46
+        _connectionType: 2
+        _segment:
+          P1: {x: 1.3387, y: -3.6147}
+          P2: {x: 1.4036002, y: -3.6147}
+        _maxHeight: 6.4347
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 15
+      _position: {x: 3.4036002, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 16
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.4036002, y: -3.6147}
+          P2: {x: 7.2669, y: -3.6147}
+        _maxHeight: 9.2747
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 44
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.1569, y: -3.6147}
+          P2: {x: 3.4036002, y: -3.6147}
+        _maxHeight: 12.814699
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 16
+      _position: {x: 7.2669, y: -3.6147}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 15
+        _connectionType: 2
+        _segment:
+          P1: {x: 3.4036002, y: -3.6147}
+          P2: {x: 7.2669, y: -3.6147}
+        _maxHeight: 9.2747
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 17
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: -3.6147}
+          P2: {x: 7.2669, y: -0.6147001}
+        _maxHeight: 14.8633
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 17
+      _position: {x: 7.2669, y: -0.6147001}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 16
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: -3.6147}
+          P2: {x: 7.2669, y: -0.6147001}
+        _maxHeight: 14.8633
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 18
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: -0.6147001}
+          P2: {x: 7.2669, y: 1.3852999}
+        _maxHeight: 12.3382
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 18
+      _position: {x: 7.2669, y: 1.3852999}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 17
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: -0.6147001}
+          P2: {x: 7.2669, y: 1.3852999}
+        _maxHeight: 12.3382
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 19
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: 1.3852999}
+          P2: {x: 7.2669, y: 2.3853}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 19
-      _position: {x: 15.3917, y: 3.2869}
+      _position: {x: 7.2669, y: 2.3853}
       _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 18
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: 1.3852999}
+          P2: {x: 7.2669, y: 2.3853}
+        _maxHeight: 14.863299
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 20
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 3.2869}
-          P2: {x: 15.3917, y: 5.2869}
-        _maxHeight: 7.6907997
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 25
-        _connectionType: 2
-        _segment:
-          P1: {x: 16.4483, y: 3.2869}
-          P2: {x: 15.3917, y: 3.2869}
-        _maxHeight: 50
+          P1: {x: 7.2669, y: 2.3853}
+          P2: {x: 7.2669, y: 4.3852997}
+        _maxHeight: 6.4282002
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 20
-      _position: {x: 15.3917, y: 5.2869}
+      _position: {x: 7.2669, y: 4.3852997}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 19
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 3.2869}
-          P2: {x: 15.3917, y: 5.2869}
-        _maxHeight: 7.6907997
+          P1: {x: 7.2669, y: 2.3853}
+          P2: {x: 7.2669, y: 4.3852997}
+        _maxHeight: 6.4282002
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1360,24 +1340,24 @@ MonoBehaviour:
         _nodeIndex: 21
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 5.2869}
-          P2: {x: 15.3917, y: 6.2869}
-        _maxHeight: 14.8633995
+          P1: {x: 7.2669, y: 4.3852997}
+          P2: {x: 7.2669, y: 5.66}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 21
-      _position: {x: 15.3917, y: 6.2869}
+      _position: {x: 7.2669, y: 5.66}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 20
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 5.2869}
-          P2: {x: 15.3917, y: 6.2869}
-        _maxHeight: 14.8633995
+          P1: {x: 7.2669, y: 4.3852997}
+          P2: {x: 7.2669, y: 5.66}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1385,24 +1365,24 @@ MonoBehaviour:
         _nodeIndex: 22
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 6.2869}
-          P2: {x: 15.3917, y: 8.2869}
-        _maxHeight: 0.96159935
+          P1: {x: 7.2669, y: 5.66}
+          P2: {x: 3.6569, y: 5.66}
+        _maxHeight: 9.2747
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 22
-      _position: {x: 15.3917, y: 8.2869}
+      _position: {x: 3.6569, y: 5.66}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 21
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 6.2869}
-          P2: {x: 15.3917, y: 8.2869}
-        _maxHeight: 0.96159935
+          P1: {x: 7.2669, y: 5.66}
+          P2: {x: 3.6569, y: 5.66}
+        _maxHeight: 9.2747
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1410,24 +1390,24 @@ MonoBehaviour:
         _nodeIndex: 23
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 8.2869}
-          P2: {x: 15.3917, y: 18.1131}
-        _maxHeight: 14.8633995
+          P1: {x: 3.6569, y: 5.66}
+          P2: {x: 3.6569, y: 6.3353}
+        _maxHeight: 11.2533
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 23
-      _position: {x: 15.3917, y: 18.1131}
+      _position: {x: 3.6569, y: 6.3353}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 22
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 8.2869}
-          P2: {x: 15.3917, y: 18.1131}
-        _maxHeight: 14.8633995
+          P1: {x: 3.6569, y: 5.66}
+          P2: {x: 3.6569, y: 6.3353}
+        _maxHeight: 11.2533
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1435,24 +1415,44 @@ MonoBehaviour:
         _nodeIndex: 24
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 18.1131}
-          P2: {x: 16.4483, y: 18.1131}
-        _maxHeight: 50
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 7.2669, y: 6.3353}
+        _maxHeight: 2.864699
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 41
+        _connectionType: 8
+        _segment:
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 0.8387, y: 3.4953}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 44
+        _connectionType: 4
+        _segment:
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 3.1569, y: -3.6147}
+        _maxHeight: Infinity
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 24
-      _position: {x: 16.4483, y: 18.1131}
+      _position: {x: 7.2669, y: 6.3353}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 23
         _connectionType: 2
         _segment:
-          P1: {x: 15.3917, y: 18.1131}
-          P2: {x: 16.4483, y: 18.1131}
-        _maxHeight: 50
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 7.2669, y: 6.3353}
+        _maxHeight: 2.864699
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1460,74 +1460,74 @@ MonoBehaviour:
         _nodeIndex: 25
         _connectionType: 2
         _segment:
-          P1: {x: 16.4483, y: 18.1131}
-          P2: {x: 16.4483, y: 3.2869}
-        _maxHeight: 50
+          P1: {x: 7.2669, y: 6.3353}
+          P2: {x: 7.2669, y: 9.2}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 25
-      _position: {x: 16.4483, y: 3.2869}
+      _position: {x: 7.2669, y: 9.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 24
         _connectionType: 2
         _segment:
-          P1: {x: 16.4483, y: 18.1131}
-          P2: {x: 16.4483, y: 3.2869}
-        _maxHeight: 50
+          P1: {x: 7.2669, y: 6.3353}
+          P2: {x: 7.2669, y: 9.2}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 19
+        _nodeIndex: 26
         _connectionType: 2
         _segment:
-          P1: {x: 16.4483, y: 3.2869}
-          P2: {x: 15.3917, y: 3.2869}
-        _maxHeight: 50
+          P1: {x: 7.2669, y: 9.2}
+          P2: {x: 3.2669, y: 9.2}
+        _maxHeight: 2.8646994
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 26
-      _position: {x: 10.1899, y: 6.8224}
+      _position: {x: 3.2669, y: 9.2}
       _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 25
+        _connectionType: 2
+        _segment:
+          P1: {x: 7.2669, y: 9.2}
+          P2: {x: 3.2669, y: 9.2}
+        _maxHeight: 2.8646994
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 27
         _connectionType: 2
         _segment:
-          P1: {x: 10.1899, y: 6.8224}
-          P2: {x: 10.1899, y: 7.4976}
-        _maxHeight: 9.6616
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 29
-        _connectionType: 2
-        _segment:
-          P1: {x: 14.4301, y: 6.8224}
-          P2: {x: 10.1899, y: 6.8224}
-        _maxHeight: 50
+          P1: {x: 3.2669, y: 9.2}
+          P2: {x: 1.2669001, y: 9.2}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 27
-      _position: {x: 10.1899, y: 7.4976}
+      _position: {x: 1.2669001, y: 9.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 26
         _connectionType: 2
         _segment:
-          P1: {x: 10.1899, y: 6.8224}
-          P2: {x: 10.1899, y: 7.4976}
-        _maxHeight: 9.6616
+          P1: {x: 3.2669, y: 9.2}
+          P2: {x: 1.2669001, y: 9.2}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1535,44 +1535,24 @@ MonoBehaviour:
         _nodeIndex: 28
         _connectionType: 2
         _segment:
-          P1: {x: 10.1899, y: 7.4976}
-          P2: {x: 14.4301, y: 7.4976}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 9
-        _connectionType: 8
-        _segment:
-          P1: {x: 8.0495, y: 11.0376}
-          P2: {x: 10.1899, y: 7.4976}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 32
-        _connectionType: 8
-        _segment:
-          P1: {x: 10.1899, y: 7.4976}
-          P2: {x: 7.7009, y: 4.6576}
-        _maxHeight: Infinity
+          P1: {x: 1.2669001, y: 9.2}
+          P2: {x: -3.7331, y: 9.2}
+        _maxHeight: 5.7046995
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 28
-      _position: {x: 14.4301, y: 7.4976}
+      _position: {x: -3.7331, y: 9.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 27
         _connectionType: 2
         _segment:
-          P1: {x: 10.1899, y: 7.4976}
-          P2: {x: 14.4301, y: 7.4976}
-        _maxHeight: 50
+          P1: {x: 1.2669001, y: 9.2}
+          P2: {x: -3.7331, y: 9.2}
+        _maxHeight: 5.7046995
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1580,74 +1560,74 @@ MonoBehaviour:
         _nodeIndex: 29
         _connectionType: 2
         _segment:
-          P1: {x: 14.4301, y: 7.4976}
-          P2: {x: 14.4301, y: 6.8224}
-        _maxHeight: 0.96159935
+          P1: {x: -3.7331, y: 9.2}
+          P2: {x: -4.7331, y: 9.2}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 29
-      _position: {x: 14.4301, y: 6.8224}
+      _position: {x: -4.7331, y: 9.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 28
         _connectionType: 2
         _segment:
-          P1: {x: 14.4301, y: 7.4976}
-          P2: {x: 14.4301, y: 6.8224}
-        _maxHeight: 0.96159935
+          P1: {x: -3.7331, y: 9.2}
+          P2: {x: -4.7331, y: 9.2}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 26
+        _nodeIndex: 30
         _connectionType: 2
         _segment:
-          P1: {x: 14.4301, y: 6.8224}
-          P2: {x: 10.1899, y: 6.8224}
-        _maxHeight: 50
+          P1: {x: -4.7331, y: 9.2}
+          P2: {x: -7.5964, y: 9.2}
+        _maxHeight: 8.7747
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 30
-      _position: {x: 4.1191, y: 3.9824}
+      _position: {x: -7.5964, y: 9.2}
       _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 29
+        _connectionType: 2
+        _segment:
+          P1: {x: -4.7331, y: 9.2}
+          P2: {x: -7.5964, y: 9.2}
+        _maxHeight: 8.7747
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 31
         _connectionType: 2
         _segment:
-          P1: {x: 4.1191, y: 3.9824}
-          P2: {x: 4.1191, y: 4.6576}
-        _maxHeight: 3.5908
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 33
-        _connectionType: 2
-        _segment:
-          P1: {x: 7.7009, y: 3.9824}
-          P2: {x: 4.1191, y: 3.9824}
-        _maxHeight: 6.4348
+          P1: {x: -7.5964, y: 9.2}
+          P2: {x: -7.5964, y: 7.2}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 31
-      _position: {x: 4.1191, y: 4.6576}
+      _position: {x: -7.5964, y: 7.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 30
         _connectionType: 2
         _segment:
-          P1: {x: 4.1191, y: 3.9824}
-          P2: {x: 4.1191, y: 4.6576}
-        _maxHeight: 3.5908
+          P1: {x: -7.5964, y: 9.2}
+          P2: {x: -7.5964, y: 7.2}
+        _maxHeight: 14.8633
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1655,54 +1635,24 @@ MonoBehaviour:
         _nodeIndex: 32
         _connectionType: 2
         _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 7.7009, y: 4.6576}
-        _maxHeight: 5.7048
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 37
-        _connectionType: 8
-        _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 1.2091, y: 1.5876}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 38
-        _connectionType: 8
-        _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 1.7909, y: 1.5876}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 52
-        _connectionType: 4
-        _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 3.6191, y: -2.4524}
-        _maxHeight: Infinity
+          P1: {x: -7.5964, y: 7.2}
+          P2: {x: -7.5964, y: 5.2}
+        _maxHeight: 11.2533
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 32
-      _position: {x: 7.7009, y: 4.6576}
+      _position: {x: -7.5964, y: 5.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 31
         _connectionType: 2
         _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 7.7009, y: 4.6576}
-        _maxHeight: 5.7048
+          P1: {x: -7.5964, y: 7.2}
+          P2: {x: -7.5964, y: 5.2}
+        _maxHeight: 11.2533
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1710,84 +1660,74 @@ MonoBehaviour:
         _nodeIndex: 33
         _connectionType: 2
         _segment:
-          P1: {x: 7.7009, y: 4.6576}
-          P2: {x: 7.7009, y: 3.9824}
-        _maxHeight: 7.6907997
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 27
-        _connectionType: 8
-        _segment:
-          P1: {x: 10.1899, y: 7.4976}
-          P2: {x: 7.7009, y: 4.6576}
-        _maxHeight: Infinity
+          P1: {x: -7.5964, y: 5.2}
+          P2: {x: -7.5964, y: 4.2}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 33
-      _position: {x: 7.7009, y: 3.9824}
+      _position: {x: -7.5964, y: 4.2}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 32
         _connectionType: 2
         _segment:
-          P1: {x: 7.7009, y: 4.6576}
-          P2: {x: 7.7009, y: 3.9824}
-        _maxHeight: 7.6907997
+          P1: {x: -7.5964, y: 5.2}
+          P2: {x: -7.5964, y: 4.2}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 30
+        _nodeIndex: 34
         _connectionType: 2
         _segment:
-          P1: {x: 7.7009, y: 3.9824}
-          P2: {x: 4.1191, y: 3.9824}
-        _maxHeight: 6.4348
+          P1: {x: -7.5964, y: 4.2}
+          P2: {x: -7.5964, y: 2.1999998}
+        _maxHeight: 4.8533
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 34
-      _position: {x: -1.7909, y: 0.9124}
+      _position: {x: -7.5964, y: 2.1999998}
       _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 33
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.5964, y: 4.2}
+          P2: {x: -7.5964, y: 2.1999998}
+        _maxHeight: 4.8533
+        _navTag:
+          _tag: -1
       - _nodeStore:
           id: 0
         _nodeIndex: 35
         _connectionType: 2
         _segment:
-          P1: {x: -1.7909, y: 0.9124}
-          P2: {x: -1.7909, y: 1.5876}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 39
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.7909, y: 0.9124}
-          P2: {x: -1.7909, y: 0.9124}
-        _maxHeight: 3.3648
+          P1: {x: -7.5964, y: 2.1999998}
+          P2: {x: -7.5964, y: 0.4253}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 35
-      _position: {x: -1.7909, y: 1.5876}
+      _position: {x: -7.5964, y: 0.4253}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 34
         _connectionType: 2
         _segment:
-          P1: {x: -1.7909, y: 0.9124}
-          P2: {x: -1.7909, y: 1.5876}
-        _maxHeight: 50
+          P1: {x: -7.5964, y: 2.1999998}
+          P2: {x: -7.5964, y: 0.4253}
+        _maxHeight: 14.863299
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1795,34 +1735,24 @@ MonoBehaviour:
         _nodeIndex: 36
         _connectionType: 2
         _segment:
-          P1: {x: -1.7909, y: 1.5876}
-          P2: {x: -0.7909, y: 1.5876}
-        _maxHeight: 8.7748
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 48
-        _connectionType: 8
-        _segment:
-          P1: {x: -1.7909, y: 1.5876}
-          P2: {x: -2.2909, y: -2.4524}
-        _maxHeight: Infinity
+          P1: {x: -7.5964, y: 0.4253}
+          P2: {x: -5.0713, y: 0.4253}
+        _maxHeight: 8.774699
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 36
-      _position: {x: -0.7909, y: 1.5876}
+      _position: {x: -5.0713, y: 0.4253}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 35
         _connectionType: 2
         _segment:
-          P1: {x: -1.7909, y: 1.5876}
-          P2: {x: -0.7909, y: 1.5876}
-        _maxHeight: 8.7748
+          P1: {x: -7.5964, y: 0.4253}
+          P2: {x: -5.0713, y: 0.4253}
+        _maxHeight: 8.774699
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1830,24 +1760,54 @@ MonoBehaviour:
         _nodeIndex: 37
         _connectionType: 2
         _segment:
-          P1: {x: -0.7909, y: 1.5876}
-          P2: {x: 1.2091, y: 1.5876}
-        _maxHeight: 1.6993
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -5.0713, y: -0.25}
+        _maxHeight: 12.3382
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 43
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -4.5713, y: -3.6147}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 13
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -3.5963998, y: -3.6147}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 40
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -2.7431, y: 3.4953}
+        _maxHeight: Infinity
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 37
-      _position: {x: 1.2091, y: 1.5876}
+      _position: {x: -5.0713, y: -0.25}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 36
         _connectionType: 2
         _segment:
-          P1: {x: -0.7909, y: 1.5876}
-          P2: {x: 1.2091, y: 1.5876}
-        _maxHeight: 1.6993
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -5.0713, y: -0.25}
+        _maxHeight: 12.3382
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1855,34 +1815,164 @@ MonoBehaviour:
         _nodeIndex: 38
         _connectionType: 2
         _segment:
-          P1: {x: 1.2091, y: 1.5876}
-          P2: {x: 1.7909, y: 1.5876}
-        _maxHeight: 8.7748
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 31
-        _connectionType: 8
-        _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 1.2091, y: 1.5876}
-        _maxHeight: Infinity
+          P1: {x: -5.0713, y: -0.25}
+          P2: {x: -7.5964, y: -0.25}
+        _maxHeight: 3.3646998
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 38
-      _position: {x: 1.7909, y: 1.5876}
+      _position: {x: -7.5964, y: -0.25}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 37
         _connectionType: 2
         _segment:
-          P1: {x: 1.2091, y: 1.5876}
-          P2: {x: 1.7909, y: 1.5876}
-        _maxHeight: 8.7748
+          P1: {x: -5.0713, y: -0.25}
+          P2: {x: -7.5964, y: -0.25}
+        _maxHeight: 3.3646998
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 11
+        _connectionType: 2
+        _segment:
+          P1: {x: -7.5964, y: -0.25}
+          P2: {x: -7.5964, y: -3.6147}
+        _maxHeight: 14.863299
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 39
+      _position: {x: -2.7431, y: 2.82}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 40
+        _connectionType: 2
+        _segment:
+          P1: {x: -2.7431, y: 2.82}
+          P2: {x: -2.7431, y: 3.4953}
+        _maxHeight: 4.853299
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 42
+        _connectionType: 2
+        _segment:
+          P1: {x: 0.8387, y: 2.82}
+          P2: {x: -2.7431, y: 2.82}
+        _maxHeight: 6.4347
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 40
+      _position: {x: -2.7431, y: 3.4953}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 39
+        _connectionType: 2
+        _segment:
+          P1: {x: -2.7431, y: 2.82}
+          P2: {x: -2.7431, y: 3.4953}
+        _maxHeight: 4.853299
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 41
+        _connectionType: 2
+        _segment:
+          P1: {x: -2.7431, y: 3.4953}
+          P2: {x: 0.8387, y: 3.4953}
+        _maxHeight: 5.7046986
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 36
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -2.7431, y: 3.4953}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 45
+        _connectionType: 4
+        _segment:
+          P1: {x: -2.7431, y: 3.4953}
+          P2: {x: -3.2431, y: -3.6147}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 41
+      _position: {x: 0.8387, y: 3.4953}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 40
+        _connectionType: 2
+        _segment:
+          P1: {x: -2.7431, y: 3.4953}
+          P2: {x: 0.8387, y: 3.4953}
+        _maxHeight: 5.7046986
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 42
+        _connectionType: 2
+        _segment:
+          P1: {x: 0.8387, y: 3.4953}
+          P2: {x: 0.8387, y: 2.82}
+        _maxHeight: 6.4282
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 23
+        _connectionType: 8
+        _segment:
+          P1: {x: 3.6569, y: 6.3353}
+          P2: {x: 0.8387, y: 3.4953}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 46
+        _connectionType: 4
+        _segment:
+          P1: {x: 0.8387, y: 3.4953}
+          P2: {x: 1.3387, y: -3.6147}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 42
+      _position: {x: 0.8387, y: 2.82}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 41
+        _connectionType: 2
+        _segment:
+          P1: {x: 0.8387, y: 3.4953}
+          P2: {x: 0.8387, y: 2.82}
+        _maxHeight: 6.4282
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1890,214 +1980,84 @@ MonoBehaviour:
         _nodeIndex: 39
         _connectionType: 2
         _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 1.7909, y: 0.9124}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 31
-        _connectionType: 8
-        _segment:
-          P1: {x: 4.1191, y: 4.6576}
-          P2: {x: 1.7909, y: 1.5876}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 49
-        _connectionType: 8
-        _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 2.2909, y: -2.4524}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 44
-        _connectionType: 8
-        _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 3.9504995, y: -2.4524}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 39
-      _position: {x: 1.7909, y: 0.9124}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 38
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 1.7909, y: 0.9124}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 34
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.7909, y: 0.9124}
-          P2: {x: -1.7909, y: 0.9124}
-        _maxHeight: 3.3648
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 40
-      _position: {x: -8.0495, y: -3.1276}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 41
-        _connectionType: 2
-        _segment:
-          P1: {x: -8.0495, y: -3.1276}
-          P2: {x: -8.0495, y: -2.4524}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 47
-        _connectionType: 2
-        _segment:
-          P1: {x: 8.0495, y: -3.1276}
-          P2: {x: -8.0495, y: -3.1276}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 41
-      _position: {x: -8.0495, y: -2.4524}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 40
-        _connectionType: 2
-        _segment:
-          P1: {x: -8.0495, y: -3.1276}
-          P2: {x: -8.0495, y: -2.4524}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 48
-        _connectionType: 2
-        _segment:
-          P1: {x: -8.0495, y: -2.4524}
-          P2: {x: -2.2909, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 42
-      _position: {x: -2.0495005, y: -2.4524}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 43
-        _connectionType: 2
-        _segment:
-          P1: {x: -2.0495005, y: -2.4524}
-          P2: {x: 1.9504995, y: -2.4524}
-        _maxHeight: 3.3648
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 48
-        _connectionType: 2
-        _segment:
-          P1: {x: -2.2909, y: -2.4524}
-          P2: {x: -2.0495005, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: 0.8387, y: 2.82}
+          P2: {x: -2.7431, y: 2.82}
+        _maxHeight: 6.4347
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 43
-      _position: {x: 1.9504995, y: -2.4524}
+      _position: {x: -4.5713, y: -3.6147}
       _connections:
       - _nodeStore:
           id: 0
-        _nodeIndex: 42
+        _nodeIndex: 12
         _connectionType: 2
         _segment:
-          P1: {x: -2.0495005, y: -2.4524}
-          P2: {x: 1.9504995, y: -2.4524}
-        _maxHeight: 3.3648
+          P1: {x: -4.5964, y: -3.6147}
+          P2: {x: -4.5713, y: -3.6147}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 49
+        _nodeIndex: 13
         _connectionType: 2
         _segment:
-          P1: {x: 1.9504995, y: -2.4524}
-          P2: {x: 2.2909, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: -4.5713, y: -3.6147}
+          P2: {x: -3.5963998, y: -3.6147}
+        _maxHeight: 12.814699
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 36
+        _connectionType: 8
+        _segment:
+          P1: {x: -5.0713, y: 0.4253}
+          P2: {x: -4.5713, y: -3.6147}
+        _maxHeight: Infinity
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 44
-      _position: {x: 3.9504995, y: -2.4524}
+      _position: {x: 3.1569, y: -3.6147}
       _connections:
       - _nodeStore:
           id: 0
-        _nodeIndex: 45
+        _nodeIndex: 14
         _connectionType: 2
         _segment:
-          P1: {x: 3.9504995, y: -2.4524}
-          P2: {x: 7.9504995, y: -2.4524}
-        _maxHeight: 6.4348
+          P1: {x: 1.4036002, y: -3.6147}
+          P2: {x: 3.1569, y: -3.6147}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 38
-        _connectionType: 8
-        _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 3.9504995, y: -2.4524}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 52
+        _nodeIndex: 15
         _connectionType: 2
         _segment:
-          P1: {x: 3.6191, y: -2.4524}
-          P2: {x: 3.9504995, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: 3.1569, y: -3.6147}
+          P2: {x: 3.4036002, y: -3.6147}
+        _maxHeight: 12.814699
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 45
-      _position: {x: 7.9504995, y: -2.4524}
+      _position: {x: -3.2431, y: -3.6147}
       _connections:
       - _nodeStore:
           id: 0
-        _nodeIndex: 44
+        _nodeIndex: 13
         _connectionType: 2
         _segment:
-          P1: {x: 3.9504995, y: -2.4524}
-          P2: {x: 7.9504995, y: -2.4524}
-        _maxHeight: 6.4348
+          P1: {x: -3.5963998, y: -3.6147}
+          P2: {x: -3.2431, y: -3.6147}
+        _maxHeight: 6.4347
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -2105,1160 +2065,862 @@ MonoBehaviour:
         _nodeIndex: 46
         _connectionType: 2
         _segment:
-          P1: {x: 7.9504995, y: -2.4524}
-          P2: {x: 8.0495, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: -3.2431, y: -3.6147}
+          P2: {x: 1.3387, y: -3.6147}
+        _maxHeight: 6.4347
         _navTag:
           _tag: -1
     - _nodeStore:
         id: 0
       _nodeIndex: 46
-      _position: {x: 8.0495, y: -2.4524}
+      _position: {x: 1.3387, y: -3.6147}
       _connections:
       - _nodeStore:
           id: 0
         _nodeIndex: 45
         _connectionType: 2
         _segment:
-          P1: {x: 7.9504995, y: -2.4524}
-          P2: {x: 8.0495, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: -3.2431, y: -3.6147}
+          P2: {x: 1.3387, y: -3.6147}
+        _maxHeight: 6.4347
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 47
+        _nodeIndex: 14
         _connectionType: 2
         _segment:
-          P1: {x: 8.0495, y: -2.4524}
-          P2: {x: 8.0495, y: -3.1276}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 47
-      _position: {x: 8.0495, y: -3.1276}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 46
-        _connectionType: 2
-        _segment:
-          P1: {x: 8.0495, y: -2.4524}
-          P2: {x: 8.0495, y: -3.1276}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 40
-        _connectionType: 2
-        _segment:
-          P1: {x: 8.0495, y: -3.1276}
-          P2: {x: -8.0495, y: -3.1276}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 48
-      _position: {x: -2.2909, y: -2.4524}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 41
-        _connectionType: 2
-        _segment:
-          P1: {x: -8.0495, y: -2.4524}
-          P2: {x: -2.2909, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 42
-        _connectionType: 2
-        _segment:
-          P1: {x: -2.2909, y: -2.4524}
-          P2: {x: -2.0495005, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 35
-        _connectionType: 8
-        _segment:
-          P1: {x: -1.7909, y: 1.5876}
-          P2: {x: -2.2909, y: -2.4524}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 49
-      _position: {x: 2.2909, y: -2.4524}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 43
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.9504995, y: -2.4524}
-          P2: {x: 2.2909, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 38
-        _connectionType: 8
-        _segment:
-          P1: {x: 1.7909, y: 1.5876}
-          P2: {x: 2.2909, y: -2.4524}
-        _maxHeight: Infinity
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 52
-        _connectionType: 2
-        _segment:
-          P1: {x: 2.2909, y: -2.4524}
-          P2: {x: 3.6191, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 50
-      _position: {x: -1.0283, y: 11.0376}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 4
-        _connectionType: 2
-        _segment:
-          P1: {x: -8.0495, y: 11.0376}
-          P2: {x: -1.0283, y: 11.0376}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 5
-        _connectionType: 2
-        _segment:
-          P1: {x: -1.0283, y: 11.0376}
-          P2: {x: -0.5283, y: 11.0376}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 51
-      _position: {x: 1.0283, y: 11.0376}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 8
-        _connectionType: 2
-        _segment:
-          P1: {x: 0.5283, y: 11.0376}
-          P2: {x: 1.0283, y: 11.0376}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 9
-        _connectionType: 2
-        _segment:
-          P1: {x: 1.0283, y: 11.0376}
-          P2: {x: 8.0495, y: 11.0376}
-        _maxHeight: 50
-        _navTag:
-          _tag: -1
-    - _nodeStore:
-        id: 0
-      _nodeIndex: 52
-      _position: {x: 3.6191, y: -2.4524}
-      _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 49
-        _connectionType: 2
-        _segment:
-          P1: {x: 2.2909, y: -2.4524}
-          P2: {x: 3.6191, y: -2.4524}
-        _maxHeight: 12.8148
-        _navTag:
-          _tag: -1
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 44
-        _connectionType: 2
-        _segment:
-          P1: {x: 3.6191, y: -2.4524}
-          P2: {x: 3.9504995, y: -2.4524}
-        _maxHeight: 12.8148
+          P1: {x: 1.3387, y: -3.6147}
+          P2: {x: 1.4036002, y: -3.6147}
+        _maxHeight: 6.4347
         _navTag:
           _tag: -1
   _segments:
   - segment:
-      P1: {x: -0.5283, y: 3.2869}
-      P2: {x: -0.5283, y: 10.3624}
+      P1: {x: -8.6531, y: -4.951}
+      P2: {x: -8.6531, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -0.5283, y: 10.3624}
-      P2: {x: -2.5283, y: 10.3624}
-    maxHeight: 8.7748
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: -2.5283, y: 10.3624}
-      P2: {x: -8.0495, y: 10.3624}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: -8.0495, y: 10.3624}
-      P2: {x: -8.0495, y: 11.0376}
+      P1: {x: -8.6531, y: 9.8753}
+      P2: {x: -7.5964, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -0.5283, y: 11.0376}
-      P2: {x: -0.5283, y: 18.1131}
+      P1: {x: -7.5964, y: 9.8753}
+      P2: {x: 7.2669, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -0.5283, y: 18.1131}
-      P2: {x: 0.5283, y: 18.1131}
+      P1: {x: 7.2669, y: 9.8753}
+      P2: {x: 7.446, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 0.5283, y: 18.1131}
-      P2: {x: 0.5283, y: 11.0376}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 8.0495, y: 11.0376}
-      P2: {x: 8.0495, y: 10.3624}
-    maxHeight: 7.3421993
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 8.0495, y: 10.3624}
-      P2: {x: 4.0495005, y: 10.3624}
-    maxHeight: 5.7048
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 4.0495005, y: 10.3624}
-      P2: {x: 2.0495005, y: 10.3624}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 2.0495005, y: 10.3624}
-      P2: {x: 0.5283, y: 10.3624}
-    maxHeight: 8.7748
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 10.3624}
-      P2: {x: 0.5283, y: 8.3624}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 8.3624}
-      P2: {x: 0.5283, y: 6.3624}
-    maxHeight: 9.6616
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 6.3624}
-      P2: {x: 0.5283, y: 5.3624}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 5.3624}
-      P2: {x: 0.5283, y: 3.3624}
-    maxHeight: 3.5908
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 3.3624}
-      P2: {x: 0.5283, y: 3.2869}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 0.5283, y: 3.2869}
-      P2: {x: -0.5283, y: 3.2869}
-    maxHeight: 1.6993
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 15.3917, y: 3.2869}
-      P2: {x: 15.3917, y: 5.2869}
-    maxHeight: 7.6907997
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 15.3917, y: 5.2869}
-      P2: {x: 15.3917, y: 6.2869}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 15.3917, y: 6.2869}
-      P2: {x: 15.3917, y: 8.2869}
-    maxHeight: 0.96159935
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 15.3917, y: 8.2869}
-      P2: {x: 15.3917, y: 18.1131}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 2
-  - segment:
-      P1: {x: 15.3917, y: 18.1131}
-      P2: {x: 16.4483, y: 18.1131}
+      P1: {x: 7.446, y: 9.8753}
+      P2: {x: 8.3236, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 16.4483, y: 18.1131}
-      P2: {x: 16.4483, y: 3.2869}
+      P1: {x: 8.3236, y: 9.8753}
+      P2: {x: 8.3236, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 16.4483, y: 3.2869}
-      P2: {x: 15.3917, y: 3.2869}
+      P1: {x: 8.3236, y: -4.951}
+      P2: {x: 7.2669, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 10.1899, y: 6.8224}
-      P2: {x: 10.1899, y: 7.4976}
-    maxHeight: 9.6616
+      P1: {x: 7.2669, y: -4.951}
+      P2: {x: 7.2669, y: -4.29}
+    maxHeight: 14.8633
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 10.1899, y: 7.4976}
-      P2: {x: 14.4301, y: 7.4976}
+      P1: {x: 7.2669, y: -4.29}
+      P2: {x: -7.5964, y: -4.29}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 14.4301, y: 7.4976}
-      P2: {x: 14.4301, y: 6.8224}
-    maxHeight: 0.96159935
+      P1: {x: -7.5964, y: -4.29}
+      P2: {x: -7.5964, y: -4.951}
+    maxHeight: 14.8633
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 14.4301, y: 6.8224}
-      P2: {x: 10.1899, y: 6.8224}
+      P1: {x: -7.5964, y: -4.951}
+      P2: {x: -8.6531, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 4.1191, y: 3.9824}
-      P2: {x: 4.1191, y: 4.6576}
-    maxHeight: 3.5908
+      P1: {x: -7.5964, y: -3.6147}
+      P2: {x: -4.5964, y: -3.6147}
+    maxHeight: 3.3647
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 4.1191, y: 4.6576}
-      P2: {x: 7.7009, y: 4.6576}
-    maxHeight: 5.7048
+      P1: {x: 3.4036002, y: -3.6147}
+      P2: {x: 7.2669, y: -3.6147}
+    maxHeight: 9.2747
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 7.7009, y: 4.6576}
-      P2: {x: 7.7009, y: 3.9824}
-    maxHeight: 7.6907997
+      P1: {x: 7.2669, y: -3.6147}
+      P2: {x: 7.2669, y: -0.6147001}
+    maxHeight: 14.8633
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 7.7009, y: 3.9824}
-      P2: {x: 4.1191, y: 3.9824}
-    maxHeight: 6.4348
+      P1: {x: 7.2669, y: -0.6147001}
+      P2: {x: 7.2669, y: 1.3852999}
+    maxHeight: 12.3382
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -1.7909, y: 0.9124}
-      P2: {x: -1.7909, y: 1.5876}
-    maxHeight: 50
+      P1: {x: 7.2669, y: 1.3852999}
+      P2: {x: 7.2669, y: 2.3853}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -1.7909, y: 1.5876}
-      P2: {x: -0.7909, y: 1.5876}
-    maxHeight: 8.7748
+      P1: {x: 7.2669, y: 2.3853}
+      P2: {x: 7.2669, y: 4.3852997}
+    maxHeight: 6.4282002
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -0.7909, y: 1.5876}
-      P2: {x: 1.2091, y: 1.5876}
-    maxHeight: 1.6993
+      P1: {x: 7.2669, y: 4.3852997}
+      P2: {x: 7.2669, y: 5.66}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 1.2091, y: 1.5876}
-      P2: {x: 1.7909, y: 1.5876}
-    maxHeight: 8.7748
+      P1: {x: 7.2669, y: 5.66}
+      P2: {x: 3.6569, y: 5.66}
+    maxHeight: 9.2747
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 1.7909, y: 1.5876}
-      P2: {x: 1.7909, y: 0.9124}
-    maxHeight: 50
+      P1: {x: 3.6569, y: 5.66}
+      P2: {x: 3.6569, y: 6.3353}
+    maxHeight: 11.2533
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 1.7909, y: 0.9124}
-      P2: {x: -1.7909, y: 0.9124}
-    maxHeight: 3.3648
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 7.2669, y: 6.3353}
+    maxHeight: 2.864699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -8.0495, y: -3.1276}
-      P2: {x: -8.0495, y: -2.4524}
-    maxHeight: 50
+      P1: {x: 7.2669, y: 6.3353}
+      P2: {x: 7.2669, y: 9.2}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -2.0495005, y: -2.4524}
-      P2: {x: 1.9504995, y: -2.4524}
-    maxHeight: 3.3648
+      P1: {x: 7.2669, y: 9.2}
+      P2: {x: 3.2669, y: 9.2}
+    maxHeight: 2.8646994
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 3.9504995, y: -2.4524}
-      P2: {x: 7.9504995, y: -2.4524}
-    maxHeight: 6.4348
+      P1: {x: 3.2669, y: 9.2}
+      P2: {x: 1.2669001, y: 9.2}
+    maxHeight: 12.814699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 7.9504995, y: -2.4524}
-      P2: {x: 8.0495, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: 1.2669001, y: 9.2}
+      P2: {x: -3.7331, y: 9.2}
+    maxHeight: 5.7046995
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 8.0495, y: -2.4524}
-      P2: {x: 8.0495, y: -3.1276}
-    maxHeight: 50
+      P1: {x: -3.7331, y: 9.2}
+      P2: {x: -4.7331, y: 9.2}
+    maxHeight: 12.814699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 8.0495, y: -3.1276}
-      P2: {x: -8.0495, y: -3.1276}
-    maxHeight: 50
+      P1: {x: -4.7331, y: 9.2}
+      P2: {x: -7.5964, y: 9.2}
+    maxHeight: 8.7747
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -8.0495, y: -2.4524}
-      P2: {x: -2.2909, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -7.5964, y: 9.2}
+      P2: {x: -7.5964, y: 7.2}
+    maxHeight: 14.8633
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -2.2909, y: -2.4524}
-      P2: {x: -2.0495005, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -7.5964, y: 7.2}
+      P2: {x: -7.5964, y: 5.2}
+    maxHeight: 11.2533
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 1.9504995, y: -2.4524}
-      P2: {x: 2.2909, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -7.5964, y: 5.2}
+      P2: {x: -7.5964, y: 4.2}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -8.0495, y: 11.0376}
-      P2: {x: -1.0283, y: 11.0376}
-    maxHeight: 50
+      P1: {x: -7.5964, y: 4.2}
+      P2: {x: -7.5964, y: 2.1999998}
+    maxHeight: 4.8533
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: -1.0283, y: 11.0376}
-      P2: {x: -0.5283, y: 11.0376}
-    maxHeight: 50
+      P1: {x: -7.5964, y: 2.1999998}
+      P2: {x: -7.5964, y: 0.4253}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 0.5283, y: 11.0376}
-      P2: {x: 1.0283, y: 11.0376}
-    maxHeight: 50
+      P1: {x: -7.5964, y: 0.4253}
+      P2: {x: -5.0713, y: 0.4253}
+    maxHeight: 8.774699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 1.0283, y: 11.0376}
-      P2: {x: 8.0495, y: 11.0376}
-    maxHeight: 50
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -5.0713, y: -0.25}
+    maxHeight: 12.3382
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 2.2909, y: -2.4524}
-      P2: {x: 3.6191, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -5.0713, y: -0.25}
+      P2: {x: -7.5964, y: -0.25}
+    maxHeight: 3.3646998
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   - segment:
-      P1: {x: 3.6191, y: -2.4524}
-      P2: {x: 3.9504995, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -7.5964, y: -0.25}
+      P2: {x: -7.5964, y: -3.6147}
+    maxHeight: 14.863299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -2.7431, y: 2.82}
+      P2: {x: -2.7431, y: 3.4953}
+    maxHeight: 4.853299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -2.7431, y: 3.4953}
+      P2: {x: 0.8387, y: 3.4953}
+    maxHeight: 5.7046986
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: 0.8387, y: 3.4953}
+      P2: {x: 0.8387, y: 2.82}
+    maxHeight: 6.4282
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: 0.8387, y: 2.82}
+      P2: {x: -2.7431, y: 2.82}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -4.5964, y: -3.6147}
+      P2: {x: -4.5713, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -4.5713, y: -3.6147}
+      P2: {x: -3.5963998, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: 1.4036002, y: -3.6147}
+      P2: {x: 3.1569, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: 3.1569, y: -3.6147}
+      P2: {x: 3.4036002, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -3.5963998, y: -3.6147}
+      P2: {x: -3.2431, y: -3.6147}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: -3.2431, y: -3.6147}
+      P2: {x: 1.3387, y: -3.6147}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1: {x: 1.3387, y: -3.6147}
+      P2: {x: 1.4036002, y: -3.6147}
+    maxHeight: 6.4347
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 2
   _drops:
-  - P1: {x: -0.5283, y: 18.1131}
-    P2: {x: -1.0283, y: 11.0376}
-  - P1: {x: 0.5283, y: 18.1131}
-    P2: {x: 1.0283, y: 11.0376}
-  - P1: {x: 4.1191, y: 4.6576}
-    P2: {x: 3.6191, y: -2.4524}
+  - P1: {x: 3.6569, y: 6.3353}
+    P2: {x: 3.1569, y: -3.6147}
+  - P1: {x: -2.7431, y: 3.4953}
+    P2: {x: -3.2431, y: -3.6147}
+  - P1: {x: 0.8387, y: 3.4953}
+    P2: {x: 1.3387, y: -3.6147}
   _jumps:
-  - P1: {x: 8.0495, y: 11.0376}
-    P2: {x: 10.1899, y: 7.4976}
-  - P1: {x: 10.1899, y: 7.4976}
-    P2: {x: 8.0495, y: 11.0376}
-  - P1: {x: 10.1899, y: 7.4976}
-    P2: {x: 7.7009, y: 4.6576}
-  - P1: {x: 4.1191, y: 4.6576}
-    P2: {x: 1.2091, y: 1.5876}
-  - P1: {x: 4.1191, y: 4.6576}
-    P2: {x: 1.7909, y: 1.5876}
-  - P1: {x: 7.7009, y: 4.6576}
-    P2: {x: 10.1899, y: 7.4976}
-  - P1: {x: -1.7909, y: 1.5876}
-    P2: {x: -2.2909, y: -2.4524}
-  - P1: {x: 1.7909, y: 1.5876}
-    P2: {x: 4.1191, y: 4.6576}
-  - P1: {x: 1.7909, y: 1.5876}
-    P2: {x: 2.2909, y: -2.4524}
-  - P1: {x: 1.7909, y: 1.5876}
-    P2: {x: 3.9504995, y: -2.4524}
+  - P1: {x: 3.6569, y: 6.3353}
+    P2: {x: 0.8387, y: 3.4953}
+  - P1: {x: -5.0713, y: 0.4253}
+    P2: {x: -4.5713, y: -3.6147}
+  - P1: {x: -5.0713, y: 0.4253}
+    P2: {x: -3.5963998, y: -3.6147}
+  - P1: {x: -5.0713, y: 0.4253}
+    P2: {x: -2.7431, y: 3.4953}
+  - P1: {x: -2.7431, y: 3.4953}
+    P2: {x: -5.0713, y: 0.4253}
+  - P1: {x: 0.8387, y: 3.4953}
+    P2: {x: 3.6569, y: 6.3353}
   _uniqueSegments:
   - segment:
-      P1: {x: -0.5283, y: 3.2869}
-      P2: {x: -0.5283, y: 10.3624}
+      P1: {x: -8.6531, y: -4.951}
+      P2: {x: -8.6531, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 3.2869}
-      P2: {x: -0.5283, y: 3.2869}
-    maxHeight: 1.6993
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -0.5283, y: 10.3624}
-      P2: {x: -2.5283, y: 10.3624}
-    maxHeight: 8.7748
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -2.5283, y: 10.3624}
-      P2: {x: -8.0495, y: 10.3624}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -8.0495, y: 10.3624}
-      P2: {x: -8.0495, y: 11.0376}
+      P1: {x: -7.5964, y: -4.951}
+      P2: {x: -8.6531, y: -4.951}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: -8.0495, y: 11.0376}
-      P2: {x: -1.0283, y: 11.0376}
+      P1: {x: -8.6531, y: 9.8753}
+      P2: {x: -7.5964, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: -0.5283, y: 11.0376}
-      P2: {x: -0.5283, y: 18.1131}
+      P1: {x: -7.5964, y: 9.8753}
+      P2: {x: 7.2669, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: -1.0283, y: 11.0376}
-      P2: {x: -0.5283, y: 11.0376}
+      P1: {x: 7.2669, y: 9.8753}
+      P2: {x: 7.446, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: -0.5283, y: 18.1131}
-      P2: {x: 0.5283, y: 18.1131}
+      P1: {x: 7.446, y: 9.8753}
+      P2: {x: 8.3236, y: 9.8753}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: -0.5283, y: 18.1131}
-      P2: {x: -1.0283, y: 11.0376}
+      P1: {x: 8.3236, y: 9.8753}
+      P2: {x: 8.3236, y: -4.951}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 8.3236, y: -4.951}
+      P2: {x: 7.2669, y: -4.951}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: -4.951}
+      P2: {x: 7.2669, y: -4.29}
+    maxHeight: 14.8633
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: -4.29}
+      P2: {x: -7.5964, y: -4.29}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -7.5964, y: -4.29}
+      P2: {x: -7.5964, y: -4.951}
+    maxHeight: 14.8633
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -7.5964, y: -3.6147}
+      P2: {x: -4.5964, y: -3.6147}
+    maxHeight: 3.3647
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -7.5964, y: -0.25}
+      P2: {x: -7.5964, y: -3.6147}
+    maxHeight: 14.863299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -4.5964, y: -3.6147}
+      P2: {x: -4.5713, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -4.5713, y: -3.6147}
+      P2: {x: -3.5963998, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -3.5963998, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 18.1131}
-      P2: {x: 0.5283, y: 11.0376}
-    maxHeight: 14.8633995
+      P1: {x: -3.5963998, y: -3.6147}
+      P2: {x: -3.2431, y: -3.6147}
+    maxHeight: 6.4347
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 18.1131}
-      P2: {x: 1.0283, y: 11.0376}
+      P1: {x: 1.4036002, y: -3.6147}
+      P2: {x: 3.1569, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 1.3387, y: -3.6147}
+      P2: {x: 1.4036002, y: -3.6147}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 3.4036002, y: -3.6147}
+      P2: {x: 7.2669, y: -3.6147}
+    maxHeight: 9.2747
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 3.1569, y: -3.6147}
+      P2: {x: 3.4036002, y: -3.6147}
+    maxHeight: 12.814699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: -3.6147}
+      P2: {x: 7.2669, y: -0.6147001}
+    maxHeight: 14.8633
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: -0.6147001}
+      P2: {x: 7.2669, y: 1.3852999}
+    maxHeight: 12.3382
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: 1.3852999}
+      P2: {x: 7.2669, y: 2.3853}
+    maxHeight: 14.863299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: 2.3853}
+      P2: {x: 7.2669, y: 4.3852997}
+    maxHeight: 6.4282002
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: 4.3852997}
+      P2: {x: 7.2669, y: 5.66}
+    maxHeight: 14.863299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 7.2669, y: 5.66}
+      P2: {x: 3.6569, y: 5.66}
+    maxHeight: 9.2747
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 3.6569, y: 5.66}
+      P2: {x: 3.6569, y: 6.3353}
+    maxHeight: 11.2533
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 7.2669, y: 6.3353}
+    maxHeight: 2.864699
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 0.8387, y: 3.4953}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 11.0376}
-      P2: {x: 1.0283, y: 11.0376}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 8.0495, y: 11.0376}
-      P2: {x: 8.0495, y: 10.3624}
-    maxHeight: 7.3421993
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 8.0495, y: 11.0376}
-      P2: {x: 10.1899, y: 7.4976}
+      P1: {x: 3.6569, y: 6.3353}
+      P2: {x: 3.1569, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 1.0283, y: 11.0376}
-      P2: {x: 8.0495, y: 11.0376}
-    maxHeight: 50
+      P1: {x: 7.2669, y: 6.3353}
+      P2: {x: 7.2669, y: 9.2}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 8.0495, y: 10.3624}
-      P2: {x: 4.0495005, y: 10.3624}
-    maxHeight: 5.7048
+      P1: {x: 7.2669, y: 9.2}
+      P2: {x: 3.2669, y: 9.2}
+    maxHeight: 2.8646994
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 4.0495005, y: 10.3624}
-      P2: {x: 2.0495005, y: 10.3624}
-    maxHeight: 12.8148
+      P1: {x: 3.2669, y: 9.2}
+      P2: {x: 1.2669001, y: 9.2}
+    maxHeight: 12.814699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 2.0495005, y: 10.3624}
-      P2: {x: 0.5283, y: 10.3624}
-    maxHeight: 8.7748
+      P1: {x: 1.2669001, y: 9.2}
+      P2: {x: -3.7331, y: 9.2}
+    maxHeight: 5.7046995
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 10.3624}
-      P2: {x: 0.5283, y: 8.3624}
-    maxHeight: 14.8633995
+      P1: {x: -3.7331, y: 9.2}
+      P2: {x: -4.7331, y: 9.2}
+    maxHeight: 12.814699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 8.3624}
-      P2: {x: 0.5283, y: 6.3624}
-    maxHeight: 9.6616
+      P1: {x: -4.7331, y: 9.2}
+      P2: {x: -7.5964, y: 9.2}
+    maxHeight: 8.7747
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 6.3624}
-      P2: {x: 0.5283, y: 5.3624}
-    maxHeight: 14.8633995
+      P1: {x: -7.5964, y: 9.2}
+      P2: {x: -7.5964, y: 7.2}
+    maxHeight: 14.8633
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 5.3624}
-      P2: {x: 0.5283, y: 3.3624}
-    maxHeight: 3.5908
+      P1: {x: -7.5964, y: 7.2}
+      P2: {x: -7.5964, y: 5.2}
+    maxHeight: 11.2533
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 0.5283, y: 3.3624}
-      P2: {x: 0.5283, y: 3.2869}
-    maxHeight: 14.8633995
+      P1: {x: -7.5964, y: 5.2}
+      P2: {x: -7.5964, y: 4.2}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 15.3917, y: 3.2869}
-      P2: {x: 15.3917, y: 5.2869}
-    maxHeight: 7.6907997
+      P1: {x: -7.5964, y: 4.2}
+      P2: {x: -7.5964, y: 2.1999998}
+    maxHeight: 4.8533
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 16.4483, y: 3.2869}
-      P2: {x: 15.3917, y: 3.2869}
-    maxHeight: 50
+      P1: {x: -7.5964, y: 2.1999998}
+      P2: {x: -7.5964, y: 0.4253}
+    maxHeight: 14.863299
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 15.3917, y: 5.2869}
-      P2: {x: 15.3917, y: 6.2869}
-    maxHeight: 14.8633995
+      P1: {x: -7.5964, y: 0.4253}
+      P2: {x: -5.0713, y: 0.4253}
+    maxHeight: 8.774699
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 15.3917, y: 6.2869}
-      P2: {x: 15.3917, y: 8.2869}
-    maxHeight: 0.96159935
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -5.0713, y: -0.25}
+    maxHeight: 12.3382
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 15.3917, y: 8.2869}
-      P2: {x: 15.3917, y: 18.1131}
-    maxHeight: 14.8633995
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 15.3917, y: 18.1131}
-      P2: {x: 16.4483, y: 18.1131}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 16.4483, y: 18.1131}
-      P2: {x: 16.4483, y: 3.2869}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 10.1899, y: 6.8224}
-      P2: {x: 10.1899, y: 7.4976}
-    maxHeight: 9.6616
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 14.4301, y: 6.8224}
-      P2: {x: 10.1899, y: 6.8224}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 10.1899, y: 7.4976}
-      P2: {x: 14.4301, y: 7.4976}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 10.1899, y: 7.4976}
-      P2: {x: 7.7009, y: 4.6576}
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -4.5713, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 14.4301, y: 7.4976}
-      P2: {x: 14.4301, y: 6.8224}
-    maxHeight: 0.96159935
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 4.1191, y: 3.9824}
-      P2: {x: 4.1191, y: 4.6576}
-    maxHeight: 3.5908
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 7.7009, y: 3.9824}
-      P2: {x: 4.1191, y: 3.9824}
-    maxHeight: 6.4348
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 4.1191, y: 4.6576}
-      P2: {x: 7.7009, y: 4.6576}
-    maxHeight: 5.7048
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 4.1191, y: 4.6576}
-      P2: {x: 1.2091, y: 1.5876}
+      P1: {x: -5.0713, y: 0.4253}
+      P2: {x: -2.7431, y: 3.4953}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 4.1191, y: 4.6576}
-      P2: {x: 1.7909, y: 1.5876}
+      P1: {x: -5.0713, y: -0.25}
+      P2: {x: -7.5964, y: -0.25}
+    maxHeight: 3.3646998
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -2.7431, y: 2.82}
+      P2: {x: -2.7431, y: 3.4953}
+    maxHeight: 4.853299
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 0.8387, y: 2.82}
+      P2: {x: -2.7431, y: 2.82}
+    maxHeight: 6.4347
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -2.7431, y: 3.4953}
+      P2: {x: 0.8387, y: 3.4953}
+    maxHeight: 5.7046986
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: -2.7431, y: 3.4953}
+      P2: {x: -3.2431, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 4.1191, y: 4.6576}
-      P2: {x: 3.6191, y: -2.4524}
+      P1: {x: 0.8387, y: 3.4953}
+      P2: {x: 0.8387, y: 2.82}
+    maxHeight: 6.4282
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 0.8387, y: 3.4953}
+      P2: {x: 1.3387, y: -3.6147}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
     connectionType: 0
   - segment:
-      P1: {x: 7.7009, y: 4.6576}
-      P2: {x: 7.7009, y: 3.9824}
-    maxHeight: 7.6907997
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -1.7909, y: 0.9124}
-      P2: {x: -1.7909, y: 1.5876}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.7909, y: 0.9124}
-      P2: {x: -1.7909, y: 0.9124}
-    maxHeight: 3.3648
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -1.7909, y: 1.5876}
-      P2: {x: -0.7909, y: 1.5876}
-    maxHeight: 8.7748
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -1.7909, y: 1.5876}
-      P2: {x: -2.2909, y: -2.4524}
-    maxHeight: Infinity
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -0.7909, y: 1.5876}
-      P2: {x: 1.2091, y: 1.5876}
-    maxHeight: 1.6993
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.2091, y: 1.5876}
-      P2: {x: 1.7909, y: 1.5876}
-    maxHeight: 8.7748
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.7909, y: 1.5876}
-      P2: {x: 1.7909, y: 0.9124}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.7909, y: 1.5876}
-      P2: {x: 2.2909, y: -2.4524}
-    maxHeight: Infinity
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.7909, y: 1.5876}
-      P2: {x: 3.9504995, y: -2.4524}
-    maxHeight: Infinity
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -8.0495, y: -3.1276}
-      P2: {x: -8.0495, y: -2.4524}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 8.0495, y: -3.1276}
-      P2: {x: -8.0495, y: -3.1276}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -8.0495, y: -2.4524}
-      P2: {x: -2.2909, y: -2.4524}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -2.0495005, y: -2.4524}
-      P2: {x: 1.9504995, y: -2.4524}
-    maxHeight: 3.3648
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: -2.2909, y: -2.4524}
-      P2: {x: -2.0495005, y: -2.4524}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 1.9504995, y: -2.4524}
-      P2: {x: 2.2909, y: -2.4524}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 3.9504995, y: -2.4524}
-      P2: {x: 7.9504995, y: -2.4524}
-    maxHeight: 6.4348
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 3.6191, y: -2.4524}
-      P2: {x: 3.9504995, y: -2.4524}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 7.9504995, y: -2.4524}
-      P2: {x: 8.0495, y: -2.4524}
-    maxHeight: 12.8148
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 8.0495, y: -2.4524}
-      P2: {x: 8.0495, y: -3.1276}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: -1
-    connectionType: 0
-  - segment:
-      P1: {x: 2.2909, y: -2.4524}
-      P2: {x: 3.6191, y: -2.4524}
-    maxHeight: 12.8148
+      P1: {x: -3.2431, y: -3.6147}
+      P2: {x: 1.3387, y: -3.6147}
+    maxHeight: 6.4347
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -3272,40 +2934,40 @@ MonoBehaviour:
         - _nodeStore:
             id: 0
           _nodeIndex: 0
-          _position: {x: -0.5283, y: 3.2869}
+          _position: {x: -8.6531, y: -4.951}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 1
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 3.2869}
-              P2: {x: -0.5283, y: 10.3624}
+              P1: {x: -8.6531, y: -4.951}
+              P2: {x: -8.6531, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 18
+            _nodeIndex: 10
             _connectionType: 2
             _segment:
-              P1: {x: 0.5283, y: 3.2869}
-              P2: {x: -0.5283, y: 3.2869}
-            _maxHeight: 1.6993
+              P1: {x: -7.5964, y: -4.951}
+              P2: {x: -8.6531, y: -4.951}
+            _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 1
-          _position: {x: -0.5283, y: 10.3624}
+          _position: {x: -8.6531, y: 9.8753}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 0
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 3.2869}
-              P2: {x: -0.5283, y: 10.3624}
+              P1: {x: -8.6531, y: -4.951}
+              P2: {x: -8.6531, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
@@ -3314,24 +2976,24 @@ MonoBehaviour:
             _nodeIndex: 2
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 10.3624}
-              P2: {x: -2.5283, y: 10.3624}
-            _maxHeight: 8.7748
+              P1: {x: -8.6531, y: 9.8753}
+              P2: {x: -7.5964, y: 9.8753}
+            _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 2
-          _position: {x: -2.5283, y: 10.3624}
+          _position: {x: -7.5964, y: 9.8753}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 1
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 10.3624}
-              P2: {x: -2.5283, y: 10.3624}
-            _maxHeight: 8.7748
+              P1: {x: -8.6531, y: 9.8753}
+              P2: {x: -7.5964, y: 9.8753}
+            _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3339,24 +3001,24 @@ MonoBehaviour:
             _nodeIndex: 3
             _connectionType: 2
             _segment:
-              P1: {x: -2.5283, y: 10.3624}
-              P2: {x: -8.0495, y: 10.3624}
-            _maxHeight: 12.8148
+              P1: {x: -7.5964, y: 9.8753}
+              P2: {x: 7.2669, y: 9.8753}
+            _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 3
-          _position: {x: -8.0495, y: 10.3624}
+          _position: {x: 7.2669, y: 9.8753}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 2
             _connectionType: 2
             _segment:
-              P1: {x: -2.5283, y: 10.3624}
-              P2: {x: -8.0495, y: 10.3624}
-            _maxHeight: 12.8148
+              P1: {x: -7.5964, y: 9.8753}
+              P2: {x: 7.2669, y: 9.8753}
+            _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3364,73 +3026,73 @@ MonoBehaviour:
             _nodeIndex: 4
             _connectionType: 2
             _segment:
-              P1: {x: -8.0495, y: 10.3624}
-              P2: {x: -8.0495, y: 11.0376}
+              P1: {x: 7.2669, y: 9.8753}
+              P2: {x: 7.446, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 4
-          _position: {x: -8.0495, y: 11.0376}
+          _position: {x: 7.446, y: 9.8753}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 3
             _connectionType: 2
             _segment:
-              P1: {x: -8.0495, y: 10.3624}
-              P2: {x: -8.0495, y: 11.0376}
+              P1: {x: 7.2669, y: 9.8753}
+              P2: {x: 7.446, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 50
+            _nodeIndex: 5
             _connectionType: 2
             _segment:
-              P1: {x: -8.0495, y: 11.0376}
-              P2: {x: -1.0283, y: 11.0376}
+              P1: {x: 7.446, y: 9.8753}
+              P2: {x: 8.3236, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 5
-          _position: {x: -0.5283, y: 11.0376}
+          _position: {x: 8.3236, y: 9.8753}
           _connections:
           - _nodeStore:
               id: 0
-            _nodeIndex: 6
+            _nodeIndex: 4
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 11.0376}
-              P2: {x: -0.5283, y: 18.1131}
+              P1: {x: 7.446, y: 9.8753}
+              P2: {x: 8.3236, y: 9.8753}
             _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 50
+            _nodeIndex: 6
             _connectionType: 2
             _segment:
-              P1: {x: -1.0283, y: 11.0376}
-              P2: {x: -0.5283, y: 11.0376}
+              P1: {x: 8.3236, y: 9.8753}
+              P2: {x: 8.3236, y: -4.951}
             _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 6
-          _position: {x: -0.5283, y: 18.1131}
+          _position: {x: 8.3236, y: -4.951}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 5
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 11.0376}
-              P2: {x: -0.5283, y: 18.1131}
+              P1: {x: 8.3236, y: 9.8753}
+              P2: {x: 8.3236, y: -4.951}
             _maxHeight: 50
             _navTag:
               _tag: -1
@@ -3439,33 +3101,23 @@ MonoBehaviour:
             _nodeIndex: 7
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 18.1131}
-              P2: {x: 0.5283, y: 18.1131}
+              P1: {x: 8.3236, y: -4.951}
+              P2: {x: 7.2669, y: -4.951}
             _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 50
-            _connectionType: 4
-            _segment:
-              P1: {x: -0.5283, y: 18.1131}
-              P2: {x: -1.0283, y: 11.0376}
-            _maxHeight: Infinity
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 7
-          _position: {x: 0.5283, y: 18.1131}
+          _position: {x: 7.2669, y: -4.951}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 6
             _connectionType: 2
             _segment:
-              P1: {x: -0.5283, y: 18.1131}
-              P2: {x: 0.5283, y: 18.1131}
+              P1: {x: 8.3236, y: -4.951}
+              P2: {x: 7.2669, y: -4.951}
             _maxHeight: 50
             _navTag:
               _tag: -1
@@ -3474,294 +3126,74 @@ MonoBehaviour:
             _nodeIndex: 8
             _connectionType: 2
             _segment:
-              P1: {x: 0.5283, y: 18.1131}
-              P2: {x: 0.5283, y: 11.0376}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 51
-            _connectionType: 4
-            _segment:
-              P1: {x: 0.5283, y: 18.1131}
-              P2: {x: 1.0283, y: 11.0376}
-            _maxHeight: Infinity
+              P1: {x: 7.2669, y: -4.951}
+              P2: {x: 7.2669, y: -4.29}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 8
-          _position: {x: 0.5283, y: 11.0376}
+          _position: {x: 7.2669, y: -4.29}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 7
             _connectionType: 2
             _segment:
-              P1: {x: 0.5283, y: 18.1131}
-              P2: {x: 0.5283, y: 11.0376}
-            _maxHeight: 14.8633995
+              P1: {x: 7.2669, y: -4.951}
+              P2: {x: 7.2669, y: -4.29}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 51
+            _nodeIndex: 9
             _connectionType: 2
             _segment:
-              P1: {x: 0.5283, y: 11.0376}
-              P2: {x: 1.0283, y: 11.0376}
+              P1: {x: 7.2669, y: -4.29}
+              P2: {x: -7.5964, y: -4.29}
             _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 9
-          _position: {x: 8.0495, y: 11.0376}
+          _position: {x: -7.5964, y: -4.29}
           _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 8
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: -4.29}
+              P2: {x: -7.5964, y: -4.29}
+            _maxHeight: 50
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 10
             _connectionType: 2
             _segment:
-              P1: {x: 8.0495, y: 11.0376}
-              P2: {x: 8.0495, y: 10.3624}
-            _maxHeight: 7.3421993
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 27
-            _connectionType: 8
-            _segment:
-              P1: {x: 8.0495, y: 11.0376}
-              P2: {x: 10.1899, y: 7.4976}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 51
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.0283, y: 11.0376}
-              P2: {x: 8.0495, y: 11.0376}
-            _maxHeight: 50
+              P1: {x: -7.5964, y: -4.29}
+              P2: {x: -7.5964, y: -4.951}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 10
-          _position: {x: 8.0495, y: 10.3624}
+          _position: {x: -7.5964, y: -4.951}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 9
             _connectionType: 2
             _segment:
-              P1: {x: 8.0495, y: 11.0376}
-              P2: {x: 8.0495, y: 10.3624}
-            _maxHeight: 7.3421993
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 11
-            _connectionType: 2
-            _segment:
-              P1: {x: 8.0495, y: 10.3624}
-              P2: {x: 4.0495005, y: 10.3624}
-            _maxHeight: 5.7048
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 11
-          _position: {x: 4.0495005, y: 10.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 10
-            _connectionType: 2
-            _segment:
-              P1: {x: 8.0495, y: 10.3624}
-              P2: {x: 4.0495005, y: 10.3624}
-            _maxHeight: 5.7048
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 12
-            _connectionType: 2
-            _segment:
-              P1: {x: 4.0495005, y: 10.3624}
-              P2: {x: 2.0495005, y: 10.3624}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 12
-          _position: {x: 2.0495005, y: 10.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 11
-            _connectionType: 2
-            _segment:
-              P1: {x: 4.0495005, y: 10.3624}
-              P2: {x: 2.0495005, y: 10.3624}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 13
-            _connectionType: 2
-            _segment:
-              P1: {x: 2.0495005, y: 10.3624}
-              P2: {x: 0.5283, y: 10.3624}
-            _maxHeight: 8.7748
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 13
-          _position: {x: 0.5283, y: 10.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 12
-            _connectionType: 2
-            _segment:
-              P1: {x: 2.0495005, y: 10.3624}
-              P2: {x: 0.5283, y: 10.3624}
-            _maxHeight: 8.7748
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 14
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 10.3624}
-              P2: {x: 0.5283, y: 8.3624}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 14
-          _position: {x: 0.5283, y: 8.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 13
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 10.3624}
-              P2: {x: 0.5283, y: 8.3624}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 15
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 8.3624}
-              P2: {x: 0.5283, y: 6.3624}
-            _maxHeight: 9.6616
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 15
-          _position: {x: 0.5283, y: 6.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 14
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 8.3624}
-              P2: {x: 0.5283, y: 6.3624}
-            _maxHeight: 9.6616
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 16
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 6.3624}
-              P2: {x: 0.5283, y: 5.3624}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 16
-          _position: {x: 0.5283, y: 5.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 15
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 6.3624}
-              P2: {x: 0.5283, y: 5.3624}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 17
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 5.3624}
-              P2: {x: 0.5283, y: 3.3624}
-            _maxHeight: 3.5908
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 17
-          _position: {x: 0.5283, y: 3.3624}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 16
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 5.3624}
-              P2: {x: 0.5283, y: 3.3624}
-            _maxHeight: 3.5908
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 18
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 3.3624}
-              P2: {x: 0.5283, y: 3.2869}
-            _maxHeight: 14.8633995
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 18
-          _position: {x: 0.5283, y: 3.2869}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 17
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 3.3624}
-              P2: {x: 0.5283, y: 3.2869}
-            _maxHeight: 14.8633995
+              P1: {x: -7.5964, y: -4.29}
+              P2: {x: -7.5964, y: -4.951}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3769,49 +3201,259 @@ MonoBehaviour:
             _nodeIndex: 0
             _connectionType: 2
             _segment:
-              P1: {x: 0.5283, y: 3.2869}
-              P2: {x: -0.5283, y: 3.2869}
-            _maxHeight: 1.6993
+              P1: {x: -7.5964, y: -4.951}
+              P2: {x: -8.6531, y: -4.951}
+            _maxHeight: 50
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 11
+          _position: {x: -7.5964, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 12
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.5964, y: -3.6147}
+              P2: {x: -4.5964, y: -3.6147}
+            _maxHeight: 3.3647
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 38
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.5964, y: -0.25}
+              P2: {x: -7.5964, y: -3.6147}
+            _maxHeight: 14.863299
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 12
+          _position: {x: -4.5964, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 11
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.5964, y: -3.6147}
+              P2: {x: -4.5964, y: -3.6147}
+            _maxHeight: 3.3647
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 43
+            _connectionType: 2
+            _segment:
+              P1: {x: -4.5964, y: -3.6147}
+              P2: {x: -4.5713, y: -3.6147}
+            _maxHeight: 12.814699
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 13
+          _position: {x: -3.5963998, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 43
+            _connectionType: 2
+            _segment:
+              P1: {x: -4.5713, y: -3.6147}
+              P2: {x: -3.5963998, y: -3.6147}
+            _maxHeight: 12.814699
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 36
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -3.5963998, y: -3.6147}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 45
+            _connectionType: 2
+            _segment:
+              P1: {x: -3.5963998, y: -3.6147}
+              P2: {x: -3.2431, y: -3.6147}
+            _maxHeight: 6.4347
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 14
+          _position: {x: 1.4036002, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 44
+            _connectionType: 2
+            _segment:
+              P1: {x: 1.4036002, y: -3.6147}
+              P2: {x: 3.1569, y: -3.6147}
+            _maxHeight: 12.814699
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 46
+            _connectionType: 2
+            _segment:
+              P1: {x: 1.3387, y: -3.6147}
+              P2: {x: 1.4036002, y: -3.6147}
+            _maxHeight: 6.4347
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 15
+          _position: {x: 3.4036002, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 16
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.4036002, y: -3.6147}
+              P2: {x: 7.2669, y: -3.6147}
+            _maxHeight: 9.2747
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 44
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.1569, y: -3.6147}
+              P2: {x: 3.4036002, y: -3.6147}
+            _maxHeight: 12.814699
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 16
+          _position: {x: 7.2669, y: -3.6147}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 15
+            _connectionType: 2
+            _segment:
+              P1: {x: 3.4036002, y: -3.6147}
+              P2: {x: 7.2669, y: -3.6147}
+            _maxHeight: 9.2747
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 17
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: -3.6147}
+              P2: {x: 7.2669, y: -0.6147001}
+            _maxHeight: 14.8633
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 17
+          _position: {x: 7.2669, y: -0.6147001}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 16
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: -3.6147}
+              P2: {x: 7.2669, y: -0.6147001}
+            _maxHeight: 14.8633
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 18
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: -0.6147001}
+              P2: {x: 7.2669, y: 1.3852999}
+            _maxHeight: 12.3382
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 18
+          _position: {x: 7.2669, y: 1.3852999}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 17
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: -0.6147001}
+              P2: {x: 7.2669, y: 1.3852999}
+            _maxHeight: 12.3382
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 19
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: 1.3852999}
+              P2: {x: 7.2669, y: 2.3853}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 19
-          _position: {x: 15.3917, y: 3.2869}
+          _position: {x: 7.2669, y: 2.3853}
           _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 18
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: 1.3852999}
+              P2: {x: 7.2669, y: 2.3853}
+            _maxHeight: 14.863299
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 20
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 3.2869}
-              P2: {x: 15.3917, y: 5.2869}
-            _maxHeight: 7.6907997
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 25
-            _connectionType: 2
-            _segment:
-              P1: {x: 16.4483, y: 3.2869}
-              P2: {x: 15.3917, y: 3.2869}
-            _maxHeight: 50
+              P1: {x: 7.2669, y: 2.3853}
+              P2: {x: 7.2669, y: 4.3852997}
+            _maxHeight: 6.4282002
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 20
-          _position: {x: 15.3917, y: 5.2869}
+          _position: {x: 7.2669, y: 4.3852997}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 19
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 3.2869}
-              P2: {x: 15.3917, y: 5.2869}
-            _maxHeight: 7.6907997
+              P1: {x: 7.2669, y: 2.3853}
+              P2: {x: 7.2669, y: 4.3852997}
+            _maxHeight: 6.4282002
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3819,24 +3461,24 @@ MonoBehaviour:
             _nodeIndex: 21
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 5.2869}
-              P2: {x: 15.3917, y: 6.2869}
-            _maxHeight: 14.8633995
+              P1: {x: 7.2669, y: 4.3852997}
+              P2: {x: 7.2669, y: 5.66}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 21
-          _position: {x: 15.3917, y: 6.2869}
+          _position: {x: 7.2669, y: 5.66}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 20
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 5.2869}
-              P2: {x: 15.3917, y: 6.2869}
-            _maxHeight: 14.8633995
+              P1: {x: 7.2669, y: 4.3852997}
+              P2: {x: 7.2669, y: 5.66}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3844,24 +3486,24 @@ MonoBehaviour:
             _nodeIndex: 22
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 6.2869}
-              P2: {x: 15.3917, y: 8.2869}
-            _maxHeight: 0.96159935
+              P1: {x: 7.2669, y: 5.66}
+              P2: {x: 3.6569, y: 5.66}
+            _maxHeight: 9.2747
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 22
-          _position: {x: 15.3917, y: 8.2869}
+          _position: {x: 3.6569, y: 5.66}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 21
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 6.2869}
-              P2: {x: 15.3917, y: 8.2869}
-            _maxHeight: 0.96159935
+              P1: {x: 7.2669, y: 5.66}
+              P2: {x: 3.6569, y: 5.66}
+            _maxHeight: 9.2747
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3869,24 +3511,24 @@ MonoBehaviour:
             _nodeIndex: 23
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 8.2869}
-              P2: {x: 15.3917, y: 18.1131}
-            _maxHeight: 14.8633995
+              P1: {x: 3.6569, y: 5.66}
+              P2: {x: 3.6569, y: 6.3353}
+            _maxHeight: 11.2533
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 23
-          _position: {x: 15.3917, y: 18.1131}
+          _position: {x: 3.6569, y: 6.3353}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 22
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 8.2869}
-              P2: {x: 15.3917, y: 18.1131}
-            _maxHeight: 14.8633995
+              P1: {x: 3.6569, y: 5.66}
+              P2: {x: 3.6569, y: 6.3353}
+            _maxHeight: 11.2533
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3894,24 +3536,44 @@ MonoBehaviour:
             _nodeIndex: 24
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 18.1131}
-              P2: {x: 16.4483, y: 18.1131}
-            _maxHeight: 50
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 7.2669, y: 6.3353}
+            _maxHeight: 2.864699
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 41
+            _connectionType: 8
+            _segment:
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 0.8387, y: 3.4953}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 44
+            _connectionType: 4
+            _segment:
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 3.1569, y: -3.6147}
+            _maxHeight: Infinity
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 24
-          _position: {x: 16.4483, y: 18.1131}
+          _position: {x: 7.2669, y: 6.3353}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 23
             _connectionType: 2
             _segment:
-              P1: {x: 15.3917, y: 18.1131}
-              P2: {x: 16.4483, y: 18.1131}
-            _maxHeight: 50
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 7.2669, y: 6.3353}
+            _maxHeight: 2.864699
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3919,74 +3581,74 @@ MonoBehaviour:
             _nodeIndex: 25
             _connectionType: 2
             _segment:
-              P1: {x: 16.4483, y: 18.1131}
-              P2: {x: 16.4483, y: 3.2869}
-            _maxHeight: 50
+              P1: {x: 7.2669, y: 6.3353}
+              P2: {x: 7.2669, y: 9.2}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 25
-          _position: {x: 16.4483, y: 3.2869}
+          _position: {x: 7.2669, y: 9.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 24
             _connectionType: 2
             _segment:
-              P1: {x: 16.4483, y: 18.1131}
-              P2: {x: 16.4483, y: 3.2869}
-            _maxHeight: 50
+              P1: {x: 7.2669, y: 6.3353}
+              P2: {x: 7.2669, y: 9.2}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 19
+            _nodeIndex: 26
             _connectionType: 2
             _segment:
-              P1: {x: 16.4483, y: 3.2869}
-              P2: {x: 15.3917, y: 3.2869}
-            _maxHeight: 50
+              P1: {x: 7.2669, y: 9.2}
+              P2: {x: 3.2669, y: 9.2}
+            _maxHeight: 2.8646994
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 26
-          _position: {x: 10.1899, y: 6.8224}
+          _position: {x: 3.2669, y: 9.2}
           _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 25
+            _connectionType: 2
+            _segment:
+              P1: {x: 7.2669, y: 9.2}
+              P2: {x: 3.2669, y: 9.2}
+            _maxHeight: 2.8646994
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 27
             _connectionType: 2
             _segment:
-              P1: {x: 10.1899, y: 6.8224}
-              P2: {x: 10.1899, y: 7.4976}
-            _maxHeight: 9.6616
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 29
-            _connectionType: 2
-            _segment:
-              P1: {x: 14.4301, y: 6.8224}
-              P2: {x: 10.1899, y: 6.8224}
-            _maxHeight: 50
+              P1: {x: 3.2669, y: 9.2}
+              P2: {x: 1.2669001, y: 9.2}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 27
-          _position: {x: 10.1899, y: 7.4976}
+          _position: {x: 1.2669001, y: 9.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 26
             _connectionType: 2
             _segment:
-              P1: {x: 10.1899, y: 6.8224}
-              P2: {x: 10.1899, y: 7.4976}
-            _maxHeight: 9.6616
+              P1: {x: 3.2669, y: 9.2}
+              P2: {x: 1.2669001, y: 9.2}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3994,44 +3656,24 @@ MonoBehaviour:
             _nodeIndex: 28
             _connectionType: 2
             _segment:
-              P1: {x: 10.1899, y: 7.4976}
-              P2: {x: 14.4301, y: 7.4976}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 9
-            _connectionType: 8
-            _segment:
-              P1: {x: 8.0495, y: 11.0376}
-              P2: {x: 10.1899, y: 7.4976}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 32
-            _connectionType: 8
-            _segment:
-              P1: {x: 10.1899, y: 7.4976}
-              P2: {x: 7.7009, y: 4.6576}
-            _maxHeight: Infinity
+              P1: {x: 1.2669001, y: 9.2}
+              P2: {x: -3.7331, y: 9.2}
+            _maxHeight: 5.7046995
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 28
-          _position: {x: 14.4301, y: 7.4976}
+          _position: {x: -3.7331, y: 9.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 27
             _connectionType: 2
             _segment:
-              P1: {x: 10.1899, y: 7.4976}
-              P2: {x: 14.4301, y: 7.4976}
-            _maxHeight: 50
+              P1: {x: 1.2669001, y: 9.2}
+              P2: {x: -3.7331, y: 9.2}
+            _maxHeight: 5.7046995
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4039,74 +3681,74 @@ MonoBehaviour:
             _nodeIndex: 29
             _connectionType: 2
             _segment:
-              P1: {x: 14.4301, y: 7.4976}
-              P2: {x: 14.4301, y: 6.8224}
-            _maxHeight: 0.96159935
+              P1: {x: -3.7331, y: 9.2}
+              P2: {x: -4.7331, y: 9.2}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 29
-          _position: {x: 14.4301, y: 6.8224}
+          _position: {x: -4.7331, y: 9.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 28
             _connectionType: 2
             _segment:
-              P1: {x: 14.4301, y: 7.4976}
-              P2: {x: 14.4301, y: 6.8224}
-            _maxHeight: 0.96159935
+              P1: {x: -3.7331, y: 9.2}
+              P2: {x: -4.7331, y: 9.2}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 26
+            _nodeIndex: 30
             _connectionType: 2
             _segment:
-              P1: {x: 14.4301, y: 6.8224}
-              P2: {x: 10.1899, y: 6.8224}
-            _maxHeight: 50
+              P1: {x: -4.7331, y: 9.2}
+              P2: {x: -7.5964, y: 9.2}
+            _maxHeight: 8.7747
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 30
-          _position: {x: 4.1191, y: 3.9824}
+          _position: {x: -7.5964, y: 9.2}
           _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 29
+            _connectionType: 2
+            _segment:
+              P1: {x: -4.7331, y: 9.2}
+              P2: {x: -7.5964, y: 9.2}
+            _maxHeight: 8.7747
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 31
             _connectionType: 2
             _segment:
-              P1: {x: 4.1191, y: 3.9824}
-              P2: {x: 4.1191, y: 4.6576}
-            _maxHeight: 3.5908
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 33
-            _connectionType: 2
-            _segment:
-              P1: {x: 7.7009, y: 3.9824}
-              P2: {x: 4.1191, y: 3.9824}
-            _maxHeight: 6.4348
+              P1: {x: -7.5964, y: 9.2}
+              P2: {x: -7.5964, y: 7.2}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 31
-          _position: {x: 4.1191, y: 4.6576}
+          _position: {x: -7.5964, y: 7.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 30
             _connectionType: 2
             _segment:
-              P1: {x: 4.1191, y: 3.9824}
-              P2: {x: 4.1191, y: 4.6576}
-            _maxHeight: 3.5908
+              P1: {x: -7.5964, y: 9.2}
+              P2: {x: -7.5964, y: 7.2}
+            _maxHeight: 14.8633
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4114,54 +3756,24 @@ MonoBehaviour:
             _nodeIndex: 32
             _connectionType: 2
             _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 7.7009, y: 4.6576}
-            _maxHeight: 5.7048
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 37
-            _connectionType: 8
-            _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 1.2091, y: 1.5876}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 38
-            _connectionType: 8
-            _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 1.7909, y: 1.5876}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 52
-            _connectionType: 4
-            _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 3.6191, y: -2.4524}
-            _maxHeight: Infinity
+              P1: {x: -7.5964, y: 7.2}
+              P2: {x: -7.5964, y: 5.2}
+            _maxHeight: 11.2533
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 32
-          _position: {x: 7.7009, y: 4.6576}
+          _position: {x: -7.5964, y: 5.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 31
             _connectionType: 2
             _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 7.7009, y: 4.6576}
-            _maxHeight: 5.7048
+              P1: {x: -7.5964, y: 7.2}
+              P2: {x: -7.5964, y: 5.2}
+            _maxHeight: 11.2533
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4169,84 +3781,74 @@ MonoBehaviour:
             _nodeIndex: 33
             _connectionType: 2
             _segment:
-              P1: {x: 7.7009, y: 4.6576}
-              P2: {x: 7.7009, y: 3.9824}
-            _maxHeight: 7.6907997
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 27
-            _connectionType: 8
-            _segment:
-              P1: {x: 10.1899, y: 7.4976}
-              P2: {x: 7.7009, y: 4.6576}
-            _maxHeight: Infinity
+              P1: {x: -7.5964, y: 5.2}
+              P2: {x: -7.5964, y: 4.2}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 33
-          _position: {x: 7.7009, y: 3.9824}
+          _position: {x: -7.5964, y: 4.2}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 32
             _connectionType: 2
             _segment:
-              P1: {x: 7.7009, y: 4.6576}
-              P2: {x: 7.7009, y: 3.9824}
-            _maxHeight: 7.6907997
+              P1: {x: -7.5964, y: 5.2}
+              P2: {x: -7.5964, y: 4.2}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 30
+            _nodeIndex: 34
             _connectionType: 2
             _segment:
-              P1: {x: 7.7009, y: 3.9824}
-              P2: {x: 4.1191, y: 3.9824}
-            _maxHeight: 6.4348
+              P1: {x: -7.5964, y: 4.2}
+              P2: {x: -7.5964, y: 2.1999998}
+            _maxHeight: 4.8533
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 34
-          _position: {x: -1.7909, y: 0.9124}
+          _position: {x: -7.5964, y: 2.1999998}
           _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 33
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.5964, y: 4.2}
+              P2: {x: -7.5964, y: 2.1999998}
+            _maxHeight: 4.8533
+            _navTag:
+              _tag: -1
           - _nodeStore:
               id: 0
             _nodeIndex: 35
             _connectionType: 2
             _segment:
-              P1: {x: -1.7909, y: 0.9124}
-              P2: {x: -1.7909, y: 1.5876}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 39
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.7909, y: 0.9124}
-              P2: {x: -1.7909, y: 0.9124}
-            _maxHeight: 3.3648
+              P1: {x: -7.5964, y: 2.1999998}
+              P2: {x: -7.5964, y: 0.4253}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 35
-          _position: {x: -1.7909, y: 1.5876}
+          _position: {x: -7.5964, y: 0.4253}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 34
             _connectionType: 2
             _segment:
-              P1: {x: -1.7909, y: 0.9124}
-              P2: {x: -1.7909, y: 1.5876}
-            _maxHeight: 50
+              P1: {x: -7.5964, y: 2.1999998}
+              P2: {x: -7.5964, y: 0.4253}
+            _maxHeight: 14.863299
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4254,34 +3856,24 @@ MonoBehaviour:
             _nodeIndex: 36
             _connectionType: 2
             _segment:
-              P1: {x: -1.7909, y: 1.5876}
-              P2: {x: -0.7909, y: 1.5876}
-            _maxHeight: 8.7748
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 48
-            _connectionType: 8
-            _segment:
-              P1: {x: -1.7909, y: 1.5876}
-              P2: {x: -2.2909, y: -2.4524}
-            _maxHeight: Infinity
+              P1: {x: -7.5964, y: 0.4253}
+              P2: {x: -5.0713, y: 0.4253}
+            _maxHeight: 8.774699
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 36
-          _position: {x: -0.7909, y: 1.5876}
+          _position: {x: -5.0713, y: 0.4253}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 35
             _connectionType: 2
             _segment:
-              P1: {x: -1.7909, y: 1.5876}
-              P2: {x: -0.7909, y: 1.5876}
-            _maxHeight: 8.7748
+              P1: {x: -7.5964, y: 0.4253}
+              P2: {x: -5.0713, y: 0.4253}
+            _maxHeight: 8.774699
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4289,24 +3881,54 @@ MonoBehaviour:
             _nodeIndex: 37
             _connectionType: 2
             _segment:
-              P1: {x: -0.7909, y: 1.5876}
-              P2: {x: 1.2091, y: 1.5876}
-            _maxHeight: 1.6993
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -5.0713, y: -0.25}
+            _maxHeight: 12.3382
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 43
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -4.5713, y: -3.6147}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 13
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -3.5963998, y: -3.6147}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 40
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -2.7431, y: 3.4953}
+            _maxHeight: Infinity
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 37
-          _position: {x: 1.2091, y: 1.5876}
+          _position: {x: -5.0713, y: -0.25}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 36
             _connectionType: 2
             _segment:
-              P1: {x: -0.7909, y: 1.5876}
-              P2: {x: 1.2091, y: 1.5876}
-            _maxHeight: 1.6993
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -5.0713, y: -0.25}
+            _maxHeight: 12.3382
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4314,34 +3936,164 @@ MonoBehaviour:
             _nodeIndex: 38
             _connectionType: 2
             _segment:
-              P1: {x: 1.2091, y: 1.5876}
-              P2: {x: 1.7909, y: 1.5876}
-            _maxHeight: 8.7748
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 31
-            _connectionType: 8
-            _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 1.2091, y: 1.5876}
-            _maxHeight: Infinity
+              P1: {x: -5.0713, y: -0.25}
+              P2: {x: -7.5964, y: -0.25}
+            _maxHeight: 3.3646998
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 38
-          _position: {x: 1.7909, y: 1.5876}
+          _position: {x: -7.5964, y: -0.25}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 37
             _connectionType: 2
             _segment:
-              P1: {x: 1.2091, y: 1.5876}
-              P2: {x: 1.7909, y: 1.5876}
-            _maxHeight: 8.7748
+              P1: {x: -5.0713, y: -0.25}
+              P2: {x: -7.5964, y: -0.25}
+            _maxHeight: 3.3646998
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 11
+            _connectionType: 2
+            _segment:
+              P1: {x: -7.5964, y: -0.25}
+              P2: {x: -7.5964, y: -3.6147}
+            _maxHeight: 14.863299
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 39
+          _position: {x: -2.7431, y: 2.82}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 40
+            _connectionType: 2
+            _segment:
+              P1: {x: -2.7431, y: 2.82}
+              P2: {x: -2.7431, y: 3.4953}
+            _maxHeight: 4.853299
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 42
+            _connectionType: 2
+            _segment:
+              P1: {x: 0.8387, y: 2.82}
+              P2: {x: -2.7431, y: 2.82}
+            _maxHeight: 6.4347
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 40
+          _position: {x: -2.7431, y: 3.4953}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 39
+            _connectionType: 2
+            _segment:
+              P1: {x: -2.7431, y: 2.82}
+              P2: {x: -2.7431, y: 3.4953}
+            _maxHeight: 4.853299
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 41
+            _connectionType: 2
+            _segment:
+              P1: {x: -2.7431, y: 3.4953}
+              P2: {x: 0.8387, y: 3.4953}
+            _maxHeight: 5.7046986
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 36
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -2.7431, y: 3.4953}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 45
+            _connectionType: 4
+            _segment:
+              P1: {x: -2.7431, y: 3.4953}
+              P2: {x: -3.2431, y: -3.6147}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 41
+          _position: {x: 0.8387, y: 3.4953}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 40
+            _connectionType: 2
+            _segment:
+              P1: {x: -2.7431, y: 3.4953}
+              P2: {x: 0.8387, y: 3.4953}
+            _maxHeight: 5.7046986
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 42
+            _connectionType: 2
+            _segment:
+              P1: {x: 0.8387, y: 3.4953}
+              P2: {x: 0.8387, y: 2.82}
+            _maxHeight: 6.4282
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 23
+            _connectionType: 8
+            _segment:
+              P1: {x: 3.6569, y: 6.3353}
+              P2: {x: 0.8387, y: 3.4953}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 46
+            _connectionType: 4
+            _segment:
+              P1: {x: 0.8387, y: 3.4953}
+              P2: {x: 1.3387, y: -3.6147}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 42
+          _position: {x: 0.8387, y: 2.82}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 41
+            _connectionType: 2
+            _segment:
+              P1: {x: 0.8387, y: 3.4953}
+              P2: {x: 0.8387, y: 2.82}
+            _maxHeight: 6.4282
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4349,214 +4101,84 @@ MonoBehaviour:
             _nodeIndex: 39
             _connectionType: 2
             _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 1.7909, y: 0.9124}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 31
-            _connectionType: 8
-            _segment:
-              P1: {x: 4.1191, y: 4.6576}
-              P2: {x: 1.7909, y: 1.5876}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 49
-            _connectionType: 8
-            _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 2.2909, y: -2.4524}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 44
-            _connectionType: 8
-            _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 3.9504995, y: -2.4524}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 39
-          _position: {x: 1.7909, y: 0.9124}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 38
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 1.7909, y: 0.9124}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 34
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.7909, y: 0.9124}
-              P2: {x: -1.7909, y: 0.9124}
-            _maxHeight: 3.3648
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 40
-          _position: {x: -8.0495, y: -3.1276}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 41
-            _connectionType: 2
-            _segment:
-              P1: {x: -8.0495, y: -3.1276}
-              P2: {x: -8.0495, y: -2.4524}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 47
-            _connectionType: 2
-            _segment:
-              P1: {x: 8.0495, y: -3.1276}
-              P2: {x: -8.0495, y: -3.1276}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 41
-          _position: {x: -8.0495, y: -2.4524}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 40
-            _connectionType: 2
-            _segment:
-              P1: {x: -8.0495, y: -3.1276}
-              P2: {x: -8.0495, y: -2.4524}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 48
-            _connectionType: 2
-            _segment:
-              P1: {x: -8.0495, y: -2.4524}
-              P2: {x: -2.2909, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 42
-          _position: {x: -2.0495005, y: -2.4524}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 43
-            _connectionType: 2
-            _segment:
-              P1: {x: -2.0495005, y: -2.4524}
-              P2: {x: 1.9504995, y: -2.4524}
-            _maxHeight: 3.3648
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 48
-            _connectionType: 2
-            _segment:
-              P1: {x: -2.2909, y: -2.4524}
-              P2: {x: -2.0495005, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: 0.8387, y: 2.82}
+              P2: {x: -2.7431, y: 2.82}
+            _maxHeight: 6.4347
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 43
-          _position: {x: 1.9504995, y: -2.4524}
+          _position: {x: -4.5713, y: -3.6147}
           _connections:
           - _nodeStore:
               id: 0
-            _nodeIndex: 42
+            _nodeIndex: 12
             _connectionType: 2
             _segment:
-              P1: {x: -2.0495005, y: -2.4524}
-              P2: {x: 1.9504995, y: -2.4524}
-            _maxHeight: 3.3648
+              P1: {x: -4.5964, y: -3.6147}
+              P2: {x: -4.5713, y: -3.6147}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 49
+            _nodeIndex: 13
             _connectionType: 2
             _segment:
-              P1: {x: 1.9504995, y: -2.4524}
-              P2: {x: 2.2909, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: -4.5713, y: -3.6147}
+              P2: {x: -3.5963998, y: -3.6147}
+            _maxHeight: 12.814699
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 36
+            _connectionType: 8
+            _segment:
+              P1: {x: -5.0713, y: 0.4253}
+              P2: {x: -4.5713, y: -3.6147}
+            _maxHeight: Infinity
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 44
-          _position: {x: 3.9504995, y: -2.4524}
+          _position: {x: 3.1569, y: -3.6147}
           _connections:
           - _nodeStore:
               id: 0
-            _nodeIndex: 45
+            _nodeIndex: 14
             _connectionType: 2
             _segment:
-              P1: {x: 3.9504995, y: -2.4524}
-              P2: {x: 7.9504995, y: -2.4524}
-            _maxHeight: 6.4348
+              P1: {x: 1.4036002, y: -3.6147}
+              P2: {x: 3.1569, y: -3.6147}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 38
-            _connectionType: 8
-            _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 3.9504995, y: -2.4524}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 52
+            _nodeIndex: 15
             _connectionType: 2
             _segment:
-              P1: {x: 3.6191, y: -2.4524}
-              P2: {x: 3.9504995, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: 3.1569, y: -3.6147}
+              P2: {x: 3.4036002, y: -3.6147}
+            _maxHeight: 12.814699
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 45
-          _position: {x: 7.9504995, y: -2.4524}
+          _position: {x: -3.2431, y: -3.6147}
           _connections:
           - _nodeStore:
               id: 0
-            _nodeIndex: 44
+            _nodeIndex: 13
             _connectionType: 2
             _segment:
-              P1: {x: 3.9504995, y: -2.4524}
-              P2: {x: 7.9504995, y: -2.4524}
-            _maxHeight: 6.4348
+              P1: {x: -3.5963998, y: -3.6147}
+              P2: {x: -3.2431, y: -3.6147}
+            _maxHeight: 6.4347
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4564,204 +4186,34 @@ MonoBehaviour:
             _nodeIndex: 46
             _connectionType: 2
             _segment:
-              P1: {x: 7.9504995, y: -2.4524}
-              P2: {x: 8.0495, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: -3.2431, y: -3.6147}
+              P2: {x: 1.3387, y: -3.6147}
+            _maxHeight: 6.4347
             _navTag:
               _tag: -1
         - _nodeStore:
             id: 0
           _nodeIndex: 46
-          _position: {x: 8.0495, y: -2.4524}
+          _position: {x: 1.3387, y: -3.6147}
           _connections:
           - _nodeStore:
               id: 0
             _nodeIndex: 45
             _connectionType: 2
             _segment:
-              P1: {x: 7.9504995, y: -2.4524}
-              P2: {x: 8.0495, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: -3.2431, y: -3.6147}
+              P2: {x: 1.3387, y: -3.6147}
+            _maxHeight: 6.4347
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 47
+            _nodeIndex: 14
             _connectionType: 2
             _segment:
-              P1: {x: 8.0495, y: -2.4524}
-              P2: {x: 8.0495, y: -3.1276}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 47
-          _position: {x: 8.0495, y: -3.1276}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 46
-            _connectionType: 2
-            _segment:
-              P1: {x: 8.0495, y: -2.4524}
-              P2: {x: 8.0495, y: -3.1276}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 40
-            _connectionType: 2
-            _segment:
-              P1: {x: 8.0495, y: -3.1276}
-              P2: {x: -8.0495, y: -3.1276}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 48
-          _position: {x: -2.2909, y: -2.4524}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 41
-            _connectionType: 2
-            _segment:
-              P1: {x: -8.0495, y: -2.4524}
-              P2: {x: -2.2909, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 42
-            _connectionType: 2
-            _segment:
-              P1: {x: -2.2909, y: -2.4524}
-              P2: {x: -2.0495005, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 35
-            _connectionType: 8
-            _segment:
-              P1: {x: -1.7909, y: 1.5876}
-              P2: {x: -2.2909, y: -2.4524}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 49
-          _position: {x: 2.2909, y: -2.4524}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 43
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.9504995, y: -2.4524}
-              P2: {x: 2.2909, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 38
-            _connectionType: 8
-            _segment:
-              P1: {x: 1.7909, y: 1.5876}
-              P2: {x: 2.2909, y: -2.4524}
-            _maxHeight: Infinity
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 52
-            _connectionType: 2
-            _segment:
-              P1: {x: 2.2909, y: -2.4524}
-              P2: {x: 3.6191, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 50
-          _position: {x: -1.0283, y: 11.0376}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 4
-            _connectionType: 2
-            _segment:
-              P1: {x: -8.0495, y: 11.0376}
-              P2: {x: -1.0283, y: 11.0376}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 5
-            _connectionType: 2
-            _segment:
-              P1: {x: -1.0283, y: 11.0376}
-              P2: {x: -0.5283, y: 11.0376}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 51
-          _position: {x: 1.0283, y: 11.0376}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 8
-            _connectionType: 2
-            _segment:
-              P1: {x: 0.5283, y: 11.0376}
-              P2: {x: 1.0283, y: 11.0376}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 9
-            _connectionType: 2
-            _segment:
-              P1: {x: 1.0283, y: 11.0376}
-              P2: {x: 8.0495, y: 11.0376}
-            _maxHeight: 50
-            _navTag:
-              _tag: -1
-        - _nodeStore:
-            id: 0
-          _nodeIndex: 52
-          _position: {x: 3.6191, y: -2.4524}
-          _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 49
-            _connectionType: 2
-            _segment:
-              P1: {x: 2.2909, y: -2.4524}
-              P2: {x: 3.6191, y: -2.4524}
-            _maxHeight: 12.8148
-            _navTag:
-              _tag: -1
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 44
-            _connectionType: 2
-            _segment:
-              P1: {x: 3.6191, y: -2.4524}
-              P2: {x: 3.9504995, y: -2.4524}
-            _maxHeight: 12.8148
+              P1: {x: 1.3387, y: -3.6147}
+              P2: {x: 1.4036002, y: -3.6147}
+            _maxHeight: 6.4347
             _navTag:
               _tag: -1
 --- !u!4 &1727419676

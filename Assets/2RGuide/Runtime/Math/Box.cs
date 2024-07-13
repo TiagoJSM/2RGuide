@@ -17,7 +17,7 @@ namespace Assets._2RGuide.Runtime.Math
             var bcTransform = collider.transform;
 
             // The collider's centre point in the world
-            Vector2 worldPosition = bcTransform.TransformPoint(0, 0, 0);
+            Vector2 worldPosition = bcTransform.TransformPoint(collider.offset);
 
             // The collider's local width and height, accounting for scale, divided by 2
             var size = new Vector2(collider.size.x * bcTransform.localScale.x * 0.5f, collider.size.y * bcTransform.localScale.y * 0.5f);
