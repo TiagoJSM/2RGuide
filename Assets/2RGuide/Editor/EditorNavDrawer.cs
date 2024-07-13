@@ -88,7 +88,9 @@ namespace Assets._2RGuide.Editor
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
+#if TWOR_GUIDE_DEBUG
                 Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees};");
+#endif
             }
         }
 
@@ -108,6 +110,7 @@ namespace Assets._2RGuide.Editor
 
         private static void RenderNodes(Node[] nodes)
         {
+#if TWOR_GUIDE_DEBUG
             if (nodes == null)
             {
                 return;
@@ -116,6 +119,7 @@ namespace Assets._2RGuide.Editor
             {
                 Handles.Label(node.Position, $"Node[{node.NodeIndex}] ({node.Position.x:0.00} , {node.Position.y:0.00})");
             }
+#endif
         }
     }
 }

@@ -191,7 +191,7 @@ namespace Assets._2RGuide.Editor
 
             var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
 
-            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, splits.Item2, ConnectionType.Walk, navTagBounds);
+            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, ConnectionType.Walk, navTagBounds);
 
             return new NavBuildContext()
             {

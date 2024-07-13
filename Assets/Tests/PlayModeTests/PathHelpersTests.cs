@@ -39,7 +39,7 @@ namespace Assets.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), ConnectionType.Walk, Array.Empty<NavTagBounds>());
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBounds>());
 
             var navBuildContext = new NavBuildContext()
             {
