@@ -87,7 +87,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return segments.ToArray();
         }
 
-        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, ConnectionType connectionType, NavTagBounds[] navTagBounds)
+        public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, ConnectionType connectionType, NavTagBoxBounds[] navTagBounds)
         {
             return
                 segments

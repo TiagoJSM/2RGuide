@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using Clipper2Lib;
+using System.Collections;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +14,7 @@ namespace Assets._2RGuide.Runtime.Math
         public Vector2 TopRight { get; }
         public Vector2 BottomLeft { get; }
         public Vector2 BottomRight { get; }
-
+        
         public Box(BoxCollider2D collider)
         {
             var bcTransform = collider.transform;
@@ -42,7 +45,6 @@ namespace Assets._2RGuide.Runtime.Math
             TopLeft = worldPosition + corner2;
             BottomRight = worldPosition + corner3;
             TopRight = worldPosition + corner4;
-
         }
 
         // Helper method courtesy of @aldonaletto

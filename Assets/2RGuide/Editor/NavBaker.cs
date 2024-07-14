@@ -74,7 +74,7 @@ namespace Assets._2RGuide.Editor
         {
             var colliders = GetColliders(world);
             var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
-            var navBuildContext = GetNavBuildContext(colliders, navTagBounds, NodePathSettings);
+            var navBuildContext = GetNavBuildContext(colliders, navTagBounds);
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
             world.AssignData(navResult);
         }
@@ -85,10 +85,19 @@ namespace Assets._2RGuide.Editor
             var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
 
             var colliders = GetColliders(navWorld);
-            var navBuildContext = GetNavBuildContext(colliders, navTagBounds, NodePathSettings);
+
+            var nodePathSettings = NodePathSettings;
+            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
+            var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
             var jumpSettings = JumpSettings;
             var dropSettings = DropSettings;
-            var navResultTask = Task.Run(() => NavHelper.Build(navBuildContext, jumpSettings, dropSettings));
+            var segmentDivision = nodePathSettings.segmentDivision;
+            var segmentMaxHeight = nodePathSettings.segmentMaxHeight;
+            var navResultTask = Task.Run(() => 
+            { 
+                var navBuildContext = GetNavBuildContext(segments, oneWayEdgeSegments, closedPath, navTagBoxBounds, segmentDivision, segmentMaxHeight);
+                return NavHelper.Build(navBuildContext, jumpSettings, dropSettings); 
+            });
 
             var progressId = Progress.Start("Baking 2D nav", options: Progress.Options.Indefinite);
 
@@ -147,7 +156,15 @@ namespace Assets._2RGuide.Editor
             return world.gameObject.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<NavTagBounds>() == null).ToArray();
         }
 
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
+        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds)
+        {
+            var nodePathSettings = NodePathSettings;
+            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
+            var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
+            return GetNavBuildContext(segments, oneWayEdgeSegments, closedPath, navTagBoxBounds, nodePathSettings.segmentDivision, nodePathSettings.segmentMaxHeight);
+        }
+
+        private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PathsD) GetPathDescription(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
         {
             var clipper = ClipperUtils.ConfiguredClipperD();
 
@@ -191,7 +208,12 @@ namespace Assets._2RGuide.Editor
 
             var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
 
-            var navSegments = NavHelper.ConvertToNavSegments(segments, nodePathSettings.segmentDivision, oneWayEdgeSegments, NodePathSettings.segmentMaxHeight, ConnectionType.Walk, navTagBounds);
+            return (segments, oneWayEdgeSegments, closedPath);
+        }
+
+        private static NavBuildContext GetNavBuildContext(IEnumerable<LineSegment2D> segments, IEnumerable<LineSegment2D> oneWayEdgeSegments, PathsD closedPath, NavTagBoxBounds[] navTagBoxBounds, float segmentDivision, float segmentMaxHeight)
+        {
+            var navSegments = NavHelper.ConvertToNavSegments(segments, segmentDivision, oneWayEdgeSegments, segmentMaxHeight, ConnectionType.Walk, navTagBoxBounds);
 
             return new NavBuildContext()
             {
