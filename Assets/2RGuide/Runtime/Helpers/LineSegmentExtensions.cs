@@ -9,6 +9,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class LineSegmentExtensions
     {
+        private const float SegmentEndingsGap = 0.01f;
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {
             var slope = segment.Slope;
@@ -63,9 +64,14 @@ namespace Assets._2RGuide.Runtime.Helpers
             var splits = new List<NavSegment>();
 
             var p1 = segment.P1;
+            var raycastP1 = p1;
             var normal = segment.NormalizedNormalVector;
-            var nonConnectingSegments = segments.Where(s => s.P1 != p1 && s.P2 != p1);
-            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, nonConnectingSegments);
+            var connectingSegments = segments.Any(s => s.OnSegment(p1));
+            if (connectingSegments)
+            {
+                raycastP1 = Vector2.MoveTowards(p1, segment.P2, SegmentEndingsGap);
+            }
+            var hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)
             {
@@ -81,8 +87,14 @@ namespace Assets._2RGuide.Runtime.Helpers
             while (p1 != segment.P2)
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                nonConnectingSegments = segments.Where(s => s.P1 != p2 && s.P2 != p2);
-                hit = Calculations.Raycast(p2, p2 + normal * maxHeight, nonConnectingSegments);
+                var raycastP2 = p2;
+                connectingSegments = segments.Any(s => s.OnSegment(p2));
+                if (p2 == segment.P2 && connectingSegments)
+                {
+                    raycastP2 = Vector2.MoveTowards(p2, segment.P1, SegmentEndingsGap);
+                }
+                
+                hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
                 var p2Height = hit ? hit.Distance : maxHeight;
 
                 if (p2 == segment.P2)
@@ -135,7 +147,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         public static Vector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
         {
             return segments
-                .Select(s => s.GetIntersection(segment, false))
+                .Select(s => s.GetIntersection(segment, true))
                 .Where(v => v.HasValue)
                 .Select(v => v.Value).ToArray();
         }
