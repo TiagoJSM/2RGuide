@@ -60,9 +60,11 @@ namespace Assets._2RGuide.Editor
             }
         }
 
+        public static bool ReadyToBakeInBackground => _bakingCoroutine == null;
+
         public static void BakePathfindingInBackground()
         {
-            if (_bakingCoroutine != null)
+            if (!ReadyToBakeInBackground)
             {
                 return;
             }
@@ -107,8 +109,12 @@ namespace Assets._2RGuide.Editor
             }
 
             Progress.Remove(progressId);
-
-            if (navWorld != null)
+            
+            if(navResultTask.Exception != null)
+            {
+                Debug.LogException(navResultTask.Exception);
+            }
+            else if (navWorld != null)
             {
                 navWorld.AssignData(navResultTask.Result);
                 EditorUtility.SetDirty(navWorld);

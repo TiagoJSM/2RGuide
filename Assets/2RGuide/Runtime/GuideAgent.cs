@@ -2,12 +2,35 @@
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using System;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace Assets._2RGuide.Runtime
 {
+    [Serializable]
+    public class ConnectionTypeMultipliers
+    {
+        [SerializeField]
+        private float _walk = 1.0f;
+        [SerializeField]
+        private float _drop = 1.0f;
+        [SerializeField]
+        private float _jump = 1.0f;
+        [SerializeField]
+        private float _oneWayPlatformJump = 1.0f;
+        [SerializeField]
+        private float _oneWayPlatformDrop = 1.0f;
+
+        public float Walk => _walk;
+        public float Drop => _drop;
+        public float Jump => _jump;
+        public float OneWayPlatformJump => _oneWayPlatformJump;
+        public float OneWayPlatformDrop => _oneWayPlatformDrop;
+    }
+
     public class GuideAgent : MonoBehaviour
     {
         public struct AgentSegment
@@ -56,6 +79,10 @@ namespace Assets._2RGuide.Runtime
         private float _pathfindingMaxDistance = float.PositiveInfinity;
         [SerializeField]
         private NavTag[] _navTagCapable;
+        [SerializeField]
+        private float _stepHeight;
+        [SerializeField]
+        private ConnectionTypeMultipliers _connectionMultipliers;
 
         private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
         private bool RequiresFindingNewPath => !_currentDestination.HasValue && _desiredDestination.HasValue;
@@ -159,7 +186,7 @@ namespace Assets._2RGuide.Runtime
 
             var pathfindingTask = Task.Run(() =>
             {
-                return GuideAgentHelper.PathfindingTask(start, end, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, segmentProximityMaxDistance, _navTagCapable);
+                return GuideAgentHelper.PathfindingTask(start, end, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, segmentProximityMaxDistance, _navTagCapable, _stepHeight, _connectionMultipliers);
             });
 
             while (!pathfindingTask.IsCompleted)

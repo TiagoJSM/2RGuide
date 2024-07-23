@@ -204,6 +204,13 @@ MonoBehaviour:
   _allowedConnectionTypes: 30
   _pathfindingMaxDistance: Infinity
   _navTagCapable: []
+  _stepHeight: 0
+  _connectionMultipliers:
+    _walk: 1
+    _drop: 1
+    _jump: 1
+    _oneWayPlatformJump: 1
+    _oneWayPlatformDrop: 1
 --- !u!4 &720845718
 Transform:
   m_ObjectHideFlags: 0

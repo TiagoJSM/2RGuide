@@ -67,11 +67,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             var raycastP1 = p1;
             var normal = segment.NormalizedNormalVector;
             var connectingSegments = segments.Any(s => s.OnSegment(p1));
-            if (connectingSegments)
+            var hit = default(CalculationRaycastHit);
+            if (!connectingSegments)
             {
-                raycastP1 = Vector2.MoveTowards(p1, segment.P2, SegmentEndingsGap);
+                hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
             }
-            var hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)
             {
@@ -89,22 +89,24 @@ namespace Assets._2RGuide.Runtime.Helpers
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
                 var raycastP2 = p2;
                 connectingSegments = segments.Any(s => s.OnSegment(p2));
-                if (p2 == segment.P2 && connectingSegments)
-                {
-                    raycastP2 = Vector2.MoveTowards(p2, segment.P1, SegmentEndingsGap);
-                }
-                
-                hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
-                var p2Height = hit ? hit.Distance : maxHeight;
 
-                if (p2 == segment.P2)
+                var p2Height = maxHeight;
+                var canValidatePoint = p2 != segment.P2 || (p2 == segment.P2 && !connectingSegments);
+
+                if (canValidatePoint)
                 {
-                    if (hit && hit.HitLineEnd)
+                    hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
+                    p2Height = hit ? hit.Distance : maxHeight;
+
+                    if (p2 == segment.P2)
                     {
-                        var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
-                        if (!sameDir)
+                        if (hit && hit.HitLineEnd)
                         {
-                            p2Height = p1Height;
+                            var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
+                            if (!sameDir)
+                            {
+                                p2Height = p1Height;
+                            }
                         }
                     }
                 }

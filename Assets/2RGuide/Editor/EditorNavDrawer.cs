@@ -89,7 +89,7 @@ namespace Assets._2RGuide.Editor
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
 #if TWOR_GUIDE_DEBUG
-                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees};");
+                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; MaxH: {navSegment.maxHeight}");
 #endif
             }
         }
