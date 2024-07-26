@@ -41,8 +41,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             var navSegmentContainingP1 = GetNavSegmentContaining(navSegment.segment.P1);
             var navSegmentContainingP2 = GetNavSegmentContaining(navSegment.segment.P2);
 
-            var n1 = navSegmentContainingP1 ? SplitSegment(navSegmentContainingP1, navSegment.segment.P1) : _nodeStore.NewNodeOrExisting(navSegment.segment.P1);
-            var n2 = navSegmentContainingP2 ? SplitSegment(navSegmentContainingP2, navSegment.segment.P2) : _nodeStore.NewNodeOrExisting(navSegment.segment.P2);
+            var n1 = navSegmentContainingP1 ? SplitSegment(navSegment.segment.P1) : _nodeStore.NewNodeOrExisting(navSegment.segment.P1);
+            var n2 = navSegmentContainingP2 ? SplitSegment(navSegment.segment.P2) : _nodeStore.NewNodeOrExisting(navSegment.segment.P2);
 
             switch (navSegment.connectionType)
             {
@@ -58,7 +58,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
         }
 
-        public Node SplitSegment(NavSegment navSegment, Vector2 point)
+        public Node SplitSegment(Vector2 point)
         {
             var existingNode = _nodeStore.Get(point);
             if (existingNode != null)
@@ -73,7 +73,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 return null;
             }
 
-            navSegment = _navSegments[index];
+            var navSegment = _navSegments[index];
 
             var newNode = _nodeStore.SplitSegmentAt(navSegment.segment, point);
             _navSegments.Remove(navSegment);

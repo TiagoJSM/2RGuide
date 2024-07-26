@@ -22,8 +22,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                     continue;
                 }
 
-                var hitNavSegment = navBuilder.NavSegments.First(ns => ns.segment.IsCoincident(hit.LineSegment));
-
                 var targetPlatformSegment = hit.LineSegment;
 
                 var segmentAlreadyPresent = existingConnections.Any(s => s.IsCoincident(new LineSegment2D(oneWayPlatform.segment.HalfPoint, hit.HitPosition.Value)));
@@ -32,8 +30,8 @@ namespace Assets._2RGuide.Runtime.Helpers
                     continue;
                 }
 
-                var n1 = navBuilder.SplitSegment(oneWayPlatform, oneWayPlatform.segment.HalfPoint);
-                var n2 = navBuilder.SplitSegment(hitNavSegment, hit.HitPosition.Value);
+                var n1 = navBuilder.SplitSegment(oneWayPlatform.segment.HalfPoint);
+                var n2 = navBuilder.SplitSegment(hit.HitPosition.Value);
 
                 navBuilder.AddNavSegment(new NavSegment()
                 {
