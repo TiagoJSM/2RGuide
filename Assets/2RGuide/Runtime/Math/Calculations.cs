@@ -48,8 +48,8 @@ namespace Assets._2RGuide.Runtime.Math
                 segments
                     .Select(s =>
                         (s, ray.GetIntersection(s)))
-                    .Where(v =>
-                        v.Item2.HasValue)
+                    .Where(v => 
+                        v.Item2.HasValue && !Vector2Extensions.Approximately(v.Item2.Value, origin))
                     .MinBy(v =>
                         Vector2.Distance(v.Item2.Value, origin));
 

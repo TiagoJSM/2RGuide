@@ -9,7 +9,9 @@ namespace Assets._2RGuide.Runtime.Helpers
         public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Vector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
         {
             var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).ToArray();
-            var segments = navBuildContext.segments.Select(s => s.segment).ToArray();
+            //var segments = navBuildContext.segments.Select(s => s.segment).ToArray();
+            //var oneWayPlatforms = navBuilder.NavSegments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).ToArray();
+            var segments = navBuilder.NavSegments.Select(s => s.segment).ToArray();
 
             foreach (var oneWayPlatform in oneWayPlatforms)
             {
@@ -20,9 +22,8 @@ namespace Assets._2RGuide.Runtime.Helpers
                     continue;
                 }
 
-                var hitNavSegment = navBuildContext.segments.First(ns => ns.segment.IsCoincident(hit.LineSegment));
+                var hitNavSegment = navBuilder.NavSegments.First(ns => ns.segment.IsCoincident(hit.LineSegment));
 
-                var oneWayPlatformSegment = segments.GetSegmentWithPosition(oneWayPlatform.segment.HalfPoint);
                 var targetPlatformSegment = hit.LineSegment;
 
                 var segmentAlreadyPresent = existingConnections.Any(s => s.IsCoincident(new LineSegment2D(oneWayPlatform.segment.HalfPoint, hit.HitPosition.Value)));
@@ -33,6 +34,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
                 var n1 = navBuilder.SplitSegment(oneWayPlatform, oneWayPlatform.segment.HalfPoint);
                 var n2 = navBuilder.SplitSegment(hitNavSegment, hit.HitPosition.Value);
+
                 navBuilder.AddNavSegment(new NavSegment()
                 {
                     segment = new LineSegment2D() { P1 = n1.Position, P2 = n2.Position },

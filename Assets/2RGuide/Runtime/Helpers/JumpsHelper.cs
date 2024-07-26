@@ -21,7 +21,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
-                var segmentsInRange = navBuildContext.segments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !settings.noJumpsTargetTags.Contains(ss.navTag) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = navBuilder.NavSegments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !settings.noJumpsTargetTags.Contains(ss.navTag) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
 
                 if (node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
@@ -35,7 +35,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuilder.NavSegments.ToList());
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -65,7 +65,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                         new LineSegment2D(node.Position, p))
                     .Where(s =>
                     {
-                        var overlaps = !s.IsSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
+                        var overlaps = !s.IsSegmentOverlappingTerrain(navBuildContext.closedPath);
                         return overlaps;
                     })
                     .ToArray();

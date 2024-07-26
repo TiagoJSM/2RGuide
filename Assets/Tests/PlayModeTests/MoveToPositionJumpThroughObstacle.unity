@@ -710,11 +710,11 @@ MonoBehaviour:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 7
+        _nodeIndex: 16
         _connectionType: 8
         _segment:
           P1: {x: -1.0372, y: 0.5}
-          P2: {x: 2.3672, y: 0.5}
+          P2: {x: 1.8671999, y: 0.5}
         _maxHeight: Infinity
         _navTag:
           _tag: -1
@@ -795,10 +795,10 @@ MonoBehaviour:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 4
+        _nodeIndex: 16
         _connectionType: 8
         _segment:
-          P1: {x: -1.0372, y: 0.5}
+          P1: {x: 1.8671999, y: 0.5}
           P2: {x: 2.3672, y: 0.5}
         _maxHeight: Infinity
         _navTag:
@@ -1003,6 +1003,31 @@ MonoBehaviour:
         _maxHeight: 50
         _navTag:
           _tag: 0
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 16
+      _position: {x: 1.8671999, y: 0.5}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 4
+        _connectionType: 8
+        _segment:
+          P1: {x: -1.0372, y: 0.5}
+          P2: {x: 1.8671999, y: 0.5}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 7
+        _connectionType: 8
+        _segment:
+          P1: {x: 1.8671999, y: 0.5}
+          P2: {x: 2.3672, y: 0.5}
+        _maxHeight: Infinity
+        _navTag:
+          _tag: -1
   _segments:
   - segment:
       P1: {x: -1.2528, y: -1.32}
@@ -1134,10 +1159,14 @@ MonoBehaviour:
     connectionType: 2
   _drops: []
   _jumps:
-  - P1: {x: -1.0372, y: 0.5}
-    P2: {x: 2.3672, y: 0.5}
   - P1: {x: 2.3672, y: 0.5}
     P2: {x: -1.0372, y: 0.5}
+  - P1: {x: 2.3672, y: 0.5}
+    P2: {x: 1.8671999, y: 0.5}
+  - P1: {x: -1.0372, y: 0.5}
+    P2: {x: 1.8671999, y: 0.5}
+  - P1: {x: 1.8671999, y: 0.5}
+    P2: {x: 2.3672, y: 0.5}
   _uniqueSegments:
   - segment:
       P1: {x: -1.2528, y: -1.32}
@@ -1189,7 +1218,7 @@ MonoBehaviour:
     connectionType: 0
   - segment:
       P1: {x: -1.0372, y: 0.5}
-      P2: {x: 2.3672, y: 0.5}
+      P2: {x: 1.8671999, y: 0.5}
     maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
@@ -1223,6 +1252,14 @@ MonoBehaviour:
       P1: {x: 2.3672, y: 0.5}
       P2: {x: 6.3528, y: 0.5}
     maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 0
+  - segment:
+      P1: {x: 1.8671999, y: 0.5}
+      P2: {x: 2.3672, y: 0.5}
+    maxHeight: Infinity
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -1408,11 +1445,11 @@ MonoBehaviour:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 7
+            _nodeIndex: 16
             _connectionType: 8
             _segment:
               P1: {x: -1.0372, y: 0.5}
-              P2: {x: 2.3672, y: 0.5}
+              P2: {x: 1.8671999, y: 0.5}
             _maxHeight: Infinity
             _navTag:
               _tag: -1
@@ -1493,10 +1530,10 @@ MonoBehaviour:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 4
+            _nodeIndex: 16
             _connectionType: 8
             _segment:
-              P1: {x: -1.0372, y: 0.5}
+              P1: {x: 1.8671999, y: 0.5}
               P2: {x: 2.3672, y: 0.5}
             _maxHeight: Infinity
             _navTag:
@@ -1701,6 +1738,31 @@ MonoBehaviour:
             _maxHeight: 50
             _navTag:
               _tag: 0
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 16
+          _position: {x: 1.8671999, y: 0.5}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 4
+            _connectionType: 8
+            _segment:
+              P1: {x: -1.0372, y: 0.5}
+              P2: {x: 1.8671999, y: 0.5}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 7
+            _connectionType: 8
+            _segment:
+              P1: {x: 1.8671999, y: 0.5}
+              P2: {x: 2.3672, y: 0.5}
+            _maxHeight: Infinity
+            _navTag:
+              _tag: -1
 --- !u!4 &2128047355
 Transform:
   m_ObjectHideFlags: 0

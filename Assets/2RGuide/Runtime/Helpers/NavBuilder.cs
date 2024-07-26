@@ -66,6 +66,15 @@ namespace Assets._2RGuide.Runtime.Helpers
                 return existingNode;
             }
 
+            var index = _navSegments.FindIndex(ns => ns.segment.Contains(point));
+
+            if(index == -1)
+            {
+                return null;
+            }
+
+            navSegment = _navSegments[index];
+
             var newNode = _nodeStore.SplitSegmentAt(navSegment.segment, point);
             _navSegments.Remove(navSegment);
             var nav1 = navSegment;
@@ -82,7 +91,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         private NavSegment GetNavSegmentContaining(Vector2 p)
         {
-            return _navSegments.FirstOrDefault(ns => ns.segment.OnSegment(p) && !ns.segment.P1.Approximately(p) && !ns.segment.P2.Approximately(p));
+            return _navSegments.FirstOrDefault(ns => ns.segment.Contains(p) && !ns.segment.P1.Approximately(p) && !ns.segment.P2.Approximately(p));
         }
     }
 }

@@ -66,7 +66,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             var p1 = segment.P1;
             var raycastP1 = p1;
             var normal = segment.NormalizedNormalVector;
-            var connectingSegments = segments.Any(s => s.OnSegment(p1));
+            var connectingSegments = segments.Any(s => s.Contains(p1));
             var hit = default(CalculationRaycastHit);
             if (!connectingSegments)
             {
@@ -88,7 +88,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
                 var raycastP2 = p2;
-                connectingSegments = segments.Any(s => s.OnSegment(p2));
+                connectingSegments = segments.Any(s => s.Contains(p2));
 
                 var p2Height = maxHeight;
                 var canValidatePoint = p2 != segment.P2 || (p2 == segment.P2 && !connectingSegments);
@@ -128,7 +128,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var pointsOnSegment =
                 splitPoints
-                    .Where(p => segment.OnSegment(p))
+                    .Where(p => segment.Contains(p))
                     .OrderBy(p => Vector2.Distance(segment.P1, p));
 
             var result = new List<LineSegment2D>();
@@ -154,7 +154,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 .Select(v => v.Value).ToArray();
         }
 
-        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths, IEnumerable<NavSegment> navSegments)
+        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths)
         {
             var line = Clipper.MakePath(new double[]
                 {
@@ -186,7 +186,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
         {
-            return segments.FirstOrDefault(s => s.OnSegment(position));
+            return segments.FirstOrDefault(s => s.Contains(position));
         }
 
         public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)

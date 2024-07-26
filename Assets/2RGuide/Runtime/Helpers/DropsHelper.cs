@@ -31,7 +31,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                     var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        //PathBuilderHelper.AddTargetNodeForSegment(target, navBuilder, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
                         AddDropNavSegment(target, navBuilder);
                     }
                 }
@@ -43,7 +42,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                     var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
                     if (target)
                     {
-                        //PathBuilderHelper.AddTargetNodeForSegment(target, navBuilder, ConnectionType.Drop, settings.maxSlope, float.PositiveInfinity);
                         AddDropNavSegment(target, navBuilder);
                     }
                 }
@@ -84,7 +82,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var segment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
 
-                var overlaps = segment.IsSegmentOverlappingTerrain(navBuildContext.closedPath, navSegments);
+                var overlaps = segment.IsSegmentOverlappingTerrain(navBuildContext.closedPath);
 
                 if (overlaps)
                 {

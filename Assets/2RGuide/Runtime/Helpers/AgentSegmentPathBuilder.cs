@@ -44,7 +44,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var lastSegment = new LineSegment2D(agentSegments[agentSegments.Count - 2].position, agentSegments[agentSegments.Count - 1].position);
             
-            if (lastSegment.OnSegment(lastClosestPoint))
+            if (lastSegment.Contains(lastClosestPoint))
             {
                 var agentSegment = agentSegments[agentSegments.Count - 1];
                 agentSegment.position = lastClosestPoint;
