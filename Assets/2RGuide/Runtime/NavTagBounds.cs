@@ -12,11 +12,5 @@ namespace Assets._2RGuide.Runtime
 
         public BoxCollider2D Collider => _collider;
         public NavTag NavTag => _navTag;
-
-        public bool Contains(LineSegment2D lineSeg)
-        {
-            var bounds = _collider.bounds;
-            return bounds.Contains(lineSeg.P1) && bounds.Contains(lineSeg.P2);
-        }
     }
 }

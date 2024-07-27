@@ -25,7 +25,7 @@ namespace Assets.Tests.PlayModeTests
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity, null);
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity, null);
 
-            var path = AStar.Resolve(n1, n2, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
+            var path = AStar.Resolve(n1, n2, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
             Assert.AreEqual(2, path.Length);
         }
@@ -73,7 +73,7 @@ namespace Assets.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), ConnectionType.Walk, Array.Empty<NavTagBounds>());
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
 
             var navBuildContext = new NavBuildContext()
             {
@@ -86,7 +86,7 @@ namespace Assets.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(1.5f, -1.5f));
             var end = navResult.nodeStore.Get(new Vector2(0.0f, 3.5f));
 
-            var path = AStar.Resolve(start, end, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
+            var path = AStar.Resolve(start, end, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
             Assert.AreEqual(4, path.Length);
         }
@@ -134,7 +134,7 @@ namespace Assets.Tests.PlayModeTests
 
             var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f, Enumerable.Empty<LineSegment2D>(), ConnectionType.Walk, Array.Empty<NavTagBounds>());
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
 
             var navBuildContext = new NavBuildContext()
             {
@@ -147,7 +147,7 @@ namespace Assets.Tests.PlayModeTests
             var start = navResult.nodeStore.Get(new Vector2(0.0f, 0.0f));
             var end = navResult.nodeStore.Get(new Vector2(30.0f, 0.0f));
 
-            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>());
+            var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
             Assert.AreEqual(6, path.Length);
         }
@@ -164,7 +164,7 @@ namespace Assets.Tests.PlayModeTests
             var navWorld = NavWorldReference.Instance.NavWorld;
             var startN = navWorld.GetClosestNode(agentGO.transform.position, 100.0f);
             var endN = navWorld.GetClosestNode(targetGO.transform.position, 100.0f);
-            var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>());
+            var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
             Assert.AreEqual(4, nodes.Length);
         }

@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/MoveToPositionOnly1NodeTestScene.unity
     guid: 902cc02eb235b1640ab1f5aa86654d11
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveToPositionRotatedOneWayStepTestScene.unity
+    guid: a3881d89a736ff940b2ae69f6856d39e
   m_configObjects: {}

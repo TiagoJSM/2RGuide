@@ -27,6 +27,7 @@ namespace Assets._2RGuide.Editor
         {
             DrawDefaultInspector();
 
+            GUI.enabled = NavBaker.ReadyToBakeInBackground;
             if (GUILayout.Button("Bake Pathfinding"))
             {
                 BakePathfinding();

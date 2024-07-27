@@ -283,7 +283,7 @@ namespace Assets._2RGuide.Runtime.Math
             return closestPoint;*/
         }
 
-        public bool OnSegment(Vector2 p)
+        public bool Contains(Vector2 p)
         {
             return OnSegment(P1, p, P2);
         }
@@ -300,7 +300,7 @@ namespace Assets._2RGuide.Runtime.Math
 
         public override string ToString()
         {
-            return "(" + P1.ToString() + ";" + P2.ToString() + ")";
+            return "(" + P1.ToString("F6") + ";" + P2.ToString("F6") + ")";
         }
 
         public static float CalculateY(float x, float b, float m)

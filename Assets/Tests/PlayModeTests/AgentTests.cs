@@ -3,6 +3,7 @@ using Assets.Tests.PlayModeTests.Attributes;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -25,7 +26,7 @@ namespace Assets.Tests.PlayModeTests
             }
         }
 
-        static AgentTargetMovementParams[] MoveToTargetsTestValues = new[]
+        static readonly AgentTargetMovementParams[] MoveToTargetsTestValues = new[]
         {
             new AgentTargetMovementParams("MoveToPositionTestScene", new[] { "Target" }),
             new AgentTargetMovementParams("MoveToPositionWithJumpsTestScene", new[] { "Target" }),

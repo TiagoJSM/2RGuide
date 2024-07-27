@@ -15,19 +15,21 @@ namespace Assets._2RGuide.Runtime.Helpers
         }
 
         public static PathfindingResult PathfindingTask(
-           Vector2 start, 
-           Vector2 end, 
-           float maxHeight, 
-           float maxSlopeDegrees, 
-           ConnectionType allowedConnectionTypes, 
-           float pathfindingMaxDistance, 
-           float segmentProximityMaxDistance,
-           NavTag[] navTagCapable)
+            Vector2 start, 
+            Vector2 end, 
+            float maxHeight, 
+            float maxSlopeDegrees, 
+            ConnectionType allowedConnectionTypes, 
+            float pathfindingMaxDistance, 
+            float segmentProximityMaxDistance,
+            NavTag[] navTagCapable, 
+            float stepHeight,
+            ConnectionTypeMultipliers connectionMultipliers)
         {
             var navWorld = NavWorldReference.Instance.NavWorld;
             var startN = navWorld.GetClosestNode(start, segmentProximityMaxDistance);
             var endN = navWorld.GetClosestNode(end);
-            var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable);
+            var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             var pathStatus = PathStatus.Invalid;
 
             if (nodes == null || nodes.Length == 0)

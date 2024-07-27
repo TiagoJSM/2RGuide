@@ -108,8 +108,15 @@ namespace Assets._2RGuide.Runtime
 
         public NodeConnection? ConnectionWith(Node n)
         {
-            var nc = Connections.FirstOrDefault(c => c.Node.Equals(n));
-            return nc;
+            foreach(var connection in Connections) 
+            {
+                if (connection.Node.Equals(n))
+                {
+                    return connection;
+                }
+            }
+
+            return null;
         }
 
         public void RemoveConnectionWith(Node n)

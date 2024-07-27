@@ -174,6 +174,13 @@ MonoBehaviour:
   _allowedConnectionTypes: 30
   _pathfindingMaxDistance: Infinity
   _navTagCapable: []
+  _stepHeight: 0
+  _connectionMultipliers:
+    _walk: 1
+    _drop: 1
+    _jump: 1
+    _oneWayPlatformJump: 1
+    _oneWayPlatformDrop: 1
 --- !u!4 &720845718
 Transform:
   m_ObjectHideFlags: 0
@@ -468,7 +475,7 @@ MonoBehaviour:
         _segment:
           P1: {x: 1.434, y: 2.06}
           P2: {x: 0.434, y: 2.06}
-        _maxHeight: 1.56
+        _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
@@ -573,7 +580,7 @@ MonoBehaviour:
         _segment:
           P1: {x: 1.434, y: 2.06}
           P2: {x: 0.434, y: 2.06}
-        _maxHeight: 1.56
+        _maxHeight: 50
         _navTag:
           _tag: -1
     - _nodeStore:
@@ -834,7 +841,7 @@ MonoBehaviour:
   - segment:
       P1: {x: 1.434, y: 2.06}
       P2: {x: 0.434, y: 2.06}
-    maxHeight: 1.56
+    maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -923,7 +930,7 @@ MonoBehaviour:
   - segment:
       P1: {x: 1.434, y: 2.06}
       P2: {x: 0.434, y: 2.06}
-    maxHeight: 1.56
+    maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -1060,7 +1067,7 @@ MonoBehaviour:
             _segment:
               P1: {x: 1.434, y: 2.06}
               P2: {x: 0.434, y: 2.06}
-            _maxHeight: 1.56
+            _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:
@@ -1165,7 +1172,7 @@ MonoBehaviour:
             _segment:
               P1: {x: 1.434, y: 2.06}
               P2: {x: 0.434, y: 2.06}
-            _maxHeight: 1.56
+            _maxHeight: 50
             _navTag:
               _tag: -1
         - _nodeStore:

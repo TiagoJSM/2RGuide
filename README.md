@@ -30,6 +30,10 @@ Planned Features
 ===
 * Support for user designed jumps and drops to connect segments
 
+Additional Debug
+===
+Add `TWOR_GUIDE_DEBUG` as preprocessor directive to include additional debug information in editor.
+
 Examples
 ===
 ## Baking navigation segments:

@@ -1,4 +1,5 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,8 +8,25 @@ namespace Assets._2RGuide.Runtime
 {
     public static class AStar
     {
-        public static Node[] Resolve(Node start, Node goal, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float maxDistance, NavTag[] navTagCapable)
+        public static Node[] Resolve(
+            Node start, 
+            Node goal, 
+            float maxHeight, 
+            float maxSlopeDegrees, 
+            ConnectionType allowedConnectionTypes, 
+            float maxDistance,
+            NavTag[] navTagCapable, 
+            float stepHeight,
+            ConnectionTypeMultipliers connectionMultipliers)
         {
+            var multipliers = new Dictionary<ConnectionType, float>
+            {
+                { ConnectionType.Walk, connectionMultipliers.Walk },
+                { ConnectionType.Drop, connectionMultipliers.Drop },
+                { ConnectionType.Jump, connectionMultipliers.Jump },
+                { ConnectionType.OneWayPlatformJump, connectionMultipliers.OneWayPlatformJump },
+                { ConnectionType.OneWayPlatformDrop, connectionMultipliers.OneWayPlatformDrop },
+            };
             var queue = new PriorityQueue<Node, float>();
             queue.Enqueue(start, 0);
 
@@ -42,7 +60,7 @@ namespace Assets._2RGuide.Runtime
                     {
                         continue;
                     }
-                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees)
+                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !CanWalkOnStep(current, neighbor, stepHeight))
                     {
                         continue;
                     }
@@ -51,7 +69,7 @@ namespace Assets._2RGuide.Runtime
                         continue;
                     }
 
-                    var tentativeGScore = gScore[current] + Vector2.Distance(current.Position, neighbor.Node.Position);
+                    var tentativeGScore = gScore[current] + (neighbor.Segment.Lenght * multipliers[neighbor.ConnectionType]);
 
                     if (tentativeGScore > maxDistance)
                     {
@@ -107,6 +125,11 @@ namespace Assets._2RGuide.Runtime
         private static float Heuristic(Node node, Node goal)
         {
             return Vector2.Distance(node.Position, goal.Position);
+        }
+
+        private static bool CanWalkOnStep(Node current, NodeConnection neighbor, float stepHeight)
+        {
+            return current.Position.y < neighbor.Node.Position.y && neighbor.Segment.Lenght < stepHeight;
         }
     }
 }

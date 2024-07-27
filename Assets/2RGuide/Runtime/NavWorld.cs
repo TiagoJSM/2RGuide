@@ -12,14 +12,29 @@ namespace Assets._2RGuide.Runtime
     {
         private RTree<NavSegmentPoint> _tree;
 
+#if !TWOR_GUIDE_DEBUG
+        [HideInInspector]
+#endif
         [SerializeField]
         private NodeStore _nodeStore;
+#if !TWOR_GUIDE_DEBUG
+        [HideInInspector]
+#endif
         [SerializeField]
         private NavSegment[] _segments;
+#if !TWOR_GUIDE_DEBUG
+        [HideInInspector]
+#endif
         [SerializeField]
         private LineSegment2D[] _drops;
+#if !TWOR_GUIDE_DEBUG
+        [HideInInspector]
+#endif
         [SerializeField]
         private LineSegment2D[] _jumps;
+#if !TWOR_GUIDE_DEBUG
+        [HideInInspector]
+#endif
         [SerializeField]
         private NavSegment[] _uniqueSegments;
 

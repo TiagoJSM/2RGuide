@@ -63,8 +63,14 @@ namespace Assets._2RGuide.Runtime.Helpers
             var splits = new List<NavSegment>();
 
             var p1 = segment.P1;
+            var raycastP1 = p1;
             var normal = segment.NormalizedNormalVector;
-            var hit = Calculations.Raycast(p1, p1 + normal * maxHeight, segments);
+            var connectingSegments = segments.Any(s => s.Contains(p1));
+            var hit = default(CalculationRaycastHit);
+            if (!connectingSegments)
+            {
+                hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
+            }
             var p1Height = hit ? hit.Distance : maxHeight;
             if (hit && hit.HitLineEnd)
             {
@@ -80,17 +86,26 @@ namespace Assets._2RGuide.Runtime.Helpers
             while (p1 != segment.P2)
             {
                 var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                hit = Calculations.Raycast(p2, p2 + normal * maxHeight, segments);
-                var p2Height = hit ? hit.Distance : maxHeight;
+                var raycastP2 = p2;
+                connectingSegments = segments.Any(s => s.Contains(p2));
 
-                if (p2 == segment.P2)
+                var p2Height = maxHeight;
+                var canValidatePoint = p2 != segment.P2 || (p2 == segment.P2 && !connectingSegments);
+
+                if (canValidatePoint)
                 {
-                    if (hit && hit.HitLineEnd)
+                    hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
+                    p2Height = hit ? hit.Distance : maxHeight;
+
+                    if (p2 == segment.P2)
                     {
-                        var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
-                        if (!sameDir)
+                        if (hit && hit.HitLineEnd)
                         {
-                            p2Height = p1Height;
+                            var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
+                            if (!sameDir)
+                            {
+                                p2Height = p1Height;
+                            }
                         }
                     }
                 }
@@ -112,7 +127,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var pointsOnSegment =
                 splitPoints
-                    .Where(p => segment.OnSegment(p))
+                    .Where(p => segment.Contains(p))
                     .OrderBy(p => Vector2.Distance(segment.P1, p));
 
             var result = new List<LineSegment2D>();
@@ -133,12 +148,12 @@ namespace Assets._2RGuide.Runtime.Helpers
         public static Vector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
         {
             return segments
-                .Select(s => s.GetIntersection(segment, false))
+                .Select(s => s.GetIntersection(segment, true))
                 .Where(v => v.HasValue)
                 .Select(v => v.Value).ToArray();
         }
 
-        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths, IEnumerable<NavSegment> navSegments)
+        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths)
         {
             var line = Clipper.MakePath(new double[]
                 {
@@ -166,11 +181,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
 
             return true;
-        }
-
-        public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
-        {
-            return segments.FirstOrDefault(s => s.OnSegment(position));
         }
 
         public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
