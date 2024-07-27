@@ -9,8 +9,6 @@ namespace Assets._2RGuide.Runtime.Helpers
         public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Vector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
         {
             var oneWayPlatforms = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).ToArray();
-            //var segments = navBuildContext.segments.Select(s => s.segment).ToArray();
-            //var oneWayPlatforms = navBuilder.NavSegments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).ToArray();
             var segments = navBuilder.NavSegments.Select(s => s.segment).ToArray();
 
             foreach (var oneWayPlatform in oneWayPlatforms)

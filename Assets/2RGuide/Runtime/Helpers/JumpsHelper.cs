@@ -21,7 +21,13 @@ namespace Assets._2RGuide.Runtime.Helpers
             foreach (var node in nodes.ToArray())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
-                var segmentsInRange = navBuilder.NavSegments.Where(ss => !ss.segment.OverMaxSlope(settings.maxSlope) && !settings.noJumpsTargetTags.Contains(ss.navTag) && ss.segment.IntersectsCircle(jumpRadius)).ToArray();
+                var segmentsInRange = 
+                    navBuilder.NavSegments.Where(ss => 
+                        !ss.segment.OverMaxSlope(settings.maxSlope) && 
+                        !settings.noJumpsTargetTags.Contains(ss.navTag) && 
+                        ss.segment.IntersectsCircle(jumpRadius) &&
+                        ss.connectionType == ConnectionType.Walk)
+                    .ToArray();
 
                 if (node.CanJumpOrDropToLeftSide(settings.maxSlope))
                 {
@@ -35,7 +41,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuilder.NavSegments.ToList());
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder);
                 }
 
                 if (node.CanJumpOrDropToRightSide(settings.maxSlope))
@@ -50,14 +56,14 @@ namespace Assets._2RGuide.Runtime.Helpers
                                 !p.Approximately(node.Position))
                             .ToArray();
 
-                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder, navBuildContext.segments);
+                    BuildJumpSegments(navBuildContext, node, closestPoints, navBuilder);
                 }
             }
 
             BuildOneWayPlatformJumpSegments(navBuildContext, navBuilder, settings);
         }
 
-        private static void BuildJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NavBuilder navBuilder, List<NavSegment> navSegments)
+        private static void BuildJumpSegments(NavBuildContext navBuildContext, Node node, Vector2[] closestPoints, NavBuilder navBuilder)
         {
             var jumpSegments =
                 closestPoints

@@ -9,7 +9,6 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class LineSegmentExtensions
     {
-        private const float SegmentEndingsGap = 0.01f;
         public static bool OverMaxSlope(this LineSegment2D segment, float maxSlope)
         {
             var slope = segment.Slope;
@@ -182,11 +181,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
 
             return true;
-        }
-
-        public static LineSegment2D GetSegmentWithPosition(this IEnumerable<LineSegment2D> segments, Vector2 position)
-        {
-            return segments.FirstOrDefault(s => s.Contains(position));
         }
 
         public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)

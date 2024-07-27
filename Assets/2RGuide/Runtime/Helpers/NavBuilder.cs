@@ -36,6 +36,11 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         public void AddNavSegment(NavSegment navSegment)
         {
+            if(HasCoincidentSegment(navSegment))
+            {
+                return;
+            }
+
             _navSegments.Add(navSegment);
 
             var navSegmentContainingP1 = GetNavSegmentContaining(navSegment.segment.P1);
@@ -92,6 +97,11 @@ namespace Assets._2RGuide.Runtime.Helpers
         private NavSegment GetNavSegmentContaining(Vector2 p)
         {
             return _navSegments.FirstOrDefault(ns => ns.segment.Contains(p) && !ns.segment.P1.Approximately(p) && !ns.segment.P2.Approximately(p));
+        }
+
+        private bool HasCoincidentSegment(NavSegment navSegment)
+        {
+            return _navSegments.FindIndex(ns => ns.segment.IsCoincident(navSegment.segment)) != -1;
         }
     }
 }
