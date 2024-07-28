@@ -27,7 +27,10 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     continue;
                 }
-
+#if !TWOR_GUIDE_DEBUG
+                Debug.Log($"Split at {oneWayPlatform.segment.HalfPoint.ToString("F6")}");
+                Debug.Log($"Split at {hit.HitPosition.Value.ToString("F6")}");
+#endif
                 var n1 = navBuilder.SplitSegment(oneWayPlatform.segment.HalfPoint);
                 var n2 = navBuilder.SplitSegment(hit.HitPosition.Value);
 
