@@ -71,6 +71,7 @@ namespace Assets._2RGuide.Editor
             typeof(Collider2D),
             typeof(NavWorld),
             typeof(SpriteRenderer),
+            typeof(NavTagBounds),
         };
 
         private void RemoveAllNonNavDebugComponents(GameObject go)
