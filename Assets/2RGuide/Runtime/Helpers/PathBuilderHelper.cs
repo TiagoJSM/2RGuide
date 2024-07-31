@@ -14,8 +14,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var segments = navBuilder.NavSegments.Select(s => s.segment).ToArray();
                 var oneWayPlatform = navBuilder.GetNavSegmentWithPoint(dropPoint);
-                var start = oneWayPlatform.segment.HalfPoint;
-                var hit = Calculations.Raycast(oneWayPlatform.segment.HalfPoint, start + raycastDirection * distance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }).ToArray());
+                var start = dropPoint;
+                var hit = Calculations.Raycast(dropPoint, dropPoint + raycastDirection * distance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }).ToArray());
                 if (!hit)
                 {
                     continue;
@@ -23,16 +23,16 @@ namespace Assets._2RGuide.Runtime.Helpers
 
                 var targetPlatformSegment = hit.LineSegment;
 
-                var segmentAlreadyPresent = existingConnections.Any(s => s.IsCoincident(new LineSegment2D(oneWayPlatform.segment.HalfPoint, hit.HitPosition.Value)));
+                var segmentAlreadyPresent = existingConnections.Any(s => s.IsCoincident(new LineSegment2D(dropPoint, hit.HitPosition.Value)));
                 if (segmentAlreadyPresent)
                 {
                     continue;
                 }
 #if TWOR_GUIDE_DEBUG
-                Debug.Log($"Split at {oneWayPlatform.segment.HalfPoint.ToString("F6")}");
+                Debug.Log($"Split at {dropPoint.ToString("F6")}");
                 Debug.Log($"Split at {hit.HitPosition.Value.ToString("F6")}");
 #endif
-                var n1 = navBuilder.SplitSegment(oneWayPlatform, oneWayPlatform.segment.HalfPoint);
+                var n1 = navBuilder.SplitSegment(oneWayPlatform, dropPoint);
                 var hitNavSegment = navBuilder.NavSegments.First(ns => ns.segment.IsCoincident(hit.LineSegment));
                 var n2 = navBuilder.SplitSegment(hitNavSegment, hit.HitPosition.Value);
 
