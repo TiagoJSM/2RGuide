@@ -94,6 +94,33 @@ namespace Assets._2RGuide.Runtime.Helpers
             return newNode;
         }
 
+        public Node SplitSegment(NavSegment navSegment, Vector2 point)
+        {
+            var existingNode = _nodeStore.Get(point);
+            if (existingNode != null)
+            {
+                return existingNode;
+            }
+
+            var newNode = _nodeStore.SplitSegmentAt(navSegment.segment, point);
+            _navSegments.Remove(navSegment);
+            var nav1 = navSegment;
+            var nav2 = navSegment;
+
+            nav1.segment = new LineSegment2D(nav1.segment.P1, point);
+            nav2.segment = new LineSegment2D(point, nav2.segment.P2);
+
+            _navSegments.Add(nav1);
+            _navSegments.Add(nav2);
+
+            return newNode;
+        }
+
+        public NavSegment GetNavSegmentWithPoint(Vector2 point)
+        {
+            return _navSegments.FirstOrDefault(ns => ns.segment.Contains(point));
+        }
+
         private NavSegment GetNavSegmentContaining(Vector2 p)
         {
             return _navSegments.FirstOrDefault(ns => ns.segment.Contains(p) && !ns.segment.P1.Approximately(p) && !ns.segment.P2.Approximately(p));
