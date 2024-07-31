@@ -55,15 +55,18 @@ namespace Assets._2RGuide.Runtime.Helpers
                 // Clippy paths are created in the reverse order
                 path.Reverse();
 
+                var segmentPath = new List<LineSegment2D>();
                 var p1 = path[0];
                 for (var idx = 1; idx < path.Count; idx++)
                 {
                     var p2 = path[idx];
-                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
+                    segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
                     p1 = p2;
                 }
                 var start = path[0];
-                segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
+                segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
+
+                segments.AddRange(segmentPath.Merge());
             }
 
             return segments.ToArray();
@@ -104,6 +107,47 @@ namespace Assets._2RGuide.Runtime.Helpers
                         return dividedSegs;
                     })
                     .ToArray();
+        }
+
+        private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
+        {
+            var result = new List<LineSegment2D>();
+            var currentLineSegment = new LineSegment2D();
+
+            foreach(var segment in segments)
+            {
+                if(!currentLineSegment)
+                {
+                    currentLineSegment = segment;
+                    continue;
+                }
+
+                if(segment.Slope == currentLineSegment.Slope)
+                {
+                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
+                }
+                else
+                {
+                    result.Add(currentLineSegment);
+                    currentLineSegment = segment;
+                }
+            }
+
+            if (currentLineSegment)
+            {
+                result.Add(currentLineSegment);
+            }
+
+            if(result.Count > 1)
+            {
+                if (result[0].Slope == result.Last().Slope)
+                {
+                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
+                    result.RemoveAt(result.Count - 1);
+                }
+            }
+
+            return result;
         }
     }
 }
