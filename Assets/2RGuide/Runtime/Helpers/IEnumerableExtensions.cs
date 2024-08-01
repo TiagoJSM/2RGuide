@@ -27,6 +27,28 @@ namespace Assets._2RGuide.Runtime.Helpers
             return min;
         }
 
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable<TKey>
+        {
+            var hasMax = false;
+            TSource max = default;
+            foreach (var value in source)
+            {
+                if (!hasMax)
+                {
+                    hasMax = true;
+                    max = value;
+                    continue;
+                }
+
+                if (keySelector(max).CompareTo(keySelector(value)) < 0)
+                {
+                    max = value;
+                }
+            }
+
+            return max;
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey> (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();

@@ -47,8 +47,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                     .Where(c => c != null)
                     .SelectMany(c =>
                     {
-                        var sprite = c.GetComponent<SpriteRenderer>();
-                        var bounds = (!c.autoTiling || sprite == null) ? new Box(c) : new Box(sprite);
+                        var bounds = new Box(c);
                         var segment = new LineSegment2D(bounds.TopLeft, bounds.TopRight);
                         var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
                         return NavHelper.ConvertOpenPathToSegments(resultOpenPath).Select(s => (s, true));
