@@ -185,10 +185,6 @@ namespace Assets._2RGuide.Editor
 
             var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
 
-            var otherColliders = colliders.Where(c =>
-                c is BoxCollider2D && !nodePathSettings.oneWayPlatformMask.Includes(c.gameObject) ||
-                c is PolygonCollider2D).ToArray();
-
             // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
             var edgeSegmentsInfo = colliders.GetEdgeSegments(nodePathSettings.oneWayPlatformMask, closedPath).ToArray();
             var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();

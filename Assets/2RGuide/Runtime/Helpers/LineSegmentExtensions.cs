@@ -133,8 +133,9 @@ namespace Assets._2RGuide.Runtime.Helpers
             var result = new List<LineSegment2D>();
 
             var p1 = segment.P1;
+            var orderedSplitPoints = splitPoints.OrderBy(value => Vector2.Distance(p1, value));
 
-            foreach (var splitPoint in splitPoints)
+            foreach (var splitPoint in orderedSplitPoints)
             {
                 result.Add(new LineSegment2D(p1, splitPoint));
                 p1 = splitPoint;

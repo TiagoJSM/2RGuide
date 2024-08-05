@@ -50,7 +50,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                         var bounds = new Box(c);
                         var segment = new LineSegment2D(bounds.TopLeft, bounds.TopRight);
                         var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
-
                         return NavHelper.ConvertOpenPathToSegments(resultOpenPath).Select(s => (s, true));
                     });
         }

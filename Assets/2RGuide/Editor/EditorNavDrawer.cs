@@ -83,13 +83,14 @@ namespace Assets._2RGuide.Editor
             }
             const float normalSize = 0.2f;
             Handles.color = lineColor;
-            foreach (var navSegment in navSegments)
+            for (var idx = 0; idx < navSegments.Length; idx++)
             {
+                var navSegment = navSegments[idx];
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
                 RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
 #if TWOR_GUIDE_DEBUG
-                Handles.Label(middle, $"N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; MaxH: {navSegment.maxHeight}");
+                Handles.Label(middle, $"Idx: {idx}; N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; MaxH: {navSegment.maxHeight}");
 #endif
             }
         }

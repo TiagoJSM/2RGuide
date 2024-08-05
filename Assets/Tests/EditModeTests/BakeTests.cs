@@ -23,6 +23,7 @@ namespace Assets.Tests.EditModeTests
             "Assets/Tests/PlayModeTests/MoveToPositionJumpThroughObstacle.unity",
             "Assets/Tests/PlayModeTests/MoveToPositionOneWayJumpWithJumpAsLastSegmentTestScene.unity",
             "Assets/Tests/PlayModeTests/MoveToPositionOnly1NodeTestScene.unity",
+            "Assets/Tests/PlayModeTests/MoveToPositionOneWayTileJumpTestScene.unity"
         };
 
         [Test]
@@ -33,17 +34,5 @@ namespace Assets.Tests.EditModeTests
             NavBaker.BakePathfinding(world);
             Snapshot.Test(world);
         }
-
-        //[UnityTest]
-        //public IEnumerator NewTestScriptWithEnumeratorPasses()
-        //{
-        //    EditorSceneManager.OpenScene("Assets/Tests/PlayModeTests/MoveToPositionTestScene.unity");
-        //    // Use the Assert class to test conditions.
-        //    // Use yield to skip a frame.
-
-        //    var world = Object.FindObjectOfType<NavWorld>();
-        //    NavBaker.BakePathfinding(world);
-        //    yield return null;
-        //}
     }
 }
