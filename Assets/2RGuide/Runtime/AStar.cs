@@ -129,7 +129,7 @@ namespace Assets._2RGuide.Runtime
 
         private static bool CanWalkOnStep(Node current, NodeConnection neighbor, float stepHeight)
         {
-            return current.Position.y < neighbor.Node.Position.y && neighbor.Segment.Lenght < stepHeight;
+            return neighbor.Segment.Lenght < stepHeight;
         }
     }
 }
