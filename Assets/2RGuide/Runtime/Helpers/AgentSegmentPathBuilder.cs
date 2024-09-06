@@ -11,7 +11,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class AgentSegmentPathBuilder
     {
-        public static AgentSegment[] BuildPathFrom(Vector2 startPosition, Vector2 targetPosition, Node[] path, float segmentProximityMaxDistance, float maxSlopeDegrees)
+        public static AgentSegment[] BuildPathFrom(Vector2 startPosition, Vector2 targetPosition, Node[] path, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var agentSegments = new List<AgentSegment>();
 
@@ -25,7 +25,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 agentSegments.Add(new AgentSegment() { position = path[nodeIndex].Position, connectionType = connectionType });
             }
 
-            var firstWalkableConnection = path[0].GetWalkableConnectionForPosition(startPosition, segmentProximityMaxDistance, maxSlopeDegrees);
+            var firstWalkableConnection = path[0].GetWalkableConnectionForPosition(startPosition, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
             var firstClosestPoint = firstWalkableConnection.Value.Segment.ClosestPointOnLine(startPosition);
 
             if(path.Length > 1 && IsPositionInBetweenConnection(path, 0, firstClosestPoint, segmentProximityMaxDistance))
@@ -39,7 +39,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 agentSegments.Insert(0, new AgentSegment() { position = firstClosestPoint, connectionType = ConnectionType.Walk });
             }
 
-            var lastWalkableConnection = path.Last().GetWalkableConnectionForPosition(targetPosition, float.MaxValue, maxSlopeDegrees);
+            var lastWalkableConnection = path.Last().GetWalkableConnectionForPosition(targetPosition, float.MaxValue, maxSlopeDegrees, stepHeight);
             var lastClosestPoint = lastWalkableConnection.Value.Segment.ClosestPointOnLine(targetPosition);
 
             var lastSegment = new LineSegment2D(agentSegments[agentSegments.Count - 2].position, agentSegments[agentSegments.Count - 1].position);

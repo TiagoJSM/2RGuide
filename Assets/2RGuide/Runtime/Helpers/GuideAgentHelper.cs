@@ -41,7 +41,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 };
             }
 
-            var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees);
+            var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
 
             var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
             pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
