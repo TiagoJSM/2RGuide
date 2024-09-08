@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assets._2RGuide.Runtime
 {
-    class PriorityQueue<TData, TPriority> where TPriority : IComparable
+    public class PriorityQueue<TData, TPriority> where TPriority : IComparable
     {
         private struct DataNode
         {
