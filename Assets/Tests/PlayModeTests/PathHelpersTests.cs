@@ -50,7 +50,7 @@ namespace Assets.Tests.PlayModeTests
             var navBuilder = new NavBuilder(nodes);
             NodeHelpers.BuildNodes(navBuilder, navSegments);
 
-            Assert.AreEqual(10, nodes.ToArray().Length);
+            Assert.AreEqual(10, nodes.GetNodes().Length);
 
             DropsHelper.BuildDrops(navBuildContext, nodes, navBuilder, new LineSegment2D[0], new DropsHelper.Settings() { maxHeight = 20.0f, maxSlope = 60f, horizontalDistance = 0.5f, noDropsTargetTags = Array.Empty<NavTag>() });
             var dropSegments = navBuilder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();

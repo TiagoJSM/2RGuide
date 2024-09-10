@@ -15,7 +15,7 @@ namespace Assets.Tests.PlayModeTests
         {
             SceneManager.LoadScene("NavSegmentFinderTest");
             yield return null;
-            var segment = NavWorldReference.Instance.NavWorld.Search(new RTree.Envelope(0, 0, 10, 10));
+            var segment = NavWorldReference.Instance.NavWorld.SearchNavSegment(new RTree.Envelope(0, 0, 10, 10));
             Assert.AreEqual(4, segment.Count());
         }
     }

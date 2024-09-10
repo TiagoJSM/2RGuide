@@ -18,7 +18,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         public static void BuildJumps(NavBuildContext navBuildContext, NodeStore nodes, NavBuilder navBuilder, Settings settings)
         {
-            foreach (var node in nodes.ToArray())
+            foreach (var node in nodes.GetNodes())
             {
                 var jumpRadius = new Circle(node.Position, settings.maxJumpHeight);
                 var segmentsInRange = 

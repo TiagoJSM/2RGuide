@@ -10,7 +10,8 @@ namespace Assets._2RGuide.Runtime
     //investigate GeometryUtils from https://docs.unity3d.com/Packages/com.unity.reflect@1.0/api/Unity.Labs.Utils.GeometryUtils.html
     public class NavWorld : MonoBehaviour
     {
-        private RTree<NavSegmentPoint> _tree;
+        private RTree<NavSegmentPoint> _navSegmentTree;
+        private RTree<NodePoint> _nodeTree;
 
 #if !TWOR_GUIDE_DEBUG
         [HideInInspector]
@@ -38,12 +39,38 @@ namespace Assets._2RGuide.Runtime
         [SerializeField]
         private NavSegment[] _uniqueSegments;
 
-        public Node[] Nodes => _nodeStore.ToArray();
+        public Node[] Nodes => _nodeStore.GetNodes();
         public NavSegment[] Segments => _segments;
         public LineSegment2D[] Drops => _drops;
         public LineSegment2D[] Jumps => _jumps;
 
         public Node GetClosestNode(Vector2 position, float? segmentProximityMaxDistance = null)
+        {
+            if(_nodeStore.NodeCount == 0)
+            {
+                return null;
+            }
+
+            if(segmentProximityMaxDistance.HasValue)
+            {
+                var min = position - new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var max = position + new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var results = SearchNode(new Envelope(min.x, min.y, max.x, max.y));
+
+                if (!results.Any())
+                {
+                    return null;
+                }
+
+                return results.MinBy(n => Vector2.Distance(n.Node.Position, position)).Node;
+            }
+            else
+            {
+                return _nodeStore.GetNodes().MinBy(n => Vector2.Distance(n.Position, position));
+            }
+        }
+
+        public Node GetClosestNodeFromClosestSegment(Vector2 position, float segmentProximityMaxDistance)
         {
             var navSegment = GetClosestNavSegment(position, segmentProximityMaxDistance);
             var closestPoint = navSegment.segment.ClosestPointOnLine(position);
@@ -60,7 +87,7 @@ namespace Assets._2RGuide.Runtime
             {
                 var min = position - new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
                 var max = position + new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
-                var results = Search(new Envelope(min.x, min.y, max.x, max.y));
+                var results = SearchNavSegment(new Envelope(min.x, min.y, max.x, max.y));
 
                 if (!results.Any())
                 {
@@ -87,9 +114,14 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        public IEnumerable<NavSegmentPoint> Search(Envelope envelope)
+        public IEnumerable<NavSegmentPoint> SearchNavSegment(Envelope envelope)
         {
-            return _tree.Search(envelope);
+            return _navSegmentTree.Search(envelope);
+        }
+
+        public IEnumerable<NodePoint> SearchNode(Envelope envelope)
+        {
+            return _nodeTree.Search(envelope);
         }
 
         public void AssignData(NavResult navResult)
@@ -106,12 +138,12 @@ namespace Assets._2RGuide.Runtime
                     segment = nc.Segment
                 }).ToArray();
 
-            PopulateRTree();
+            PopulateRTrees();
         }
 
         private void Awake()
         {
-            PopulateRTree();
+            PopulateRTrees();
         }
 
         private void OnDrawGizmos()
@@ -120,13 +152,19 @@ namespace Assets._2RGuide.Runtime
             //this needs to be here for the option to appear on the "Gizmos" dropdown menu
         }
 
-        private void PopulateRTree()
+        private void PopulateRTrees()
         {
             if (_segments != null)
             {
-                _tree = new RTree<NavSegmentPoint>(maxEntries: 16);
+                _navSegmentTree = new RTree<NavSegmentPoint>(maxEntries: 16);
                 var points = _segments.Select(s => new NavSegmentPoint(s));
-                _tree.BulkLoad(points);
+                _navSegmentTree.BulkLoad(points);
+            }
+            if(_nodeStore != null)
+            {
+                _nodeTree = new RTree<NodePoint>(maxEntries: 16);
+                var points = _nodeStore.GetNodes().Select(n => new NodePoint(n));
+                _nodeTree.BulkLoad(points);
             }
         }
     }
