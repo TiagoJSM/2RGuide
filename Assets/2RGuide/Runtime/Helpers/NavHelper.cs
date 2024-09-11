@@ -10,7 +10,7 @@ namespace Assets._2RGuide.Runtime.Helpers
     public struct NavResult
     {
         public NodeStore nodeStore;
-        public NavSegment[] segments;
+        public NavSegment[] walkSegments;
         public LineSegment2D[] jumps;
         public LineSegment2D[] drops;
     }
@@ -40,7 +40,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return new NavResult()
             {
                 nodeStore = nodeStore,
-                segments = segments,
+                walkSegments = segments,
                 jumps = jumps,
                 drops = drops
             };

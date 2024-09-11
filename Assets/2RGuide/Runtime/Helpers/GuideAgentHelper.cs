@@ -27,8 +27,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             ConnectionTypeMultipliers connectionMultipliers)
         {
             var navWorld = NavWorldReference.Instance.NavWorld;
-            var startN = navWorld.GetClosestNodeFromClosestSegment(start, segmentProximityMaxDistance);
-            var endN = navWorld.GetClosestNode(end);
+            var startN = navWorld.GetClosestNodeFromClosestSegment(start, ConnectionType.Walk, segmentProximityMaxDistance);
+            var endN = navWorld.GetClosestNodeFromClosestSegment(end, ConnectionType.Walk);
             var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             var pathStatus = PathStatus.Invalid;
 

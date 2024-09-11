@@ -481,7 +481,7 @@ MonoBehaviour:
         _maxHeight: 50
         _navTag:
           _tag: -1
-  _segments:
+  _walkSegments:
   - segment:
       P1: {x: 3.95, y: 4.27}
       P2: {x: 3.95, y: 5.27}
@@ -532,7 +532,7 @@ MonoBehaviour:
     oneWayPlatform: 0
     navTag:
       _tag: -1
-    connectionType: 0
+    connectionType: 2
   - segment:
       P1: {x: 4.95, y: 4.27}
       P2: {x: 3.95, y: 4.27}
@@ -540,7 +540,7 @@ MonoBehaviour:
     oneWayPlatform: 0
     navTag:
       _tag: -1
-    connectionType: 0
+    connectionType: 2
   - segment:
       P1: {x: 3.95, y: 5.27}
       P2: {x: 4.95, y: 5.27}
@@ -548,7 +548,7 @@ MonoBehaviour:
     oneWayPlatform: 0
     navTag:
       _tag: -1
-    connectionType: 0
+    connectionType: 2
   - segment:
       P1: {x: 4.95, y: 5.27}
       P2: {x: 4.95, y: 4.27}
@@ -556,7 +556,7 @@ MonoBehaviour:
     oneWayPlatform: 0
     navTag:
       _tag: -1
-    connectionType: 0
+    connectionType: 2
   - segment:
       P1: {x: 12.55, y: 21.06}
       P2: {x: 13.55, y: 21.06}
@@ -564,7 +564,7 @@ MonoBehaviour:
     oneWayPlatform: 0
     navTag:
       _tag: -1
-    connectionType: 0
+    connectionType: 2
   references:
     version: 1
     00000000:
