@@ -12,7 +12,7 @@ using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets.Tests.PlayModeTests
 {
-    public class AgentTests
+    public class AgentMoveToPositionTests
     {
         public class AgentTargetMovementParams
         {

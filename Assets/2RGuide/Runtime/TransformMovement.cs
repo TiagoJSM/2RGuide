@@ -2,6 +2,12 @@
 
 namespace Assets._2RGuide.Runtime
 {
+    public enum MoveTo
+    {
+        Position,
+        Target,
+    }
+
     [RequireComponent(typeof(GuideAgent))]
     public class TransformMovement : MonoBehaviour
     {
@@ -11,6 +17,8 @@ namespace Assets._2RGuide.Runtime
 
         [SerializeField]
         private Transform _target;
+        [SerializeField]
+        private MoveTo _moveTo;
 
         public Transform Target
         {
@@ -20,7 +28,7 @@ namespace Assets._2RGuide.Runtime
                 if (_target != value)
                 {
                     _target = value;
-                    _guideAgent.SetDestination(_target.position);
+                    SetDestination();
                 }
             }
         }
@@ -35,7 +43,7 @@ namespace Assets._2RGuide.Runtime
         {
             if (_target != null)
             {
-                _guideAgent.SetDestination(_target.position);
+                SetDestination();
             }
         }
 
@@ -53,6 +61,18 @@ namespace Assets._2RGuide.Runtime
                 {
                     _guideAgent.SetDestination(_target.position);
                 }
+            }
+        }
+
+        private void SetDestination()
+        {
+            if (_moveTo == MoveTo.Position)
+            {
+                _guideAgent.SetDestination(_target.position);
+            }
+            else
+            {
+                _guideAgent.SetDestination(_target.gameObject);
             }
         }
     }
