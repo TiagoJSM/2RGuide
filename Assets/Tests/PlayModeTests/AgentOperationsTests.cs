@@ -4,14 +4,11 @@ using System.Linq;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
 using UnityEngine.SceneManagement;
-using UnityEngine.TestTools.Utils;
 using UnityEngine.TestTools;
 using Assets._2RGuide.Runtime.Coroutines;
 using Assets._2RGuide.Runtime.Helpers;
 using NUnit.Framework;
-using UnityEditor;
-using System.Threading;
-using UnityEngine.UIElements;
+using System.Threading.Tasks;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -20,6 +17,8 @@ namespace Assets.Tests.PlayModeTests
         private class TestAgentOperationsContext : IAgentOperationsContext
         {
             private MonoBehaviour _contextObject;
+            private TaskCompletionSource<GuideAgentHelper.PathfindingResult> _currentTaskCompletionSource;
+
             public TestAgentOperationsContext()
             {
                 var go = new GameObject("Context Object", new System.Type[] { typeof(Dummy) });
@@ -40,21 +39,14 @@ namespace Assets.Tests.PlayModeTests
 
             public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(Vector2 start, Vector2 end, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float pathfindingMaxDistance, float segmentProximityMaxDistance, NavTag[] navTagCapable, float stepHeight, ConnectionTypeMultipliers connectionMultipliers)
             {
-                return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
-                {
-                    Thread.Sleep(3000);
-                    return GuideAgentHelper.PathfindingTask(
-                        start,
-                        end,
-                        maxHeight,
-                        maxSlopeDegrees,
-                        allowedConnectionTypes,
-                        pathfindingMaxDistance,
-                        segmentProximityMaxDistance,
-                        navTagCapable,
-                        stepHeight,
-                        connectionMultipliers);
-                });
+                _currentTaskCompletionSource = new TaskCompletionSource<GuideAgentHelper.PathfindingResult>();
+                return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(_currentTaskCompletionSource.Task);
+            }
+
+            public void SetFindPathfindingResult(GuideAgentHelper.PathfindingResult result)
+            {
+                _currentTaskCompletionSource.SetResult(result);
+                _currentTaskCompletionSource = null;
             }
 
             public Coroutine StartCoroutine(IEnumerator routine)
@@ -75,27 +67,81 @@ namespace Assets.Tests.PlayModeTests
             SceneManager.LoadScene("FollowMovingTargetTestScene");
             yield return null;
 
+            var settings = Nav2RGuideSettings.Load();
+            var speed = 1.0f;
+            var height = 0.0f;
+            var maxSlopeDegrees = 90.0f;
+            var baseOffset = 0.0f;
+            var proximityThreshold = 0.0f;
+            var connectionType = ConnectionType.Walk;
+            var pathfindingMaxDistance = float.PositiveInfinity;
+            var navTagCapable = new NavTag[0];
+            var stepHeight = 0.0f;
+            var connectionMultipliers = new ConnectionTypeMultipliers();
+
             var context = new TestAgentOperationsContext();
-            var agentOperations = new AgentOperations(context, Nav2RGuideSettings.Load(), 1.0f, 0, 90.0f, 0, 0, ConnectionType.Walk, float.PositiveInfinity, new NavTag[0], 0, new ConnectionTypeMultipliers());
+            var agentOperations = new AgentOperations(context, settings, speed, height, maxSlopeDegrees, baseOffset, proximityThreshold, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
 
             var target = GameObject.Find("Target");
             var position1 = GameObject.Find("Position1");
             var position2 = GameObject.Find("Position2");
 
+            context.Position = target.transform.position;
+            target.transform.position = position1.transform.position;
+
             agentOperations.SetDestination(target);
             agentOperations.Update();
             Assert.That(agentOperations.Status == AgentStatus.Busy);
-            yield return new WaitWhile(() => agentOperations.IsSearchingForPath);
+            Assert.That(agentOperations.IsSearchingForPath);
+
+            var pathfindingRoutine = RunPathfindingRoutine(context.Position, target.transform.position, settings, speed, height, maxSlopeDegrees, baseOffset, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            yield return pathfindingRoutine;
+
+            context.SetFindPathfindingResult(pathfindingRoutine.Result);
+
+            yield return null;
 
             MoveContextAlongPath(context, agentOperations, target, position2);
 
-            Assert.That(agentOperations.Status == AgentStatus.Busy);
-            //yield return new WaitWhile(() => agentOperations.IsSearchingForPath);
-            Assert.That(agentOperations.CurrentPathStatus == PathStatus.Complete);
+            pathfindingRoutine = RunPathfindingRoutine(context.Position, target.transform.position, settings, speed, height, maxSlopeDegrees, baseOffset, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            yield return pathfindingRoutine;
+
+            context.SetFindPathfindingResult(pathfindingRoutine.Result);
+
+            yield return null;
 
             MoveContextAlongPath(context, agentOperations, target, null);
 
             Assert.That(agentOperations.Status == AgentStatus.Iddle);
+            Assert.That(!agentOperations.IsSearchingForPath);
+        }
+
+        private TaskCoroutine<GuideAgentHelper.PathfindingResult> RunPathfindingRoutine(
+            Vector2 start,
+            Vector2 end,
+            Nav2RGuideSettings settings,
+            float speed,
+            float height,
+            float maxSlopeDegrees,
+            float baseOffset,
+            ConnectionType allowedConnectionTypes,
+            float pathfindingMaxDistance,
+            NavTag[] navTagCapable,
+            float stepHeight,
+            ConnectionTypeMultipliers connectionMultipliers)
+        {
+            return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
+                GuideAgentHelper.PathfindingTask(
+                        start,
+                        end,
+                        height,
+                        maxSlopeDegrees,
+                        allowedConnectionTypes,
+                        pathfindingMaxDistance,
+                        settings.SegmentProximityMaxDistance,
+                        navTagCapable,
+                        stepHeight,
+                        connectionMultipliers));
         }
 
         private void MoveContextAlongPath(TestAgentOperationsContext context, AgentOperations agentOperations, GameObject target, GameObject nextTargetPosition)
@@ -114,6 +160,7 @@ namespace Assets.Tests.PlayModeTests
             if(nextTargetPosition != null)
             {
                 Assert.That(agentOperations.Status == AgentStatus.Busy);
+                Assert.That(agentOperations.IsSearchingForPath);
             }
         }
     }

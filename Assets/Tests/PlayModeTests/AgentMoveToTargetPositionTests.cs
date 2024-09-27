@@ -3,12 +3,10 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
-using static Assets.Tests.PlayModeTests.AgentMoveToPositionTests;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using UnityEngine.TestTools;
 using System.Linq;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Tests.PlayModeTests
 {

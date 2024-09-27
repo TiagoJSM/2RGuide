@@ -19,7 +19,12 @@ namespace Assets._2RGuide.Runtime.Coroutines
 
         public static TaskCoroutine<TResult> Run(Func<TResult> action)
         {
-            return new TaskCoroutine<TResult>(Task.Run(action));
+            return Run(Task.Run(action));
+        }
+
+        public static TaskCoroutine<TResult> Run(Task<TResult> task)
+        {
+            return new TaskCoroutine<TResult>(task);
         }
     }
 }

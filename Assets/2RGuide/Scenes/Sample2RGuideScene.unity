@@ -729,6 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  _moveTo: 0
 --- !u!1 &1698029897
 GameObject:
   m_ObjectHideFlags: 0

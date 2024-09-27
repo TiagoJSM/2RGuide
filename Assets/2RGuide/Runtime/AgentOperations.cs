@@ -1,14 +1,21 @@
 ﻿using Assets._2RGuide.Runtime.Coroutines;
 using Assets._2RGuide.Runtime.Helpers;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets._2RGuide.Runtime
 {
+    public enum AgentOperationsState
+    {
+        Iddle,
+        MoveToPosition,
+        FollowTarget,
+    }
+
     public class AgentOperations
     {
+        private AgentOperationsState _agentOperationsState = AgentOperationsState.Iddle;
         private AgentSegment[] _path;
         private int _targetPathIndex;
 
@@ -55,6 +62,7 @@ namespace Assets._2RGuide.Runtime
             set => _proximityThreshold = value;
         }
         public bool IsSearchingForPath { get; private set; }
+        public bool HasReachedLastPathPoint => _path != null && Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
 
         public AgentOperations(
             IAgentOperationsContext context,
@@ -101,6 +109,97 @@ namespace Assets._2RGuide.Runtime
 
         public void CompleteCurrentSegment()
         {
+            switch (_agentOperationsState)
+            {
+                case AgentOperationsState.Iddle: break;
+                case AgentOperationsState.MoveToPosition:
+                    CompleteCurrentSegmentWhenMovingToPosition();
+                    break;
+                case AgentOperationsState.FollowTarget:
+                    CompleteCurrentSegmentWhenFollowingTarget();
+                    break;
+            }
+        }
+
+        public void Update()
+        {
+            HandleStateMachine();
+        }
+
+        private void HandleStateMachine()
+        {
+            switch (_agentOperationsState)
+            {
+                case AgentOperationsState.Iddle: break;
+                case AgentOperationsState.MoveToPosition:
+                    UpdateMoveToPosition();
+                    break;
+                case AgentOperationsState.FollowTarget:
+                    UpdateFollowTarget();
+                    break;
+            }
+        }
+
+        private void UpdateMoveToPosition()
+        {
+            if (RequiresFindingNewPath)
+            {
+                _currentPathFinding = _desiredPathFinding;
+                _desiredPathFinding = null;
+                StartFindingPath(_currentPathFinding.Value);
+            }
+
+            Move();
+
+            if (HasReachedLastPathPoint)
+            {
+                CompleteCurrentSegmentWhenMovingToPosition();
+            }
+        }
+
+        private void UpdateFollowTarget()
+        {
+            if (RequiresFindingNewPath)
+            {
+                _currentPathFinding = _desiredPathFinding;
+                _desiredPathFinding = null;
+                StartFindingPath(_currentPathFinding.Value);
+            }
+
+            UpdatePathSegment();
+            Move();
+
+            if (HasReachedLastPathPoint)
+            {
+                CompleteCurrentSegmentWhenFollowingTarget();
+            }
+        }
+
+        private void CompleteCurrentSegmentWhenFollowingTarget()
+        {
+            if (_path == null)
+            {
+                return;
+            }
+
+            _targetPathIndex++;
+            if (_targetPathIndex >= _path.Length)
+            {
+                if(IsSearchingForPath)
+                {
+                    _path = null;
+                    DesiredMovement = Vector2.zero;
+                }
+                else
+                {
+                    ResetInternalState();
+                    _agentOperationsState = AgentOperationsState.Iddle;
+                }
+            }
+        }
+
+        private void CompleteCurrentSegmentWhenMovingToPosition()
+        {
             if (_path == null)
             {
                 return;
@@ -110,23 +209,8 @@ namespace Assets._2RGuide.Runtime
             if (_targetPathIndex >= _path.Length)
             {
                 ResetInternalState();
+                _agentOperationsState = AgentOperationsState.Iddle;
             }
-        }
-
-        public void Update()
-        {
-            if (RequiresFindingNewPath)
-            {
-                var navWorld = NavWorldReference.Instance.NavWorld;
-                var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
-                _currentPathFinding = _desiredPathFinding;
-                _targetSegment = navWorld.GetClosestNavSegment(_currentPathFinding.Value.DestinationPosition, ConnectionType.Walk, segmentProximityMaxDistance);
-                _desiredPathFinding = null;
-                _coroutine = _context.StartCoroutine(FindPath(ReferencePosition, _currentPathFinding.Value));
-            }
-
-            UpdatePathSegment();
-            Move();
         }
 
         private void SetPathfindingRequest(PathfindingRequest request)
@@ -135,6 +219,10 @@ namespace Assets._2RGuide.Runtime
             _desiredPathFinding = request;
             if (RequiresFindingNewPath)
             {
+                _agentOperationsState = 
+                    request.destinationPoint.HasValue 
+                    ? AgentOperationsState.MoveToPosition 
+                    : AgentOperationsState.FollowTarget;
                 _agentStatus = AgentStatus.Busy;
             }
         }
@@ -153,7 +241,19 @@ namespace Assets._2RGuide.Runtime
             {
                 return;
             }
-            _path[_path.Length - 1].position = _currentPathFinding.Value.destinationTarget.transform.position;
+
+            var isTargetInSameSegment = TargetInSameSegment();
+
+            if (isTargetInSameSegment)
+            {
+                _path[_path.Length - 1].position = _currentPathFinding.Value.destinationTarget.transform.position;
+            }
+            else
+            {
+                Debug.Log("searching time");
+                _agentStatus = AgentStatus.Busy;
+                StartFindingPath(_currentPathFinding.Value);
+            }
         }
 
         private void Move()
@@ -163,21 +263,7 @@ namespace Assets._2RGuide.Runtime
                 return;
             }
 
-            if (!TargetInSameSegment())
-            {
-                _coroutine = _context.StartCoroutine(FindPath(ReferencePosition, _currentPathFinding.Value));
-            }
-
             var step = _speed * Time.deltaTime;
-
-            if (Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold)
-            {
-                CompleteCurrentSegment();
-                if (_path == null)
-                {
-                    return;
-                }
-            }
 
             if (_targetPathIndex < _path.Length)
             {
@@ -185,7 +271,15 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        private IEnumerator FindPath(Vector2 start, PathfindingRequest end)
+        private void StartFindingPath(PathfindingRequest pathfindingRequest)
+        {
+            var navWorld = NavWorldReference.Instance.NavWorld;
+            var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
+            _targetSegment = navWorld.GetClosestNavSegment(pathfindingRequest.DestinationPosition, ConnectionType.Walk, segmentProximityMaxDistance);
+            _coroutine = _context.StartCoroutine(FindPathRoutine(ReferencePosition, pathfindingRequest));
+        }
+
+        private IEnumerator FindPathRoutine(Vector2 start, PathfindingRequest end)
         {
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             var endPos = end.destinationPoint.HasValue ? end.destinationPoint.Value : (Vector2)end.destinationTarget.transform.position;
@@ -203,15 +297,14 @@ namespace Assets._2RGuide.Runtime
                 _stepHeight,
                 _connectionMultipliers);
 
-            //_pathfindingTask = Task.Run(() => 
-            //    GuideAgentHelper.PathfindingTask(start, end.destinationPoint.Value, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, segmentProximityMaxDistance, _navTagCapable, _stepHeight, _connectionMultipliers));
-
             yield return taskCoroutine;
             IsSearchingForPath = false;
 
             if (taskCoroutine.Exception != null)
             {
                 Debug.LogException(taskCoroutine.Exception);
+                ResetInternalState();
+                _agentOperationsState = AgentOperationsState.Iddle;
                 throw taskCoroutine.Exception;
             }
 
@@ -224,6 +317,7 @@ namespace Assets._2RGuide.Runtime
                 _coroutine = null;
                 _path = result.segmentPath;
                 _agentStatus = AgentStatus.Iddle;
+                _agentOperationsState = AgentOperationsState.Iddle;
                 yield break;
             }
 
@@ -235,6 +329,7 @@ namespace Assets._2RGuide.Runtime
                 _coroutine = null;
                 _path = null;
                 _agentStatus = AgentStatus.Iddle;
+                _agentOperationsState = AgentOperationsState.Iddle;
                 yield break;
             }
 
