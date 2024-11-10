@@ -96,69 +96,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             return splits.ToArray();
         }
 
-        //public static NavSegment[] DivideSegment(this LineSegment2D segment, float divisionStep, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
-        //{
-        //    var splits = new List<NavSegment>();
-
-        //    var p1 = segment.P1;
-        //    var raycastP1 = p1;
-        //    var normal = segment.NormalizedNormalVector;
-        //    var connectingSegments = segments.Any(s => s.Contains(p1));
-        //    var hit = default(CalculationRaycastHit);
-        //    if (!connectingSegments)
-        //    {
-        //        hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
-        //    }
-        //    var p1Height = hit ? hit.Distance : maxHeight;
-        //    if (hit && hit.HitLineEnd)
-        //    {
-        //        var sameDir = SameDirection(segment.P1, segment.P2, hit.LineSegment, hit.HitPosition.Value);
-        //        if (!sameDir)
-        //        {
-        //            p1Height = maxHeight;
-        //        }
-        //    }
-
-        //    while (p1 != segment.P2)
-        //    {
-        //        var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-        //        var raycastP2 = p2;
-        //        connectingSegments = segments.Any(s => s.Contains(p2));
-
-        //        var p2Height = maxHeight;
-        //        var canValidatePoint = p2 != segment.P2 || (p2 == segment.P2 && !connectingSegments);
-
-        //        if (canValidatePoint)
-        //        {
-        //            hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
-        //            p2Height = hit ? hit.Distance : maxHeight;
-
-        //            if (p2 == segment.P2)
-        //            {
-        //                if (hit && hit.HitLineEnd)
-        //                {
-        //                    var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
-        //                    if (!sameDir)
-        //                    {
-        //                        p2Height = p1Height;
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //        splits.Add(new NavSegment()
-        //        {
-        //            segment = new LineSegment2D(p1, p2),
-        //            maxHeight = Mathf.Min(p1Height, p2Height),
-        //            connectionType = connectionType,
-        //        });
-        //        p1 = p2;
-        //        p1Height = p2Height;
-        //    }
-
-        //    return splits.ToArray();
-        //}
-
         public static LineSegment2D[] Split(this LineSegment2D segment, params Vector2[] splitPoints)
         {
             var pointsOnSegment =

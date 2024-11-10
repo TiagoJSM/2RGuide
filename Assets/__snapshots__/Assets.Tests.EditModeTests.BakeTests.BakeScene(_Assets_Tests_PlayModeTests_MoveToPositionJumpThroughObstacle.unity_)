@@ -1,1 +1,359 @@
-{"segments":[{"segment":{"P1":{"x":-1.2527999877929688,"y":-1.3200000524520875},"P2":{"x":-1.2527999877929688,"y":-0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-1.2527999877929688,"y":-0.5},"P2":{"x":-5.022799968719482,"y":-0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-5.022799968719482,"y":-0.5},"P2":{"x":-5.022799968719482,"y":0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-5.022799968719482,"y":0.5},"P2":{"x":-1.0371999740600587,"y":0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-1.0371999740600587,"y":0.5},"P2":{"x":-1.0371999740600587,"y":0.10999999940395355}},"maxHeight":3.404399871826172,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":2.3671998977661135,"y":0.10999999940395355},"P2":{"x":2.3671998977661135,"y":0.5}},"maxHeight":3.404399871826172,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":2.3671998977661135,"y":0.5},"P2":{"x":6.352799892425537,"y":0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":6.352799892425537,"y":0.5},"P2":{"x":6.352799892425537,"y":-0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":6.352799892425537,"y":-0.5},"P2":{"x":2.8399999141693117,"y":-0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-1.159999966621399,"y":-1.3200000524520875},"P2":{"x":-1.2527999877929688,"y":-1.3200000524520875}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":-1},"connectionType":2},{"segment":{"P1":{"x":-1.0371999740600587,"y":0.10999999940395355},"P2":{"x":-1.0371999740600587,"y":-0.3199999928474426}},"maxHeight":3.404399871826172,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2},{"segment":{"P1":{"x":-1.0371999740600587,"y":-0.3199999928474426},"P2":{"x":2.3671998977661135,"y":-0.3199999928474426}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2},{"segment":{"P1":{"x":2.3671998977661135,"y":-0.3199999928474426},"P2":{"x":2.3671998977661135,"y":0.10999999940395355}},"maxHeight":3.404399871826172,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2},{"segment":{"P1":{"x":2.8399999141693117,"y":-0.5},"P2":{"x":2.732800006866455,"y":-0.5}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2},{"segment":{"P1":{"x":2.732800006866455,"y":-0.5},"P2":{"x":2.732800006866455,"y":-1.3200000524520875}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2},{"segment":{"P1":{"x":2.732800006866455,"y":-1.3200000524520875},"P2":{"x":-1.159999966621399,"y":-1.3200000524520875}},"maxHeight":50.0,"oneWayPlatform":false,"navTag":{"_tag":0},"connectionType":2}],"drops":[],"jumps":[]}
+{
+    "segments": [
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.2527999877929688,
+                    "y": -1.3200000524520875
+                },
+                "P2": {
+                    "x": -1.2527999877929688,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 3.7699999809265138,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.2527999877929688,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": -2.2527999877929689,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 0.8199999332427979,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -2.2527999877929689,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": -5.022799968719482,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -5.022799968719482,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": -5.022799968719482,
+                    "y": 0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -5.022799968719482,
+                    "y": 0.5
+                },
+                "P2": {
+                    "x": -1.0371999740600587,
+                    "y": 0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.0371999740600587,
+                    "y": 0.5
+                },
+                "P2": {
+                    "x": -1.0371999740600587,
+                    "y": 0.10999999940395355
+                }
+            },
+            "maxHeight": 3.404399871826172,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.3671998977661135,
+                    "y": 0.10999999940395355
+                },
+                "P2": {
+                    "x": 2.3671998977661135,
+                    "y": 0.5
+                }
+            },
+            "maxHeight": 3.404399871826172,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.3671998977661135,
+                    "y": 0.5
+                },
+                "P2": {
+                    "x": 6.352799892425537,
+                    "y": 0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 6.352799892425537,
+                    "y": 0.5
+                },
+                "P2": {
+                    "x": 6.352799892425537,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 6.352799892425537,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": 2.8399999141693117,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.159999966621399,
+                    "y": -1.3200000524520875
+                },
+                "P2": {
+                    "x": -1.2527999877929688,
+                    "y": -1.3200000524520875
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": -1
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.0371999740600587,
+                    "y": 0.10999999940395355
+                },
+                "P2": {
+                    "x": -1.0371999740600587,
+                    "y": -0.3199999928474426
+                }
+            },
+            "maxHeight": 3.404399871826172,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -1.0371999740600587,
+                    "y": -0.3199999928474426
+                },
+                "P2": {
+                    "x": -0.037199974060058597,
+                    "y": -0.3199999928474426
+                }
+            },
+            "maxHeight": 0.8199999928474426,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": -0.037199974060058597,
+                    "y": -0.3199999928474426
+                },
+                "P2": {
+                    "x": 1.9628000259399415,
+                    "y": -0.3199999928474426
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 1.9628000259399415,
+                    "y": -0.3199999928474426
+                },
+                "P2": {
+                    "x": 2.3671998977661135,
+                    "y": -0.3199999928474426
+                }
+            },
+            "maxHeight": 0.8199999928474426,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.3671998977661135,
+                    "y": -0.3199999928474426
+                },
+                "P2": {
+                    "x": 2.3671998977661135,
+                    "y": 0.10999999940395355
+                }
+            },
+            "maxHeight": 3.404399871826172,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.8399999141693117,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": 2.732800006866455,
+                    "y": -0.5
+                }
+            },
+            "maxHeight": 0.8199999332427979,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.732800006866455,
+                    "y": -0.5
+                },
+                "P2": {
+                    "x": 2.732800006866455,
+                    "y": -1.3200000524520875
+                }
+            },
+            "maxHeight": 3.619999885559082,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        },
+        {
+            "segment": {
+                "P1": {
+                    "x": 2.732800006866455,
+                    "y": -1.3200000524520875
+                },
+                "P2": {
+                    "x": -1.159999966621399,
+                    "y": -1.3200000524520875
+                }
+            },
+            "maxHeight": 50.0,
+            "oneWayPlatform": false,
+            "navTag": {
+                "_tag": 0
+            },
+            "connectionType": 2
+        }
+    ],
+    "drops": [],
+    "jumps": [
+        {
+            "P1": {
+                "x": -1.0371999740600587,
+                "y": 0.5
+            },
+            "P2": {
+                "x": 2.3671998977661135,
+                "y": 0.5
+            }
+        }
+    ]
+}

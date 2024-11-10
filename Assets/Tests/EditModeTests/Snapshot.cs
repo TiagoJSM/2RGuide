@@ -59,7 +59,7 @@ namespace Assets.Tests.EditModeTests
                 jumps = world.Jumps,
             };
 
-            return JsonUtility.ToJson(snapshot);
+            return JsonUtility.ToJson(snapshot, true);
         }
 
         private static string ActualSnapshotJson()
