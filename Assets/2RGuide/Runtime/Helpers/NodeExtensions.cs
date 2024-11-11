@@ -26,11 +26,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x > node.Position.x);
         }
 
-        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, Vector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees)
+        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, Vector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var eligibleConnections =
                 node.Connections
-                    .Where(c => c.IsWalkable(maxSlopeDegrees));
+                    .Where(c => c.IsWalkable(maxSlopeDegrees) || c.CanWalkOnStep(stepHeight));
 
             // Get the closest point in a segment
             if (eligibleConnections.Any())
@@ -52,6 +52,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
 
             return null;
+        }
+
+        public static bool CanWalkOnStep(this NodeConnection neighbor, float stepHeight)
+        {
+            return neighbor.Segment.Lenght < stepHeight;
         }
 
         private static bool IsWalkable(this NodeConnection nc, float maxSlopeDegrees)

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using System;
+using Assets._2RGuide.Runtime.Coroutines;
+using Assets._2RGuide.Runtime.Math;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,12 +33,30 @@ namespace Assets._2RGuide.Runtime
         public float OneWayPlatformDrop => _oneWayPlatformDrop;
     }
 
-    public class GuideAgent : MonoBehaviour
+    public class GuideAgent : MonoBehaviour, IAgentOperationsContext
     {
         public struct AgentSegment
         {
             public Vector2 position;
             public ConnectionType connectionType;
+        }
+
+        public struct PathfindingRequest
+        {
+            public Vector2? destinationPoint;
+            public GameObject destinationTarget;
+
+            public Vector2 DestinationPosition
+            {
+                get
+                {
+                    if(destinationPoint.HasValue)
+                    {
+                        return destinationPoint.Value;
+                    }
+                    return destinationTarget.transform.position;
+                }
+            }
         }
 
         public enum AgentStatus
@@ -53,14 +73,7 @@ namespace Assets._2RGuide.Runtime
             Complete
         }
 
-        private AgentSegment[] _path;
-        private int _targetPathIndex;
-
-        private Vector2? _currentDestination;
-        private Vector2? _desiredDestination;
-        private AgentStatus _agentStatus = AgentStatus.Iddle;
-        private Coroutine _coroutine;
-        private Nav2RGuideSettings _settings;
+        private AgentOperations _agentOperations;
 
         [SerializeField]
         private float _speed;
@@ -84,58 +97,86 @@ namespace Assets._2RGuide.Runtime
         [SerializeField]
         private ConnectionTypeMultipliers _connectionMultipliers;
 
-        private Vector2 ReferencePosition => (Vector2)transform.position + new Vector2(0.0f, _baseOffset);
-        private bool RequiresFindingNewPath => !_currentDestination.HasValue && _desiredDestination.HasValue;
-
-        public Vector2 DesiredMovement { get; private set; }
-        public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
-        public Vector2? CurrentTargetPosition => _path == null ? default(Vector2?) : _path[_targetPathIndex].position;
-        public AgentStatus Status => _agentStatus;
-        public PathStatus CurrentPathStatus { get; private set; }
-        public float BaseOffset
-        {
-            get => _baseOffset;
-            set => _baseOffset = value;
-        }
-        public float ProximityThreshold
-        {
-            get => _proximityThreshold;
-            set => _proximityThreshold = value;
-        }
+        public Vector2 DesiredMovement => _agentOperations.DesiredMovement;
+        public ConnectionType? CurrentConnectionType => _agentOperations.CurrentConnectionType;
+        public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition;
+        public AgentStatus Status => _agentOperations.Status;
+        public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
+        public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
+        public Vector2 Position => transform.position;
 
         public void SetDestination(Vector2 destination)
         {
-            CancelPathFinding();
-            _desiredDestination = destination;
-            if (RequiresFindingNewPath)
-            {
-                _agentStatus = AgentStatus.Busy;
-            }
+            _agentOperations.SetDestination(destination);
+        }
+
+        public void SetDestination(GameObject destination)
+        {
+            _agentOperations.SetDestination(destination);
         }
 
         public void CancelPathFinding()
         {
-            ResetInternalState();
+            _agentOperations.CancelPathFinding();
         }
 
         public void CompleteCurrentSegment()
         {
-            if (_path == null)
-            {
-                return;
-            }
+            _agentOperations.CompleteCurrentSegment();
+        }
 
-            _targetPathIndex++;
-            if (_targetPathIndex >= _path.Length)
-            {
-                ResetInternalState();
-            }
+        public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
+            Vector2 start,
+            Vector2 end,
+            float maxHeight,
+            float maxSlopeDegrees,
+            ConnectionType allowedConnectionTypes,
+            float pathfindingMaxDistance,
+            float segmentProximityMaxDistance,
+            NavTag[] navTagCapable,
+            float stepHeight,
+            ConnectionTypeMultipliers connectionMultipliers)
+        {
+            return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
+                GuideAgentHelper.PathfindingTask(
+                    start,
+                    end,
+                    _height,
+                    _maxSlopeDegrees,
+                    _allowedConnectionTypes,
+                    _pathfindingMaxDistance,
+                    segmentProximityMaxDistance,
+                    _navTagCapable,
+                    _stepHeight,
+                    _connectionMultipliers));
+        }
+
+        private void Awake()
+        {
+            _agentOperations =
+                new AgentOperations(
+                    this,
+                    Nav2RGuideSettings.Load(),
+                    _speed,
+                    _height,
+                    _maxSlopeDegrees,
+                    _baseOffset,
+                    _proximityThreshold,
+                    _allowedConnectionTypes,
+                    _pathfindingMaxDistance,
+                    _navTagCapable,
+                    _stepHeight,
+                    _connectionMultipliers);
         }
 
         private void Start()
         {
+            if (Application.isEditor && !Application.isPlaying)
+            {
+                return;
+            }
+
             var navWorld = NavWorldReference.Instance.NavWorld;
-            _settings = Nav2RGuideSettings.Load();
 
             if (navWorld == null)
             {
@@ -146,101 +187,18 @@ namespace Assets._2RGuide.Runtime
 
         void Update()
         {
-            if (RequiresFindingNewPath)
-            {
-                _currentDestination = _desiredDestination;
-                _desiredDestination = null;
-                _coroutine = StartCoroutine(FindPath(ReferencePosition, _currentDestination.Value));
-            }
-
-            Move();
-        }
-
-        private void Move()
-        {
-            if (_path == null)
-            {
-                return;
-            }
-
-            var step = _speed * Time.deltaTime;
-
-            if (Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold)
-            {
-                CompleteCurrentSegment();
-                if (_path == null)
-                {
-                    return;
-                }
-            }
-
-            if (_targetPathIndex < _path.Length)
-            {
-                DesiredMovement = Vector2.MoveTowards(ReferencePosition, _path[_targetPathIndex].position, step) - ReferencePosition;
-            }
-        }
-
-        private IEnumerator FindPath(Vector2 start, Vector2 end)
-        {
-            var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
-
-            var pathfindingTask = Task.Run(() =>
-            {
-                return GuideAgentHelper.PathfindingTask(start, end, _height, _maxSlopeDegrees, _allowedConnectionTypes, _pathfindingMaxDistance, segmentProximityMaxDistance, _navTagCapable, _stepHeight, _connectionMultipliers);
-            });
-
-            while (!pathfindingTask.IsCompleted)
-            {
-                yield return null;
-            }
-
-            var result = pathfindingTask.Result;
-
-            CurrentPathStatus = result.pathStatus;
-
-            if (result.segmentPath == null)
-            {
-                _coroutine = null;
-                _path = result.segmentPath;
-                _agentStatus = AgentStatus.Iddle;
-                yield break;
-            }
-
-            _agentStatus = AgentStatus.Moving;
-            _targetPathIndex = 0;
-
-            if (result.segmentPath.Length < 2)
-            {
-                _coroutine = null;
-                _path = null;
-                _agentStatus = AgentStatus.Iddle;
-                yield break;
-            }
-
-            _coroutine = null;
-            _path = result.segmentPath;
-        }
-
-        private void ResetInternalState()
-        {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
-
-            _currentDestination = null;
-            _desiredDestination = null;
-            _agentStatus = AgentStatus.Iddle;
-            //CurrentPathStatus = PathStatus.Invalid;
-            _path = null;
-            DesiredMovement = Vector2.zero;
+            _agentOperations.Update();
         }
 
         private void OnDrawGizmosSelected()
         {
+            if (Application.isEditor && !Application.isPlaying)
+            {
+                return;
+            }
+
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(ReferencePosition, ProximityThreshold);
+            Gizmos.DrawWireSphere(_agentOperations.ReferencePosition, _proximityThreshold);
         }
 
 #if UNITY_EDITOR
@@ -249,20 +207,26 @@ namespace Assets._2RGuide.Runtime
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy, typeof(GuideAgent))]
         private static void RenderCustomGizmo(GuideAgent objectTransform, GizmoType gizmoType)
         {
-            if (objectTransform._path == null || objectTransform._settings == null)
+            if (!Application.isPlaying)
             {
                 return;
             }
 
-            var start = objectTransform.ReferencePosition;
-            var debugPathVerticalOffset = new Vector2(0, objectTransform._settings.AgentDebugPathVerticalOffset);
+            var path = objectTransform._agentOperations.Path;
+            if (path == null || objectTransform._agentOperations.Settings == null)
+            {
+                return;
+            }
 
-            for (var idx = objectTransform._targetPathIndex; idx < objectTransform._path.Length; idx++)
+            var start = objectTransform._agentOperations.ReferencePosition;
+            var debugPathVerticalOffset = new Vector2(0, objectTransform._agentOperations.Settings.AgentDebugPathVerticalOffset);
+
+            for (var idx = objectTransform._agentOperations.TargetPathIndex; idx < path.Length; idx++)
             {
                 Handles.color = Gizmos.color = Color.green;
-                Handles.DrawLine(start + debugPathVerticalOffset, objectTransform._path[idx].position + debugPathVerticalOffset, LineThickness);
-                Gizmos.DrawWireSphere(objectTransform._path[idx].position + debugPathVerticalOffset, objectTransform._settings.AgentTargetPositionDebugSphereRadius);
-                start = objectTransform._path[idx].position;
+                Handles.DrawLine(start + debugPathVerticalOffset, path[idx].position + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(path[idx].position + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
+                start = path[idx].position;
             }
         }
 #endif

@@ -20,6 +20,11 @@ namespace Assets._2RGuide.Editor
         {
             DrawDefaultInspector();
 
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             var agent = (GuideAgent)target;
 
             GUILayout.Label("");

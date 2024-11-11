@@ -19,11 +19,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             return true;
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float divisionStep, float heightDeviation, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
         {
             var result = new List<NavSegment>();
 
-            var splits = segment.DivideSegment(segmentDivision, segments, maxHeight, connectionType);
+            var splits = segment.DivideSegment(divisionStep, segments, maxHeight, connectionType);
 
             var index = 0;
 
@@ -58,66 +58,39 @@ namespace Assets._2RGuide.Runtime.Helpers
             return result.ToArray();
         }
 
-        public static NavSegment[] DivideSegment(this LineSegment2D segment, float segmentDivision, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
+        public static NavSegment[] DivideSegment(this LineSegment2D segment, float divisionStep, IEnumerable<LineSegment2D> segments, float maxHeight, ConnectionType connectionType)
         {
             var splits = new List<NavSegment>();
+            var divisionPoints = segment.GetDivisionPoints(divisionStep).ToArray();
 
-            var p1 = segment.P1;
-            var raycastP1 = p1;
             var normal = segment.NormalizedNormalVector;
-            var connectingSegments = segments.Any(s => s.Contains(p1));
-            var hit = default(CalculationRaycastHit);
-            if (!connectingSegments)
-            {
-                hit = Calculations.Raycast(raycastP1, raycastP1 + normal * maxHeight, segments);
-            }
+            var p1 = divisionPoints[0];
+            var raycastPointStart = Vector2.MoveTowards(p1, divisionPoints.Last(), float.Epsilon);
+            var hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
-            if (hit && hit.HitLineEnd)
+
+            var previousHeight = p1Height;
+
+            for(var idx = 1; idx < divisionPoints.Length; idx++)
             {
-                var sameDir = SameDirection(segment.P1, segment.P2, hit.LineSegment, hit.HitPosition.Value);
-                if (!sameDir)
+                var previousPoint = divisionPoints[idx - 1];
+                var currentPoint = raycastPointStart = divisionPoints[idx];
+
+                if(idx == (divisionPoints.Length - 1))
                 {
-                    p1Height = maxHeight;
+                    raycastPointStart = Vector2.MoveTowards(divisionPoints.Last(), divisionPoints[0], float.Epsilon);
                 }
-            }
 
-            var divisionStep = segmentDivision;
-
-            while (p1 != segment.P2)
-            {
-                var p2 = Vector2.MoveTowards(p1, segment.P2, divisionStep);
-                var raycastP2 = p2;
-                connectingSegments = segments.Any(s => s.Contains(p2));
-
-                var p2Height = maxHeight;
-                var canValidatePoint = p2 != segment.P2 || (p2 == segment.P2 && !connectingSegments);
-
-                if (canValidatePoint)
-                {
-                    hit = Calculations.Raycast(raycastP2, raycastP2 + normal * maxHeight, segments);
-                    p2Height = hit ? hit.Distance : maxHeight;
-
-                    if (p2 == segment.P2)
-                    {
-                        if (hit && hit.HitLineEnd)
-                        {
-                            var sameDir = SameDirection(segment.P2, segment.P1, hit.LineSegment, hit.HitPosition.Value);
-                            if (!sameDir)
-                            {
-                                p2Height = p1Height;
-                            }
-                        }
-                    }
-                }
+                hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
+                var currentHeight = hit ? hit.Distance : maxHeight;
 
                 splits.Add(new NavSegment()
                 {
-                    segment = new LineSegment2D(p1, p2),
-                    maxHeight = Mathf.Min(p1Height, p2Height),
+                    segment = new LineSegment2D(previousPoint, currentPoint),
+                    maxHeight = Mathf.Min(previousHeight, currentHeight),
                     connectionType = connectionType,
                 });
-                p1 = p2;
-                p1Height = p2Height;
+                previousHeight = currentHeight;
             }
 
             return splits.ToArray();
@@ -216,6 +189,19 @@ namespace Assets._2RGuide.Runtime.Helpers
             var s1Dir = (s1P2 - s1P1).normalized;
             var s2Dir = (s2P2 - s2P1).normalized;
             return Vector2.Dot(s1Dir, s2Dir) > 0.0f;
+        }
+
+        private static IEnumerable<Vector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
+        {
+            var p1 = segment.P1;
+            var p2 = segment.P2;
+
+            while (p1 != p2)
+            {
+                yield return p1;
+                p1 = Vector2.MoveTowards(p1, p2, divisionStep);
+            }
+            yield return p2;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             LineSegment2D[] jumps,
             Settings settings)
         {
-            foreach (var node in nodes.ToArray())
+            foreach (var node in nodes.GetNodes())
             {
                 var canJumpOrDropToLeftSide = node.CanJumpOrDropToLeftSide(settings.maxSlope);
                 if (canJumpOrDropToLeftSide)

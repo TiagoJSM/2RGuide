@@ -27,8 +27,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             ConnectionTypeMultipliers connectionMultipliers)
         {
             var navWorld = NavWorldReference.Instance.NavWorld;
-            var startN = navWorld.GetClosestNode(start, segmentProximityMaxDistance);
-            var endN = navWorld.GetClosestNode(end);
+            var startN = navWorld.GetClosestNodeFromClosestSegment(start, ConnectionType.Walk, segmentProximityMaxDistance);
+            var endN = navWorld.GetClosestNodeFromClosestSegment(end, ConnectionType.Walk);
             var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             var pathStatus = PathStatus.Invalid;
 
@@ -41,7 +41,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 };
             }
 
-            var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees);
+            var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
 
             var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
             pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;

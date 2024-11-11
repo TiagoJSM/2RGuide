@@ -60,7 +60,7 @@ namespace Assets._2RGuide.Runtime
                     {
                         continue;
                     }
-                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !CanWalkOnStep(current, neighbor, stepHeight))
+                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !neighbor.CanWalkOnStep(stepHeight))
                     {
                         continue;
                     }
@@ -125,11 +125,6 @@ namespace Assets._2RGuide.Runtime
         private static float Heuristic(Node node, Node goal)
         {
             return Vector2.Distance(node.Position, goal.Position);
-        }
-
-        private static bool CanWalkOnStep(Node current, NodeConnection neighbor, float stepHeight)
-        {
-            return neighbor.Segment.Lenght < stepHeight;
         }
     }
 }

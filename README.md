@@ -6,7 +6,7 @@ This is still early work in progress, it's not advised to use on a production pr
 
 Add Dependency
 ===
-In Unity's Packaga Manager add package from git url and use `https://github.com/TiagoJSM/2RGuide.git?path=Assets/2RGuide` as the url.
+In Unity's Package Manager add package from git url and use `https://github.com/TiagoJSM/2RGuide.git?path=Assets/2RGuide` as the url.
 
 Features
 ===

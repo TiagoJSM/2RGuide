@@ -74,11 +74,7 @@ namespace Assets._2RGuide.Runtime
         private List<NodeConnection> _connections;
 
         public int NodeIndex => _nodeIndex;
-        public Vector2 Position
-        {
-            get => _position;
-            set => _position = value;
-        }
+        public Vector2 Position => _position;
         public IEnumerable<NodeConnection> Connections => _connections;
 
         public Node() { }
@@ -89,7 +85,7 @@ namespace Assets._2RGuide.Runtime
             int nodeIndex)
         {
             _nodeStore = nodeStore;
-            Position = position;
+            _position = position;
             _nodeIndex = nodeIndex;
             _connections = new List<NodeConnection>();
         }
@@ -227,10 +223,12 @@ namespace Assets._2RGuide.Runtime
             return _nodes.Any(n => n.Position.Approximately(position));
         }
 
-        public Node[] ToArray()
+        public Node[] GetNodes()
         {
             return _nodes.ToArray();
         }
+
+        public int NodeCount => _nodes.Count;
 
         public LineSegment2D ConnectNodes(Node node1, Node node2, float maxHeight, ConnectionType connectionType, NavTag navTag)
         {
