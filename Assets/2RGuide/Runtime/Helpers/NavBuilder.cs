@@ -63,7 +63,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
         }
 
-        public Node SplitSegment(NavSegment navSegment, Vector2 point)
+        public Node SplitSegment(NavSegment navSegment, RGuideVector2 point)
         {
             var existingNode = _nodeStore.Get(point);
             if (existingNode != null)
@@ -85,12 +85,12 @@ namespace Assets._2RGuide.Runtime.Helpers
             return newNode;
         }
 
-        public NavSegment GetNavSegmentWithPoint(Vector2 point)
+        public NavSegment GetNavSegmentWithPoint(RGuideVector2 point)
         {
             return _navSegments.FirstOrDefault(ns => ns.segment.Contains(point));
         }
 
-        private NavSegment GetWalkNavSegmentContaining(Vector2 p)
+        private NavSegment GetWalkNavSegmentContaining(RGuideVector2 p)
         {
             return _navSegments.FirstOrDefault(ns =>
                 ns.connectionType == ConnectionType.Walk && ns.segment.Contains(p) && !ns.segment.P1.Approximately(p) && !ns.segment.P2.Approximately(p));
@@ -101,7 +101,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return _navSegments.FindIndex(ns => ns.segment.IsCoincident(navSegment.segment)) != -1;
         }
 
-        private Node SplitWalkSegment(Vector2 point)
+        private Node SplitWalkSegment(RGuideVector2 point)
         {
             var existingNode = _nodeStore.Get(point);
             if (existingNode != null)

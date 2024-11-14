@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools.Utils;
 using UnityEngine.TestTools;
 using System.Linq;
+using Assets._2RGuide.Runtime.Math;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -41,7 +42,7 @@ namespace Assets.Tests.PlayModeTests
             {
                 target.transform.position = positions[positionIdx].transform.position;
                 yield return new WaitForSeconds(0.05f);
-                if (Vector2.Distance(agentGO.transform.position, target.transform.position) < 0.5f)
+                if (RGuideVector2.Distance(new RGuideVector2(agentGO.transform.position), new RGuideVector2(target.transform.position)) < 0.5f)
                 {
                     positionIdx++;
                 }

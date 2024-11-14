@@ -9,9 +9,9 @@ namespace Assets._2RGuide.Runtime.Math
     {
         public LineSegment2D LineSegment { get; private set; }
         public float Distance { get; private set; }
-        public Vector2? HitPosition { get; private set; }
+        public RGuideVector2? HitPosition { get; private set; }
 
-        public CalculationRaycastHit(LineSegment2D lineSegment, Vector2? hitPosition, float distance)
+        public CalculationRaycastHit(LineSegment2D lineSegment, RGuideVector2? hitPosition, float distance)
         {
             LineSegment = lineSegment;
             HitPosition = hitPosition;
@@ -40,7 +40,7 @@ namespace Assets._2RGuide.Runtime.Math
 
     public static class Calculations
     {
-        public static CalculationRaycastHit Raycast(Vector2 origin, Vector2 end, IEnumerable<LineSegment2D> segments)
+        public static CalculationRaycastHit Raycast(RGuideVector2 origin, RGuideVector2 end, IEnumerable<LineSegment2D> segments)
         {
             var ray = new LineSegment2D(origin, end);
 
@@ -49,11 +49,11 @@ namespace Assets._2RGuide.Runtime.Math
                     .Select(s =>
                         (s, ray.GetIntersection(s)))
                     .Where(v => 
-                        v.Item2.HasValue && !Vector2Extensions.Approximately(v.Item2.Value, origin))
+                        v.Item2.HasValue && !v.Item2.Value.Approximately(origin))
                     .MinBy(v =>
-                        Vector2.Distance(v.Item2.Value, origin));
+                        RGuideVector2.Distance(v.Item2.Value, origin));
 
-            return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, Vector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();
+            return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, RGuideVector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();
         }
     }
 }

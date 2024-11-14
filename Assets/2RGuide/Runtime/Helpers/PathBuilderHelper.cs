@@ -6,7 +6,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class PathBuilderHelper
     {
-        public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Vector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
+        public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, RGuideVector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
         {
             var dropPoints = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).Select(ns => ns.segment.HalfPoint).ToArray();
 

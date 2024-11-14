@@ -44,7 +44,7 @@ namespace Assets._2RGuide.Editor
                 Handles.color = navTagSetting != null
                     ? navTagSetting.Color
                     : Color.Lerp(minHeightColor, maxHeightColor, navSegment.maxHeight / instance.SegmentMaxHeight);
-                Handles.DrawLine(segment.P1, segment.P2, LineThickness);
+                Handles.DrawLine(segment.P1.ToVector2(), segment.P2.ToVector2(), LineThickness);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Assets._2RGuide.Editor
             Handles.color = lineColor;
             foreach (var segment in segments)
             {
-                RenderArrow(segment.P1, segment.P2);
+                RenderArrow(segment.P1.ToVector2(), segment.P2.ToVector2());
             }
         }
 
@@ -70,8 +70,8 @@ namespace Assets._2RGuide.Editor
             Handles.color = lineColor;
             foreach (var segment in segments)
             {
-                RenderArrow(segment.P1, segment.P2);
-                RenderArrow(segment.P2, segment.P1);
+                RenderArrow(segment.P1.ToVector2(), segment.P2.ToVector2());
+                RenderArrow(segment.P2.ToVector2(), segment.P1.ToVector2());
             }
         }
 
@@ -88,9 +88,9 @@ namespace Assets._2RGuide.Editor
                 var navSegment = navSegments[idx];
                 var segment = navSegment.segment;
                 var middle = (segment.P2 + segment.P1) / 2;
-                RenderArrow(middle, middle + segment.NormalizedNormalVector * normalSize, 0.08f);
+                RenderArrow(middle.ToVector2(), (middle + segment.NormalizedNormalVector * normalSize).ToVector2(), 0.08f);
 #if TWOR_GUIDE_DEBUG
-                Handles.Label(middle, $"Idx: {idx}; N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; MaxH: {navSegment.maxHeight}");
+                Handles.Label(middle.ToVector2(), $"Idx: {idx}; N: {segment.NormalizedNormalVector}; Slope: {segment.SlopeDegrees}; MaxH: {navSegment.maxHeight}");
 #endif
             }
         }
@@ -118,7 +118,7 @@ namespace Assets._2RGuide.Editor
             }
             foreach (var node in nodes)
             {
-                Handles.Label(node.Position, $"Node[{node.NodeIndex}] ({node.Position.x:0.00} , {node.Position.y:0.00})");
+                Handles.Label(node.Position.ToVector2(), $"Node[{node.NodeIndex}] ({node.Position.x:0.00} , {node.Position.y:0.00})");
             }
 #endif
         }

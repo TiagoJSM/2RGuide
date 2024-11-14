@@ -65,7 +65,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var normal = segment.NormalizedNormalVector;
             var p1 = divisionPoints[0];
-            var raycastPointStart = Vector2.MoveTowards(p1, divisionPoints.Last(), float.Epsilon);
+            var raycastPointStart = RGuideVector2.MoveTowards(p1, divisionPoints.Last(), Constants.RGuideEpsilon);
             var hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
 
@@ -78,7 +78,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
                 if(idx == (divisionPoints.Length - 1))
                 {
-                    raycastPointStart = Vector2.MoveTowards(divisionPoints.Last(), divisionPoints[0], float.Epsilon);
+                    raycastPointStart = RGuideVector2.MoveTowards(divisionPoints.Last(), divisionPoints[0], Constants.RGuideEpsilon);
                 }
 
                 hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
@@ -96,17 +96,17 @@ namespace Assets._2RGuide.Runtime.Helpers
             return splits.ToArray();
         }
 
-        public static LineSegment2D[] Split(this LineSegment2D segment, params Vector2[] splitPoints)
+        public static LineSegment2D[] Split(this LineSegment2D segment, params RGuideVector2[] splitPoints)
         {
             var pointsOnSegment =
                 splitPoints
                     .Where(p => segment.Contains(p))
-                    .OrderBy(p => Vector2.Distance(segment.P1, p));
+                    .OrderBy(p => RGuideVector2.Distance(segment.P1, p));
 
             var result = new List<LineSegment2D>();
 
             var p1 = segment.P1;
-            var orderedSplitPoints = splitPoints.OrderBy(value => Vector2.Distance(p1, value));
+            var orderedSplitPoints = splitPoints.OrderBy(value => RGuideVector2.Distance(p1, value));
 
             foreach (var splitPoint in orderedSplitPoints)
             {
@@ -119,7 +119,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return result.ToArray();
         }
 
-        public static Vector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
+        public static RGuideVector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
         {
             return segments
                 .Select(s => s.GetIntersection(segment, true))
@@ -150,7 +150,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             if (closedPath.Count == 1)
             {
-                var clipped = new LineSegment2D(new Vector2((float)closedPath[0][0].x, (float)closedPath[0][0].y), new Vector2((float)closedPath[0][1].x, (float)closedPath[0][1].y));
+                var clipped = new LineSegment2D(new RGuideVector2((float)closedPath[0][0].x, (float)closedPath[0][0].y), new RGuideVector2((float)closedPath[0][1].x, (float)closedPath[0][1].y));
                 return !clipped.IsCoincident(segment);
             }
 
@@ -181,17 +181,17 @@ namespace Assets._2RGuide.Runtime.Helpers
             return (resultOutsidePath, resultInsidePath);
         }
 
-        private static bool SameDirection(Vector2 s1P1, Vector2 s1P2, LineSegment2D s, Vector2 hitPosition)
+        private static bool SameDirection(RGuideVector2 s1P1, RGuideVector2 s1P2, LineSegment2D s, RGuideVector2 hitPosition)
         {
             var s2P1 = hitPosition.Approximately(s.P1) ? s.P1 : s.P2;
             var s2P2 = hitPosition.Approximately(s.P1) ? s.P2 : s.P1;
 
             var s1Dir = (s1P2 - s1P1).normalized;
             var s2Dir = (s2P2 - s2P1).normalized;
-            return Vector2.Dot(s1Dir, s2Dir) > 0.0f;
+            return RGuideVector2.Dot(s1Dir, s2Dir) > 0.0f;
         }
 
-        private static IEnumerable<Vector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
+        private static IEnumerable<RGuideVector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
         {
             var p1 = segment.P1;
             var p2 = segment.P2;
@@ -199,7 +199,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             while (p1 != p2)
             {
                 yield return p1;
-                p1 = Vector2.MoveTowards(p1, p2, divisionStep);
+                p1 = RGuideVector2.MoveTowards(p1, p2, divisionStep);
             }
             yield return p2;
         }

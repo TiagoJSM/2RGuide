@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Coroutines;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System.Collections;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
@@ -15,6 +16,30 @@ namespace Assets._2RGuide.Runtime
 
     public class AgentOperations
     {
+        public struct AgentSegment
+        {
+            public RGuideVector2 position;
+            public ConnectionType connectionType;
+        }
+
+        public struct PathfindingRequest
+        {
+            public RGuideVector2? destinationPoint;
+            public GameObject destinationTarget;
+
+            public RGuideVector2 DestinationPosition
+            {
+                get
+                {
+                    if (destinationPoint.HasValue)
+                    {
+                        return destinationPoint.Value;
+                    }
+                    return new RGuideVector2(destinationTarget.transform.position);
+                }
+            }
+        }
+
         private AgentOperationsState _agentOperationsState = AgentOperationsState.Iddle;
         private AgentSegment[] _path;
         private int _targetPathIndex;
@@ -43,10 +68,10 @@ namespace Assets._2RGuide.Runtime
         private bool RequiresFindingNewPath => !_currentPathFinding.HasValue && _desiredPathFinding.HasValue;
 
         public Nav2RGuideSettings Settings => _settings;
-        public Vector2 ReferencePosition => _context.Position + new Vector2(0.0f, _baseOffset);
-        public Vector2 DesiredMovement { get; private set; }
+        public RGuideVector2 ReferencePosition => new RGuideVector2(_context.Position) + new RGuideVector2(0.0f, _baseOffset);
+        public RGuideVector2 DesiredMovement { get; private set; }
         public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
-        public Vector2? CurrentTargetPosition => _path == null ? default(Vector2?) : _path[_targetPathIndex].position;
+        public RGuideVector2? CurrentTargetPosition => _path == null ? default(RGuideVector2?) : _path[_targetPathIndex].position;
         public AgentStatus Status => _agentStatus;
         public PathStatus CurrentPathStatus { get; private set; }
         public AgentSegment[] Path => _path;
@@ -62,7 +87,7 @@ namespace Assets._2RGuide.Runtime
             set => _proximityThreshold = value;
         }
         public bool IsSearchingForPath { get; private set; }
-        public bool HasReachedLastPathPoint => _path != null && Vector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
+        public bool HasReachedLastPathPoint => _path != null && RGuideVector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
 
         public AgentOperations(
             IAgentOperationsContext context,
@@ -92,7 +117,7 @@ namespace Assets._2RGuide.Runtime
             _connectionMultipliers = connectionMultipliers;
         }
 
-        public void SetDestination(Vector2 destination)
+        public void SetDestination(RGuideVector2 destination)
         {
             SetPathfindingRequest(new PathfindingRequest() { destinationPoint = destination });
         }
@@ -188,7 +213,7 @@ namespace Assets._2RGuide.Runtime
                 if(IsSearchingForPath)
                 {
                     _path = null;
-                    DesiredMovement = Vector2.zero;
+                    DesiredMovement = RGuideVector2.zero;
                 }
                 else
                 {
@@ -246,7 +271,8 @@ namespace Assets._2RGuide.Runtime
 
             if (isTargetInSameSegment)
             {
-                _path[_path.Length - 1].position = _currentPathFinding.Value.destinationTarget.transform.position;
+                var position = _currentPathFinding.Value.destinationTarget.transform.position;
+                _path[_path.Length - 1].position = new RGuideVector2(position.x, position.y);
             }
             else
             {
@@ -267,7 +293,7 @@ namespace Assets._2RGuide.Runtime
 
             if (_targetPathIndex < _path.Length)
             {
-                DesiredMovement = Vector2.MoveTowards(ReferencePosition, _path[_targetPathIndex].position, step) - ReferencePosition;
+                DesiredMovement = RGuideVector2.MoveTowards(ReferencePosition, _path[_targetPathIndex].position, step) - ReferencePosition;
             }
         }
 
@@ -279,10 +305,10 @@ namespace Assets._2RGuide.Runtime
             _coroutine = _context.StartCoroutine(FindPathRoutine(ReferencePosition, pathfindingRequest));
         }
 
-        private IEnumerator FindPathRoutine(Vector2 start, PathfindingRequest end)
+        private IEnumerator FindPathRoutine(RGuideVector2 start, PathfindingRequest end)
         {
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
-            var endPos = end.destinationPoint.HasValue ? end.destinationPoint.Value : (Vector2)end.destinationTarget.transform.position;
+            var endPos = end.destinationPoint.HasValue ? end.destinationPoint.Value : new RGuideVector2(end.destinationTarget.transform.position);
 
             IsSearchingForPath = true;
             var taskCoroutine = _context.FindPath(
@@ -349,7 +375,7 @@ namespace Assets._2RGuide.Runtime
             _currentPathFinding = null;
             _agentStatus = AgentStatus.Iddle;
             _path = null;
-            DesiredMovement = Vector2.zero;
+            DesiredMovement = RGuideVector2.zero;
         }
 
         private bool TargetInSameSegment()
@@ -366,7 +392,8 @@ namespace Assets._2RGuide.Runtime
 
             var navWorld = NavWorldReference.Instance.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
-            var navSegment = navWorld.GetClosestNavSegment(_currentPathFinding.Value.destinationTarget.transform.position, ConnectionType.Walk, segmentProximityMaxDistance);
+            var position = _currentPathFinding.Value.destinationTarget.transform.position;
+            var navSegment = navWorld.GetClosestNavSegment(new RGuideVector2(position.x, position.y), ConnectionType.Walk, segmentProximityMaxDistance);
 
             return navSegment.segment.IsCoincident(_targetSegment.Value.segment);
         }

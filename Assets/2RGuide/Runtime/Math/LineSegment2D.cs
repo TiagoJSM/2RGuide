@@ -7,8 +7,8 @@ namespace Assets._2RGuide.Runtime.Math
     [Serializable]
     public struct LineSegment2D
     {
-        public Vector2 P1;
-        public Vector2 P2;
+        public RGuideVector2 P1;
+        public RGuideVector2 P2;
 
         public float B
         {
@@ -20,15 +20,15 @@ namespace Assets._2RGuide.Runtime.Math
             }
         }
 
-        public Vector2 NormalizedNormalVector
+        public RGuideVector2 NormalizedNormalVector
         {
             get
             {
-                return (new Vector2(-(P2.y - P1.y), P2.x - P1.x)).normalized;
+                return (new RGuideVector2(-(P2.y - P1.y), P2.x - P1.x)).normalized;
             }
         }
 
-        public LineSegment2D(Vector2 p1, Vector2 p2)
+        public LineSegment2D(RGuideVector2 p1, RGuideVector2 p2)
         {
             P1 = p1;
             P2 = p2;
@@ -51,7 +51,7 @@ namespace Assets._2RGuide.Runtime.Math
         {
             get
             {
-                return Mathf.Abs(Vector2.Distance(P1, P2));
+                return Mathf.Abs(RGuideVector2.Distance(P1, P2));
             }
         }
 
@@ -80,16 +80,16 @@ namespace Assets._2RGuide.Runtime.Math
             return Slope.Value * x + B;
         }
 
-        public Vector2? PositionInX(float x)
+        public RGuideVector2? PositionInX(float x)
         {
             var y = YWhenXIs(x);
-            return y.HasValue ? new Vector2(x, y.Value) : default(Vector2?);
+            return y.HasValue ? new RGuideVector2(x, y.Value) : default(RGuideVector2?);
         }
 
-        public Vector2? PositionInY(float y)
+        public RGuideVector2? PositionInY(float y)
         {
             var x = XWhenYIs(y);
-            return x.HasValue ? new Vector2(x.Value, y) : default(Vector2?);
+            return x.HasValue ? new RGuideVector2(x.Value, y) : default(RGuideVector2?);
         }
 
         public bool PositiveSlope
@@ -134,7 +134,7 @@ namespace Assets._2RGuide.Runtime.Math
             return false;
         }
 
-        public Vector2 HalfPoint
+        public RGuideVector2 HalfPoint
         {
             get
             {
@@ -151,7 +151,7 @@ namespace Assets._2RGuide.Runtime.Math
             return DoIntersect(P1, P2, other.P1, other.P2, validateLineEndingIntersection);
         }
 
-        public Vector2? GetIntersection(LineSegment2D other, bool validateLineEndingIntersection = true)
+        public RGuideVector2? GetIntersection(LineSegment2D other, bool validateLineEndingIntersection = true)
         {
             if (!DoLinesIntersect(other, validateLineEndingIntersection))
             {
@@ -175,9 +175,9 @@ namespace Assets._2RGuide.Runtime.Math
             var f = P1 - circle.center;
             var r = circle.radius;
 
-            float a = Vector2.Dot(d, d);
-            float b = 2 * Vector2.Dot(f, d);
-            float c = Vector2.Dot(f, f) - r * r;
+            float a = RGuideVector2.Dot(d, d);
+            float b = 2 * RGuideVector2.Dot(f, d);
+            float c = RGuideVector2.Dot(f, f) - r * r;
 
             float discriminant = b * b - 4 * a * c;
             if (discriminant < 0)
@@ -237,13 +237,13 @@ namespace Assets._2RGuide.Runtime.Math
             }
         }
 
-        public Vector2 ClosestPointOnLine(Vector2 point)
+        public RGuideVector2 ClosestPointOnLine(RGuideVector2 point)
         {
-            Vector2 AP = point - P1;       //Vector from A to P   
-            Vector2 AB = P2 - P1;       //Vector from A to B  
+            RGuideVector2 AP = point - P1;       //Vector from A to P   
+            RGuideVector2 AB = P2 - P1;       //Vector from A to B  
 
             float magnitudeAB = AB.sqrMagnitude;     //Magnitude of AB vector (it's length squared)     
-            float ABAPproduct = Vector2.Dot(AP, AB);    //The DOT product of a_to_p and a_to_b     
+            float ABAPproduct = RGuideVector2.Dot(AP, AB);    //The DOT product of a_to_p and a_to_b     
             float distance = ABAPproduct / magnitudeAB; //The normalized "distance" from a to your closest point  
 
             if (distance < 0)     //Check if P projection is over vectorAB     
@@ -259,31 +259,9 @@ namespace Assets._2RGuide.Runtime.Math
             {
                 return P1 + AB * distance;
             }
-
-            /*var vVector1 = point - P1;
-            var vVector2 = (P2 - P1).normalized;
-
-            var d = Vector2.Distance(P1, P2);
-            var t = Vector2.Dot(vVector2, vVector1);
-
-            if (t <= 0)
-            {
-                return P1;
-            }
-
-            if (t >= d)
-            {
-                return P2;
-            }
-
-            var vVector3 = vVector2 * t;
-
-            var closestPoint = P1 + vVector3;
-
-            return closestPoint;*/
         }
 
-        public bool Contains(Vector2 p)
+        public bool Contains(RGuideVector2 p)
         {
             return OnSegment(P1, p, P2);
         }
@@ -293,7 +271,7 @@ namespace Assets._2RGuide.Runtime.Math
             return (P1.Approximately(other.P1) && P2.Approximately(other.P2)) || (P1.Approximately(other.P2) && P2.Approximately(other.P1));
         }
 
-        public static LineSegment2D operator +(LineSegment2D segment, Vector2 offset)
+        public static LineSegment2D operator +(LineSegment2D segment, RGuideVector2 offset)
         {
             return new LineSegment2D(segment.P1 + offset, segment.P2 + offset);
         }
@@ -315,7 +293,7 @@ namespace Assets._2RGuide.Runtime.Math
 
         public static implicit operator bool(LineSegment2D segment)
         {
-            return segment.P1 != Vector2.zero || segment.P2 != Vector2.zero;
+            return segment.P1 != RGuideVector2.zero || segment.P2 != RGuideVector2.zero;
         }
 
         public static bool operator ==(LineSegment2D line1, LineSegment2D line2)
@@ -330,7 +308,7 @@ namespace Assets._2RGuide.Runtime.Math
 
         // Given three collinear points p, q, r, the function checks if
         // point q lies on line segment 'pr'
-        private static bool OnSegment(Vector2 p, Vector2 q, Vector2 r)
+        private static bool OnSegment(RGuideVector2 p, RGuideVector2 q, RGuideVector2 r)
         {
             if (q.x.LessThanOrEquals(Mathf.Max(p.x, r.x)) && q.x.GreaterThanOrEquals(Mathf.Min(p.x, r.x)) &&
                 q.y.LessThanOrEquals(Mathf.Max(p.y, r.y)) && q.y.GreaterThanOrEquals(Mathf.Min(p.y, r.y)))
@@ -339,7 +317,7 @@ namespace Assets._2RGuide.Runtime.Math
             return false;
         }
 
-        private Vector2? LineIntersectionPoint(LineSegment2D other)
+        private RGuideVector2? LineIntersectionPoint(LineSegment2D other)
         {
             // Get A,B,C of first line
             float A1 = P2.y - P1.y;
@@ -355,12 +333,12 @@ namespace Assets._2RGuide.Runtime.Math
             float delta = A1 * B2 - A2 * B1;
             if (delta == 0)
             {
-                //return Vector2.zero;
+                //return RGuideVector2.zero;
                 return null;
             }
 
             // now return the intersection point
-            return new Vector2(
+            return new RGuideVector2(
                 (B2 * C1 - B1 * C2) / delta,
                 (A1 * C2 - A2 * C1) / delta
             );
@@ -371,7 +349,7 @@ namespace Assets._2RGuide.Runtime.Math
         // 0 --> p, q and r are collinear
         // 1 --> Clockwise
         // 2 --> Counterclockwise
-        private static int Orientation(Vector2 p, Vector2 q, Vector2 r)
+        private static int Orientation(RGuideVector2 p, RGuideVector2 q, RGuideVector2 r)
         {
             // See https://www.geeksforgeeks.org/orientation-3-ordered-points/
             // for details of below formula.
@@ -385,7 +363,7 @@ namespace Assets._2RGuide.Runtime.Math
 
         // The main function that returns true if line segment 'p1q1'
         // and 'p2q2' intersect.
-        private static bool DoIntersect(Vector2 p1, Vector2 q1, Vector2 p2, Vector2 q2, bool validateLineEndingIntersection = true)
+        private static bool DoIntersect(RGuideVector2 p1, RGuideVector2 q1, RGuideVector2 p2, RGuideVector2 q2, bool validateLineEndingIntersection = true)
         {
             if (!validateLineEndingIntersection)
             {
@@ -419,7 +397,7 @@ namespace Assets._2RGuide.Runtime.Math
             return o1 != o2 && o3 != o4;
         }
 
-        private static bool ValidateIfCollinear(Vector2 p1, Vector2 q1, Vector2 p2, Vector2 q2, int o1, int o2, int o3, int o4)
+        private static bool ValidateIfCollinear(RGuideVector2 p1, RGuideVector2 q1, RGuideVector2 p2, RGuideVector2 q2, int o1, int o2, int o3, int o4)
         {
             // Special Cases
             // p1, q1 and p2 are collinear and p2 lies on segment p1q1

@@ -35,30 +35,6 @@ namespace Assets._2RGuide.Runtime
 
     public class GuideAgent : MonoBehaviour, IAgentOperationsContext
     {
-        public struct AgentSegment
-        {
-            public Vector2 position;
-            public ConnectionType connectionType;
-        }
-
-        public struct PathfindingRequest
-        {
-            public Vector2? destinationPoint;
-            public GameObject destinationTarget;
-
-            public Vector2 DestinationPosition
-            {
-                get
-                {
-                    if(destinationPoint.HasValue)
-                    {
-                        return destinationPoint.Value;
-                    }
-                    return destinationTarget.transform.position;
-                }
-            }
-        }
-
         public enum AgentStatus
         {
             Iddle,
@@ -97,9 +73,9 @@ namespace Assets._2RGuide.Runtime
         [SerializeField]
         private ConnectionTypeMultipliers _connectionMultipliers;
 
-        public Vector2 DesiredMovement => _agentOperations.DesiredMovement;
+        public Vector2 DesiredMovement => _agentOperations.DesiredMovement.ToVector2();
         public ConnectionType? CurrentConnectionType => _agentOperations.CurrentConnectionType;
-        public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition;
+        public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition?.ToVector2();
         public AgentStatus Status => _agentOperations.Status;
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
@@ -107,7 +83,7 @@ namespace Assets._2RGuide.Runtime
 
         public void SetDestination(Vector2 destination)
         {
-            _agentOperations.SetDestination(destination);
+            _agentOperations.SetDestination(new RGuideVector2(destination));
         }
 
         public void SetDestination(GameObject destination)
@@ -126,8 +102,8 @@ namespace Assets._2RGuide.Runtime
         }
 
         public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
-            Vector2 start,
-            Vector2 end,
+            RGuideVector2 start,
+            RGuideVector2 end,
             float maxHeight,
             float maxSlopeDegrees,
             ConnectionType allowedConnectionTypes,
@@ -198,7 +174,7 @@ namespace Assets._2RGuide.Runtime
             }
 
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(_agentOperations.ReferencePosition, _proximityThreshold);
+            Gizmos.DrawWireSphere(_agentOperations.ReferencePosition.ToVector2(), _proximityThreshold);
         }
 
 #if UNITY_EDITOR
@@ -224,8 +200,8 @@ namespace Assets._2RGuide.Runtime
             for (var idx = objectTransform._agentOperations.TargetPathIndex; idx < path.Length; idx++)
             {
                 Handles.color = Gizmos.color = Color.green;
-                Handles.DrawLine(start + debugPathVerticalOffset, path[idx].position + debugPathVerticalOffset, LineThickness);
-                Gizmos.DrawWireSphere(path[idx].position + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
+                Handles.DrawLine(start.ToVector2() + debugPathVerticalOffset, path[idx].position.ToVector2() + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(path[idx].position.ToVector2() + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
                 start = path[idx].position;
             }
         }

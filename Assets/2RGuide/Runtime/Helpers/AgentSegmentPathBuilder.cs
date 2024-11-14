@@ -1,17 +1,13 @@
 ﻿using Assets._2RGuide.Runtime.Math;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using UnityEngine;
-using UnityEngine.UIElements;
-using static Assets._2RGuide.Runtime.GuideAgent;
+using static Assets._2RGuide.Runtime.AgentOperations;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class AgentSegmentPathBuilder
     {
-        public static AgentSegment[] BuildPathFrom(Vector2 startPosition, Vector2 targetPosition, Node[] path, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
+        public static AgentSegment[] BuildPathFrom(RGuideVector2 startPosition, RGuideVector2 targetPosition, Node[] path, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var agentSegments = new List<AgentSegment>();
 
@@ -58,11 +54,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             return agentSegments.DistinctBy(s => s.position).ToArray();
         }
 
-        private static bool IsPositionInBetweenConnection(Node[] path, int index, Vector2 position, float segmentProximityMaxDistance)
+        private static bool IsPositionInBetweenConnection(Node[] path, int index, RGuideVector2 position, float segmentProximityMaxDistance)
         {
             var segment = path[index].ConnectionWith(path[index + 1]).Value.Segment;
             var closestPoint = segment.ClosestPointOnLine(position);
-            return Vector2.Distance(position, closestPoint) < segmentProximityMaxDistance;
+            return RGuideVector2.Distance(position, closestPoint) < segmentProximityMaxDistance;
         }
     }
 }

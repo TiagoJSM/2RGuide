@@ -53,7 +53,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
         private static LineSegment2D FindTargetSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, LineSegment2D[] jumps, float originX, Settings settings)
         {
-            var origin = new Vector2(originX, node.Position.y);
+            var origin = new RGuideVector2(originX, node.Position.y);
 
             var navSegment = navSegments.Where(ss =>
             {
@@ -70,12 +70,12 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     return false;
                 }
-                return Vector2.Distance(position.Value, origin) <= settings.maxHeight;
+                return RGuideVector2.Distance(position.Value, origin) <= settings.maxHeight;
             })
             .MinBy(ss =>
             {
                 var position = ss.segment.PositionInX(originX);
-                return Vector2.Distance(position.Value, origin);
+                return RGuideVector2.Distance(position.Value, origin);
             });
 
             if (navSegment)
@@ -99,7 +99,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         private static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Settings settings, LineSegment2D[] jumps)
         {
-            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, Vector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps);
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, RGuideVector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps);
         }
 
         private static void AddDropNavSegment(LineSegment2D segment, NavBuilder navBuilder)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._2RGuide.Runtime.Math;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x > node.Position.x);
         }
 
-        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, Vector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
+        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, RGuideVector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var eligibleConnections =
                 node.Connections
@@ -40,12 +41,12 @@ namespace Assets._2RGuide.Runtime.Helpers
                         .MinBy(c =>
                         {
                             var closestPoint = c.Segment.ClosestPointOnLine(position);
-                            return Vector2.Distance(closestPoint, position);
+                            return RGuideVector2.Distance(closestPoint, position);
                         });
 
                 // Add the closest point to the results
                 var closestPoint = eligibleConnection.Segment.ClosestPointOnLine(position);
-                if (Vector2.Distance(closestPoint, position) < segmentProximityMaxDistance)
+                if (RGuideVector2.Distance(closestPoint, position) < segmentProximityMaxDistance)
                 {
                     return eligibleConnection;
                 }

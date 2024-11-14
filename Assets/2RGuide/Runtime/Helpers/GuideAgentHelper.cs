@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using Assets._2RGuide.Runtime.Math;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UIElements;
+using static Assets._2RGuide.Runtime.AgentOperations;
 using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets._2RGuide.Runtime.Helpers
@@ -15,8 +14,8 @@ namespace Assets._2RGuide.Runtime.Helpers
         }
 
         public static PathfindingResult PathfindingTask(
-            Vector2 start, 
-            Vector2 end, 
+            RGuideVector2 start, 
+            RGuideVector2 end, 
             float maxHeight, 
             float maxSlopeDegrees, 
             ConnectionType allowedConnectionTypes, 
@@ -43,7 +42,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
 
-            var distanceFromTarget = Vector2.Distance(segmentPath.Last().position, end);
+            var distanceFromTarget = RGuideVector2.Distance(segmentPath.Last().position, end);
             pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
 
             return new PathfindingResult()

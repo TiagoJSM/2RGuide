@@ -10,10 +10,10 @@ namespace Assets._2RGuide.Runtime.Math
 {
     public struct Box
     {
-        public Vector2 TopLeft { get; private set; }
-        public Vector2 TopRight { get; private set; }
-        public Vector2 BottomLeft { get; private set; }
-        public Vector2 BottomRight { get; private set; }
+        public RGuideVector2 TopLeft { get; private set; }
+        public RGuideVector2 TopRight { get; private set; }
+        public RGuideVector2 BottomLeft { get; private set; }
+        public RGuideVector2 BottomRight { get; private set; }
         
         public Box(BoxCollider2D collider)
         {
@@ -30,10 +30,10 @@ namespace Assets._2RGuide.Runtime.Math
             var minY = unrotatedVertices.MinBy(v => v.y).y;
             var maxY = unrotatedVertices.MaxBy(v => v.y).y;
 
-            TopRight = collider.transform.TransformPoint(new Vector3(maxX, maxY));
-            TopLeft = collider.transform.TransformPoint(new Vector3(minX, maxY));
-            BottomRight = collider.transform.TransformPoint(new Vector3(maxX, minY));
-            BottomLeft = collider.transform.TransformPoint(new Vector3(minX, minY));
+            TopRight = new RGuideVector2(collider.transform.TransformPoint(new Vector3(maxX, maxY)));
+            TopLeft = new RGuideVector2(collider.transform.TransformPoint(new Vector3(minX, maxY)));
+            BottomRight = new RGuideVector2(collider.transform.TransformPoint(new Vector3(maxX, minY)));
+            BottomLeft = new RGuideVector2(collider.transform.TransformPoint(new Vector3(minX, minY)));
         }
     }
 }

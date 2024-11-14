@@ -44,7 +44,7 @@ namespace Assets._2RGuide.Runtime
         public LineSegment2D[] Drops => _drops;
         public LineSegment2D[] Jumps => _jumps;
 
-        public Node GetClosestNode(Vector2 position, float? segmentProximityMaxDistance = null)
+        public Node GetClosestNode(RGuideVector2 position, float? segmentProximityMaxDistance = null)
         {
             if(_nodeStore.NodeCount == 0)
             {
@@ -53,8 +53,8 @@ namespace Assets._2RGuide.Runtime
 
             if(segmentProximityMaxDistance.HasValue)
             {
-                var min = position - new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
-                var max = position + new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var min = position - new RGuideVector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var max = position + new RGuideVector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
                 var results = SearchNode(new Envelope(min.x, min.y, max.x, max.y));
 
                 if (!results.Any())
@@ -62,15 +62,15 @@ namespace Assets._2RGuide.Runtime
                     return null;
                 }
 
-                return results.MinBy(n => Vector2.Distance(n.Node.Position, position)).Node;
+                return results.MinBy(n => RGuideVector2.Distance(n.Node.Position, position)).Node;
             }
             else
             {
-                return _nodeStore.GetNodes().MinBy(n => Vector2.Distance(n.Position, position));
+                return _nodeStore.GetNodes().MinBy(n => RGuideVector2.Distance(n.Position, position));
             }
         }
 
-        public Node GetClosestNodeFromClosestSegment(Vector2 position, ConnectionType segmentConnectionType, float? segmentProximityMaxDistance = null)
+        public Node GetClosestNodeFromClosestSegment(RGuideVector2 position, ConnectionType segmentConnectionType, float? segmentProximityMaxDistance = null)
         {
             var navSegment = GetClosestNavSegment(position, segmentConnectionType, segmentProximityMaxDistance);
             var closestPoint = navSegment.segment.ClosestPointOnLine(position);
@@ -78,15 +78,15 @@ namespace Assets._2RGuide.Runtime
             var node1 = _nodeStore.Get(navSegment.segment.P1);
             var node2 = _nodeStore.Get(navSegment.segment.P2);
 
-            return Vector2.Distance(closestPoint, node1.Position) < Vector2.Distance(closestPoint, node2.Position) ? node1 : node2;
+            return RGuideVector2.Distance(closestPoint, node1.Position) < RGuideVector2.Distance(closestPoint, node2.Position) ? node1 : node2;
         }
 
-        public NavSegment GetClosestNavSegment(Vector2 position, ConnectionType segmentConnectionType, float? segmentProximityMaxDistance = null)
+        public NavSegment GetClosestNavSegment(RGuideVector2 position, ConnectionType segmentConnectionType, float? segmentProximityMaxDistance = null)
         {
             if (segmentProximityMaxDistance.HasValue)
             {
-                var min = position - new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
-                var max = position + new Vector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var min = position - new RGuideVector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
+                var max = position + new RGuideVector2(segmentProximityMaxDistance.Value, segmentProximityMaxDistance.Value);
                 var results = SearchNavSegment(new Envelope(min.x, min.y, max.x, max.y), segmentConnectionType);
 
                 if (!results.Any())
@@ -97,7 +97,7 @@ namespace Assets._2RGuide.Runtime
                 return results.MinBy(ns =>
                 {
                     var closestPoint = ns.NavSegment.segment.ClosestPointOnLine(position);
-                    return Vector2.Distance(closestPoint, position);
+                    return RGuideVector2.Distance(closestPoint, position);
                 }).NavSegment;
             }
             else
@@ -108,7 +108,7 @@ namespace Assets._2RGuide.Runtime
                         .MinBy(ns =>
                         {
                             var closestPoint = ns.segment.ClosestPointOnLine(position);
-                            return Vector2.Distance(closestPoint, position);
+                            return RGuideVector2.Distance(closestPoint, position);
                         });
 
                 return navSegment;

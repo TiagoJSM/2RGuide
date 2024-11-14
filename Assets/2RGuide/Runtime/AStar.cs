@@ -1,4 +1,5 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,12 +91,12 @@ namespace Assets._2RGuide.Runtime
                 }
             }
 
-            var kvp = cameFrom.MinBy(kvp => Vector2.Distance(kvp.Key.Position, goal.Position));
+            var kvp = cameFrom.MinBy(kvp => RGuideVector2.Distance(kvp.Key.Position, goal.Position));
             
             if (kvp.Key != null)
             {
-                var closestNodeDistance = Vector2.Distance(kvp.Key.Position, goal.Position);
-                var startNodeDistance = Vector2.Distance(start.Position, goal.Position);
+                var closestNodeDistance = RGuideVector2.Distance(kvp.Key.Position, goal.Position);
+                var startNodeDistance = RGuideVector2.Distance(start.Position, goal.Position);
                 if (closestNodeDistance < startNodeDistance)
                 {
                     return ReconstructPath(cameFrom, kvp.Key);
@@ -124,7 +125,7 @@ namespace Assets._2RGuide.Runtime
 
         private static float Heuristic(Node node, Node goal)
         {
-            return Vector2.Distance(node.Position, goal.Position);
+            return RGuideVector2.Distance(node.Position, goal.Position);
         }
     }
 }

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace Assets.Tests.PlayModeTests
+namespace Assets.Tests.EditModeTests
 {
     public class PathHelpersTests
     {

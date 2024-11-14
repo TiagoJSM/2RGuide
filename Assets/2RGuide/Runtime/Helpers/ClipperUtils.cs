@@ -10,7 +10,7 @@ namespace Assets._2RGuide.Runtime.Helpers
     {
         public static ClipperD ConfiguredClipperD()
         {
-            return new ClipperD(FloatHelper.RoundingDecimalPrecision);
+            return new ClipperD(Constants.RoundingDecimalPrecision);
         }
 
         public static PathD MakePath(BoxCollider2D collider)

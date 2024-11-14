@@ -19,8 +19,8 @@ namespace Assets.Tests.PlayModeTests
         {
             var store = new NodeStore();
 
-            var n1 = store.NewNode(Vector2.zero);
-            var n2 = store.NewNode(Vector2.one);
+            var n1 = store.NewNode(RGuideVector2.zero);
+            var n2 = store.NewNode(RGuideVector2.one);
 
             n1.AddConnection(ConnectionType.Walk, n2, new LineSegment2D(), float.PositiveInfinity, null);
             n2.AddConnection(ConnectionType.Walk, n1, new LineSegment2D(), float.PositiveInfinity, null);
@@ -83,8 +83,8 @@ namespace Assets.Tests.PlayModeTests
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
-            var start = navResult.nodeStore.Get(new Vector2(1.5f, -1.5f));
-            var end = navResult.nodeStore.Get(new Vector2(0.0f, 3.5f));
+            var start = navResult.nodeStore.Get(new RGuideVector2(1.5f, -1.5f));
+            var end = navResult.nodeStore.Get(new RGuideVector2(0.0f, 3.5f));
 
             var path = AStar.Resolve(start, end, 0, 91f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
@@ -144,8 +144,8 @@ namespace Assets.Tests.PlayModeTests
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
-            var start = navResult.nodeStore.Get(new Vector2(0.0f, 0.0f));
-            var end = navResult.nodeStore.Get(new Vector2(30.0f, 0.0f));
+            var start = navResult.nodeStore.Get(new RGuideVector2(0.0f, 0.0f));
+            var end = navResult.nodeStore.Get(new RGuideVector2(30.0f, 0.0f));
 
             var path = AStar.Resolve(start, end, 10, 90f, ConnectionType.All, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
@@ -162,8 +162,8 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(targetGO, Is.Not.Null);
 
             var navWorld = NavWorldReference.Instance.NavWorld;
-            var startN = navWorld.GetClosestNode(agentGO.transform.position, 100.0f);
-            var endN = navWorld.GetClosestNode(targetGO.transform.position, 100.0f);
+            var startN = navWorld.GetClosestNode(new RGuideVector2(agentGO.transform.position), 100.0f);
+            var endN = navWorld.GetClosestNode(new RGuideVector2(targetGO.transform.position), 100.0f);
             var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());
 
             Assert.AreEqual(4, nodes.Length);

@@ -4,7 +4,6 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class FloatHelper
     {
-        public const int RoundingDecimalPrecision = 4;
         public static bool NearlyEqual(float a, float b, float epsilon)
         {
             return Mathf.Abs(a - b) < epsilon;
@@ -18,7 +17,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool LessThan(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) < 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) < 0);
         }
 
         /// <summary>

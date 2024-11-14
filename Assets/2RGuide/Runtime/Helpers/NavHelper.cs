@@ -31,18 +31,18 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var builder = new NavBuilder(nodeStore);
             NodeHelpers.BuildNodes(builder, navSegments);
-            JumpsHelper.BuildJumps(navBuildContext, nodeStore, builder, jumpSettings);
-            var jumps = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Jump || ns.connectionType == ConnectionType.OneWayPlatformJump).Select(ns => ns.segment).ToArray();
-            DropsHelper.BuildDrops(navBuildContext, nodeStore, builder, jumps, dropSettings);
-            var drops = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
+            //JumpsHelper.BuildJumps(navBuildContext, nodeStore, builder, jumpSettings);
+            //var jumps = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Jump || ns.connectionType == ConnectionType.OneWayPlatformJump).Select(ns => ns.segment).ToArray();
+            //DropsHelper.BuildDrops(navBuildContext, nodeStore, builder, jumps, dropSettings);
+            //var drops = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
             var segments = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Walk).ToArray();
 
             return new NavResult()
             {
                 nodeStore = nodeStore,
                 walkSegments = segments,
-                jumps = jumps,
-                drops = drops
+                jumps = new LineSegment2D[0],//jumps,
+                drops = new LineSegment2D[0]//drops
             };
         }
 
@@ -60,11 +60,11 @@ namespace Assets._2RGuide.Runtime.Helpers
                 for (var idx = 1; idx < path.Count; idx++)
                 {
                     var p2 = path[idx];
-                    segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
+                    segmentPath.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)p2.x, (float)p2.y)));
                     p1 = p2;
                 }
                 var start = path[0];
-                segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
+                segmentPath.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)start.x, (float)start.y)));
 
                 segments.AddRange(segmentPath.Merge());
             }
@@ -82,7 +82,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 for (var idx = 1; idx < path.Count; idx++)
                 {
                     var p2 = path[idx];
-                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
+                    segments.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)p2.x, (float)p2.y)));
                     p1 = p2;
                 }
             }

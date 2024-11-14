@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Coroutines;
 using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System.Collections;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ namespace Assets._2RGuide.Runtime
         Coroutine StartCoroutine(IEnumerator routine);
         void StopCoroutine(Coroutine routine);
         TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
-            Vector2 start,
-            Vector2 end,
+            RGuideVector2 start,
+            RGuideVector2 end,
             float maxHeight,
             float maxSlopeDegrees,
             ConnectionType allowedConnectionTypes,

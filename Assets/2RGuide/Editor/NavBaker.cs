@@ -4,6 +4,7 @@ using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.EditorCoroutines.Editor;
@@ -86,10 +87,13 @@ namespace Assets._2RGuide.Editor
             var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
             var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
 
+            var composite = navWorld.GetComponent<CompositeCollider2D>();
+
             var colliders = GetColliders(navWorld);
 
             var nodePathSettings = NodePathSettings;
-            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
+            //var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
+            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(composite, navTagBounds, nodePathSettings);
             var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
             var jumpSettings = JumpSettings;
             var dropSettings = DropSettings;
@@ -168,6 +172,70 @@ namespace Assets._2RGuide.Editor
             var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
             var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
             return GetNavBuildContext(segments, oneWayEdgeSegments, closedPath, navTagBoxBounds, nodePathSettings.segmentDivision, nodePathSettings.segmentMaxHeight);
+        }
+
+        private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PathsD) GetPathDescription(CompositeCollider2D composite, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
+        {
+            var segmentPath = new List<LineSegment2D>();
+
+            for(var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
+            {
+                var path = new List<Vector2>();
+                composite.GetPath(pathIndex, path);
+                path.Reverse();
+                var p1 = path[0];
+                for (var idx = 1; idx < path.Count; idx++)
+                {
+                    var p2 = path[idx];
+                    segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(p2)));
+                    p1 = p2;
+                }
+                var start = path[0];
+                segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(start)));
+            }
+
+            return (segmentPath.Merge(), new LineSegment2D[0], new PathsD());
+        }
+
+        private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
+        {
+            var result = new List<LineSegment2D>();
+            var currentLineSegment = new LineSegment2D();
+
+            foreach (var segment in segments)
+            {
+                if (!currentLineSegment)
+                {
+                    currentLineSegment = segment;
+                    continue;
+                }
+
+                if (segment.Slope == currentLineSegment.Slope)
+                {
+                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
+                }
+                else
+                {
+                    result.Add(currentLineSegment);
+                    currentLineSegment = segment;
+                }
+            }
+
+            if (currentLineSegment)
+            {
+                result.Add(currentLineSegment);
+            }
+
+            if (result.Count > 1)
+            {
+                if (result[0].Slope == result.Last().Slope)
+                {
+                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
+                    result.RemoveAt(result.Count - 1);
+                }
+            }
+
+            return result;
         }
 
         private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PathsD) GetPathDescription(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)

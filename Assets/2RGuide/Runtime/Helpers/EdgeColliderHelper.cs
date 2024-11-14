@@ -67,7 +67,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             for (var idx = 1; idx < collider.pointCount; idx++)
             {
                 var p2 = collider.transform.TransformPoint(collider.points[idx]);
-                edgeSegments.Add(new LineSegment2D(p1, p2));
+                edgeSegments.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(p2)));
                 p1 = p2;
             }
 
