@@ -4,6 +4,7 @@ using Clipper2Lib;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Networking.UnityWebRequest;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
@@ -156,6 +157,37 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             return true;
         }
+
+        public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, NavBuilder navBuilder)
+        {
+            var intersectsOtherSegments = 
+                navBuilder
+                    .WalkNavSegments
+                        .Any(ns => segment.GetIntersection(ns.segment, false) != null);
+
+            return intersectsOtherSegments;
+        }
+
+        //public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, CompositeCollider2D composite)
+        //{
+        //    var filter = new ContactFilter2D() { useTriggers = false };
+        //    var results = new List<RaycastHit2D>();
+        //    Physics2D.Linecast(segment.P1.ToVector2(), segment.P2.ToVector2(), filter, results);
+
+        //    var compositeColliderResults = results.Where(hit => hit.collider == composite).ToList();
+        //    compositeColliderResults.Sort((a, b) => (int)(a.distance - b.distance));
+
+        //    foreach (var result in results)
+        //    {
+        //        var point = result.point;
+        //        if (!segment.P1.Approximately(new RGuideVector2(point)) && !segment.P2.Approximately(new RGuideVector2(point)))
+        //        {
+        //            return true;
+        //        }
+        //    }
+
+        //    return false;
+        //}
 
         public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
         {

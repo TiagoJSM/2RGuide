@@ -17,7 +17,6 @@ namespace Assets._2RGuide.Runtime.Helpers
 
     public struct NavBuildContext
     {
-        public PathsD closedPath;
         public List<NavSegment> segments;
     }
 
@@ -31,18 +30,18 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var builder = new NavBuilder(nodeStore);
             NodeHelpers.BuildNodes(builder, navSegments);
-            //JumpsHelper.BuildJumps(navBuildContext, nodeStore, builder, jumpSettings);
-            //var jumps = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Jump || ns.connectionType == ConnectionType.OneWayPlatformJump).Select(ns => ns.segment).ToArray();
-            //DropsHelper.BuildDrops(navBuildContext, nodeStore, builder, jumps, dropSettings);
-            //var drops = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
+            JumpsHelper.BuildJumps(navBuildContext, nodeStore, builder, jumpSettings);
+            var jumps = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Jump || ns.connectionType == ConnectionType.OneWayPlatformJump).Select(ns => ns.segment).ToArray();
+            DropsHelper.BuildDrops(navBuildContext, nodeStore, builder, jumps, dropSettings);
+            var drops = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Drop || ns.connectionType == ConnectionType.OneWayPlatformDrop).Select(ns => ns.segment).ToArray();
             var segments = builder.NavSegments.Where(ns => ns.connectionType == ConnectionType.Walk).ToArray();
 
             return new NavResult()
             {
                 nodeStore = nodeStore,
                 walkSegments = segments,
-                jumps = new LineSegment2D[0],//jumps,
-                drops = new LineSegment2D[0]//drops
+                jumps = jumps,
+                drops = drops
             };
         }
 

@@ -78,7 +78,7 @@ namespace Assets.Tests.PlayModeTests
             var navBuildContext = new NavBuildContext()
             {
                 segments = navSegments.ToList(),
-                closedPath = closedPath
+                //closedPath = closedPath
             };
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
@@ -139,7 +139,7 @@ namespace Assets.Tests.PlayModeTests
             var navBuildContext = new NavBuildContext()
             {
                 segments = navSegments.ToList(),
-                closedPath = closedPath,
+                //closedPath = closedPath,
             };
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);

@@ -27,6 +27,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         private NodeStore _nodeStore;
 
         public IEnumerable<NavSegment> NavSegments => _navSegments;
+        public IEnumerable<NavSegment> WalkNavSegments => _navSegments.Where(ns => ns.connectionType == ConnectionType.Walk);
 
         public NavBuilder(NodeStore nodeStore)
         {

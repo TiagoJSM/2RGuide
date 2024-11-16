@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
@@ -54,6 +55,34 @@ namespace Assets._2RGuide.Runtime.Math
                         RGuideVector2.Distance(v.Item2.Value, origin));
 
             return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, RGuideVector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();
+        }
+
+
+        /// <summary>
+        /// Determines if the given point is inside the polygon, taken from https://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
+        /// </summary>
+        /// <param name="polygon">the vertices of polygon</param>
+        /// <param name="testPoint">the given point</param>
+        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
+        public static bool IsPointInPolygon4(RGuideVector2[] polygon, RGuideVector2 testPoint)
+        {
+            var result = false;
+            var j = polygon.Length - 1;
+            for (int i = 0; i < polygon.Length; i++)
+            {
+                if (polygon[i].y < testPoint.y && polygon[j].y >= testPoint.y ||
+                    polygon[j].y < testPoint.y && polygon[i].y >= testPoint.y)
+                {
+                    if (polygon[i].x + (testPoint.y - polygon[i].y) /
+                       (polygon[j].y - polygon[i].y) *
+                       (polygon[j].x - polygon[i].x) < testPoint.x)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+            }
+            return result;
         }
     }
 }

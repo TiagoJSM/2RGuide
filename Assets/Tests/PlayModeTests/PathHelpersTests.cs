@@ -44,7 +44,7 @@ namespace Assets.Tests.EditModeTests
             var navBuildContext = new NavBuildContext()
             {
                 segments = navSegments.ToList(),
-                closedPath = closedPath
+                //closedPath = closedPath
             };
 
             var navBuilder = new NavBuilder(nodes);

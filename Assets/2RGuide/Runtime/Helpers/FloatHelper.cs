@@ -28,7 +28,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool LessThanOrEquals(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) <= 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) <= 0);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool GreaterThan(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) > 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) > 0);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool GreaterThanOrEquals(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) >= 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) >= 0);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool Approximately(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) == 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) == 0);
         }
     }
 }

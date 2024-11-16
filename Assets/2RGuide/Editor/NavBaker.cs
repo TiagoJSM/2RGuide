@@ -89,7 +89,7 @@ namespace Assets._2RGuide.Editor
 
             var composite = navWorld.GetComponent<CompositeCollider2D>();
 
-            var colliders = GetColliders(navWorld);
+            //var colliders = GetColliders(navWorld);
 
             var nodePathSettings = NodePathSettings;
             //var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
@@ -287,7 +287,7 @@ namespace Assets._2RGuide.Editor
 
             return new NavBuildContext()
             {
-                closedPath = closedPath,
+                //closedPath = closedPath,
                 segments = navSegments.ToList(),
             };
         }

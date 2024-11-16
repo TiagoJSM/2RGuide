@@ -71,7 +71,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                         new LineSegment2D(node.Position, p))
                     .Where(s =>
                     {
-                        var overlaps = !s.IsSegmentOverlappingTerrain(navBuildContext.closedPath);
+                        var overlaps = !s.IsSegmentOverlappingTerrainRaycast(navBuilder);
                         return overlaps;
                     })
                     .ToArray();
