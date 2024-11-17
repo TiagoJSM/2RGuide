@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using static Assets._2RGuide.Runtime.Helpers.EdgeColliderHelper;
 
 namespace Assets._2RGuide.Editor
 {
@@ -71,16 +73,28 @@ namespace Assets._2RGuide.Editor
                 return;
             }
 
-            _bakingCoroutine = EditorCoroutineUtility.StartCoroutineOwnerless(BakePathfindingRoutine());
+            _bakingCoroutine = EditorCoroutineUtility.StartCoroutineOwnerless(HandleBakePathfindingRoutineError());
         }
 
         public static void BakePathfinding(NavWorld world)
         {
-            var colliders = GetColliders(world);
+            var colliders = GetColliders(world.gameObject);
             var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
             var navBuildContext = GetNavBuildContext(colliders, navTagBounds);
             var navResult = NavHelper.Build(navBuildContext, JumpSettings, DropSettings);
             world.AssignData(navResult);
+        }
+
+        private static IEnumerator HandleBakePathfindingRoutineError()
+        {
+            try
+            {
+                yield return BakePathfindingRoutine();
+            }
+            finally
+            {
+                _bakingCoroutine = null;
+            }
         }
 
         private static IEnumerator BakePathfindingRoutine()
@@ -97,10 +111,10 @@ namespace Assets._2RGuide.Editor
             var dropSettings = DropSettings;
             var segmentDivision = nodePathSettings.segmentDivision;
             var segmentMaxHeight = nodePathSettings.segmentMaxHeight;
-            var navResultTask = Task.Run(() => 
-            { 
+            var navResultTask = Task.Run(() =>
+            {
                 var navBuildContext = GetNavBuildContext(segments, oneWayEdgeSegments, polygons, navTagBoxBounds, segmentDivision, segmentMaxHeight);
-                return NavHelper.Build(navBuildContext, jumpSettings, dropSettings); 
+                return NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
             });
 
             var progressId = Progress.Start("Baking 2D nav", options: Progress.Options.Indefinite);
@@ -111,8 +125,8 @@ namespace Assets._2RGuide.Editor
             }
 
             Progress.Remove(progressId);
-            
-            if(navResultTask.Exception != null)
+
+            if (navResultTask.Exception != null)
             {
                 Debug.LogException(navResultTask.Exception);
             }
@@ -121,8 +135,6 @@ namespace Assets._2RGuide.Editor
                 navWorld.AssignData(navResultTask.Result);
                 EditorUtility.SetDirty(navWorld);
             }
-
-            _bakingCoroutine = null;
         }
 
         private static void CollectSegments(Collider2D collider, LayerMask oneWayPlatformer, ClipperD clipper)
@@ -159,9 +171,9 @@ namespace Assets._2RGuide.Editor
             clipper.AddPaths(paths, PathType.Subject);
         }
 
-        private static Collider2D[] GetColliders(NavWorld world)
+        private static Collider2D[] GetColliders(GameObject root)
         {
-            return world.gameObject.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<NavTagBounds>() == null).ToArray();
+            return root.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<NavTagBounds>() == null).ToArray();
         }
 
         private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds)
@@ -174,16 +186,27 @@ namespace Assets._2RGuide.Editor
 
         private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PolygonComposite) GetPathDescription(CompositeCollider2D composite, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
         {
+            var closedSegmentPaths = GetClosedSegmentPaths(composite);
+            var polygonCollection = GetPolygons(composite);
+            var edgeSegmentInfos = GetEdgeSegments(composite, nodePathSettings.oneWayPlatformMask, closedSegmentPaths, polygonCollection);
+
+            var allSegments = closedSegmentPaths.ToList();
+            allSegments.AddRange(edgeSegmentInfos.Select(es => es.edgeSegment));
+
+            var oneWaySegments = edgeSegmentInfos.Where(es => es.oneWay).Select(es => es.edgeSegment);
+
+            return (allSegments, oneWaySegments, polygonCollection);
+        }
+
+        private static IEnumerable<LineSegment2D> GetClosedSegmentPaths(CompositeCollider2D composite)
+        {
             var segmentPath = new List<LineSegment2D>();
-            var polygonCollection = new List<Polygon>();
 
             for (var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
             {
                 var path = new List<Vector2>();
                 composite.GetPath(pathIndex, path);
                 path.Reverse();
-
-                polygonCollection.Add(new Polygon(path.Select(p => new RGuideVector2(p))));
 
                 var p1 = path[0];
                 for (var idx = 1; idx < path.Count; idx++)
@@ -196,7 +219,63 @@ namespace Assets._2RGuide.Editor
                 segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(start)));
             }
 
-            return (segmentPath.Merge(), new LineSegment2D[0], new PolygonComposite(polygonCollection));
+            return segmentPath.Merge();
+        }
+
+        private static IEnumerable<EdgeSegmentInfo> GetEdgeSegments(
+            CompositeCollider2D composite, 
+            LayerMask oneWayPlatformMask, 
+            IEnumerable<LineSegment2D> closedSegmentPaths, 
+            PolygonComposite polygons)
+        {
+            var colliders = GetColliders(composite.gameObject);
+            var edgeSegmentsInfo = colliders.GetEdgeSegments(oneWayPlatformMask).ToArray();
+            return edgeSegmentsInfo.SelectMany(es => SeparateFromClosedPaths(es, closedSegmentPaths, polygons));
+        }
+
+        private static IEnumerable<EdgeSegmentInfo> SeparateFromClosedPaths(EdgeSegmentInfo edgeSegmentInfo, IEnumerable<LineSegment2D> closedSegmentPaths, PolygonComposite polygons)
+        {
+            var separations = new List<EdgeSegmentInfo>();
+            var intersections = new List<RGuideVector2>() { edgeSegmentInfo.edgeSegment.P1 };
+            intersections.AddRange(
+                edgeSegmentInfo.edgeSegment.GetIntersections(closedSegmentPaths));
+
+            intersections.Add(edgeSegmentInfo.edgeSegment.P2);
+            intersections = intersections.Distinct().ToList();
+
+            if (intersections.Count == 0)
+            {
+                return separations;
+            }
+
+            var isInsideTerrain = polygons.IsPointInPolygon(intersections[0]);
+
+            for(var startingIndex = isInsideTerrain ? 2 : 1; startingIndex < intersections.Count; startingIndex += 2)
+            {
+                separations.Add(
+                    new EdgeSegmentInfo(
+                        new LineSegment2D(
+                            intersections[startingIndex - 1], intersections[startingIndex]),
+                        edgeSegmentInfo.oneWay));
+            }
+
+            return separations;
+        }
+
+        private static PolygonComposite GetPolygons(CompositeCollider2D composite)
+        {
+            var polygonCollection = new List<Polygon>();
+
+            for (var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
+            {
+                var path = new List<Vector2>();
+                composite.GetPath(pathIndex, path);
+                path.Reverse();
+
+                polygonCollection.Add(new Polygon(path.Select(p => new RGuideVector2(p))));
+            }
+
+            return new PolygonComposite(polygonCollection);
         }
 
         private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)

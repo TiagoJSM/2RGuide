@@ -120,7 +120,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return result.ToArray();
         }
 
-        public static RGuideVector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
+        public static RGuideVector2[] GetIntersections(this LineSegment2D segment, IEnumerable<LineSegment2D> segments)
         {
             return segments
                 .Select(s => s.GetIntersection(segment, true))
