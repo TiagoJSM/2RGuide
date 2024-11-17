@@ -82,7 +82,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var segment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
                 
-                var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuilder);
+                var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuildContext.polygons, navBuilder);
 
                 if (overlaps)
                 {

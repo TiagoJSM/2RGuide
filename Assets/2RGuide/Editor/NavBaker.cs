@@ -2,6 +2,7 @@
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -89,11 +90,8 @@ namespace Assets._2RGuide.Editor
 
             var composite = navWorld.GetComponent<CompositeCollider2D>();
 
-            //var colliders = GetColliders(navWorld);
-
             var nodePathSettings = NodePathSettings;
-            //var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
-            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(composite, navTagBounds, nodePathSettings);
+            var (segments, oneWayEdgeSegments, polygons) = GetPathDescription(composite, navTagBounds, nodePathSettings);
             var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
             var jumpSettings = JumpSettings;
             var dropSettings = DropSettings;
@@ -101,7 +99,7 @@ namespace Assets._2RGuide.Editor
             var segmentMaxHeight = nodePathSettings.segmentMaxHeight;
             var navResultTask = Task.Run(() => 
             { 
-                var navBuildContext = GetNavBuildContext(segments, oneWayEdgeSegments, closedPath, navTagBoxBounds, segmentDivision, segmentMaxHeight);
+                var navBuildContext = GetNavBuildContext(segments, oneWayEdgeSegments, polygons, navTagBoxBounds, segmentDivision, segmentMaxHeight);
                 return NavHelper.Build(navBuildContext, jumpSettings, dropSettings); 
             });
 
@@ -171,18 +169,22 @@ namespace Assets._2RGuide.Editor
             var nodePathSettings = NodePathSettings;
             var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
             var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
-            return GetNavBuildContext(segments, oneWayEdgeSegments, closedPath, navTagBoxBounds, nodePathSettings.segmentDivision, nodePathSettings.segmentMaxHeight);
+            return GetNavBuildContext(segments, oneWayEdgeSegments, new PolygonComposite(Array.Empty<Polygon>()), navTagBoxBounds, nodePathSettings.segmentDivision, nodePathSettings.segmentMaxHeight);
         }
 
-        private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PathsD) GetPathDescription(CompositeCollider2D composite, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
+        private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PolygonComposite) GetPathDescription(CompositeCollider2D composite, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
         {
             var segmentPath = new List<LineSegment2D>();
+            var polygonCollection = new List<Polygon>();
 
-            for(var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
+            for (var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
             {
                 var path = new List<Vector2>();
                 composite.GetPath(pathIndex, path);
                 path.Reverse();
+
+                polygonCollection.Add(new Polygon(path.Select(p => new RGuideVector2(p))));
+
                 var p1 = path[0];
                 for (var idx = 1; idx < path.Count; idx++)
                 {
@@ -194,7 +196,7 @@ namespace Assets._2RGuide.Editor
                 segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(start)));
             }
 
-            return (segmentPath.Merge(), new LineSegment2D[0], new PathsD());
+            return (segmentPath.Merge(), new LineSegment2D[0], new PolygonComposite(polygonCollection));
         }
 
         private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
@@ -281,13 +283,14 @@ namespace Assets._2RGuide.Editor
             return (segments, oneWayEdgeSegments, closedPath);
         }
 
-        private static NavBuildContext GetNavBuildContext(IEnumerable<LineSegment2D> segments, IEnumerable<LineSegment2D> oneWayEdgeSegments, PathsD closedPath, NavTagBoxBounds[] navTagBoxBounds, float segmentDivision, float segmentMaxHeight)
+        private static NavBuildContext GetNavBuildContext(IEnumerable<LineSegment2D> segments, IEnumerable<LineSegment2D> oneWayEdgeSegments, PolygonComposite polygons, NavTagBoxBounds[] navTagBoxBounds, float segmentDivision, float segmentMaxHeight)
         {
             var navSegments = NavHelper.ConvertToNavSegments(segments, segmentDivision, oneWayEdgeSegments, segmentMaxHeight, ConnectionType.Walk, navTagBoxBounds);
 
             return new NavBuildContext()
             {
                 //closedPath = closedPath,
+                polygons = polygons,
                 segments = navSegments.ToList(),
             };
         }

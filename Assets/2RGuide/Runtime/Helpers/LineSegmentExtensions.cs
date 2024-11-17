@@ -158,8 +158,16 @@ namespace Assets._2RGuide.Runtime.Helpers
             return true;
         }
 
-        public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, NavBuilder navBuilder)
+        public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, PolygonComposite polygons, NavBuilder navBuilder)
         {
+            // Instead of using the minimum possible unit use the minimum * 10, otherwise due to how the rounding and float differences work the move towards result may not change
+            var p1Test = RGuideVector2.MoveTowards(segment.P1, segment.P2, Constants.RGuideEpsilon * 10.0f);
+            var p2Test = RGuideVector2.MoveTowards(segment.P2, segment.P1, Constants.RGuideEpsilon * 10.0f);
+            if (polygons.IsPointInPolygon(p1Test) || polygons.IsPointInPolygon(p2Test))
+            {
+                return true;    
+            }
+
             var intersectsOtherSegments = 
                 navBuilder
                     .WalkNavSegments
@@ -167,27 +175,6 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             return intersectsOtherSegments;
         }
-
-        //public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, CompositeCollider2D composite)
-        //{
-        //    var filter = new ContactFilter2D() { useTriggers = false };
-        //    var results = new List<RaycastHit2D>();
-        //    Physics2D.Linecast(segment.P1.ToVector2(), segment.P2.ToVector2(), filter, results);
-
-        //    var compositeColliderResults = results.Where(hit => hit.collider == composite).ToList();
-        //    compositeColliderResults.Sort((a, b) => (int)(a.distance - b.distance));
-
-        //    foreach (var result in results)
-        //    {
-        //        var point = result.point;
-        //        if (!segment.P1.Approximately(new RGuideVector2(point)) && !segment.P2.Approximately(new RGuideVector2(point)))
-        //        {
-        //            return true;
-        //        }
-        //    }
-
-        //    return false;
-        //}
 
         public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
         {
@@ -211,16 +198,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
 
             return (resultOutsidePath, resultInsidePath);
-        }
-
-        private static bool SameDirection(RGuideVector2 s1P1, RGuideVector2 s1P2, LineSegment2D s, RGuideVector2 hitPosition)
-        {
-            var s2P1 = hitPosition.Approximately(s.P1) ? s.P1 : s.P2;
-            var s2P2 = hitPosition.Approximately(s.P1) ? s.P2 : s.P1;
-
-            var s1Dir = (s1P2 - s1P1).normalized;
-            var s2Dir = (s2P2 - s2P1).normalized;
-            return RGuideVector2.Dot(s1Dir, s2Dir) > 0.0f;
         }
 
         private static IEnumerable<RGuideVector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
