@@ -261,9 +261,43 @@ namespace Assets._2RGuide.Runtime.Math
             }
         }
 
+        //https://stackoverflow.com/questions/7050186/find-if-point-lies-on-line-segment#:~:text=If%20V1%3D%3D(%2DV2,else%20it%20is%20past%20B.
         public bool Contains(RGuideVector2 p)
         {
-            return OnSegment(P1, p, P2);
+            // Thank you @Rob Agar           
+            // (x - x1) / (x2 - x1) = (y - y1) / (y2 - y1)
+            // x1 < x < x2, assuming x1 < x2
+            // y1 < y < y2, assuming y1 < y2          
+
+            var minX = Mathf.Min(P1.x, P2.x);
+            var maxX = Mathf.Max(P1.x, P2.x);
+
+            var minY = Mathf.Min(P1.y, P2.y);
+            var maxY = Mathf.Max(P1.y, P2.y);
+
+            if (!(minX <= p.x) || !(p.x <= maxX) || !(minY <= p.y) || !(p.y <= maxY))
+            {
+                return false;
+            }
+
+            if (Mathf.Abs(P1.x - P2.x) < Constants.RGuideEpsilon)
+            {
+                return Mathf.Abs(P1.x - p.x) < Constants.RGuideEpsilon || Mathf.Abs(P2.x - p.x) < Constants.RGuideEpsilon;
+            }
+
+            if (Mathf.Abs(P1.y - P2.y) < Constants.RGuideEpsilon)
+            {
+                return Mathf.Abs(P1.y - p.y) < Constants.RGuideEpsilon || Mathf.Abs(P2.y - p.y) < Constants.RGuideEpsilon;
+            }
+
+            if (Mathf.Abs((p.x - P1.x) / (P2.x - P1.x) - (p.y - P1.y) / (P2.y - P1.y)) < Constants.RGuideEpsilon)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool IsCoincident(LineSegment2D other)

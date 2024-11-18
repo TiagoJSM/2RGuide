@@ -207,5 +207,41 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(insideSegments[0].P1.Approximately(new RGuideVector2(-5.0f, 0.0f)));
             Assert.That(insideSegments[0].P2.Approximately(new RGuideVector2(5.0f, 0.0f)));
         }
+
+        public class ContainsParams
+        {
+            public LineSegment2D Line { get; set; }
+            public RGuideVector2 Point { get; set; }
+            public bool Result { get; set; }
+
+            public ContainsParams(LineSegment2D line, RGuideVector2 point, bool result)
+            {
+                Line = line;
+                Point = point;
+                Result = result;
+            }
+        }
+
+        static readonly ContainsParams[] ContainsTestValues = new[]
+        {
+            new ContainsParams(
+                new LineSegment2D(
+                    new RGuideVector2(-0.066f, 2.635f),
+                    new RGuideVector2(0.434f, 3.0599f)),
+               new RGuideVector2(0.114f, 3.0f),
+               false),
+            new ContainsParams(
+                new LineSegment2D(
+                    new RGuideVector2(-0.066f, 1.0f),
+                    new RGuideVector2(0.434f, 1.0f)),
+               new RGuideVector2(0.114f, 1.0f),
+               true),
+        };
+
+        [Test]
+        public void Contains([ValueSource(nameof(ContainsTestValues))] ContainsParams values)
+        {
+            Assert.AreEqual(values.Result, values.Line.Contains(values.Point));
+        }
     }
 }

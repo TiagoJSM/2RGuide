@@ -91,6 +91,16 @@ namespace Assets._2RGuide.Runtime.Helpers
             return _navSegments.FirstOrDefault(ns => ns.segment.Contains(point));
         }
 
+        public NavSegment GetNavSegmentWithPoint(RGuideVector2 point, ConnectionType connectionType)
+        {
+            if(connectionType == ConnectionType.All)
+            {
+                return GetNavSegmentWithPoint(point);
+            }
+
+            return _navSegments.FirstOrDefault(ns => ns.connectionType == connectionType && ns.segment.Contains(point));
+        }
+
         private NavSegment GetWalkNavSegmentContaining(RGuideVector2 p)
         {
             return _navSegments.FirstOrDefault(ns =>
