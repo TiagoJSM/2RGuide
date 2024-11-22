@@ -93,6 +93,7 @@ namespace Assets._2RGuide.Editor
             }
             finally
             {
+                ColliderGeneration.DestroyRootComposiveGameObject();
                 _bakingCoroutine = null;
             }
         }
@@ -101,10 +102,10 @@ namespace Assets._2RGuide.Editor
         {
             var navWorld = UnityEngine.Object.FindObjectOfType<NavWorld>();
             var navTagBounds = UnityEngine.Object.FindObjectsOfType<NavTagBounds>();
-
-            var composite = navWorld.GetComponent<CompositeCollider2D>();
-
             var nodePathSettings = NodePathSettings;
+
+            var composite = ColliderGeneration.GenerateComposite(navWorld.gameObject, nodePathSettings.oneWayPlatformMask);
+            
             var (segments, oneWayEdgeSegments, polygons) = GetPathDescription(composite, navTagBounds, nodePathSettings);
             var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(ClipperUtils.MakePath(b.Collider), b.NavTag)).ToArray();
             var jumpSettings = JumpSettings;
@@ -379,7 +380,6 @@ namespace Assets._2RGuide.Editor
 
             return new NavBuildContext()
             {
-                //closedPath = closedPath,
                 polygons = polygons,
                 segments = navSegments.ToList(),
             };
