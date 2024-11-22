@@ -190,6 +190,17 @@ namespace Assets._2RGuide.Editor
             var polygonCollection = GetPolygons(composite);
             var edgeSegmentInfos = GetEdgeSegments(composite, nodePathSettings.oneWayPlatformMask, closedSegmentPaths, polygonCollection);
 
+            var edgeSegments = edgeSegmentInfos.Select(s => s.edgeSegment).ToArray();
+
+            closedSegmentPaths =
+                closedSegmentPaths
+                    .SelectMany(sp =>
+                    {
+                        var intersections = sp.GetIntersections(edgeSegments);
+                        return sp.Split(intersections);
+                    })
+                    .ToArray();
+
             var allSegments = closedSegmentPaths.ToList();
             allSegments.AddRange(edgeSegmentInfos.Select(es => es.edgeSegment));
 
