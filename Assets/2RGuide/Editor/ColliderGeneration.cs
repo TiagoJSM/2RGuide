@@ -19,17 +19,19 @@ namespace Assets._2RGuide.Editor
             var composite = rootComposite.AddComponent<CompositeCollider2D>();
             composite.geometryType = CompositeCollider2D.GeometryType.Outlines;
             composite.generationType = CompositeCollider2D.GenerationType.Synchronous;
-            var colliders = GetColliders(root, oneWayPlatformer);
+            var colliders = GetColliders(root);
             
             foreach(var collider in colliders)
             {
                 var go = new GameObject();
+                go.layer = collider.gameObject.layer;
                 go.transform.parent = rootComposite.transform;
                 go.transform.SetPositionAndRotation(collider.transform.position, collider.transform.rotation);
                 go.transform.localScale = collider.transform.lossyScale;
                 var addedComponent = go.AddComponent(collider.GetType()) as Collider2D;
                 EditorUtility.CopySerialized(collider, addedComponent);
-                addedComponent.usedByComposite = true;
+                // do not include in composive generation if is a one way platformer object, this will be handled in a different way
+                addedComponent.usedByComposite = !oneWayPlatformer.Includes(go);
             }
 
             return composite;
@@ -52,18 +54,18 @@ namespace Assets._2RGuide.Editor
             return go;
         }
 
-        private static Collider2D[] GetColliders(GameObject root, LayerMask oneWayPlatformer)
+        private static Collider2D[] GetColliders(GameObject root)
         {
-            return root.GetComponentsInChildren<Collider2D>(false).Where(c => IsColliderValidForPathfinding(c, oneWayPlatformer) && c.GetComponent<NavTagBounds>() == null).ToArray();
+            return root.GetComponentsInChildren<Collider2D>(false).Where(c => IsColliderValidForPathfinding(c) && c.GetComponent<NavTagBounds>() == null).ToArray();
         }
 
-        private static bool IsColliderValidForPathfinding(Collider2D collider, LayerMask oneWayPlatformer)
+        private static bool IsColliderValidForPathfinding(Collider2D collider)
         {
-            if (collider is BoxCollider2D box && !oneWayPlatformer.Includes(box.gameObject))
+            if (collider is BoxCollider2D)
             {
                 return true;
             }
-            else if (collider is PolygonCollider2D polygon)
+            else if (collider is PolygonCollider2D)
             {
                 return true;
             }

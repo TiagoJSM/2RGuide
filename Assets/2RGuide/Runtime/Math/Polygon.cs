@@ -1,17 +1,60 @@
-﻿using System;
+﻿using Assets._2RGuide.Runtime.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets._2RGuide.Runtime.Math
 {
     public class Polygon
     {
         private List<RGuideVector2> _polygonVertices;
+        private Bounds _bounds;
+
+        public static Polygon Infinite
+        {
+            get
+            {
+                var polygon = new Polygon();
+
+                polygon._polygonVertices = new List<RGuideVector2> 
+                {
+                    new RGuideVector2(float.NegativeInfinity, float.NegativeInfinity),
+                    new RGuideVector2(float.NegativeInfinity, float.PositiveInfinity),
+                    new RGuideVector2(float.PositiveInfinity, float.PositiveInfinity),
+                    new RGuideVector2(float.PositiveInfinity, float.NegativeInfinity),
+                };
+                polygon._bounds = new Bounds(Vector2.zero, new Vector2(float.PositiveInfinity, float.PositiveInfinity));
+
+                return polygon;
+            }
+        }
+
+        public bool IsInfinite
+        {
+            get
+            {
+                return float.IsPositiveInfinity(_bounds.extents.x) && float.IsPositiveInfinity(_bounds.extents.y);
+            }
+        }
+
+        private Polygon() { }
         public Polygon(IEnumerable<RGuideVector2> polygonVertices) 
         {
             _polygonVertices = polygonVertices.ToList();
+
+            var maxX = polygonVertices.Max(v => v.x);
+            var maxY = polygonVertices.Max(v => v.y);
+
+            var minX = polygonVertices.Min(v => v.x);
+            var minY = polygonVertices.Min(v => v.y);
+
+            var center = new Vector2((maxX + minX) / 2, (maxY + minY) / 2);
+            var size = new Vector2(maxX - minX, maxY - minY);
+
+            _bounds = new Bounds(center, size);
         }
 
         /// <summary>
@@ -22,6 +65,16 @@ namespace Assets._2RGuide.Runtime.Math
         /// <returns>true if the point is inside the polygon; otherwise, false</returns>
         public bool IsPointInPolygon(RGuideVector2 testPoint)
         {
+            if (IsInfinite)
+            {
+                return true;
+            }
+
+            if (!_bounds.Contains(testPoint.ToVector2()))
+            {
+                return false;
+            }
+
             var result = false;
             var j = _polygonVertices.Count - 1;
             for (int i = 0; i < _polygonVertices.Count; i++)
@@ -39,6 +92,58 @@ namespace Assets._2RGuide.Runtime.Math
                 j = i;
             }
             return result;
+        }
+
+        public bool Contains(Polygon other)
+        {
+            if (IsInfinite)
+            {
+                return true;
+            }
+
+            if (!ContainBounds(other._bounds))
+            {
+                return false;
+            }
+
+            for(var idx = 0; idx < _polygonVertices.Count; idx++)
+            {
+                var p1 = _polygonVertices[idx];
+                var p2Idx = idx + 1;
+                var p2 = p2Idx >= _polygonVertices.Count ? _polygonVertices[0] : _polygonVertices[p2Idx];
+                var line = new LineSegment2D(p1, p2);
+
+                if(Intersects(line, other))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool Intersects(LineSegment2D line, Polygon other)
+        {
+            var otherPolygonVertices = other._polygonVertices;
+            for (var idx = 0; idx < otherPolygonVertices.Count; idx++)
+            {
+                var p1 = otherPolygonVertices[idx];
+                var p2Idx = idx + 1;
+                var p2 = p2Idx >= otherPolygonVertices.Count ? otherPolygonVertices[0] : otherPolygonVertices[p2Idx];
+                var otherLine = new LineSegment2D(p1, p2);
+
+                if(line.DoLinesIntersect(otherLine))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool ContainBounds(Bounds target)
+        {
+            return _bounds.Contains(target.min) && _bounds.Contains(target.max);
         }
     }
 }

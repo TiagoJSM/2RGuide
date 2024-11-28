@@ -17,7 +17,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
     public struct NavBuildContext
     {
-        public PolygonComposite polygons;
+        public PolyTree polygons;
         public List<NavSegment> segments;
     }
 
