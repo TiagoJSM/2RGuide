@@ -8,21 +8,29 @@ namespace Assets._2RGuide.Runtime.Helpers
     public class NavTagBoxBounds
     {
         private PathD _clipperPath;
+        private Polygon _polygon;
         public NavTag NavTag { get; }
 
-        public NavTagBoxBounds(PathD clipperPath, NavTag navTag)
+        public NavTagBoxBounds(NavTagBounds navTagBounds)
         {
-            NavTag = navTag;
-            _clipperPath = clipperPath;
+            NavTag = navTagBounds.NavTag;
+            var bounds = new Box(navTagBounds.Collider);
+            _polygon = new Polygon(
+                new[] 
+                { 
+                    bounds.BottomLeft, 
+                    bounds.TopLeft,
+                    bounds.TopRight,
+                    bounds.BottomRight
+                });
         }
 
         public bool Contains(LineSegment2D lineSeg)
         {
-            var p1Result = Clipper.PointInPolygon(new PointD(lineSeg.P1.x, lineSeg.P1.y), _clipperPath);
-            var p2Result = Clipper.PointInPolygon(new PointD(lineSeg.P2.x, lineSeg.P2.y), _clipperPath);
+            var p1Result = _polygon.IsPointInPolygon(lineSeg.P1);
+            var p2Result = _polygon.IsPointInPolygon(lineSeg.P2);
 
-            return (p1Result == PointInPolygonResult.IsInside || p1Result == PointInPolygonResult.IsOn) && 
-                (p2Result == PointInPolygonResult.IsInside || p2Result == PointInPolygonResult.IsOn);
+            return p1Result && p2Result;
         }
     }
 }
