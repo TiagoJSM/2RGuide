@@ -175,37 +175,6 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(segment.SlopeRadians, Is.EqualTo(0.785398f).Within(0.1f));
         }
 
-        [Test]
-        public void SplitPath()
-        {
-            var closedPath = Clipper.MakePath(new double[]
-                {
-                    -5f, -5f,
-                    -5f, 5f,
-                    5f, 5f,
-                    5f, -5f,
-                });
-
-            var line = new LineSegment2D(new RGuideVector2(-10.0f, 0.0f), new RGuideVector2(10.0f, 0.0f));
-
-            var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(line, new PathsD() { closedPath });
-
-            Assert.That(resultOutsidePath.Count, Is.EqualTo(2));
-            Assert.That(resultInsidePath.Count, Is.EqualTo(1));
-
-            var outsideSegments = NavHelper.ConvertOpenPathToSegments(resultOutsidePath);
-            var insideSegments = NavHelper.ConvertOpenPathToSegments(resultInsidePath);
-
-            Assert.That(outsideSegments[0].P1.Approximately(new RGuideVector2(-10.0f, 0.0f)));
-            Assert.That(outsideSegments[0].P2.Approximately(new RGuideVector2(-5.0f, 0.0f)));
-
-            Assert.That(outsideSegments[1].P1.Approximately(new RGuideVector2(5.0f, 0.0f)));
-            Assert.That(outsideSegments[1].P2.Approximately(new RGuideVector2(10.0f, 0.0f)));
-
-            Assert.That(insideSegments[0].P1.Approximately(new RGuideVector2(-5.0f, 0.0f)));
-            Assert.That(insideSegments[0].P2.Approximately(new RGuideVector2(5.0f, 0.0f)));
-        }
-
         public class ContainsParams
         {
             public LineSegment2D Line { get; }

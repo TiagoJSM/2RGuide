@@ -52,32 +52,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             };
         }
 
-        public static LineSegment2D[] ConvertClosedPathToSegments(PathsD paths)
-        {
-            var segments = new List<LineSegment2D>();
-
-            foreach (var path in paths)
-            {
-                // Clippy paths are created in the reverse order
-                path.Reverse();
-
-                var segmentPath = new List<LineSegment2D>();
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segmentPath.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)p2.x, (float)p2.y)));
-                    p1 = p2;
-                }
-                var start = path[0];
-                segmentPath.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)start.x, (float)start.y)));
-
-                segments.AddRange(segmentPath.Merge());
-            }
-
-            return segments.ToArray();
-        }
-
         public static IEnumerable<LineSegment2D> ConvertClosedPathToSegments(IEnumerable<RGuideVector2> points)
         {
             var segmentPath = new List<LineSegment2D>();
