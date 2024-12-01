@@ -57,6 +57,22 @@ namespace Assets._2RGuide.Runtime.Math
             _bounds = new Bounds(center, size);
         }
 
+        public Polygon(Box box)
+            :this(new[]
+                {
+                    box.BottomLeft,
+                    box.TopLeft,
+                    box.TopRight,
+                    box.BottomRight
+                })
+        {
+        }
+
+        public Polygon(BoxCollider2D boxCollider)
+            :this(new Box(boxCollider))
+        {
+        }
+
         /// <summary>
         /// Determines if the given point is inside the polygon, taken from https://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
         /// </summary>
@@ -113,7 +129,7 @@ namespace Assets._2RGuide.Runtime.Math
                 var p2 = p2Idx >= _polygonVertices.Count ? _polygonVertices[0] : _polygonVertices[p2Idx];
                 var line = new LineSegment2D(p1, p2);
 
-                if(Intersects(line, other))
+                if(other.Intersections(line).Any())
                 {
                     return false;
                 }
@@ -122,23 +138,22 @@ namespace Assets._2RGuide.Runtime.Math
             return true;
         }
 
-        private static bool Intersects(LineSegment2D line, Polygon other)
+        public IEnumerable<RGuideVector2> Intersections(LineSegment2D line)
         {
-            var otherPolygonVertices = other._polygonVertices;
-            for (var idx = 0; idx < otherPolygonVertices.Count; idx++)
+            var polygonVertices = _polygonVertices;
+            for (var idx = 0; idx < polygonVertices.Count; idx++)
             {
-                var p1 = otherPolygonVertices[idx];
+                var p1 = polygonVertices[idx];
                 var p2Idx = idx + 1;
-                var p2 = p2Idx >= otherPolygonVertices.Count ? otherPolygonVertices[0] : otherPolygonVertices[p2Idx];
+                var p2 = p2Idx >= polygonVertices.Count ? polygonVertices[0] : polygonVertices[p2Idx];
                 var otherLine = new LineSegment2D(p1, p2);
 
-                if(line.DoLinesIntersect(otherLine))
+                var intersection = line.GetIntersection(otherLine);
+                if (intersection.HasValue)
                 {
-                    return true;
+                    yield return intersection.Value;
                 }
             }
-
-            return false;
         }
 
         private bool ContainBounds(Bounds target)

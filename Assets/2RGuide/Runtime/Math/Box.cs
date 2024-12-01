@@ -31,5 +31,14 @@ namespace Assets._2RGuide.Runtime.Math
             BottomRight = new RGuideVector2(collider.transform.TransformPoint(new Vector3(maxX, minY)));
             BottomLeft = new RGuideVector2(collider.transform.TransformPoint(new Vector3(minX, minY)));
         }
+
+        public Box(RGuideVector2 center, RGuideVector2 size)
+        {
+            var extents = size * 0.5f;
+            TopLeft = center + new RGuideVector2(-extents.x, extents.y);
+            BottomLeft = center + new RGuideVector2(-extents.x, -extents.y);
+            TopRight = center + new RGuideVector2(extents.x, extents.y);
+            BottomRight = center + new RGuideVector2(extents.x, -extents.y);
+        }
     }
 }

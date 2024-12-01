@@ -2,8 +2,8 @@
 using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
@@ -17,8 +17,14 @@ namespace Assets._2RGuide.Runtime.Helpers
 
     public struct NavBuildContext
     {
-        public PolyTree polygons;
-        public List<NavSegment> segments;
+        public PolyTree Polygons { get; }
+        public IEnumerable<NavSegment> Segments { get; }
+
+        public NavBuildContext(PolyTree polygons, IEnumerable<NavSegment> segments)
+        {
+            Polygons = polygons;
+            Segments = segments;
+        }
     }
 
     public static class NavHelper
@@ -27,7 +33,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var nodeStore = new NodeStore();
 
-            var navSegments = navBuildContext.segments;
+            var navSegments = navBuildContext.Segments;
 
             var builder = new NavBuilder(nodeStore);
             NodeHelpers.BuildNodes(builder, navSegments);
@@ -72,6 +78,23 @@ namespace Assets._2RGuide.Runtime.Helpers
             return segments.ToArray();
         }
 
+        public static IEnumerable<LineSegment2D> ConvertClosedPathToSegments(IEnumerable<RGuideVector2> points)
+        {
+            var segmentPath = new List<LineSegment2D>();
+
+            var p1 = points.ElementAt(0);
+            for (var idx = 1; idx < points.Count(); idx++)
+            {
+                var p2 = points.ElementAt(idx);
+                segmentPath.Add(new LineSegment2D(p1, p2));
+                p1 = p2;
+            }
+            var start = points.ElementAt(0);
+            segmentPath.Add(new LineSegment2D(p1, start));
+
+            return segmentPath;
+        }
+
         public static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
         {
             var segments = new List<LineSegment2D>();
@@ -107,47 +130,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                         return dividedSegs;
                     })
                     .ToArray();
-        }
-
-        private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
-        {
-            var result = new List<LineSegment2D>();
-            var currentLineSegment = new LineSegment2D();
-
-            foreach(var segment in segments)
-            {
-                if(!currentLineSegment)
-                {
-                    currentLineSegment = segment;
-                    continue;
-                }
-
-                if(segment.Slope == currentLineSegment.Slope)
-                {
-                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
-                }
-                else
-                {
-                    result.Add(currentLineSegment);
-                    currentLineSegment = segment;
-                }
-            }
-
-            if (currentLineSegment)
-            {
-                result.Add(currentLineSegment);
-            }
-
-            if(result.Count > 1)
-            {
-                if (result[0].Slope == result.Last().Slope)
-                {
-                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
-                    result.RemoveAt(result.Count - 1);
-                }
-            }
-
-            return result;
         }
     }
 }

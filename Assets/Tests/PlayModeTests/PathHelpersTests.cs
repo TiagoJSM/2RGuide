@@ -15,37 +15,31 @@ namespace Assets.Tests.EditModeTests
         {
             var nodes = new NodeStore();
 
-            var clipper = new ClipperD();
-            var closedPath = new PathsD();
-
-            var shape1 = Clipper.MakePath(new double[]
-                {
-                    0.0, 0.0,
-                    10.0, 0.0,
-                    10.0, 10.0,
-                    0.0, 10.0,
-                });
-
-            var shape2 = Clipper.MakePath(new double[]
-                {
-                    5.0f, 20.0,
-                    15.0, 20.0,
-                    15.0, 21.0,
-                    5.0, 21.0,
-                });
-
-            clipper.AddPath(shape1, PathType.Subject);
-            clipper.AddPath(shape2, PathType.Subject);
-
-            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
-            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
-
-            var navBuildContext = new NavBuildContext()
+            var shape1Points = new[]
             {
-                segments = navSegments.ToList(),
-                //closedPath = closedPath
+                new RGuideVector2(0f, 0f),
+                new RGuideVector2(0f, 10f),
+                new RGuideVector2(10f, 10f),
+                new RGuideVector2(10f, 0f),
             };
+            var shape2Points = new[]
+            {
+                new RGuideVector2(5f, 20f),
+                new RGuideVector2(5f, 21f),
+                new RGuideVector2(15f, 21f),
+                new RGuideVector2(15f, 20f),
+            };
+            var shape1Path = NavHelper.ConvertClosedPathToSegments(shape1Points);
+            var shape2Path = NavHelper.ConvertClosedPathToSegments(shape2Points);
+            var closedPathSegments = shape1Path.ToList();
+            closedPathSegments.AddRange(shape2Path);
+            var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
+            var polygons = new PolyTree(new[]
+            {
+                new Polygon(shape1Points),
+                new Polygon(shape2Points)
+            });
+            var navBuildContext = new NavBuildContext(polygons, navSegments);
 
             var navBuilder = new NavBuilder(nodes);
             NodeHelpers.BuildNodes(navBuilder, navSegments);

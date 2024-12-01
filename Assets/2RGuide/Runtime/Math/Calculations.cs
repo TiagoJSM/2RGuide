@@ -46,13 +46,13 @@ namespace Assets._2RGuide.Runtime.Math
             var min =
                 segments
                     .Select(s =>
-                        (s, ray.GetIntersection(s)))
+                        (segment: s, intersection: ray.GetIntersection(s)))
                     .Where(v => 
-                        v.Item2.HasValue && !v.Item2.Value.Approximately(origin))
+                        v.intersection.HasValue && !v.intersection.Value.Approximately(origin))
                     .MinBy(v =>
                         RGuideVector2.Distance(v.Item2.Value, origin));
 
-            return min.Item2.HasValue ? new CalculationRaycastHit(min.Item1, min.Item2, RGuideVector2.Distance(min.Item2.Value, origin)) : new CalculationRaycastHit();
+            return min.Item2.HasValue ? new CalculationRaycastHit(min.segment, min.intersection, RGuideVector2.Distance(min.intersection.Value, origin)) : new CalculationRaycastHit();
         }
     }
 }

@@ -170,10 +170,10 @@ namespace Assets._2RGuide.Editor
             var allSegments = closedSegmentPaths.ToList();
             allSegments.AddRange(edgeSegmentInfos.Select(es => es.edgeSegment));
 
-            var splits = allSegments.SplitLineSegments(navTagBounds);
+            var splits = allSegments.SplitLineSegments(navTagBounds.Select(b => new NavTagBoxBounds(b)));
             allSegments = new List<LineSegment2D>();
-            allSegments.AddRange(splits.Item1);
-            allSegments.AddRange(splits.Item2);
+            allSegments.AddRange(splits.resultOutsidePath);
+            allSegments.AddRange(splits.resultInsidePath);
 
             var oneWaySegments = edgeSegmentInfos.Where(es => es.oneWay).Select(es => es.edgeSegment);
 
@@ -186,19 +186,12 @@ namespace Assets._2RGuide.Editor
 
             for (var pathIndex = 0; pathIndex < composite.pathCount; pathIndex++)
             {
-                var path = new List<Vector2>();
-                composite.GetPath(pathIndex, path);
-                path.Reverse();
+                var points = new List<Vector2>();
+                composite.GetPath(pathIndex, points);
+                points.Reverse();
 
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(p2)));
-                    p1 = p2;
-                }
-                var start = path[0];
-                segmentPath.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(start)));
+                var path = NavHelper.ConvertClosedPathToSegments(points.Select(p => new RGuideVector2(p)));
+                segmentPath.AddRange(path);
             }
 
             return segmentPath.Merge();
@@ -260,56 +253,11 @@ namespace Assets._2RGuide.Editor
             return new PolyTree(polygonCollection);
         }
 
-        private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
-        {
-            var result = new List<LineSegment2D>();
-            var currentLineSegment = new LineSegment2D();
-
-            foreach (var segment in segments)
-            {
-                if (!currentLineSegment)
-                {
-                    currentLineSegment = segment;
-                    continue;
-                }
-
-                if (segment.Slope == currentLineSegment.Slope)
-                {
-                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
-                }
-                else
-                {
-                    result.Add(currentLineSegment);
-                    currentLineSegment = segment;
-                }
-            }
-
-            if (currentLineSegment)
-            {
-                result.Add(currentLineSegment);
-            }
-
-            if (result.Count > 1)
-            {
-                if (result[0].Slope == result.Last().Slope)
-                {
-                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
-                    result.RemoveAt(result.Count - 1);
-                }
-            }
-
-            return result;
-        }
-
         private static NavBuildContext GetNavBuildContext(IEnumerable<LineSegment2D> segments, IEnumerable<LineSegment2D> oneWayEdgeSegments, PolyTree polygons, NavTagBoxBounds[] navTagBoxBounds, float segmentDivision, float segmentMaxHeight)
         {
             var navSegments = NavHelper.ConvertToNavSegments(segments, segmentDivision, oneWayEdgeSegments, segmentMaxHeight, ConnectionType.Walk, navTagBoxBounds);
 
-            return new NavBuildContext()
-            {
-                polygons = polygons,
-                segments = navSegments.ToList(),
-            };
+            return new NavBuildContext(polygons, navSegments);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var origin = new RGuideVector2(originX, node.Position.y);
 
-            var navSegment = navBuildContext.segments.Where(ss =>
+            var navSegment = navBuildContext.Segments.Where(ss =>
             {
                 if (settings.noDropsTargetTags.Contains(ss.navTag))
                 {
@@ -82,7 +82,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var segment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
                 
-                var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuildContext.polygons, navBuilder);
+                var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuildContext.Polygons, navBuilder);
 
                 if (overlaps)
                 {

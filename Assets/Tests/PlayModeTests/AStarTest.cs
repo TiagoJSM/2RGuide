@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using UnityEngine.TestTools;
 
 namespace Assets.Tests.PlayModeTests
@@ -49,37 +50,34 @@ namespace Assets.Tests.PlayModeTests
                 noDropsTargetTags = Array.Empty<NavTag>(),
             };
 
-            var clipper = new ClipperD();
-            var closedPath = new PathsD();
-
-            var shape1 = Clipper.MakePath(new double[]
+            var shape1Points = new[]
                 {
-                    0.0, 3.5,
-                    3.0, 3.5,
-                    3.0, 2.5,
-                    0.0, 2.5,
-                });
+                    new RGuideVector2(0.0f, 3.5f),
+                    new RGuideVector2(3.0f, 3.5f),
+                    new RGuideVector2(3.0f, 2.5f),
+                    new RGuideVector2(0.0f, 2.5f),
+                };
 
-            var shape2 = Clipper.MakePath(new double[]
+            var shape2Points = new[]
                 {
-                    -1.5, 1.5,
-                    1.5, 1.5,
-                    1.5, -1.5,
-                    -1.5, -1.5,
-                });
-
-            clipper.AddPath(shape1, PathType.Subject);
-            clipper.AddPath(shape2, PathType.Subject);
-
-            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
-            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+                    new RGuideVector2(-1.5f, 1.5f),
+                    new RGuideVector2(1.5f, 1.5f),
+                    new RGuideVector2(1.5f, -1.5f),
+                    new RGuideVector2(-1.5f, -1.5f),
+                };
+            //var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+            var shape1Path = NavHelper.ConvertClosedPathToSegments(shape1Points);
+            var shape2Path = NavHelper.ConvertClosedPathToSegments(shape2Points);
+            var closedPathSegments = shape1Path.ToList();
+            closedPathSegments.AddRange(shape2Path);
             var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 1.0f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
-
-            var navBuildContext = new NavBuildContext()
+            var polygons = new PolyTree(new[]
             {
-                segments = navSegments.ToList(),
-                //closedPath = closedPath
-            };
+                new Polygon(shape1Points),
+                new Polygon(shape2Points)
+            });
+
+            var navBuildContext = new NavBuildContext(polygons, navSegments);
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 
@@ -110,37 +108,33 @@ namespace Assets.Tests.PlayModeTests
                 noDropsTargetTags = Array.Empty<NavTag>(),
             };
 
-            var clipper = new ClipperD();
-            var closedPath = new PathsD();
-
-            var shape1 = Clipper.MakePath(new double[]
+            var shape1Points = new[]
                 {
-                    0.0, 0.0,
-                    30.0, 0.0,
-                    30.0, -10.0,
-                    0.0, -10.0,
-                });
+                    new RGuideVector2(0.0f, 0.0f),
+                    new RGuideVector2(30.0f, 0.0f),
+                    new RGuideVector2(30.0f, -10.0f),
+                    new RGuideVector2(0.0f, -10.0f),
+                };
 
-            var shape2 = Clipper.MakePath(new double[]
+            var shape2Points = new[]
                 {
-                    4.0, 4.0,
-                    4.0, 5.0,
-                    10.0, 5.0,
-                    10.0, 4.0,
-                });
-
-            clipper.AddPath(shape1, PathType.Subject);
-            clipper.AddPath(shape2, PathType.Subject);
-
-            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
-            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
+                    new RGuideVector2(4.0f, 4.0f),
+                    new RGuideVector2(4.0f, 5.0f),
+                    new RGuideVector2(10.0f, 5.0f),
+                    new RGuideVector2(10.0f, 4.0f),
+                };
+            
+            var shape1Path = NavHelper.ConvertClosedPathToSegments(shape1Points);
+            var shape2Path = NavHelper.ConvertClosedPathToSegments(shape2Points);
+            var closedPathSegments = shape1Path.ToList();
+            closedPathSegments.AddRange(shape2Path);
             var navSegments = NavHelper.ConvertToNavSegments(closedPathSegments, 0.5f, Array.Empty<LineSegment2D>(), 50.0f, ConnectionType.Walk, Array.Empty<NavTagBoxBounds>());
-
-            var navBuildContext = new NavBuildContext()
+            var polygons = new PolyTree(new[]
             {
-                segments = navSegments.ToList(),
-                //closedPath = closedPath,
-            };
+                new Polygon(shape1Points),
+                new Polygon(shape2Points)
+            });
+            var navBuildContext = new NavBuildContext(polygons, navSegments); ;
 
             var navResult = NavHelper.Build(navBuildContext, jumpSettings, dropSettings);
 

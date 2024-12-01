@@ -20,6 +20,11 @@ namespace Assets._2RGuide.Runtime.Math
         public static RGuideVector2 one => new RGuideVector2(Vector2.one);
         public static RGuideVector2 down => new RGuideVector2(Vector2.down);
 
+        public RGuideVector2(float value)
+            :this(value, value)
+        {
+        }
+
         public RGuideVector2(float x, float y)
         {
             _vec = new Vector2(x.Round(Constants.RoundingDecimalPrecision), y.Round(Constants.RoundingDecimalPrecision));

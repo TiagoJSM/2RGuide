@@ -8,7 +8,7 @@ namespace Assets._2RGuide.Runtime.Helpers
     {
         public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, RGuideVector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
         {
-            var dropPoints = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).Select(ns => ns.segment.HalfPoint).ToArray();
+            var dropPoints = navBuildContext.Segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).Select(ns => ns.segment.HalfPoint).ToArray();
 
             foreach (var dropPoint in dropPoints)
             {

@@ -4,7 +4,8 @@ using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using NUnit.Framework;
 using System;
-using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Tests.PlayModeTests
 {
@@ -140,9 +141,6 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(splits[0].maxHeight, Is.EqualTo(10.0f).Within(Constants.RGuideEpsilon));
             Assert.That(splits[1].maxHeight, Is.EqualTo(50.0f).Within(Constants.RGuideEpsilon));
             Assert.That(splits[2].maxHeight, Is.EqualTo(6.0f).Within(Constants.RGuideEpsilon));
-            //Assert.AreEqual(10.0f, splits[0].maxHeight);
-            //Assert.AreEqual(50.0f, splits[1].maxHeight);
-            //Assert.AreEqual(6.0f, splits[2].maxHeight);
         }
 
         [Test]
@@ -162,10 +160,10 @@ namespace Assets.Tests.PlayModeTests
                     ConnectionType.Walk);
 
             Assert.AreEqual(4, splits.Length);
-            Assert.AreEqual(9.9998f, splits[0].maxHeight);
-            Assert.AreEqual(50.0f, splits[1].maxHeight);
-            Assert.AreEqual(6.0f, splits[2].maxHeight);
-            Assert.AreEqual(50.0f, splits[3].maxHeight);
+            Assert.AreEqual(10f, splits[0].maxHeight);
+            Assert.AreEqual(50f, splits[1].maxHeight);
+            Assert.AreEqual(6f, splits[2].maxHeight);
+            Assert.AreEqual(50f, splits[3].maxHeight);
         }
 
 
@@ -210,9 +208,9 @@ namespace Assets.Tests.PlayModeTests
 
         public class ContainsParams
         {
-            public LineSegment2D Line { get; set; }
-            public RGuideVector2 Point { get; set; }
-            public bool Result { get; set; }
+            public LineSegment2D Line { get; }
+            public RGuideVector2 Point { get; }
+            public bool Result { get; }
 
             public ContainsParams(LineSegment2D line, RGuideVector2 point, bool result)
             {
@@ -242,6 +240,75 @@ namespace Assets.Tests.PlayModeTests
         public void Contains([ValueSource(nameof(ContainsTestValues))] ContainsParams values)
         {
             Assert.AreEqual(values.Result, values.Line.Contains(values.Point));
+        }
+
+        public class SplitLineSegmentParams
+        {
+            public IEnumerable<NavTagBoxBounds> NavTagBoxesBounds { get; }
+            public LineSegment2D Line { get; }
+            public IEnumerable<LineSegment2D> ResultInsidePath { get; }
+            public IEnumerable<LineSegment2D> ResultOutsidePath { get; }
+
+            public SplitLineSegmentParams(
+                IEnumerable<NavTagBoxBounds> navTagBoxesBounds, 
+                LineSegment2D line, 
+                IEnumerable<LineSegment2D> resultInsidePath, 
+                IEnumerable<LineSegment2D> resultOutsidePath)
+            {
+                NavTagBoxesBounds = navTagBoxesBounds;
+                Line = line;
+                ResultInsidePath = resultInsidePath;
+                ResultOutsidePath = resultOutsidePath;
+            }
+        }
+
+        static readonly SplitLineSegmentParams[] SplitLineSegmentTestValues = new[]
+        {
+            new SplitLineSegmentParams(
+                new[] { new NavTagBoxBounds(new NavTag(), new Polygon(new Box(RGuideVector2.zero, new RGuideVector2(10f)))) },
+                new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, 10f)),
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -5f), new RGuideVector2(0f, 5f)),
+                },
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, -5f)),
+                    new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(0f, 10f))
+                }),
+            new SplitLineSegmentParams(
+                new [] { new NavTagBoxBounds(new NavTag(), new Polygon(new Box(RGuideVector2.zero, new RGuideVector2(10f)))) },
+                new LineSegment2D(new RGuideVector2(20f, -10f), new RGuideVector2(20f, 10f)),
+                new LineSegment2D[] {},
+                new [] {
+                    new LineSegment2D(new RGuideVector2(20f, -10f), new RGuideVector2(20f, 10f)),
+                }),
+            new SplitLineSegmentParams(
+                new[] { new NavTagBoxBounds(new NavTag(), new Polygon(new Box(RGuideVector2.zero, new RGuideVector2(100f)))) },
+                new LineSegment2D(new RGuideVector2(20f, -10f), new RGuideVector2(20f, 10f)),
+                new [] {
+                new LineSegment2D(new RGuideVector2(20f, -10f), new RGuideVector2(20f, 10f)),},
+                new LineSegment2D[] {}),
+            new SplitLineSegmentParams(
+                new[] {
+                    new NavTagBoxBounds(new NavTag(), new Polygon(new Box(RGuideVector2.zero, new RGuideVector2(10f)))),
+                    new NavTagBoxBounds(new NavTag(), new Polygon(new Box(RGuideVector2.zero, new RGuideVector2(5f))))
+                },
+                new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, 10f)),
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -5f), new RGuideVector2(0f, 5f)),
+                },
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, -5f)),
+                    new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(0f, 10f))
+                }),
+        };
+
+        [Test]
+        public void SplitLineSegment([ValueSource(nameof(SplitLineSegmentTestValues))] SplitLineSegmentParams values)
+        {
+            var segment = values.Line;
+            var splits = segment.SplitLineSegment(values.NavTagBoxesBounds);
+            Assert.AreEqual(values.ResultInsidePath, splits.resultInsidePath);
+            Assert.AreEqual(values.ResultOutsidePath, splits.resultOutsidePath);
         }
     }
 }

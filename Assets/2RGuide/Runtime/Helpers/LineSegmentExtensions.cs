@@ -1,5 +1,4 @@
 ﻿using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -144,16 +143,25 @@ namespace Assets._2RGuide.Runtime.Helpers
             return intersectsOtherSegments;
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
+        public static (IEnumerable<LineSegment2D> resultOutsidePath, IEnumerable<LineSegment2D> resultInsidePath) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBoxBounds> navTags)
         {
-            var paths = new PathsD(navTags.Select(o => ClipperUtils.MakePath(o.Collider)));
-            var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(segment, paths);
-            return (
-                NavHelper.ConvertOpenPathToSegments(resultOutsidePath),
-                NavHelper.ConvertOpenPathToSegments(resultInsidePath));
+            var polygons = navTags.Select(o => o.Polygon);
+            var intersections = polygons.SelectMany(p => p.Intersections(segment));
+            var orderedIntersections = intersections.OrderBy(p => RGuideVector2.Distance(segment.P1, p));
+            var segmentsPonts = orderedIntersections.ToList();
+            segmentsPonts.Insert(0, segment.P1);
+            segmentsPonts.Add(segment.P2);
+            segmentsPonts = segmentsPonts.Distinct().ToList();
+
+            var lines = segmentsPonts.ToLines();
+
+            var resultsInsidePath = lines.Where(l => polygons.Any(p => p.IsPointInPolygon(l.HalfPoint))).Merge();
+            var resultOutsidePath = lines.Except(resultsInsidePath).Merge();
+
+            return (resultOutsidePath, resultsInsidePath);
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBounds> navTags)
+        public static (IEnumerable<LineSegment2D> resultOutsidePath, IEnumerable<LineSegment2D> resultInsidePath) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBoxBounds> navTags)
         {
             var resultOutsidePath = new List<LineSegment2D>();
             var resultInsidePath = new List<LineSegment2D>();
@@ -161,11 +169,52 @@ namespace Assets._2RGuide.Runtime.Helpers
             foreach (var segment in segments)
             {
                 var splits = segment.SplitLineSegment(navTags);
-                resultOutsidePath.AddRange(splits.Item1);
-                resultInsidePath.AddRange(splits.Item2);
+                resultOutsidePath.AddRange(splits.resultOutsidePath);
+                resultInsidePath.AddRange(splits.resultInsidePath);
             }
 
             return (resultOutsidePath, resultInsidePath);
+        }
+
+        public static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
+        {
+            var result = new List<LineSegment2D>();
+            var currentLineSegment = new LineSegment2D();
+
+            foreach (var segment in segments)
+            {
+                if (!currentLineSegment)
+                {
+                    currentLineSegment = segment;
+                    continue;
+                }
+
+                if (segment.Slope == currentLineSegment.Slope && currentLineSegment.P2.Approximately(segment.P1))
+                {
+                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
+                }
+                else
+                {
+                    result.Add(currentLineSegment);
+                    currentLineSegment = segment;
+                }
+            }
+
+            if (currentLineSegment)
+            {
+                result.Add(currentLineSegment);
+            }
+
+            if (result.Count > 1)
+            {
+                if (result[0].Slope == result.Last().Slope && result[0].P1.Approximately(result.Last().P2))
+                {
+                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
+                    result.RemoveAt(result.Count - 1);
+                }
+            }
+
+            return result;
         }
 
         private static IEnumerable<RGuideVector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
