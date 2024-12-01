@@ -63,5 +63,11 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) == 0);
         }
+
+        public static float Round(this float value, int digits)
+        {
+            var mult = Mathf.Pow(10.0f, digits);
+            return Mathf.Round(value * mult) / mult;
+        }
     }
 }

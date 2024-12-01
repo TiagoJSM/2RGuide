@@ -1,13 +1,9 @@
 ﻿using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
-using System.Collections;
-using UnityEngine;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
     public class NavTagBoxBounds
     {
-        private PathD _clipperPath;
         private Polygon _polygon;
         public NavTag NavTag { get; }
 

@@ -1,8 +1,6 @@
 ﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +9,6 @@ using System.Threading.Tasks;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using static Assets._2RGuide.Runtime.Helpers.EdgeColliderHelper;
 
 namespace Assets._2RGuide.Editor
@@ -148,51 +145,9 @@ namespace Assets._2RGuide.Editor
             }
         }
 
-        private static void CollectSegments(Collider2D collider, LayerMask oneWayPlatformer, ClipperD clipper)
-        {
-            if (collider is BoxCollider2D box && !oneWayPlatformer.Includes(box.gameObject))
-            {
-                CollectSegments(box, clipper);
-            }
-            else if (collider is PolygonCollider2D polygon)
-            {
-                CollectSegments(polygon, clipper);
-            }
-            else if (collider is CompositeCollider2D composite)
-            {
-                CollectSegments(composite, clipper);
-            }
-        }
-
-        private static void CollectSegments(BoxCollider2D collider, ClipperD clipper)
-        {
-            var shape = ClipperUtils.MakePath(collider);
-            clipper.AddPath(shape, PathType.Subject);
-        }
-
-        private static void CollectSegments(PolygonCollider2D collider, ClipperD clipper)
-        {
-            var paths = ClipperUtils.MakePaths(collider);
-            clipper.AddPaths(paths, PathType.Subject);
-        }
-
-        private static void CollectSegments(CompositeCollider2D collider, ClipperD clipper)
-        {
-            var paths = ClipperUtils.MakePaths(collider);
-            clipper.AddPaths(paths, PathType.Subject);
-        }
-
         private static Collider2D[] GetColliders(GameObject root)
         {
             return root.GetComponentsInChildren<Collider2D>(false).Where(c => c.GetComponent<NavTagBounds>() == null).ToArray();
-        }
-
-        private static NavBuildContext GetNavBuildContext(Collider2D[] colliders, NavTagBounds[] navTagBounds)
-        {
-            var nodePathSettings = NodePathSettings;
-            var (segments, oneWayEdgeSegments, closedPath) = GetPathDescription(colliders, navTagBounds, nodePathSettings);
-            var navTagBoxBounds = navTagBounds.Select(b => new NavTagBoxBounds(b)).ToArray();
-            return GetNavBuildContext(segments, oneWayEdgeSegments, new PolyTree(Array.Empty<Polygon>()), navTagBoxBounds, nodePathSettings.segmentDivision, nodePathSettings.segmentMaxHeight);
         }
 
         private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PolyTree) GetPathDescription(CompositeCollider2D composite, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
@@ -214,6 +169,11 @@ namespace Assets._2RGuide.Editor
 
             var allSegments = closedSegmentPaths.ToList();
             allSegments.AddRange(edgeSegmentInfos.Select(es => es.edgeSegment));
+
+            var splits = allSegments.SplitLineSegments(navTagBounds);
+            allSegments = new List<LineSegment2D>();
+            allSegments.AddRange(splits.Item1);
+            allSegments.AddRange(splits.Item2);
 
             var oneWaySegments = edgeSegmentInfos.Where(es => es.oneWay).Select(es => es.edgeSegment);
 
@@ -339,49 +299,6 @@ namespace Assets._2RGuide.Editor
             }
 
             return result;
-        }
-
-        private static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>, PathsD) GetPathDescription(Collider2D[] colliders, NavTagBounds[] navTagBounds, NodeHelpers.Settings nodePathSettings)
-        {
-            var clipper = ClipperUtils.ConfiguredClipperD();
-
-            foreach (var collider in colliders)
-            {
-                CollectSegments(collider, nodePathSettings.oneWayPlatformMask, clipper);
-            }
-
-            var closedPath = new PathsD();
-
-            var done = clipper.Execute(ClipType.Union, FillRule.NonZero, closedPath);
-
-            var closedPathSegments = NavHelper.ConvertClosedPathToSegments(closedPath);
-
-            // Clipper doesn't intersect paths with lines, so the line segments need to be produced separately
-            var edgeSegmentsInfo = colliders.GetEdgeSegments(nodePathSettings.oneWayPlatformMask, closedPath).ToArray();
-            var edgeSegments = edgeSegmentsInfo.Select(s => s.Item1).ToArray();
-
-            // Once the edge line segments are produced the segments from polygons need to be split to created all the possible connections
-            closedPathSegments =
-                closedPathSegments
-                    .SelectMany(sp =>
-                    {
-                        var intersections = sp.GetIntersections(edgeSegments);
-                        return sp.Split(intersections);
-                    })
-                    .ToArray();
-
-            var segments = new List<LineSegment2D>();
-            segments.AddRange(closedPathSegments);
-            segments.AddRange(edgeSegments);
-
-            var splits = segments.SplitLineSegments(navTagBounds);
-            segments = new List<LineSegment2D>();
-            segments.AddRange(splits.Item1);
-            segments.AddRange(splits.Item2);
-
-            var oneWayEdgeSegments = edgeSegmentsInfo.Where(s => s.Item2).Select(s => s.Item1);
-
-            return (segments, oneWayEdgeSegments, closedPath);
         }
 
         private static NavBuildContext GetNavBuildContext(IEnumerable<LineSegment2D> segments, IEnumerable<LineSegment2D> oneWayEdgeSegments, PolyTree polygons, NavTagBoxBounds[] navTagBoxBounds, float segmentDivision, float segmentMaxHeight)

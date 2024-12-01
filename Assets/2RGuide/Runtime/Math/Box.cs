@@ -1,10 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
-using Clipper2Lib;
-using System.Collections;
-using System.Drawing;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets._2RGuide.Runtime.Math
 {

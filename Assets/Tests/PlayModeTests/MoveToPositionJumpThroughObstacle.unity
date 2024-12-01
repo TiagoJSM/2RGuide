@@ -608,7 +608,7 @@ MonoBehaviour:
         _connectionType: 2
         _segment:
           P1:
-            _vec: {x: 2.7328, y: -1.32}
+            _vec: {x: -1.16, y: -1.32}
           P2:
             _vec: {x: -1.2528, y: -1.32}
         _maxHeight: 50
@@ -730,7 +730,7 @@ MonoBehaviour:
           P1:
             _vec: {x: -1.0372, y: 0.5}
           P2:
-            _vec: {x: -1.0372, y: -0.32}
+            _vec: {x: -1.0372, y: 0.11}
         _maxHeight: 3.4041
         _navTag:
           _tag: -1
@@ -750,7 +750,7 @@ MonoBehaviour:
         id: 0
       _nodeIndex: 5
       _position:
-        _vec: {x: -1.0372, y: -0.32}
+        _vec: {x: -1.0372, y: 0.11}
       _connections:
       - _nodeStore:
           id: 0
@@ -760,52 +760,52 @@ MonoBehaviour:
           P1:
             _vec: {x: -1.0372, y: 0.5}
           P2:
-            _vec: {x: -1.0372, y: -0.32}
+            _vec: {x: -1.0372, y: 0.11}
         _maxHeight: 3.4041
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 6
+        _nodeIndex: 12
         _connectionType: 2
         _segment:
           P1:
-            _vec: {x: -1.0372, y: -0.32}
+            _vec: {x: -1.0372, y: 0.11}
           P2:
-            _vec: {x: 2.3672, y: -0.32}
-        _maxHeight: 50
+            _vec: {x: -1.0372, y: -0.32}
+        _maxHeight: 3.4043999
         _navTag:
           _tag: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 6
       _position:
-        _vec: {x: 2.3672, y: -0.32}
+        _vec: {x: 2.3672, y: 0.11}
       _connections:
-      - _nodeStore:
-          id: 0
-        _nodeIndex: 5
-        _connectionType: 2
-        _segment:
-          P1:
-            _vec: {x: -1.0372, y: -0.32}
-          P2:
-            _vec: {x: 2.3672, y: -0.32}
-        _maxHeight: 50
-        _navTag:
-          _tag: 0
       - _nodeStore:
           id: 0
         _nodeIndex: 7
         _connectionType: 2
         _segment:
           P1:
-            _vec: {x: 2.3672, y: -0.32}
+            _vec: {x: 2.3672, y: 0.11}
           P2:
             _vec: {x: 2.3672, y: 0.4999}
         _maxHeight: 3.4043999
         _navTag:
           _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 13
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: 2.3672, y: -0.32}
+          P2:
+            _vec: {x: 2.3672, y: 0.11}
+        _maxHeight: 3.4043999
+        _navTag:
+          _tag: 0
     - _nodeStore:
         id: 0
       _nodeIndex: 7
@@ -818,7 +818,7 @@ MonoBehaviour:
         _connectionType: 2
         _segment:
           P1:
-            _vec: {x: 2.3672, y: -0.32}
+            _vec: {x: 2.3672, y: 0.11}
           P2:
             _vec: {x: 2.3672, y: 0.4999}
         _maxHeight: 3.4043999
@@ -904,7 +904,7 @@ MonoBehaviour:
           P1:
             _vec: {x: 6.3528, y: -0.5}
           P2:
-            _vec: {x: 2.7328, y: -0.5}
+            _vec: {x: 2.84, y: -0.5}
         _maxHeight: 50
         _navTag:
           _tag: -1
@@ -912,7 +912,7 @@ MonoBehaviour:
         id: 0
       _nodeIndex: 10
       _position:
-        _vec: {x: 2.7328, y: -0.5}
+        _vec: {x: 2.84, y: -0.5}
       _connections:
       - _nodeStore:
           id: 0
@@ -922,13 +922,133 @@ MonoBehaviour:
           P1:
             _vec: {x: 6.3528, y: -0.5}
           P2:
-            _vec: {x: 2.7328, y: -0.5}
+            _vec: {x: 2.84, y: -0.5}
         _maxHeight: 50
         _navTag:
           _tag: -1
       - _nodeStore:
           id: 0
-        _nodeIndex: 11
+        _nodeIndex: 14
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: 2.84, y: -0.5}
+          P2:
+            _vec: {x: 2.7328, y: -0.5}
+        _maxHeight: 50
+        _navTag:
+          _tag: 0
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 11
+      _position:
+        _vec: {x: -1.16, y: -1.32}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 0
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: -1.16, y: -1.32}
+          P2:
+            _vec: {x: -1.2528, y: -1.32}
+        _maxHeight: 50
+        _navTag:
+          _tag: -1
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 15
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: 2.7328, y: -1.32}
+          P2:
+            _vec: {x: -1.16, y: -1.32}
+        _maxHeight: 50
+        _navTag:
+          _tag: -1
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 12
+      _position:
+        _vec: {x: -1.0372, y: -0.32}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 5
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: -1.0372, y: 0.11}
+          P2:
+            _vec: {x: -1.0372, y: -0.32}
+        _maxHeight: 3.4043999
+        _navTag:
+          _tag: 0
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 13
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: -1.0372, y: -0.32}
+          P2:
+            _vec: {x: 2.3672, y: -0.32}
+        _maxHeight: 50
+        _navTag:
+          _tag: 0
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 13
+      _position:
+        _vec: {x: 2.3672, y: -0.32}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 12
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: -1.0372, y: -0.32}
+          P2:
+            _vec: {x: 2.3672, y: -0.32}
+        _maxHeight: 50
+        _navTag:
+          _tag: 0
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 6
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: 2.3672, y: -0.32}
+          P2:
+            _vec: {x: 2.3672, y: 0.11}
+        _maxHeight: 3.4043999
+        _navTag:
+          _tag: 0
+    - _nodeStore:
+        id: 0
+      _nodeIndex: 14
+      _position:
+        _vec: {x: 2.7328, y: -0.5}
+      _connections:
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 10
+        _connectionType: 2
+        _segment:
+          P1:
+            _vec: {x: 2.84, y: -0.5}
+          P2:
+            _vec: {x: 2.7328, y: -0.5}
+        _maxHeight: 50
+        _navTag:
+          _tag: 0
+      - _nodeStore:
+          id: 0
+        _nodeIndex: 15
         _connectionType: 2
         _segment:
           P1:
@@ -940,13 +1060,13 @@ MonoBehaviour:
           _tag: 0
     - _nodeStore:
         id: 0
-      _nodeIndex: 11
+      _nodeIndex: 15
       _position:
         _vec: {x: 2.7328, y: -1.32}
       _connections:
       - _nodeStore:
           id: 0
-        _nodeIndex: 10
+        _nodeIndex: 14
         _connectionType: 2
         _segment:
           P1:
@@ -958,13 +1078,13 @@ MonoBehaviour:
           _tag: 0
       - _nodeStore:
           id: 0
-        _nodeIndex: 0
+        _nodeIndex: 11
         _connectionType: 2
         _segment:
           P1:
             _vec: {x: 2.7328, y: -1.32}
           P2:
-            _vec: {x: -1.2528, y: -1.32}
+            _vec: {x: -1.16, y: -1.32}
         _maxHeight: 50
         _navTag:
           _tag: -1
@@ -1013,7 +1133,7 @@ MonoBehaviour:
       P1:
         _vec: {x: -1.0372, y: 0.5}
       P2:
-        _vec: {x: -1.0372, y: -0.32}
+        _vec: {x: -1.0372, y: 0.11}
     maxHeight: 3.4041
     oneWayPlatform: 0
     navTag:
@@ -1021,17 +1141,7 @@ MonoBehaviour:
     connectionType: 2
   - segment:
       P1:
-        _vec: {x: -1.0372, y: -0.32}
-      P2:
-        _vec: {x: 2.3672, y: -0.32}
-    maxHeight: 50
-    oneWayPlatform: 0
-    navTag:
-      _tag: 0
-    connectionType: 2
-  - segment:
-      P1:
-        _vec: {x: 2.3672, y: -0.32}
+        _vec: {x: 2.3672, y: 0.11}
       P2:
         _vec: {x: 2.3672, y: 0.4999}
     maxHeight: 3.4043999
@@ -1063,11 +1173,61 @@ MonoBehaviour:
       P1:
         _vec: {x: 6.3528, y: -0.5}
       P2:
-        _vec: {x: 2.7328, y: -0.5}
+        _vec: {x: 2.84, y: -0.5}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
       _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: -1.16, y: -1.32}
+      P2:
+        _vec: {x: -1.2528, y: -1.32}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: -1.0372, y: 0.11}
+      P2:
+        _vec: {x: -1.0372, y: -0.32}
+    maxHeight: 3.4043999
+    oneWayPlatform: 0
+    navTag:
+      _tag: 0
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: -1.0372, y: -0.32}
+      P2:
+        _vec: {x: 2.3672, y: -0.32}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: 0
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: 2.3672, y: -0.32}
+      P2:
+        _vec: {x: 2.3672, y: 0.11}
+    maxHeight: 3.4043999
+    oneWayPlatform: 0
+    navTag:
+      _tag: 0
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: 2.84, y: -0.5}
+      P2:
+        _vec: {x: 2.7328, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: 0
     connectionType: 2
   - segment:
       P1:
@@ -1083,7 +1243,7 @@ MonoBehaviour:
       P1:
         _vec: {x: 2.7328, y: -1.32}
       P2:
-        _vec: {x: -1.2528, y: -1.32}
+        _vec: {x: -1.16, y: -1.32}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
@@ -1108,7 +1268,7 @@ MonoBehaviour:
     connectionType: 2
   - segment:
       P1:
-        _vec: {x: 2.7328, y: -1.32}
+        _vec: {x: -1.16, y: -1.32}
       P2:
         _vec: {x: -1.2528, y: -1.32}
     maxHeight: 50
@@ -1150,7 +1310,7 @@ MonoBehaviour:
       P1:
         _vec: {x: -1.0372, y: 0.5}
       P2:
-        _vec: {x: -1.0372, y: -0.32}
+        _vec: {x: -1.0372, y: 0.11}
     maxHeight: 3.4041
     oneWayPlatform: 0
     navTag:
@@ -1168,10 +1328,20 @@ MonoBehaviour:
     connectionType: 8
   - segment:
       P1:
-        _vec: {x: -1.0372, y: -0.32}
+        _vec: {x: -1.0372, y: 0.11}
       P2:
-        _vec: {x: 2.3672, y: -0.32}
-    maxHeight: 50
+        _vec: {x: -1.0372, y: -0.32}
+    maxHeight: 3.4043999
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: 2.3672, y: 0.11}
+      P2:
+        _vec: {x: 2.3672, y: 0.4999}
+    maxHeight: 3.4043999
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -1180,7 +1350,7 @@ MonoBehaviour:
       P1:
         _vec: {x: 2.3672, y: -0.32}
       P2:
-        _vec: {x: 2.3672, y: 0.4999}
+        _vec: {x: 2.3672, y: 0.11}
     maxHeight: 3.4043999
     oneWayPlatform: 0
     navTag:
@@ -1210,7 +1380,37 @@ MonoBehaviour:
       P1:
         _vec: {x: 6.3528, y: -0.5}
       P2:
+        _vec: {x: 2.84, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: 2.84, y: -0.5}
+      P2:
         _vec: {x: 2.7328, y: -0.5}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: 2.7328, y: -1.32}
+      P2:
+        _vec: {x: -1.16, y: -1.32}
+    maxHeight: 50
+    oneWayPlatform: 0
+    navTag:
+      _tag: -1
+    connectionType: 2
+  - segment:
+      P1:
+        _vec: {x: -1.0372, y: -0.32}
+      P2:
+        _vec: {x: 2.3672, y: -0.32}
     maxHeight: 50
     oneWayPlatform: 0
     navTag:
@@ -1256,7 +1456,7 @@ MonoBehaviour:
             _connectionType: 2
             _segment:
               P1:
-                _vec: {x: 2.7328, y: -1.32}
+                _vec: {x: -1.16, y: -1.32}
               P2:
                 _vec: {x: -1.2528, y: -1.32}
             _maxHeight: 50
@@ -1378,7 +1578,7 @@ MonoBehaviour:
               P1:
                 _vec: {x: -1.0372, y: 0.5}
               P2:
-                _vec: {x: -1.0372, y: -0.32}
+                _vec: {x: -1.0372, y: 0.11}
             _maxHeight: 3.4041
             _navTag:
               _tag: -1
@@ -1398,7 +1598,7 @@ MonoBehaviour:
             id: 0
           _nodeIndex: 5
           _position:
-            _vec: {x: -1.0372, y: -0.32}
+            _vec: {x: -1.0372, y: 0.11}
           _connections:
           - _nodeStore:
               id: 0
@@ -1408,52 +1608,52 @@ MonoBehaviour:
               P1:
                 _vec: {x: -1.0372, y: 0.5}
               P2:
-                _vec: {x: -1.0372, y: -0.32}
+                _vec: {x: -1.0372, y: 0.11}
             _maxHeight: 3.4041
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 6
+            _nodeIndex: 12
             _connectionType: 2
             _segment:
               P1:
-                _vec: {x: -1.0372, y: -0.32}
+                _vec: {x: -1.0372, y: 0.11}
               P2:
-                _vec: {x: 2.3672, y: -0.32}
-            _maxHeight: 50
+                _vec: {x: -1.0372, y: -0.32}
+            _maxHeight: 3.4043999
             _navTag:
               _tag: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 6
           _position:
-            _vec: {x: 2.3672, y: -0.32}
+            _vec: {x: 2.3672, y: 0.11}
           _connections:
-          - _nodeStore:
-              id: 0
-            _nodeIndex: 5
-            _connectionType: 2
-            _segment:
-              P1:
-                _vec: {x: -1.0372, y: -0.32}
-              P2:
-                _vec: {x: 2.3672, y: -0.32}
-            _maxHeight: 50
-            _navTag:
-              _tag: 0
           - _nodeStore:
               id: 0
             _nodeIndex: 7
             _connectionType: 2
             _segment:
               P1:
-                _vec: {x: 2.3672, y: -0.32}
+                _vec: {x: 2.3672, y: 0.11}
               P2:
                 _vec: {x: 2.3672, y: 0.4999}
             _maxHeight: 3.4043999
             _navTag:
               _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 13
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: 2.3672, y: -0.32}
+              P2:
+                _vec: {x: 2.3672, y: 0.11}
+            _maxHeight: 3.4043999
+            _navTag:
+              _tag: 0
         - _nodeStore:
             id: 0
           _nodeIndex: 7
@@ -1466,7 +1666,7 @@ MonoBehaviour:
             _connectionType: 2
             _segment:
               P1:
-                _vec: {x: 2.3672, y: -0.32}
+                _vec: {x: 2.3672, y: 0.11}
               P2:
                 _vec: {x: 2.3672, y: 0.4999}
             _maxHeight: 3.4043999
@@ -1552,7 +1752,7 @@ MonoBehaviour:
               P1:
                 _vec: {x: 6.3528, y: -0.5}
               P2:
-                _vec: {x: 2.7328, y: -0.5}
+                _vec: {x: 2.84, y: -0.5}
             _maxHeight: 50
             _navTag:
               _tag: -1
@@ -1560,7 +1760,7 @@ MonoBehaviour:
             id: 0
           _nodeIndex: 10
           _position:
-            _vec: {x: 2.7328, y: -0.5}
+            _vec: {x: 2.84, y: -0.5}
           _connections:
           - _nodeStore:
               id: 0
@@ -1570,13 +1770,133 @@ MonoBehaviour:
               P1:
                 _vec: {x: 6.3528, y: -0.5}
               P2:
-                _vec: {x: 2.7328, y: -0.5}
+                _vec: {x: 2.84, y: -0.5}
             _maxHeight: 50
             _navTag:
               _tag: -1
           - _nodeStore:
               id: 0
-            _nodeIndex: 11
+            _nodeIndex: 14
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: 2.84, y: -0.5}
+              P2:
+                _vec: {x: 2.7328, y: -0.5}
+            _maxHeight: 50
+            _navTag:
+              _tag: 0
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 11
+          _position:
+            _vec: {x: -1.16, y: -1.32}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 0
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: -1.16, y: -1.32}
+              P2:
+                _vec: {x: -1.2528, y: -1.32}
+            _maxHeight: 50
+            _navTag:
+              _tag: -1
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 15
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: 2.7328, y: -1.32}
+              P2:
+                _vec: {x: -1.16, y: -1.32}
+            _maxHeight: 50
+            _navTag:
+              _tag: -1
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 12
+          _position:
+            _vec: {x: -1.0372, y: -0.32}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 5
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: -1.0372, y: 0.11}
+              P2:
+                _vec: {x: -1.0372, y: -0.32}
+            _maxHeight: 3.4043999
+            _navTag:
+              _tag: 0
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 13
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: -1.0372, y: -0.32}
+              P2:
+                _vec: {x: 2.3672, y: -0.32}
+            _maxHeight: 50
+            _navTag:
+              _tag: 0
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 13
+          _position:
+            _vec: {x: 2.3672, y: -0.32}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 12
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: -1.0372, y: -0.32}
+              P2:
+                _vec: {x: 2.3672, y: -0.32}
+            _maxHeight: 50
+            _navTag:
+              _tag: 0
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 6
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: 2.3672, y: -0.32}
+              P2:
+                _vec: {x: 2.3672, y: 0.11}
+            _maxHeight: 3.4043999
+            _navTag:
+              _tag: 0
+        - _nodeStore:
+            id: 0
+          _nodeIndex: 14
+          _position:
+            _vec: {x: 2.7328, y: -0.5}
+          _connections:
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 10
+            _connectionType: 2
+            _segment:
+              P1:
+                _vec: {x: 2.84, y: -0.5}
+              P2:
+                _vec: {x: 2.7328, y: -0.5}
+            _maxHeight: 50
+            _navTag:
+              _tag: 0
+          - _nodeStore:
+              id: 0
+            _nodeIndex: 15
             _connectionType: 2
             _segment:
               P1:
@@ -1588,13 +1908,13 @@ MonoBehaviour:
               _tag: 0
         - _nodeStore:
             id: 0
-          _nodeIndex: 11
+          _nodeIndex: 15
           _position:
             _vec: {x: 2.7328, y: -1.32}
           _connections:
           - _nodeStore:
               id: 0
-            _nodeIndex: 10
+            _nodeIndex: 14
             _connectionType: 2
             _segment:
               P1:
@@ -1606,13 +1926,13 @@ MonoBehaviour:
               _tag: 0
           - _nodeStore:
               id: 0
-            _nodeIndex: 0
+            _nodeIndex: 11
             _connectionType: 2
             _segment:
               P1:
                 _vec: {x: 2.7328, y: -1.32}
               P2:
-                _vec: {x: -1.2528, y: -1.32}
+                _vec: {x: -1.16, y: -1.32}
             _maxHeight: 50
             _navTag:
               _tag: -1

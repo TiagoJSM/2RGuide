@@ -1,5 +1,4 @@
-﻿using Assets._2RGuide.Runtime.Helpers;
-using Assets._2RGuide.Runtime.Math;
+﻿using Assets._2RGuide.Runtime.Math;
 using Clipper2Lib;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,36 +124,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                 .Select(s => s.GetIntersection(segment, true))
                 .Where(v => v.HasValue)
                 .Select(v => v.Value).ToArray();
-        }
-
-        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths)
-        {
-            var line = Clipper.MakePath(new double[]
-                {
-                    segment.P1.x, segment.P1.y,
-                    segment.P2.x, segment.P2.y,
-                });
-
-            var clipper = ClipperUtils.ConfiguredClipperD();
-            clipper.AddPath(line, PathType.Subject, true); // a line is open
-            clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
-
-            var openPath = new PathsD();
-            var closedPath = new PathsD();
-            var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-
-            if (closedPath.Count == 0)
-            {
-                return true;
-            }
-
-            if (closedPath.Count == 1)
-            {
-                var clipped = new LineSegment2D(new RGuideVector2((float)closedPath[0][0].x, (float)closedPath[0][0].y), new RGuideVector2((float)closedPath[0][1].x, (float)closedPath[0][1].y));
-                return !clipped.IsCoincident(segment);
-            }
-
-            return true;
         }
 
         public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, PolyTree polygons, NavBuilder navBuilder)
