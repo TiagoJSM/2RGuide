@@ -155,10 +155,10 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var lines = segmentsPonts.ToLines();
 
-            var resultsInsidePath = lines.Where(l => polygons.Any(p => p.IsPointInPolygon(l.HalfPoint))).Merge();
-            var resultOutsidePath = lines.Except(resultsInsidePath).Merge();
+            var resultsInsidePath = lines.Where(l => polygons.Any(p => p.IsPointInPolygon(l.HalfPoint)));
+            var resultOutsidePath = lines.Except(resultsInsidePath);
 
-            return (resultOutsidePath, resultsInsidePath);
+            return (resultOutsidePath.Merge(), resultsInsidePath.Merge());
         }
 
         public static (IEnumerable<LineSegment2D> resultOutsidePath, IEnumerable<LineSegment2D> resultInsidePath) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBoxBounds> navTags)

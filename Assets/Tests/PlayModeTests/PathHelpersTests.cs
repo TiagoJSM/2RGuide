@@ -1,7 +1,6 @@
 ﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using NUnit.Framework;
 using System;
 using System.Linq;

@@ -1,7 +1,6 @@
 ﻿using Assets._2RGuide.Runtime;
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -211,6 +210,49 @@ namespace Assets.Tests.PlayModeTests
             Assert.AreEqual(values.Result, values.Line.Contains(values.Point));
         }
 
+        public class MergeParams
+        {
+            public IEnumerable<LineSegment2D> Lines { get; }
+            public IEnumerable<LineSegment2D> MergeResult { get; }
+
+            public MergeParams(
+                IEnumerable<LineSegment2D> lines,
+                IEnumerable<LineSegment2D> mergeResult)
+            {
+                Lines = lines;
+                MergeResult = mergeResult;
+            }
+        }
+
+        static readonly MergeParams[] MergeTestValues = new[]
+        {
+            new MergeParams(
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, -5f)),
+                    new LineSegment2D(new RGuideVector2(0f, -5f), new RGuideVector2(0f, 5f)),
+                    new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(0f, 10f)),
+                },
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, 10f))
+                }),
+            new MergeParams(
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, -5f)),
+                    new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(0f, 10f)),
+                },
+                new [] {
+                    new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, -5f)),
+                    new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(0f, 10f)),
+                }),
+        };
+
+        [Test]
+        public void Merge([ValueSource(nameof(MergeTestValues))] MergeParams values)
+        {
+            var merged = values.Lines.Merge();
+            Assert.AreEqual(values.MergeResult, merged);
+        }
+
         public class SplitLineSegmentParams
         {
             public IEnumerable<NavTagBoxBounds> NavTagBoxesBounds { get; }
@@ -275,9 +317,9 @@ namespace Assets.Tests.PlayModeTests
         public void SplitLineSegment([ValueSource(nameof(SplitLineSegmentTestValues))] SplitLineSegmentParams values)
         {
             var segment = values.Line;
-            var splits = segment.SplitLineSegment(values.NavTagBoxesBounds);
-            Assert.AreEqual(values.ResultInsidePath, splits.resultInsidePath);
-            Assert.AreEqual(values.ResultOutsidePath, splits.resultOutsidePath);
+            var (resultOutsidePath, resultInsidePath) = segment.SplitLineSegment(values.NavTagBoxesBounds);
+            Assert.AreEqual(values.ResultInsidePath, resultInsidePath);
+            Assert.AreEqual(values.ResultOutsidePath, resultOutsidePath);
         }
     }
 }

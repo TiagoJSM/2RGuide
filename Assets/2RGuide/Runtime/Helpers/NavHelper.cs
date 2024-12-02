@@ -1,6 +1,5 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -67,24 +66,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             segmentPath.Add(new LineSegment2D(p1, start));
 
             return segmentPath;
-        }
-
-        public static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
-        {
-            var segments = new List<LineSegment2D>();
-
-            foreach (var path in paths)
-            {
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segments.Add(new LineSegment2D(new RGuideVector2((float)p1.x, (float)p1.y), new RGuideVector2((float)p2.x, (float)p2.y)));
-                    p1 = p2;
-                }
-            }
-
-            return segments.ToArray();
         }
 
         public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, ConnectionType connectionType, NavTagBoxBounds[] navTagBounds)
