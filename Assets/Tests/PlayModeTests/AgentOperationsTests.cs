@@ -1,6 +1,5 @@
 ﻿using Assets._2RGuide.Runtime;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
 using UnityEngine.SceneManagement;
@@ -95,16 +94,16 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(agentOperations.Status == AgentStatus.Busy);
             Assert.That(agentOperations.IsSearchingForPath);
 
-            var pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, speed, height, maxSlopeDegrees, baseOffset, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            var pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, height, maxSlopeDegrees, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             yield return pathfindingRoutine;
-
+            
             context.SetFindPathfindingResult(pathfindingRoutine.Result);
 
             yield return null;
 
             MoveContextAlongPath(context, agentOperations, target, position2);
 
-            pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, speed, height, maxSlopeDegrees, baseOffset, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, height, maxSlopeDegrees, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             yield return pathfindingRoutine;
 
             context.SetFindPathfindingResult(pathfindingRoutine.Result);
@@ -121,10 +120,8 @@ namespace Assets.Tests.PlayModeTests
             RGuideVector2 start,
             RGuideVector2 end,
             Nav2RGuideSettings settings,
-            float speed,
             float height,
             float maxSlopeDegrees,
-            float baseOffset,
             ConnectionType allowedConnectionTypes,
             float pathfindingMaxDistance,
             NavTag[] navTagCapable,
