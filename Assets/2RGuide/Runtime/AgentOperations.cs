@@ -276,7 +276,6 @@ namespace Assets._2RGuide.Runtime
             }
             else
             {
-                Debug.Log("searching time");
                 _agentStatus = AgentStatus.Busy;
                 StartFindingPath(_currentPathFinding.Value);
             }
