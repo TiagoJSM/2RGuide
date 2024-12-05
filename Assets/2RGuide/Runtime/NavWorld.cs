@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets._2RGuide.Runtime
 {
+
     //investigate GeometryUtils from https://docs.unity3d.com/Packages/com.unity.reflect@1.0/api/Unity.Labs.Utils.GeometryUtils.html
     public class NavWorld : MonoBehaviour
     {

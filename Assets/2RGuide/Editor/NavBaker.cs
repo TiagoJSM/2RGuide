@@ -211,12 +211,13 @@ namespace Assets._2RGuide.Editor
         private static IEnumerable<EdgeSegmentInfo> SeparateFromClosedPaths(EdgeSegmentInfo edgeSegmentInfo, IEnumerable<LineSegment2D> closedSegmentPaths, PolyTree polygons)
         {
             var separations = new List<EdgeSegmentInfo>();
-            var intersections = new List<RGuideVector2>() { edgeSegmentInfo.edgeSegment.P1 };
+            var origin = edgeSegmentInfo.edgeSegment.P1;
+            var intersections = new List<RGuideVector2>() { origin };
             intersections.AddRange(
                 edgeSegmentInfo.edgeSegment.GetIntersections(closedSegmentPaths));
 
             intersections.Add(edgeSegmentInfo.edgeSegment.P2);
-            intersections = intersections.Distinct().ToList();
+            intersections = intersections.Distinct().OrderBy(intersection => RGuideVector2.Distance(origin, intersection)).ToList();
 
             if (intersections.Count == 0)
             {
