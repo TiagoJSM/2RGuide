@@ -14,6 +14,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             {
                 var segments = navBuilder.NavSegments.Select(s => s.segment).ToArray();
                 var oneWayPlatform = navBuilder.GetNavSegmentWithPoint(dropPoint, ConnectionType.Walk);
+
                 var start = dropPoint;
                 var hit = Calculations.Raycast(dropPoint, dropPoint + raycastDirection * distance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }).ToArray());
                 if (!hit)

@@ -13,10 +13,22 @@ namespace Assets._2RGuide.Runtime
         {
             get
             {
-                var mult = Mathf.Pow(10.0f, RoundingDecimalPrecision);
-                return 1.0f / mult;
+                return CalculateMinimumPrecisionValue(RoundingDecimalPrecision);
+            }
+        }
+        public static float RGuideDelta
+        {
+            get
+            {
+                return CalculateMinimumPrecisionValue(RoundingDecimalPrecision - 1);
             }
         }
         public const int RoundingDecimalPrecision = 4;
+
+        private static float CalculateMinimumPrecisionValue(int precision)
+        {
+            var mult = Mathf.Pow(10.0f, precision);
+            return 1.0f / mult;
+        }
     }
 }

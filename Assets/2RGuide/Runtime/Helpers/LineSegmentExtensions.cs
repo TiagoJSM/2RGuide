@@ -127,9 +127,8 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, PolyTree polygons, NavBuilder navBuilder)
         {
-            // Instead of using the minimum possible unit use the minimum * 10, otherwise due to how the rounding and float differences work the move towards result may not change
-            var p1Test = RGuideVector2.MoveTowards(segment.P1, segment.P2, Constants.RGuideEpsilon * 10.0f);
-            var p2Test = RGuideVector2.MoveTowards(segment.P2, segment.P1, Constants.RGuideEpsilon * 10.0f);
+            var p1Test = RGuideVector2.MoveTowards(segment.P1, segment.P2, Constants.RGuideDelta);
+            var p2Test = RGuideVector2.MoveTowards(segment.P2, segment.P1, Constants.RGuideDelta);
             if (polygons.IsPointInside(p1Test) || polygons.IsPointInside(p2Test))
             {
                 return true;    

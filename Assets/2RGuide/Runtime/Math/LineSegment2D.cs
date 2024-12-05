@@ -280,17 +280,17 @@ namespace Assets._2RGuide.Runtime.Math
                 return false;
             }
 
-            if (Mathf.Abs(P1.x - P2.x) < Constants.RGuideEpsilon)
+            if (Mathf.Abs(P1.x - P2.x) < Constants.RGuideDelta)
             {
-                return Mathf.Abs(P1.x - p.x) < Constants.RGuideEpsilon || Mathf.Abs(P2.x - p.x) < Constants.RGuideEpsilon;
+                return Mathf.Abs(P1.x - p.x) < Constants.RGuideDelta || Mathf.Abs(P2.x - p.x) < Constants.RGuideDelta;
             }
 
-            if (Mathf.Abs(P1.y - P2.y) < Constants.RGuideEpsilon)
+            if (Mathf.Abs(P1.y - P2.y) < Constants.RGuideDelta)
             {
-                return Mathf.Abs(P1.y - p.y) < Constants.RGuideEpsilon || Mathf.Abs(P2.y - p.y) < Constants.RGuideEpsilon;
+                return Mathf.Abs(P1.y - p.y) < Constants.RGuideDelta || Mathf.Abs(P2.y - p.y) < Constants.RGuideDelta;
             }
 
-            if (Mathf.Abs((p.x - P1.x) / (P2.x - P1.x) - (p.y - P1.y) / (P2.y - P1.y)) < Constants.RGuideEpsilon)
+            if (Mathf.Abs((p.x - P1.x) / (P2.x - P1.x) - (p.y - P1.y) / (P2.y - P1.y)) < Constants.RGuideDelta)
             {
                 return true;
             }
