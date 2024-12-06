@@ -57,11 +57,11 @@ namespace Assets._2RGuide.Runtime
                     {
                         continue;
                     }
-                    if (neighbor.MaxHeight < maxHeight)
+                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !neighbor.CanWalkOnStep(stepHeight))
                     {
                         continue;
                     }
-                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !neighbor.CanWalkOnStep(stepHeight))
+                    if (neighbor.MaxHeight < maxHeight && neighbor.IsWalkable(maxSlopeDegrees))
                     {
                         continue;
                     }

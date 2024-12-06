@@ -216,6 +216,42 @@ namespace Assets._2RGuide.Runtime.Helpers
             return result;
         }
 
+        public static LineSegment2D CutSegmentToTheLeft(this LineSegment2D segment, float x)
+        {
+            if (segment.P1.x > x && segment.P2.x > x)
+            {
+                return new LineSegment2D();
+            }
+
+            var result = segment;
+
+            var x1 = Mathf.Min(x, segment.P1.x);
+            var x2 = Mathf.Min(x, segment.P2.x);
+
+            result.P1 = new RGuideVector2(x1, segment.YWhenXIs(x1).Value);
+            result.P2 = new RGuideVector2(x2, segment.YWhenXIs(x2).Value);
+
+            return result;
+        }
+
+        public static LineSegment2D CutSegmentToTheRight(this LineSegment2D segment, float x)
+        {
+            if (segment.P1.x < x && segment.P2.x < x)
+            {
+                return new LineSegment2D();
+            }
+
+            var result = segment;
+
+            var x1 = Mathf.Max(x, segment.P1.x);
+            var x2 = Mathf.Max(x, segment.P2.x);
+
+            result.P1 = new RGuideVector2(x1, segment.YWhenXIs(x1).Value);
+            result.P2 = new RGuideVector2(x2, segment.YWhenXIs(x2).Value);
+
+            return result;
+        }
+
         private static IEnumerable<RGuideVector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
         {
             var p1 = segment.P1;

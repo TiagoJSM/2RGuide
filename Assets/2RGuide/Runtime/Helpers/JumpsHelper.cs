@@ -33,7 +33,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     var closestPoints =
                         segmentsInRange
-                            .Select(ss => CutSegmentToTheLeft(ss.segment, node.Position.x - settings.minJumpDistanceX))
+                            .Select(ss => ss.segment.CutSegmentToTheLeft(node.Position.x - settings.minJumpDistanceX))
                             .Where(s => s)
                             .Select(s =>
                                 s.ClosestPointOnLine(node.Position))
@@ -48,7 +48,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     var closestPoints =
                         segmentsInRange
-                            .Select(ss => CutSegmentToTheRight(ss.segment, node.Position.x + settings.minJumpDistanceX))
+                            .Select(ss => ss.segment.CutSegmentToTheRight(node.Position.x + settings.minJumpDistanceX))
                             .Where(s => s)
                             .Select(s =>
                                 s.ClosestPointOnLine(node.Position))
@@ -88,36 +88,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                 };
                 navBuilder.AddNavSegment(ns);
             }
-        }
-
-        private static LineSegment2D CutSegmentToTheLeft(LineSegment2D segment, float x)
-        {
-            if (segment.P1.x > x && segment.P2.x > x)
-            {
-                return new LineSegment2D();
-            }
-
-            var result = segment;
-
-            result.P1 = new RGuideVector2(Mathf.Min(x, segment.P1.x), segment.YWhenXIs(result.P1.x).Value);
-            result.P2 = new RGuideVector2(Mathf.Min(x, segment.P2.x), segment.YWhenXIs(result.P2.x).Value);
-
-            return result;
-        }
-
-        private static LineSegment2D CutSegmentToTheRight(LineSegment2D segment, float x)
-        {
-            if (segment.P1.x < x && segment.P2.x < x)
-            {
-                return new LineSegment2D();
-            }
-
-            var result = segment;
-
-            result.P1 = new RGuideVector2(Mathf.Max(x, segment.P1.x), segment.YWhenXIs(result.P1.x).Value);
-            result.P2 = new RGuideVector2(Mathf.Max(x, segment.P2.x), segment.YWhenXIs(result.P2.x).Value);
-
-            return result;
         }
 
         private static void BuildOneWayPlatformJumpSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Settings settings)

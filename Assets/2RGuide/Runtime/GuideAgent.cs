@@ -117,14 +117,14 @@ namespace Assets._2RGuide.Runtime
                 GuideAgentHelper.PathfindingTask(
                     start,
                     end,
-                    _height,
-                    _maxSlopeDegrees,
-                    _allowedConnectionTypes,
-                    _pathfindingMaxDistance,
+                    maxHeight,
+                    maxSlopeDegrees,
+                    allowedConnectionTypes,
+                    pathfindingMaxDistance,
                     segmentProximityMaxDistance,
-                    _navTagCapable,
-                    _stepHeight,
-                    _connectionMultipliers));
+                    navTagCapable,
+                    stepHeight,
+                    connectionMultipliers));
         }
 
         private void Awake()

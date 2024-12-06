@@ -321,5 +321,68 @@ namespace Assets.Tests.PlayModeTests
             Assert.AreEqual(values.ResultInsidePath, resultInsidePath);
             Assert.AreEqual(values.ResultOutsidePath, resultOutsidePath);
         }
+
+        public class CutSegmentParams
+        {
+            public LineSegment2D Line { get; }
+            public float X { get; }
+            public LineSegment2D Result { get; }
+
+            public CutSegmentParams(
+                LineSegment2D line,
+                float x,
+                LineSegment2D result)
+            {
+                Line = line;
+                X = x;
+                Result = result;
+            }
+        }
+
+        static readonly CutSegmentParams[] CutSegmentToTheLeftTestValues = new[]
+        {
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(10f, 0f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(0f, 0f))),
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(10f, 10f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(0f, 5f))),
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 10f), new RGuideVector2(10f, 0f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(-10f, 10f), new RGuideVector2(0f, 5f))),
+        };
+
+        [Test]
+        public void CutSegmentToTheLeft([ValueSource(nameof(CutSegmentToTheLeftTestValues))] CutSegmentParams values)
+        {
+            var cutSegment = values.Line.CutSegmentToTheLeft(values.X);
+            Assert.AreEqual(values.Result, cutSegment);
+        }
+
+        static readonly CutSegmentParams[] CutSegmentToTheRightTestValues = new[]
+        {
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(10f, 0f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(0f, 0f), new RGuideVector2(10f, 0f))),
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(10f, 10f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(10f, 10f))),
+            new CutSegmentParams(
+                new LineSegment2D(new RGuideVector2(-10f, 10f), new RGuideVector2(10f, 0f)),
+                0f,
+                new LineSegment2D(new RGuideVector2(0f, 5f), new RGuideVector2(10f, 0f))),
+        };
+
+        [Test]
+        public void CutSegmentToTheRight([ValueSource(nameof(CutSegmentToTheRightTestValues))] CutSegmentParams values)
+        {
+            var cutSegment = values.Line.CutSegmentToTheRight(values.X);
+            Assert.AreEqual(values.Result, cutSegment);
+        }
     }
 }

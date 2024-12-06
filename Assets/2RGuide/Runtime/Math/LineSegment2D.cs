@@ -80,13 +80,13 @@ namespace Assets._2RGuide.Runtime.Math
             return Slope.Value * x + B;
         }
 
-        public RGuideVector2? PositionInX(float x)
+        public RGuideVector2? PositionAtX(float x)
         {
             var y = YWhenXIs(x);
             return y.HasValue ? new RGuideVector2(x, y.Value) : default(RGuideVector2?);
         }
 
-        public RGuideVector2? PositionInY(float y)
+        public RGuideVector2? PositionAtY(float y)
         {
             var x = XWhenYIs(y);
             return x.HasValue ? new RGuideVector2(x.Value, y) : default(RGuideVector2?);

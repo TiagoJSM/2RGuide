@@ -61,7 +61,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     return false;
                 }
-                var position = ss.segment.PositionInX(originX);
+                var position = ss.segment.PositionAtX(originX);
                 if (!position.HasValue)
                 {
                     return false;
@@ -74,13 +74,13 @@ namespace Assets._2RGuide.Runtime.Helpers
             })
             .MinBy(ss =>
             {
-                var position = ss.segment.PositionInX(originX);
+                var position = ss.segment.PositionAtX(originX);
                 return RGuideVector2.Distance(position.Value, origin);
             });
 
             if (navSegment)
             {
-                var segment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
+                var segment = new LineSegment2D(node.Position, navSegment.segment.PositionAtX(originX).Value);
                 
                 var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuildContext.Polygons, navBuilder);
 

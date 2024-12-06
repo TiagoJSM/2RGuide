@@ -60,7 +60,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return neighbor.Segment.Lenght < stepHeight;
         }
 
-        private static bool IsWalkable(this NodeConnection nc, float maxSlopeDegrees)
+        public static bool IsWalkable(this NodeConnection nc, float maxSlopeDegrees)
         {
             if (nc.ConnectionType != ConnectionType.Walk)
             {
