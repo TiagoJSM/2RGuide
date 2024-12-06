@@ -29,21 +29,20 @@ namespace Assets._2RGuide.Runtime.Helpers
             var startN = navWorld.GetClosestNodeFromClosestSegment(start, ConnectionType.Walk, segmentProximityMaxDistance);
             var endN = navWorld.GetClosestNodeFromClosestSegment(end, ConnectionType.Walk);
             var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
-            var pathStatus = PathStatus.Invalid;
 
             if (nodes == null || nodes.Length == 0)
             {
                 return new PathfindingResult()
                 {
                     segmentPath = null,
-                    pathStatus = pathStatus
+                    pathStatus = PathStatus.Invalid
                 };
             }
 
             var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
 
             var distanceFromTarget = RGuideVector2.Distance(segmentPath.Last().position, end);
-            pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
+            var pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
 
             return new PathfindingResult()
             {

@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/PlayModeTests/FollowMovingTargetTestScene.unity
     guid: 85899f38008213d4d9c01e6c062a7ec6
+  - enabled: 1
+    path: Assets/Tests/PlayModeTests/MoveDownToPositionRotatedOneWayStepTestScene.unity
+    guid: 46c17ec29a2137a44906b3da1c8d8c2b
   m_configObjects: {}
