@@ -80,6 +80,13 @@ namespace Assets._2RGuide.Runtime
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
         public Vector2 Position => transform.position;
+        public float Height => _height;
+        public float MaxSlopeDegrees => _maxSlopeDegrees;
+        public ConnectionType AllowedConnectionTypes => _allowedConnectionTypes;
+        public float PathfindingMaxDistance => _pathfindingMaxDistance;
+        public NavTag[] NavTagCapable => _navTagCapable;
+        public float StepHeight => _stepHeight;
+        public ConnectionTypeMultipliers ConnectionMultipliers => _connectionMultipliers;
 
         public void SetDestination(Vector2 destination)
         {

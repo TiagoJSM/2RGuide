@@ -24,7 +24,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             var firstWalkableConnection = path[0].GetWalkableConnectionForPosition(startPosition, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
             var firstClosestPoint = firstWalkableConnection.Value.Segment.ClosestPointOnLine(startPosition);
 
-            if(path.Length > 1 && IsPositionInBetweenConnection(path, 0, firstClosestPoint, segmentProximityMaxDistance))
+            if (path.Length > 1 && path[0].ConnectionWith(path[1]).Value.IsCoincident(firstWalkableConnection.Value))
             {
                 var agentSegment = agentSegments[0];
                 agentSegment.position = firstClosestPoint;
@@ -52,13 +52,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             }
 
             return agentSegments.DistinctBy(s => s.position).ToArray();
-        }
-
-        private static bool IsPositionInBetweenConnection(Node[] path, int index, RGuideVector2 position, float segmentProximityMaxDistance)
-        {
-            var segment = path[index].ConnectionWith(path[index + 1]).Value.Segment;
-            var closestPoint = segment.ClosestPointOnLine(position);
-            return RGuideVector2.Distance(position, closestPoint) < segmentProximityMaxDistance;
         }
     }
 }

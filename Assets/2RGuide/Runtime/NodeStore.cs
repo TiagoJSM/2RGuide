@@ -57,6 +57,11 @@ namespace Assets._2RGuide.Runtime
             _maxHeight = maxHeight;
             _navTag = navTags;
         }
+
+        public bool IsCoincident(NodeConnection other)
+        {
+            return Segment.IsCoincident(other.Segment);
+        }
     }
 
     [Serializable]
