@@ -89,7 +89,7 @@ namespace Assets.Tests.PlayModeTests
             context.Position = target.transform.position;
             target.transform.position = position1.transform.position;
 
-            agentOperations.SetDestination(target);
+            agentOperations.SetDestination(target, true);
             agentOperations.Update();
             Assert.That(agentOperations.Status == AgentStatus.Busy);
             Assert.That(agentOperations.IsSearchingForPath);

@@ -26,6 +26,7 @@ namespace Assets._2RGuide.Runtime
         {
             public RGuideVector2? destinationPoint;
             public GameObject destinationTarget;
+            public bool allowIncompletePath;
 
             public RGuideVector2 DestinationPosition
             {
@@ -117,14 +118,14 @@ namespace Assets._2RGuide.Runtime
             _connectionMultipliers = connectionMultipliers;
         }
 
-        public void SetDestination(RGuideVector2 destination)
+        public void SetDestination(RGuideVector2 destination, bool allowIncompletePath)
         {
-            SetPathfindingRequest(new PathfindingRequest() { destinationPoint = destination });
+            SetPathfindingRequest(new PathfindingRequest() { destinationPoint = destination, allowIncompletePath = allowIncompletePath });
         }
 
-        public void SetDestination(GameObject destination)
+        public void SetDestination(GameObject destination, bool allowIncompletePath)
         {
-            SetPathfindingRequest(new PathfindingRequest() { destinationTarget = destination });
+            SetPathfindingRequest(new PathfindingRequest() { destinationTarget = destination, allowIncompletePath = allowIncompletePath });
         }
 
         public void CancelPathFinding()
@@ -304,15 +305,15 @@ namespace Assets._2RGuide.Runtime
             _coroutine = _context.StartCoroutine(FindPathRoutine(ReferencePosition, pathfindingRequest));
         }
 
-        private IEnumerator FindPathRoutine(RGuideVector2 start, PathfindingRequest end)
+        private IEnumerator FindPathRoutine(RGuideVector2 start, PathfindingRequest request)
         {
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
-            var endPos = end.destinationPoint.HasValue ? end.destinationPoint.Value : new RGuideVector2(end.destinationTarget.transform.position);
+            var end = request.destinationPoint.HasValue ? request.destinationPoint.Value : new RGuideVector2(request.destinationTarget.transform.position);
 
             IsSearchingForPath = true;
             var taskCoroutine = _context.FindPath(
                 start,
-                endPos,
+                end,
                 _height,
                 _maxSlopeDegrees,
                 _allowedConnectionTypes,
@@ -325,31 +326,14 @@ namespace Assets._2RGuide.Runtime
             yield return taskCoroutine;
             IsSearchingForPath = false;
 
-            if (taskCoroutine.Exception != null)
-            {
-                Debug.LogException(taskCoroutine.Exception);
-                ResetInternalState();
-                _agentOperationsState = AgentOperationsState.Iddle;
-                throw taskCoroutine.Exception;
-            }
+            HandleTaskIfError(taskCoroutine);
 
             var result = taskCoroutine.Result;
 
             CurrentPathStatus = result.pathStatus;
-
-            if (result.segmentPath == null)
-            {
-                _coroutine = null;
-                _path = result.segmentPath;
-                _agentStatus = AgentStatus.Iddle;
-                _agentOperationsState = AgentOperationsState.Iddle;
-                yield break;
-            }
-
-            _agentStatus = AgentStatus.Moving;
             _targetPathIndex = 0;
 
-            if (result.segmentPath.Length < 2)
+            if (CurrentPathStatus == PathStatus.Invalid || CurrentPathStatus == PathStatus.Incomplete && !request.allowIncompletePath || result.segmentPath.Length < 2)
             {
                 _coroutine = null;
                 _path = null;
@@ -358,8 +342,21 @@ namespace Assets._2RGuide.Runtime
                 yield break;
             }
 
+            _agentStatus = AgentStatus.Moving;
+
             _coroutine = null;
             _path = result.segmentPath;
+        }
+
+        private void HandleTaskIfError(TaskCoroutine<GuideAgentHelper.PathfindingResult> taskCoroutine)
+        {
+            if (taskCoroutine.Exception != null)
+            {
+                Debug.LogException(taskCoroutine.Exception);
+                ResetInternalState();
+                _agentOperationsState = AgentOperationsState.Iddle;
+                throw taskCoroutine.Exception;
+            }
         }
 
         private void ResetInternalState()
