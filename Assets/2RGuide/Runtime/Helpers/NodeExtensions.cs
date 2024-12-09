@@ -31,7 +31,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var eligibleConnections =
                 node.Connections
-                    .Where(c => c.IsWalkable(maxSlopeDegrees) || c.CanWalkOnStep(stepHeight));
+                    .Where(c => c.IsWalkable(maxSlopeDegrees) || c.IsWalkableStep(stepHeight, maxSlopeDegrees));
 
             // Get the closest point in a segment
             if (eligibleConnections.Any())
@@ -55,8 +55,16 @@ namespace Assets._2RGuide.Runtime.Helpers
             return null;
         }
 
-        public static bool CanWalkOnStep(this NodeConnection neighbor, float stepHeight)
+        public static bool IsWalkableStep(this NodeConnection neighbor, float stepHeight, float maxSlopeDegrees)
         {
+            if(neighbor.ConnectionType != ConnectionType.Walk)
+            {
+                return false;
+            }
+            if(Mathf.Abs(neighbor.Segment.SlopeDegrees) <= maxSlopeDegrees)
+            {
+                return false;
+            }
             return neighbor.Segment.Lenght < stepHeight;
         }
 

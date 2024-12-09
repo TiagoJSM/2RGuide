@@ -245,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 1877946626}
   _moveTo: 0
+  _allowIncompletePath: 1
 --- !u!114 &720845717
 MonoBehaviour:
   m_ObjectHideFlags: 0

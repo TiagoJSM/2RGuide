@@ -423,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 1289060035}
   _moveTo: 0
+  _allowIncompletePath: 1
 --- !u!1 &1698029897
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +721,7 @@ MonoBehaviour:
             _vec: {x: -7.5964, y: -4.29}
           P2:
             _vec: {x: -7.5965, y: -4.951}
-        _maxHeight: 14.8633995
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
     - _nodeStore:
@@ -738,7 +739,7 @@ MonoBehaviour:
             _vec: {x: -7.5964, y: -4.29}
           P2:
             _vec: {x: -7.5965, y: -4.951}
-        _maxHeight: 14.8633995
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1536,7 +1537,7 @@ MonoBehaviour:
             _vec: {x: 3.657, y: 5.66}
           P2:
             _vec: {x: 3.6569, y: 6.3352}
-        _maxHeight: 11.2533
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1566,7 +1567,7 @@ MonoBehaviour:
             _vec: {x: 3.657, y: 5.66}
           P2:
             _vec: {x: 3.6569, y: 6.3352}
-        _maxHeight: 11.2533
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1680,7 +1681,7 @@ MonoBehaviour:
             _vec: {x: -2.743, y: 2.82}
           P2:
             _vec: {x: -2.7431, y: 3.4952}
-        _maxHeight: 4.8534
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -1710,7 +1711,7 @@ MonoBehaviour:
             _vec: {x: -2.743, y: 2.82}
           P2:
             _vec: {x: -2.7431, y: 3.4952}
-        _maxHeight: 4.8534
+        _maxHeight: 0.0001001358
         _navTag:
           _tag: -1
       - _nodeStore:
@@ -2031,7 +2032,7 @@ MonoBehaviour:
         _vec: {x: -7.5964, y: -4.29}
       P2:
         _vec: {x: -7.5965, y: -4.951}
-    maxHeight: 14.8633995
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -2261,7 +2262,7 @@ MonoBehaviour:
         _vec: {x: 3.657, y: 5.66}
       P2:
         _vec: {x: 3.6569, y: 6.3352}
-    maxHeight: 11.2533
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -2301,7 +2302,7 @@ MonoBehaviour:
         _vec: {x: -2.743, y: 2.82}
       P2:
         _vec: {x: -2.7431, y: 3.4952}
-    maxHeight: 4.8534
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -2512,7 +2513,7 @@ MonoBehaviour:
         _vec: {x: -7.5964, y: -4.29}
       P2:
         _vec: {x: -7.5965, y: -4.951}
-    maxHeight: 14.8633995
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -2822,7 +2823,7 @@ MonoBehaviour:
         _vec: {x: 3.657, y: 5.66}
       P2:
         _vec: {x: 3.6569, y: 6.3352}
-    maxHeight: 11.2533
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -2882,7 +2883,7 @@ MonoBehaviour:
         _vec: {x: -2.743, y: 2.82}
       P2:
         _vec: {x: -2.7431, y: 3.4952}
-    maxHeight: 4.8534
+    maxHeight: 0.0001001358
     oneWayPlatform: 0
     navTag:
       _tag: -1
@@ -3160,7 +3161,7 @@ MonoBehaviour:
                 _vec: {x: -7.5964, y: -4.29}
               P2:
                 _vec: {x: -7.5965, y: -4.951}
-            _maxHeight: 14.8633995
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
         - _nodeStore:
@@ -3178,7 +3179,7 @@ MonoBehaviour:
                 _vec: {x: -7.5964, y: -4.29}
               P2:
                 _vec: {x: -7.5965, y: -4.951}
-            _maxHeight: 14.8633995
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -3976,7 +3977,7 @@ MonoBehaviour:
                 _vec: {x: 3.657, y: 5.66}
               P2:
                 _vec: {x: 3.6569, y: 6.3352}
-            _maxHeight: 11.2533
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4006,7 +4007,7 @@ MonoBehaviour:
                 _vec: {x: 3.657, y: 5.66}
               P2:
                 _vec: {x: 3.6569, y: 6.3352}
-            _maxHeight: 11.2533
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4120,7 +4121,7 @@ MonoBehaviour:
                 _vec: {x: -2.743, y: 2.82}
               P2:
                 _vec: {x: -2.7431, y: 3.4952}
-            _maxHeight: 4.8534
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
           - _nodeStore:
@@ -4150,7 +4151,7 @@ MonoBehaviour:
                 _vec: {x: -2.743, y: 2.82}
               P2:
                 _vec: {x: -2.7431, y: 3.4952}
-            _maxHeight: 4.8534
+            _maxHeight: 0.0001001358
             _navTag:
               _tag: -1
           - _nodeStore:

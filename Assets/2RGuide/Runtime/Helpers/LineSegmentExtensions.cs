@@ -61,7 +61,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             var splits = new List<NavSegment>();
             var divisionPoints = segment.GetDivisionPoints(divisionStep).ToArray();
 
-            var normal = segment.NormalizedNormalVector;
+            var normal = ConvertToNavSegmentNormalizedNormal(segment);
             var p1 = divisionPoints[0];
             var raycastPointStart = RGuideVector2.MoveTowards(p1, divisionPoints.Last(), Constants.RGuideEpsilon);
             var hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
@@ -263,6 +263,23 @@ namespace Assets._2RGuide.Runtime.Helpers
                 p1 = RGuideVector2.MoveTowards(p1, p2, divisionStep);
             }
             yield return p2;
+        }
+
+        private static RGuideVector2 ConvertToNavSegmentNormalizedNormal(LineSegment2D line)
+        {
+            if(line.NormalizedNormalVector.Approximately(RGuideVector2.left))
+            {
+                return RGuideVector2.left;
+            }
+            if (line.NormalizedNormalVector.Approximately(RGuideVector2.right))
+            {
+                return RGuideVector2.right;
+            }
+            if (line.NormalizedNormalVector.y > 0f)
+            {
+                return RGuideVector2.up;
+            }
+            return RGuideVector2.down;
         }
     }
 }

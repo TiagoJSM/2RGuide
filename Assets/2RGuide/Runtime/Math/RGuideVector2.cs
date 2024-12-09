@@ -18,7 +18,10 @@ namespace Assets._2RGuide.Runtime.Math
 
         public static RGuideVector2 zero => new RGuideVector2(Vector2.zero);
         public static RGuideVector2 one => new RGuideVector2(Vector2.one);
+        public static RGuideVector2 up => new RGuideVector2(Vector2.up);
         public static RGuideVector2 down => new RGuideVector2(Vector2.down);
+        public static RGuideVector2 left => new RGuideVector2(Vector2.left);
+        public static RGuideVector2 right => new RGuideVector2(Vector2.right);
 
         public RGuideVector2(float value)
             :this(value, value)
