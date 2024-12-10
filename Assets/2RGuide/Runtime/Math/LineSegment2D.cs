@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using System;
+using System.Drawing;
 using UnityEngine;
 
 namespace Assets._2RGuide.Runtime.Math
@@ -146,18 +147,100 @@ namespace Assets._2RGuide.Runtime.Math
         public float SlopeRadians => Slope == null ? (90.0f * NormalizedNormalVector.x) * Mathf.Deg2Rad : Mathf.Atan(Slope.Value);
         public float SlopeDegrees => SlopeRadians * Mathf.Rad2Deg;
 
-        public bool DoLinesIntersect(LineSegment2D other, bool validateLineEndingIntersection = true)
-        {
-            return DoIntersect(P1, P2, other.P1, other.P2, validateLineEndingIntersection);
-        }
-
         public RGuideVector2? GetIntersection(LineSegment2D other, bool validateLineEndingIntersection = true)
         {
-            if (!DoLinesIntersect(other, validateLineEndingIntersection))
+            FindIntersection(
+                other, 
+                out bool linesIntersect, 
+                out bool segmentsIntersect,
+                out RGuideVector2 intersection,
+                out RGuideVector2 closeP1, out RGuideVector2 closeP2);
+
+            if(!segmentsIntersect)
             {
-                return null;
+                return default;
             }
-            return LineIntersectionPoint(other);
+
+            if(!validateLineEndingIntersection)
+            {
+                if(P1.Approximately(intersection) || P2.Approximately(intersection) || other.P1.Approximately(intersection) || other.P2.Approximately(intersection))
+                {
+                    return default;
+                }
+            }
+
+            return intersection;
+        }
+
+        // https://www.csharphelper.com/howtos/howto_segment_intersection.html#:~:text=If%20t1%20and%20t2%20are%20both%20between%200%20and%201,to%20find%20those%20closest%20points.
+        private void FindIntersection(
+            LineSegment2D other,
+            out bool linesIntersect, out bool segmentsIntersect,
+            out RGuideVector2 intersection,
+            out RGuideVector2 closeP1, out RGuideVector2 closeP2)
+        {
+            var p1 = this.P1;
+            var p2 = this.P2;
+            var p3 = other.P1;
+            var p4 = other.P2;
+
+            // Get the segments' parameters.
+            float dx12 = p2.x - p1.x;
+            float dy12 = p2.y - p1.y;
+            float dx34 = p4.x - p3.x;
+            float dy34 = p4.y - p3.y;
+
+            // Solve for t1 and t2
+            float denominator = (dy12 * dx34 - dx12 * dy34);
+
+            float t1 =
+                ((p1.x - p3.x) * dy34 + (p3.y - p1.y) * dx34)
+                    / denominator;
+            if (float.IsInfinity(t1))
+            {
+                // The lines are parallel (or close enough to it).
+                linesIntersect = false;
+                segmentsIntersect = false;
+                intersection = RGuideVector2.NaN;
+                closeP1 = RGuideVector2.NaN;
+                closeP2 = RGuideVector2.NaN;
+                return;
+            }
+            linesIntersect = true;
+
+            float t2 =
+                ((p3.x - p1.x) * dy12 + (p1.y - p3.y) * dx12)
+                    / -denominator;
+
+            // Find the point of intersection.
+            intersection = new RGuideVector2(p1.x + dx12 * t1, p1.y + dy12 * t1);
+
+            // The segments intersect if t1 and t2 are between 0 and 1.
+            segmentsIntersect =
+                ((t1 >= 0) && (t1 <= 1) &&
+                 (t2 >= 0) && (t2 <= 1));
+
+            // Find the closest points on the segments.
+            if (t1 < 0)
+            {
+                t1 = 0;
+            }
+            else if (t1 > 1)
+            {
+                t1 = 1;
+            }
+
+            if (t2 < 0)
+            {
+                t2 = 0;
+            }
+            else if (t2 > 1)
+            {
+                t2 = 1;
+            }
+
+            closeP1 = new RGuideVector2(p1.x + dx12 * t1, p1.y + dy12 * t1);
+            closeP2 = new RGuideVector2(p3.x + dx34 * t2, p3.y + dy34 * t2);
         }
 
         // https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
@@ -349,33 +432,6 @@ namespace Assets._2RGuide.Runtime.Math
                 return true;
 
             return false;
-        }
-
-        private RGuideVector2? LineIntersectionPoint(LineSegment2D other)
-        {
-            // Get A,B,C of first line
-            float A1 = P2.y - P1.y;
-            float B1 = P1.x - P2.x;
-            float C1 = A1 * P1.x + B1 * P1.y;
-
-            // Get A,B,C of second line
-            float A2 = other.P2.y - other.P1.y;
-            float B2 = other.P1.x - other.P2.x;
-            float C2 = A2 * other.P1.x + B2 * other.P1.y;
-
-            // Get delta and check if the lines are parallel
-            float delta = A1 * B2 - A2 * B1;
-            if (delta == 0)
-            {
-                //return RGuideVector2.zero;
-                return null;
-            }
-
-            // now return the intersection point
-            return new RGuideVector2(
-                (B2 * C1 - B1 * C2) / delta,
-                (A1 * C2 - A2 * C1) / delta
-            );
         }
 
         // To find orientation of ordered triplet (p, q, r).

@@ -61,7 +61,8 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool Approximately(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) == 0);
+            //return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) == 0);
+            return Mathf.Abs(float1 - float2) <= Constants.RGuideEpsilon;
         }
 
         public static float Round(this float value, int digits)

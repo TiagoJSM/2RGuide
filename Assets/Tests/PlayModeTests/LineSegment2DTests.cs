@@ -11,60 +11,6 @@ namespace Assets.Tests.PlayModeTests
     public class LineSegment2DTests
     {
         [Test]
-        public void CheckIfCollinearLinesIntersect()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 0.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(10.0f, 0.0f), new RGuideVector2(20.0f, 0.0f));
-
-            Assert.AreEqual(true, s1.DoLinesIntersect(s2));
-        }
-
-        [Test]
-        public void CheckIfNonTouchingLinesIntersect()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 0.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(15.0f, 0.0f), new RGuideVector2(20.0f, 0.0f));
-
-            Assert.AreEqual(false, s1.DoLinesIntersect(s2));
-        }
-
-        [Test]
-        public void CheckIfLinesIntersectOnEnd()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 10.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(10.0f, 0.0f), new RGuideVector2(10.0f, 10.0f));
-
-            Assert.AreEqual(true, s1.DoLinesIntersect(s2));
-        }
-
-        [Test]
-        public void CheckIfCrossingLinesIntersect()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 0.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(5.0f, -5.0f), new RGuideVector2(5.0f, 5.0f));
-
-            Assert.AreEqual(true, s1.DoLinesIntersect(s2));
-        }
-
-        [Test]
-        public void CheckIfNonCrossingLinesIntersect()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 0.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(15.0f, -5.0f), new RGuideVector2(15.0f, 5.0f));
-
-            Assert.AreEqual(false, s1.DoLinesIntersect(s2));
-        }
-
-        [Test]
-        public void DoNotIntersectLinesOnEnd()
-        {
-            var s1 = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 10.0f));
-            var s2 = new LineSegment2D(new RGuideVector2(10.0f, 0.0f), new RGuideVector2(10.0f, 10.0f));
-
-            Assert.AreEqual(false, s1.DoLinesIntersect(s2, false));
-        }
-
-        [Test]
         public void LineIntersectsCircle()
         {
             var ls = new LineSegment2D(new RGuideVector2(0.0f, 0.0f), new RGuideVector2(10.0f, 10.0f));
@@ -383,6 +329,41 @@ namespace Assets.Tests.PlayModeTests
         {
             var cutSegment = values.Line.CutSegmentToTheRight(values.X);
             Assert.AreEqual(values.Result, cutSegment);
+        }
+
+        public class GetIntersectionParams
+        {
+            public LineSegment2D Line1 { get; }
+            public LineSegment2D Line2 { get; }
+            public RGuideVector2? Result { get; }
+
+            public GetIntersectionParams(
+                LineSegment2D line1,
+                LineSegment2D line2,
+                RGuideVector2? result = null)
+            {
+                Line1 = line1;
+                Line2 = line2;
+                Result = result;
+            }
+        }
+
+        static readonly GetIntersectionParams[] GetIntersectionTestValues = new[]
+        {
+            new GetIntersectionParams(
+                new LineSegment2D(new RGuideVector2(-10f, 0f), new RGuideVector2(10f, 0f)),
+                new LineSegment2D(new RGuideVector2(0f, -10f), new RGuideVector2(0f, 10f)),
+                new RGuideVector2(0f, 0f)),
+            new GetIntersectionParams(
+                new LineSegment2D(new RGuideVector2(-7.596400f, -4.290000f), new RGuideVector2(-7.596500f, -4.951000f)),
+                new LineSegment2D(new RGuideVector2(-7.596400f, -0.250000f), new RGuideVector2(-7.596400f, -3.614800f))),
+        };
+
+        [Test]
+        public void GetIntersection([ValueSource(nameof(GetIntersectionTestValues))] GetIntersectionParams values)
+        {
+            var intersection = values.Line1.GetIntersection(values.Line2);
+            Assert.AreEqual(values.Result, intersection);
         }
     }
 }

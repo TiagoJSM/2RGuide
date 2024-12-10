@@ -22,6 +22,7 @@ namespace Assets._2RGuide.Runtime.Math
         public static RGuideVector2 down => new RGuideVector2(Vector2.down);
         public static RGuideVector2 left => new RGuideVector2(Vector2.left);
         public static RGuideVector2 right => new RGuideVector2(Vector2.right);
+        public static RGuideVector2 NaN => new RGuideVector2(float.NaN);
 
         public RGuideVector2(float value)
             :this(value, value)
@@ -30,7 +31,9 @@ namespace Assets._2RGuide.Runtime.Math
 
         public RGuideVector2(float x, float y)
         {
-            _vec = new Vector2(x.Round(Constants.RoundingDecimalPrecision), y.Round(Constants.RoundingDecimalPrecision));
+            var xResult = float.IsNaN(x) ? x : x.Round(Constants.RoundingDecimalPrecision);
+            var yResult = float.IsNaN(y) ? y : y.Round(Constants.RoundingDecimalPrecision);
+            _vec = new Vector2(xResult, yResult);
         }
 
         public RGuideVector2(Vector2 vec)

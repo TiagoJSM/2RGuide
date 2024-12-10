@@ -129,7 +129,8 @@ namespace Assets._2RGuide.Runtime.Math
                 var p2 = p2Idx >= _polygonVertices.Count ? _polygonVertices[0] : _polygonVertices[p2Idx];
                 var line = new LineSegment2D(p1, p2);
 
-                if(other.Intersections(line).Any())
+                var intersections = other.Intersections(line).ToArray();
+                if (intersections.Any())
                 {
                     return false;
                 }
