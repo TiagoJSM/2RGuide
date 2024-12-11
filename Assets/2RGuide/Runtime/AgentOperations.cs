@@ -88,7 +88,7 @@ namespace Assets._2RGuide.Runtime
             set => _proximityThreshold = value;
         }
         public bool IsSearchingForPath { get; private set; }
-        public bool HasReachedLastPathPoint => _path != null && RGuideVector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
+        public bool HasReachedTargetPathPoint => _path != null && RGuideVector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
 
         public AgentOperations(
             IAgentOperationsContext context,
@@ -176,11 +176,7 @@ namespace Assets._2RGuide.Runtime
             }
 
             Move();
-
-            if (HasReachedLastPathPoint)
-            {
-                CompleteCurrentSegmentWhenMovingToPosition();
-            }
+            CompleteSegmentIfArrivedAtTargetPathPoint();
         }
 
         private void UpdateFollowTarget()
@@ -194,10 +190,14 @@ namespace Assets._2RGuide.Runtime
 
             UpdatePathSegment();
             Move();
+            CompleteSegmentIfArrivedAtTargetPathPoint();
+        }
 
-            if (HasReachedLastPathPoint)
+        private void CompleteSegmentIfArrivedAtTargetPathPoint()
+        {
+            while (HasReachedTargetPathPoint) // in case path points are very close
             {
-                CompleteCurrentSegmentWhenFollowingTarget();
+                CompleteCurrentSegment();
             }
         }
 
