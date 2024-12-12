@@ -20,6 +20,12 @@ namespace Assets._2RGuide.Runtime
         {
             public RGuideVector2 position;
             public ConnectionType connectionType;
+
+            public AgentSegment(RGuideVector2 position, ConnectionType connectionType)
+            {
+                this.position = position;
+                this.connectionType = connectionType;
+            }
         }
 
         public struct PathfindingRequest

@@ -27,7 +27,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x > node.Position.x);
         }
 
-        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, RGuideVector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
+        public static NodeConnection? GetWalkableConnectionWithPosition(this Node node, RGuideVector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var eligibleConnections =
                 node.Connections
