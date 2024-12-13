@@ -18,13 +18,15 @@ namespace Assets._2RGuide.Runtime
     {
         public struct AgentSegment
         {
-            public RGuideVector2 position;
-            public ConnectionType connectionType;
+            public RGuideVector2 Position { get; set; }
+            public ConnectionType ConnectionType { get; set; }
+            public bool IsStep { get; set; }
 
-            public AgentSegment(RGuideVector2 position, ConnectionType connectionType)
+            public AgentSegment(RGuideVector2 position, ConnectionType connectionType, bool isStep)
             {
-                this.position = position;
-                this.connectionType = connectionType;
+                Position = position;
+                ConnectionType = connectionType;
+                IsStep = isStep;
             }
         }
 
@@ -77,8 +79,9 @@ namespace Assets._2RGuide.Runtime
         public Nav2RGuideSettings Settings => _settings;
         public RGuideVector2 ReferencePosition => new RGuideVector2(_context.Position) + new RGuideVector2(0.0f, _baseOffset);
         public RGuideVector2 DesiredMovement { get; private set; }
-        public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].connectionType;
-        public RGuideVector2? CurrentTargetPosition => _path == null ? default(RGuideVector2?) : _path[_targetPathIndex].position;
+        public ConnectionType? CurrentConnectionType => _path == null ? default(ConnectionType?) : _path[_targetPathIndex].ConnectionType;
+        public RGuideVector2? CurrentTargetPosition => _path == null ? default(RGuideVector2?) : _path[_targetPathIndex].Position;
+        public bool? IsCurrentSegmentStep => _path == null ? default(bool?) : _path[_targetPathIndex].IsStep;
         public AgentStatus Status => _agentStatus;
         public PathStatus CurrentPathStatus { get; private set; }
         public AgentSegment[] Path => _path;
@@ -94,7 +97,7 @@ namespace Assets._2RGuide.Runtime
             set => _proximityThreshold = value;
         }
         public bool IsSearchingForPath { get; private set; }
-        public bool HasReachedTargetPathPoint => _path != null && RGuideVector2.Distance(ReferencePosition, _path[_targetPathIndex].position) <= ProximityThreshold;
+        public bool HasReachedTargetPathPoint => _path != null && RGuideVector2.Distance(ReferencePosition, _path[_targetPathIndex].Position) <= ProximityThreshold;
 
         public AgentOperations(
             IAgentOperationsContext context,
@@ -181,8 +184,8 @@ namespace Assets._2RGuide.Runtime
                 StartFindingPath(_currentPathFinding.Value);
             }
 
-            Move();
             CompleteSegmentIfArrivedAtTargetPathPoint();
+            SetDesiredMovement();
         }
 
         private void UpdateFollowTarget()
@@ -194,9 +197,9 @@ namespace Assets._2RGuide.Runtime
                 StartFindingPath(_currentPathFinding.Value);
             }
 
-            UpdatePathSegment();
-            Move();
-            CompleteSegmentIfArrivedAtTargetPathPoint();
+            UpdatePathSegment();                            // first update path segments in case target moved away
+            CompleteSegmentIfArrivedAtTargetPathPoint();    // second complete current segments if context has reached target position
+            SetDesiredMovement();                           // then set the desired movement values to be handled by whoever handles the movement
         }
 
         private void CompleteSegmentIfArrivedAtTargetPathPoint()
@@ -279,7 +282,7 @@ namespace Assets._2RGuide.Runtime
             if (isTargetInSameSegment)
             {
                 var position = _currentPathFinding.Value.destinationTarget.transform.position;
-                _path[_path.Length - 1].position = new RGuideVector2(position.x, position.y);
+                _path[_path.Length - 1].Position = new RGuideVector2(position.x, position.y);
             }
             else
             {
@@ -288,7 +291,7 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        private void Move()
+        private void SetDesiredMovement()
         {
             if (_path == null)
             {
@@ -299,7 +302,7 @@ namespace Assets._2RGuide.Runtime
 
             if (_targetPathIndex < _path.Length)
             {
-                DesiredMovement = RGuideVector2.MoveTowards(ReferencePosition, _path[_targetPathIndex].position, step) - ReferencePosition;
+                DesiredMovement = RGuideVector2.MoveTowards(ReferencePosition, _path[_targetPathIndex].Position, step) - ReferencePosition;
             }
         }
 

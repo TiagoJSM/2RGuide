@@ -40,8 +40,8 @@ namespace Assets.Tests.PlayModeTests
                 new RGuideVector2(5f, 0f),
                 new[]
                 {
-                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk)
+                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk, false)
                 }),
             new BuildPathFromParams(
                 BuildSequentialNodePath(new RGuideVector2(0f, 0f), new RGuideVector2(7f, 0f)),
@@ -49,8 +49,8 @@ namespace Assets.Tests.PlayModeTests
                 new RGuideVector2(2f, 0f),
                 new[]
                 {
-                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk)
+                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk, false)
                 }),
             new BuildPathFromParams(
                 BuildSequentialNodePath(new RGuideVector2(0f, 0f), new RGuideVector2(5f, 0f), new RGuideVector2(10f, 0f)),
@@ -58,9 +58,9 @@ namespace Assets.Tests.PlayModeTests
                 new RGuideVector2(7f, 0f),
                 new[]
                 {
-                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(7f, 0f), ConnectionType.Walk)
+                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(7f, 0f), ConnectionType.Walk, false)
                 }),
             new BuildPathFromParams(
                 BuildSequentialNodePath(new RGuideVector2(10f, 0f), new RGuideVector2(5f, 0f), new RGuideVector2(0f, 0f)),
@@ -68,9 +68,9 @@ namespace Assets.Tests.PlayModeTests
                 new RGuideVector2(2f, 0f),
                 new[]
                 {
-                    new AgentSegment(new RGuideVector2(7f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk)
+                    new AgentSegment(new RGuideVector2(7f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk, false)
                 }),
             new BuildPathFromParams(
                 BuildSequentialNodePath(new RGuideVector2(0f, 0f), new RGuideVector2(5f, 0f), new RGuideVector2(5f, 0.5f), new RGuideVector2(10f, 0.5f)),
@@ -78,10 +78,10 @@ namespace Assets.Tests.PlayModeTests
                 new RGuideVector2(7f, 0f),
                 new[]
                 {
-                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(5f, 0.5f), ConnectionType.Walk),
-                    new AgentSegment(new RGuideVector2(7f, 0.5f), ConnectionType.Walk)
+                    new AgentSegment(new RGuideVector2(2f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(5f, 0f), ConnectionType.Walk, false),
+                    new AgentSegment(new RGuideVector2(5f, 0.5f), ConnectionType.Walk, true),
+                    new AgentSegment(new RGuideVector2(7f, 0.5f), ConnectionType.Walk, false)
                 }),
         };
 

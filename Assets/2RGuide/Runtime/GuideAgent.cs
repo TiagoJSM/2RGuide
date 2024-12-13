@@ -1,6 +1,4 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
-using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using System;
 using Assets._2RGuide.Runtime.Coroutines;
@@ -76,6 +74,7 @@ namespace Assets._2RGuide.Runtime
         public Vector2 DesiredMovement => _agentOperations.DesiredMovement.ToVector2();
         public ConnectionType? CurrentConnectionType => _agentOperations.CurrentConnectionType;
         public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition?.ToVector2();
+        public bool? IsCurrentSegmentStep => _agentOperations.IsCurrentSegmentStep;
         public AgentStatus Status => _agentOperations.Status;
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
@@ -207,9 +206,9 @@ namespace Assets._2RGuide.Runtime
             for (var idx = objectTransform._agentOperations.TargetPathIndex; idx < path.Length; idx++)
             {
                 Handles.color = Gizmos.color = Color.green;
-                Handles.DrawLine(start.ToVector2() + debugPathVerticalOffset, path[idx].position.ToVector2() + debugPathVerticalOffset, LineThickness);
-                Gizmos.DrawWireSphere(path[idx].position.ToVector2() + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
-                start = path[idx].position;
+                Handles.DrawLine(start.ToVector2() + debugPathVerticalOffset, path[idx].Position.ToVector2() + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(path[idx].Position.ToVector2() + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
+                start = path[idx].Position;
             }
         }
 #endif

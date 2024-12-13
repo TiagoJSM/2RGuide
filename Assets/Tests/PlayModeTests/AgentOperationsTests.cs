@@ -147,7 +147,7 @@ namespace Assets.Tests.PlayModeTests
             var path = agentOperations.Path;
             while(agentOperations.TargetPathIndex < path.Length)
             {
-                context.Position = path[agentOperations.TargetPathIndex].position.ToVector2();
+                context.Position = path[agentOperations.TargetPathIndex].Position.ToVector2();
                 if (agentOperations.TargetPathIndex == (path.Length - 1) && nextTargetPosition != null)
                 {
                     target.transform.position = nextTargetPosition.transform.position;

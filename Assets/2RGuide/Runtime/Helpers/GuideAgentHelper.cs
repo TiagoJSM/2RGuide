@@ -41,7 +41,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
             var segmentPath = AgentSegmentPathBuilder.BuildPathFrom(start, end, nodes, segmentProximityMaxDistance, maxSlopeDegrees, stepHeight);
 
-            var distanceFromTarget = RGuideVector2.Distance(segmentPath.Last().position, end);
+            var distanceFromTarget = RGuideVector2.Distance(segmentPath.Last().Position, end);
             var pathStatus = distanceFromTarget < segmentProximityMaxDistance ? PathStatus.Complete : PathStatus.Incomplete;
 
             return new PathfindingResult()
