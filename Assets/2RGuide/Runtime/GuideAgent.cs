@@ -47,6 +47,7 @@ namespace Assets._2RGuide.Runtime
             Complete
         }
 
+        private NavWorldManager _navWorldManager;
         private AgentOperations _agentOperations;
 
         [SerializeField]
@@ -78,6 +79,7 @@ namespace Assets._2RGuide.Runtime
         public AgentStatus Status => _agentOperations.Status;
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
+        public NavWorldManager NavWorldManager => _navWorldManager;
         public Vector2 Position => transform.position;
         public float Height => _height;
         public float MaxSlopeDegrees => _maxSlopeDegrees;
@@ -119,9 +121,7 @@ namespace Assets._2RGuide.Runtime
             float stepHeight,
             ConnectionTypeMultipliers connectionMultipliers)
         {
-            var navWorldRef = NavWorldManager.Instance;
-
-            return navWorldRef.RunPathfinding(
+            return _navWorldManager.RunPathfinding(
                 gameObject,
                 start,
                 end,
@@ -137,6 +137,7 @@ namespace Assets._2RGuide.Runtime
 
         private void Awake()
         {
+            _navWorldManager = NavWorldManager.Instance;
             _agentOperations =
                 new AgentOperations(
                     this,
@@ -160,7 +161,7 @@ namespace Assets._2RGuide.Runtime
                 return;
             }
 
-            var navWorld = NavWorldManager.Instance.NavWorld;
+            var navWorld = _navWorldManager.NavWorld;
 
             if (navWorld == null)
             {

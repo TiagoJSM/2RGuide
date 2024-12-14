@@ -25,6 +25,8 @@ namespace Assets.Tests.PlayModeTests
                 _contextObject = go.GetComponent<Dummy>();
             }
 
+            public NavWorldManager NavWorldManager => NavWorldManager.Instance;
+
             public Vector2 Position
             {
                 get

@@ -2,7 +2,6 @@
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +9,6 @@ namespace Assets._2RGuide.Runtime
 {
     public class NavWorldManager : Singleton<NavWorldManager>
     {
-        private Thread mainThread;
         private Dictionary<GameObject, TaskCoroutine<PathfindingTask.PathfindingResult>> _pathfindingTasks = 
             new Dictionary<GameObject, TaskCoroutine<PathfindingTask.PathfindingResult>>();
 

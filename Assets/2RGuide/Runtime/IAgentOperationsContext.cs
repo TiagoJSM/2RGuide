@@ -9,6 +9,7 @@ namespace Assets._2RGuide.Runtime
     public interface IAgentOperationsContext
     {
         Vector2 Position { get; }
+        NavWorldManager NavWorldManager { get; }
         Coroutine StartCoroutine(IEnumerator routine);
         void StopCoroutine(Coroutine routine);
         TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(

@@ -308,7 +308,7 @@ namespace Assets._2RGuide.Runtime
 
         private void StartFindingPath(PathfindingRequest pathfindingRequest)
         {
-            var navWorld = NavWorldManager.Instance.NavWorld;
+            var navWorld = _context.NavWorldManager.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             _targetSegment = navWorld.GetClosestNavSegment(pathfindingRequest.DestinationPosition, ConnectionType.Walk, segmentProximityMaxDistance);
             _coroutine = _context.StartCoroutine(FindPathRoutine(ReferencePosition, pathfindingRequest));
@@ -395,7 +395,7 @@ namespace Assets._2RGuide.Runtime
                 return false;
             }
 
-            var navWorld = NavWorldManager.Instance.NavWorld;
+            var navWorld = _context.NavWorldManager.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             var position = _currentPathFinding.Value.destinationTarget.transform.position;
             var navSegment = navWorld.GetClosestNavSegment(new RGuideVector2(position.x, position.y), ConnectionType.Walk, segmentProximityMaxDistance);
