@@ -107,7 +107,7 @@ namespace Assets._2RGuide.Runtime
             _agentOperations.CompleteCurrentSegment();
         }
 
-        public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
+        public TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(
             RGuideVector2 start,
             RGuideVector2 end,
             float maxHeight,
@@ -119,18 +119,20 @@ namespace Assets._2RGuide.Runtime
             float stepHeight,
             ConnectionTypeMultipliers connectionMultipliers)
         {
-            return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
-                GuideAgentHelper.PathfindingTask(
-                    start,
-                    end,
-                    maxHeight,
-                    maxSlopeDegrees,
-                    allowedConnectionTypes,
-                    pathfindingMaxDistance,
-                    segmentProximityMaxDistance,
-                    navTagCapable,
-                    stepHeight,
-                    connectionMultipliers));
+            var navWorldRef = NavWorldManager.Instance;
+
+            return navWorldRef.RunPathfinding(
+                gameObject,
+                start,
+                end,
+                maxHeight,
+                maxSlopeDegrees,
+                allowedConnectionTypes,
+                pathfindingMaxDistance,
+                segmentProximityMaxDistance,
+                navTagCapable,
+                stepHeight,
+                connectionMultipliers);
         }
 
         private void Awake()
@@ -158,7 +160,7 @@ namespace Assets._2RGuide.Runtime
                 return;
             }
 
-            var navWorld = NavWorldReference.Instance.NavWorld;
+            var navWorld = NavWorldManager.Instance.NavWorld;
 
             if (navWorld == null)
             {

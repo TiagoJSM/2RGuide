@@ -11,7 +11,7 @@ namespace Assets._2RGuide.Runtime
         Vector2 Position { get; }
         Coroutine StartCoroutine(IEnumerator routine);
         void StopCoroutine(Coroutine routine);
-        TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
+        TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(
             RGuideVector2 start,
             RGuideVector2 end,
             float maxHeight,

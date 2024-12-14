@@ -17,7 +17,7 @@ namespace Assets.Tests.PlayModeTests
         private class TestAgentOperationsContext : IAgentOperationsContext
         {
             private MonoBehaviour _contextObject;
-            private TaskCompletionSource<GuideAgentHelper.PathfindingResult> _currentTaskCompletionSource;
+            private TaskCompletionSource<PathfindingTask.PathfindingResult> _currentTaskCompletionSource;
 
             public TestAgentOperationsContext()
             {
@@ -37,13 +37,13 @@ namespace Assets.Tests.PlayModeTests
                 }
             }
 
-            public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(RGuideVector2 start, RGuideVector2 end, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float pathfindingMaxDistance, float segmentProximityMaxDistance, NavTag[] navTagCapable, float stepHeight, ConnectionTypeMultipliers connectionMultipliers)
+            public TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(RGuideVector2 start, RGuideVector2 end, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float pathfindingMaxDistance, float segmentProximityMaxDistance, NavTag[] navTagCapable, float stepHeight, ConnectionTypeMultipliers connectionMultipliers)
             {
-                _currentTaskCompletionSource = new TaskCompletionSource<GuideAgentHelper.PathfindingResult>();
-                return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(_currentTaskCompletionSource.Task);
+                _currentTaskCompletionSource = new TaskCompletionSource<PathfindingTask.PathfindingResult>();
+                return TaskCoroutine<PathfindingTask.PathfindingResult>.Run(_currentTaskCompletionSource.Task);
             }
 
-            public void SetFindPathfindingResult(GuideAgentHelper.PathfindingResult result)
+            public void SetFindPathfindingResult(PathfindingTask.PathfindingResult result)
             {
                 _currentTaskCompletionSource.SetResult(result);
                 _currentTaskCompletionSource = null;
@@ -116,7 +116,7 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(!agentOperations.IsSearchingForPath);
         }
 
-        private TaskCoroutine<GuideAgentHelper.PathfindingResult> RunPathfindingRoutine(
+        private TaskCoroutine<PathfindingTask.PathfindingResult> RunPathfindingRoutine(
             RGuideVector2 start,
             RGuideVector2 end,
             Nav2RGuideSettings settings,
@@ -128,18 +128,20 @@ namespace Assets.Tests.PlayModeTests
             float stepHeight,
             ConnectionTypeMultipliers connectionMultipliers)
         {
-            return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
-                GuideAgentHelper.PathfindingTask(
-                        start,
-                        end,
-                        height,
-                        maxSlopeDegrees,
-                        allowedConnectionTypes,
-                        pathfindingMaxDistance,
-                        settings.SegmentProximityMaxDistance,
-                        navTagCapable,
-                        stepHeight,
-                        connectionMultipliers));
+            var navWorld = NavWorldManager.Instance.NavWorld;
+            return TaskCoroutine<PathfindingTask.PathfindingResult>.Run(() =>
+                PathfindingTask.Run(
+                    navWorld,
+                    start,
+                    end,
+                    height,
+                    maxSlopeDegrees,
+                    allowedConnectionTypes,
+                    pathfindingMaxDistance,
+                    settings.SegmentProximityMaxDistance,
+                    navTagCapable,
+                    stepHeight,
+                    connectionMultipliers));
         }
 
         private void MoveContextAlongPath(TestAgentOperationsContext context, AgentOperations agentOperations, GameObject target, GameObject nextTargetPosition)

@@ -5,7 +5,7 @@ using static Assets._2RGuide.Runtime.GuideAgent;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
-    public class GuideAgentHelper
+    public class PathfindingTask
     {
         public struct PathfindingResult
         {
@@ -13,7 +13,8 @@ namespace Assets._2RGuide.Runtime.Helpers
             public AgentSegment[] segmentPath;
         }
 
-        public static PathfindingResult PathfindingTask(
+        public static PathfindingResult Run(
+            NavWorld navWorld,
             RGuideVector2 start, 
             RGuideVector2 end, 
             float maxHeight, 
@@ -25,7 +26,6 @@ namespace Assets._2RGuide.Runtime.Helpers
             float stepHeight,
             ConnectionTypeMultipliers connectionMultipliers)
         {
-            var navWorld = NavWorldReference.Instance.NavWorld;
             var startN = navWorld.GetClosestNodeFromClosestSegment(start, ConnectionType.Walk, segmentProximityMaxDistance);
             var endN = navWorld.GetClosestNodeFromClosestSegment(end, ConnectionType.Walk);
             var nodes = AStar.Resolve(startN, endN, maxHeight, maxSlopeDegrees, allowedConnectionTypes, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);

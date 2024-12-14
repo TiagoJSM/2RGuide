@@ -54,8 +54,10 @@ namespace Assets.Tests.PlayModeTests
             Assert.That(targetGO, Is.Not.Null);
 
             var settings = Nav2RGuideSettings.Load();
+            var navWorld = NavWorldManager.Instance.NavWorld;
 
-            var result = GuideAgentHelper.PathfindingTask(
+            var result = _2RGuide.Runtime.Helpers.PathfindingTask.Run(
+                navWorld,
                 new RGuideVector2(agentGO.transform.position),
                 new RGuideVector2(targetGO.transform.position), 
                 agent.Height, 

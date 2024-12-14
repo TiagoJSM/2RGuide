@@ -12,6 +12,12 @@ namespace Assets._2RGuide.Runtime.Coroutines
         public TResult Result => _task.Result;
         public Exception Exception => _task.Exception;
 
+        public TaskCoroutine<TResult> ContinueWith(Action<Task<TResult>> continuationAction)
+        {
+            _task.ContinueWith(continuationAction, TaskContinuationOptions.ExecuteSynchronously);
+            return this;
+        }
+
         private TaskCoroutine(Task<TResult> task)
         {
             _task = task;

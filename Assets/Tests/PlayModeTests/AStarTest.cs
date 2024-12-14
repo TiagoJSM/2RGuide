@@ -154,7 +154,7 @@ namespace Assets.Tests.PlayModeTests
             var targetGO = GameObject.Find("Target");
             Assert.That(targetGO, Is.Not.Null);
 
-            var navWorld = NavWorldReference.Instance.NavWorld;
+            var navWorld = NavWorldManager.Instance.NavWorld;
             var startN = navWorld.GetClosestNode(new RGuideVector2(agentGO.transform.position), 100.0f);
             var endN = navWorld.GetClosestNode(new RGuideVector2(targetGO.transform.position), 100.0f);
             var nodes = AStar.Resolve(startN, endN, 0, 180f, ConnectionType.Walk, float.PositiveInfinity, Array.Empty<NavTag>(), 0.0f, new ConnectionTypeMultipliers());

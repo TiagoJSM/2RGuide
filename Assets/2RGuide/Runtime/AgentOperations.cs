@@ -60,7 +60,7 @@ namespace Assets._2RGuide.Runtime
         private AgentStatus _agentStatus = AgentStatus.Iddle;
         private Coroutine _coroutine;
         private Nav2RGuideSettings _settings;
-        private TaskCoroutine<GuideAgentHelper.PathfindingResult> _pathfindingTask;
+        private TaskCoroutine<PathfindingTask.PathfindingResult> _pathfindingTask;
 
         private IAgentOperationsContext _context;
         private float _speed;
@@ -308,7 +308,7 @@ namespace Assets._2RGuide.Runtime
 
         private void StartFindingPath(PathfindingRequest pathfindingRequest)
         {
-            var navWorld = NavWorldReference.Instance.NavWorld;
+            var navWorld = NavWorldManager.Instance.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             _targetSegment = navWorld.GetClosestNavSegment(pathfindingRequest.DestinationPosition, ConnectionType.Walk, segmentProximityMaxDistance);
             _coroutine = _context.StartCoroutine(FindPathRoutine(ReferencePosition, pathfindingRequest));
@@ -357,7 +357,7 @@ namespace Assets._2RGuide.Runtime
             _path = result.segmentPath;
         }
 
-        private void HandleTaskIfError(TaskCoroutine<GuideAgentHelper.PathfindingResult> taskCoroutine)
+        private void HandleTaskIfError(TaskCoroutine<PathfindingTask.PathfindingResult> taskCoroutine)
         {
             if (taskCoroutine.Exception != null)
             {
@@ -395,7 +395,7 @@ namespace Assets._2RGuide.Runtime
                 return false;
             }
 
-            var navWorld = NavWorldReference.Instance.NavWorld;
+            var navWorld = NavWorldManager.Instance.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             var position = _currentPathFinding.Value.destinationTarget.transform.position;
             var navSegment = navWorld.GetClosestNavSegment(new RGuideVector2(position.x, position.y), ConnectionType.Walk, segmentProximityMaxDistance);
