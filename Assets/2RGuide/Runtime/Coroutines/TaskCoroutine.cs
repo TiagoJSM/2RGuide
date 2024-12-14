@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Assets._2RGuide.Runtime.Coroutines
 
         public TaskCoroutine<TResult> ContinueWith(Action<Task<TResult>> continuationAction)
         {
-            _task.ContinueWith(continuationAction, TaskContinuationOptions.ExecuteSynchronously);
+            _task.ContinueWith(continuationAction, TaskScheduler.FromCurrentSynchronizationContext());
             return this;
         }
 
