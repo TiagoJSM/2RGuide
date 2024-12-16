@@ -1,6 +1,4 @@
-﻿using Assets._2RGuide.Runtime.Helpers;
-using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
+﻿using Assets._2RGuide.Runtime.Math;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -63,9 +61,9 @@ namespace Assets._2RGuide.Runtime.Helpers
             var splits = new List<NavSegment>();
             var divisionPoints = segment.GetDivisionPoints(divisionStep).ToArray();
 
-            var normal = segment.NormalizedNormalVector;
+            var normal = ConvertToNavSegmentNormalizedNormal(segment);
             var p1 = divisionPoints[0];
-            var raycastPointStart = Vector2.MoveTowards(p1, divisionPoints.Last(), float.Epsilon);
+            var raycastPointStart = RGuideVector2.MoveTowards(p1, divisionPoints.Last(), Constants.RGuideEpsilon);
             var hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
             var p1Height = hit ? hit.Distance : maxHeight;
 
@@ -78,7 +76,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
                 if(idx == (divisionPoints.Length - 1))
                 {
-                    raycastPointStart = Vector2.MoveTowards(divisionPoints.Last(), divisionPoints[0], float.Epsilon);
+                    raycastPointStart = RGuideVector2.MoveTowards(divisionPoints.Last(), divisionPoints[0], Constants.RGuideEpsilon);
                 }
 
                 hit = Calculations.Raycast(raycastPointStart, raycastPointStart + normal * maxHeight, segments);
@@ -96,17 +94,17 @@ namespace Assets._2RGuide.Runtime.Helpers
             return splits.ToArray();
         }
 
-        public static LineSegment2D[] Split(this LineSegment2D segment, params Vector2[] splitPoints)
+        public static LineSegment2D[] Split(this LineSegment2D segment, params RGuideVector2[] splitPoints)
         {
             var pointsOnSegment =
                 splitPoints
                     .Where(p => segment.Contains(p))
-                    .OrderBy(p => Vector2.Distance(segment.P1, p));
+                    .OrderBy(p => RGuideVector2.Distance(segment.P1, p));
 
             var result = new List<LineSegment2D>();
 
             var p1 = segment.P1;
-            var orderedSplitPoints = splitPoints.OrderBy(value => Vector2.Distance(p1, value));
+            var orderedSplitPoints = splitPoints.OrderBy(value => RGuideVector2.Distance(p1, value));
 
             foreach (var splitPoint in orderedSplitPoints)
             {
@@ -119,7 +117,7 @@ namespace Assets._2RGuide.Runtime.Helpers
             return result.ToArray();
         }
 
-        public static Vector2[] GetIntersections(this LineSegment2D segment, LineSegment2D[] segments)
+        public static RGuideVector2[] GetIntersections(this LineSegment2D segment, IEnumerable<LineSegment2D> segments)
         {
             return segments
                 .Select(s => s.GetIntersection(segment, true))
@@ -127,46 +125,42 @@ namespace Assets._2RGuide.Runtime.Helpers
                 .Select(v => v.Value).ToArray();
         }
 
-        public static bool IsSegmentOverlappingTerrain(this LineSegment2D segment, PathsD closedPaths)
+        public static bool IsSegmentOverlappingTerrainRaycast(this LineSegment2D segment, PolyTree polygons, NavBuilder navBuilder)
         {
-            var line = Clipper.MakePath(new double[]
-                {
-                    segment.P1.x, segment.P1.y,
-                    segment.P2.x, segment.P2.y,
-                });
-
-            var clipper = ClipperUtils.ConfiguredClipperD();
-            clipper.AddPath(line, PathType.Subject, true); // a line is open
-            clipper.AddPaths(closedPaths, PathType.Clip, false); // a polygon is closed
-
-            var openPath = new PathsD();
-            var closedPath = new PathsD();
-            var res = clipper.Execute(ClipType.Union, FillRule.NonZero, openPath, closedPath);
-
-            if (closedPath.Count == 0)
+            var p1Test = RGuideVector2.MoveTowards(segment.P1, segment.P2, Constants.RGuideDelta);
+            var p2Test = RGuideVector2.MoveTowards(segment.P2, segment.P1, Constants.RGuideDelta);
+            if (polygons.IsPointInside(p1Test) || polygons.IsPointInside(p2Test))
             {
-                return true;
+                return true;    
             }
 
-            if (closedPath.Count == 1)
-            {
-                var clipped = new LineSegment2D(new Vector2((float)closedPath[0][0].x, (float)closedPath[0][0].y), new Vector2((float)closedPath[0][1].x, (float)closedPath[0][1].y));
-                return !clipped.IsCoincident(segment);
-            }
+            var intersectsOtherSegments = 
+                navBuilder
+                    .WalkNavSegments
+                        .Any(ns => segment.GetIntersection(ns.segment, false) != null);
 
-            return true;
+            return intersectsOtherSegments;
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBounds> navTags)
+        public static (IEnumerable<LineSegment2D> resultOutsidePath, IEnumerable<LineSegment2D> resultInsidePath) SplitLineSegment(this LineSegment2D segment, IEnumerable<NavTagBoxBounds> navTags)
         {
-            var paths = new PathsD(navTags.Select(o => ClipperUtils.MakePath(o.Collider)));
-            var (resultOutsidePath, resultInsidePath) = ClipperUtils.SplitPath(segment, paths);
-            return (
-                NavHelper.ConvertOpenPathToSegments(resultOutsidePath),
-                NavHelper.ConvertOpenPathToSegments(resultInsidePath));
+            var polygons = navTags.Select(o => o.Polygon);
+            var intersections = polygons.SelectMany(p => p.Intersections(segment));
+            var orderedIntersections = intersections.OrderBy(p => RGuideVector2.Distance(segment.P1, p));
+            var segmentsPonts = orderedIntersections.ToList();
+            segmentsPonts.Insert(0, segment.P1);
+            segmentsPonts.Add(segment.P2);
+            segmentsPonts = segmentsPonts.Distinct().ToList();
+
+            var lines = segmentsPonts.ToLines();
+
+            var resultsInsidePath = lines.Where(l => polygons.Any(p => p.IsPointInPolygon(l.HalfPoint)));
+            var resultOutsidePath = lines.Except(resultsInsidePath);
+
+            return (resultOutsidePath.Merge(), resultsInsidePath.Merge());
         }
 
-        public static (IEnumerable<LineSegment2D>, IEnumerable<LineSegment2D>) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBounds> navTags)
+        public static (IEnumerable<LineSegment2D> resultOutsidePath, IEnumerable<LineSegment2D> resultInsidePath) SplitLineSegments(this IEnumerable<LineSegment2D> segments, IEnumerable<NavTagBoxBounds> navTags)
         {
             var resultOutsidePath = new List<LineSegment2D>();
             var resultInsidePath = new List<LineSegment2D>();
@@ -174,24 +168,91 @@ namespace Assets._2RGuide.Runtime.Helpers
             foreach (var segment in segments)
             {
                 var splits = segment.SplitLineSegment(navTags);
-                resultOutsidePath.AddRange(splits.Item1);
-                resultInsidePath.AddRange(splits.Item2);
+                resultOutsidePath.AddRange(splits.resultOutsidePath);
+                resultInsidePath.AddRange(splits.resultInsidePath);
             }
 
             return (resultOutsidePath, resultInsidePath);
         }
 
-        private static bool SameDirection(Vector2 s1P1, Vector2 s1P2, LineSegment2D s, Vector2 hitPosition)
+        public static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
         {
-            var s2P1 = hitPosition.Approximately(s.P1) ? s.P1 : s.P2;
-            var s2P2 = hitPosition.Approximately(s.P1) ? s.P2 : s.P1;
+            var result = new List<LineSegment2D>();
+            var currentLineSegment = new LineSegment2D();
 
-            var s1Dir = (s1P2 - s1P1).normalized;
-            var s2Dir = (s2P2 - s2P1).normalized;
-            return Vector2.Dot(s1Dir, s2Dir) > 0.0f;
+            foreach (var segment in segments)
+            {
+                if (!currentLineSegment)
+                {
+                    currentLineSegment = segment;
+                    continue;
+                }
+
+                if (segment.Slope == currentLineSegment.Slope && currentLineSegment.P2.Approximately(segment.P1))
+                {
+                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
+                }
+                else
+                {
+                    result.Add(currentLineSegment);
+                    currentLineSegment = segment;
+                }
+            }
+
+            if (currentLineSegment)
+            {
+                result.Add(currentLineSegment);
+            }
+
+            if (result.Count > 1)
+            {
+                if (result[0].Slope == result.Last().Slope && result[0].P1.Approximately(result.Last().P2))
+                {
+                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
+                    result.RemoveAt(result.Count - 1);
+                }
+            }
+
+            return result;
         }
 
-        private static IEnumerable<Vector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
+        public static LineSegment2D CutSegmentToTheLeft(this LineSegment2D segment, float x)
+        {
+            if (segment.P1.x > x && segment.P2.x > x)
+            {
+                return new LineSegment2D();
+            }
+
+            var result = segment;
+
+            var x1 = Mathf.Min(x, segment.P1.x);
+            var x2 = Mathf.Min(x, segment.P2.x);
+
+            result.P1 = new RGuideVector2(x1, segment.YWhenXIs(x1).Value);
+            result.P2 = new RGuideVector2(x2, segment.YWhenXIs(x2).Value);
+
+            return result;
+        }
+
+        public static LineSegment2D CutSegmentToTheRight(this LineSegment2D segment, float x)
+        {
+            if (segment.P1.x < x && segment.P2.x < x)
+            {
+                return new LineSegment2D();
+            }
+
+            var result = segment;
+
+            var x1 = Mathf.Max(x, segment.P1.x);
+            var x2 = Mathf.Max(x, segment.P2.x);
+
+            result.P1 = new RGuideVector2(x1, segment.YWhenXIs(x1).Value);
+            result.P2 = new RGuideVector2(x2, segment.YWhenXIs(x2).Value);
+
+            return result;
+        }
+
+        private static IEnumerable<RGuideVector2> GetDivisionPoints(this LineSegment2D segment, float divisionStep)
         {
             var p1 = segment.P1;
             var p2 = segment.P2;
@@ -199,9 +260,26 @@ namespace Assets._2RGuide.Runtime.Helpers
             while (p1 != p2)
             {
                 yield return p1;
-                p1 = Vector2.MoveTowards(p1, p2, divisionStep);
+                p1 = RGuideVector2.MoveTowards(p1, p2, divisionStep);
             }
             yield return p2;
+        }
+
+        private static RGuideVector2 ConvertToNavSegmentNormalizedNormal(LineSegment2D line)
+        {
+            if(line.NormalizedNormalVector.Approximately(RGuideVector2.left))
+            {
+                return RGuideVector2.left;
+            }
+            if (line.NormalizedNormalVector.Approximately(RGuideVector2.right))
+            {
+                return RGuideVector2.right;
+            }
+            if (line.NormalizedNormalVector.y > 0f)
+            {
+                return RGuideVector2.up;
+            }
+            return RGuideVector2.down;
         }
     }
 }

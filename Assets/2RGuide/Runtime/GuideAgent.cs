@@ -1,6 +1,4 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
-using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using System;
 using Assets._2RGuide.Runtime.Coroutines;
@@ -35,30 +33,6 @@ namespace Assets._2RGuide.Runtime
 
     public class GuideAgent : MonoBehaviour, IAgentOperationsContext
     {
-        public struct AgentSegment
-        {
-            public Vector2 position;
-            public ConnectionType connectionType;
-        }
-
-        public struct PathfindingRequest
-        {
-            public Vector2? destinationPoint;
-            public GameObject destinationTarget;
-
-            public Vector2 DestinationPosition
-            {
-                get
-                {
-                    if(destinationPoint.HasValue)
-                    {
-                        return destinationPoint.Value;
-                    }
-                    return destinationTarget.transform.position;
-                }
-            }
-        }
-
         public enum AgentStatus
         {
             Iddle,
@@ -73,6 +47,7 @@ namespace Assets._2RGuide.Runtime
             Complete
         }
 
+        private NavWorldManager _navWorldManager;
         private AgentOperations _agentOperations;
 
         [SerializeField]
@@ -97,22 +72,31 @@ namespace Assets._2RGuide.Runtime
         [SerializeField]
         private ConnectionTypeMultipliers _connectionMultipliers;
 
-        public Vector2 DesiredMovement => _agentOperations.DesiredMovement;
+        public Vector2 DesiredMovement => _agentOperations.DesiredMovement.ToVector2();
         public ConnectionType? CurrentConnectionType => _agentOperations.CurrentConnectionType;
-        public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition;
+        public Vector2? CurrentTargetPosition => _agentOperations.CurrentTargetPosition?.ToVector2();
+        public bool? IsCurrentSegmentStep => _agentOperations.IsCurrentSegmentStep;
         public AgentStatus Status => _agentOperations.Status;
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
+        public NavWorldManager NavWorldManager => _navWorldManager;
         public Vector2 Position => transform.position;
+        public float Height => _height;
+        public float MaxSlopeDegrees => _maxSlopeDegrees;
+        public ConnectionType AllowedConnectionTypes => _allowedConnectionTypes;
+        public float PathfindingMaxDistance => _pathfindingMaxDistance;
+        public NavTag[] NavTagCapable => _navTagCapable;
+        public float StepHeight => _stepHeight;
+        public ConnectionTypeMultipliers ConnectionMultipliers => _connectionMultipliers;
 
-        public void SetDestination(Vector2 destination)
+        public void SetDestination(Vector2 destination, bool allowIncompletePath)
         {
-            _agentOperations.SetDestination(destination);
+            _agentOperations.SetDestination(new RGuideVector2(destination), allowIncompletePath);
         }
 
-        public void SetDestination(GameObject destination)
+        public void SetDestination(GameObject destination, bool allowIncompletePath)
         {
-            _agentOperations.SetDestination(destination);
+            _agentOperations.SetDestination(destination, allowIncompletePath);
         }
 
         public void CancelPathFinding()
@@ -125,9 +109,9 @@ namespace Assets._2RGuide.Runtime
             _agentOperations.CompleteCurrentSegment();
         }
 
-        public TaskCoroutine<GuideAgentHelper.PathfindingResult> FindPath(
-            Vector2 start,
-            Vector2 end,
+        public TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(
+            RGuideVector2 start,
+            RGuideVector2 end,
             float maxHeight,
             float maxSlopeDegrees,
             ConnectionType allowedConnectionTypes,
@@ -137,22 +121,23 @@ namespace Assets._2RGuide.Runtime
             float stepHeight,
             ConnectionTypeMultipliers connectionMultipliers)
         {
-            return TaskCoroutine<GuideAgentHelper.PathfindingResult>.Run(() =>
-                GuideAgentHelper.PathfindingTask(
-                    start,
-                    end,
-                    _height,
-                    _maxSlopeDegrees,
-                    _allowedConnectionTypes,
-                    _pathfindingMaxDistance,
-                    segmentProximityMaxDistance,
-                    _navTagCapable,
-                    _stepHeight,
-                    _connectionMultipliers));
+            return _navWorldManager.RunPathfinding(
+                gameObject,
+                start,
+                end,
+                maxHeight,
+                maxSlopeDegrees,
+                allowedConnectionTypes,
+                pathfindingMaxDistance,
+                segmentProximityMaxDistance,
+                navTagCapable,
+                stepHeight,
+                connectionMultipliers);
         }
 
         private void Awake()
         {
+            _navWorldManager = NavWorldManager.Instance;
             _agentOperations =
                 new AgentOperations(
                     this,
@@ -176,7 +161,7 @@ namespace Assets._2RGuide.Runtime
                 return;
             }
 
-            var navWorld = NavWorldReference.Instance.NavWorld;
+            var navWorld = _navWorldManager.NavWorld;
 
             if (navWorld == null)
             {
@@ -198,7 +183,7 @@ namespace Assets._2RGuide.Runtime
             }
 
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(_agentOperations.ReferencePosition, _proximityThreshold);
+            Gizmos.DrawWireSphere(_agentOperations.ReferencePosition.ToVector2(), _proximityThreshold);
         }
 
 #if UNITY_EDITOR
@@ -224,9 +209,9 @@ namespace Assets._2RGuide.Runtime
             for (var idx = objectTransform._agentOperations.TargetPathIndex; idx < path.Length; idx++)
             {
                 Handles.color = Gizmos.color = Color.green;
-                Handles.DrawLine(start + debugPathVerticalOffset, path[idx].position + debugPathVerticalOffset, LineThickness);
-                Gizmos.DrawWireSphere(path[idx].position + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
-                start = path[idx].position;
+                Handles.DrawLine(start.ToVector2() + debugPathVerticalOffset, path[idx].Position.ToVector2() + debugPathVerticalOffset, LineThickness);
+                Gizmos.DrawWireSphere(path[idx].Position.ToVector2() + debugPathVerticalOffset, objectTransform._agentOperations.Settings.AgentTargetPositionDebugSphereRadius);
+                start = path[idx].Position;
             }
         }
 #endif

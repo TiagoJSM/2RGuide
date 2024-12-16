@@ -1,21 +1,19 @@
-﻿using UnityEngine;
-
-namespace Assets._2RGuide.Runtime.Math
+﻿namespace Assets._2RGuide.Runtime.Math
 {
     public struct Circle
     {
-        public Vector2 center;
+        public RGuideVector2 center;
         public float radius;
 
-        public Circle(Vector2 center, float radius)
+        public Circle(RGuideVector2 center, float radius)
         {
             this.center = center;
             this.radius = radius;
         }
 
-        public bool IsInside(Vector2 point)
+        public bool IsInside(RGuideVector2 point)
         {
-            return Vector2.Distance(center, point) < radius;
+            return RGuideVector2.Distance(center, point) < radius;
         }
     }
 }

@@ -4,7 +4,6 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class FloatHelper
     {
-        public const int RoundingDecimalPrecision = 4;
         public static bool NearlyEqual(float a, float b, float epsilon)
         {
             return Mathf.Abs(a - b) < epsilon;
@@ -18,7 +17,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool LessThan(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) < 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) < 0);
         }
 
         /// <summary>
@@ -29,7 +28,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool LessThanOrEquals(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) <= 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) <= 0);
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool GreaterThan(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) > 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) > 0);
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool GreaterThanOrEquals(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) >= 0);
+            return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) >= 0);
         }
 
         /// <summary>
@@ -62,7 +61,14 @@ namespace Assets._2RGuide.Runtime.Helpers
         /// <returns></returns>
         public static bool Approximately(this float float1, float float2)
         {
-            return (System.Math.Round(float1 - float2, RoundingDecimalPrecision) == 0);
+            //return (System.Math.Round(float1 - float2, Constants.RoundingDecimalPrecision) == 0);
+            return Mathf.Abs(float1 - float2) <= Constants.RGuideEpsilon;
+        }
+
+        public static float Round(this float value, int digits)
+        {
+            var mult = Mathf.Pow(10.0f, digits);
+            return Mathf.Round(value * mult) / mult;
         }
     }
 }

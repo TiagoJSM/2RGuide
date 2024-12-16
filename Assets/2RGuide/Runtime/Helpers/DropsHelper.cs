@@ -28,7 +28,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 if (canJumpOrDropToLeftSide)
                 {
                     var originX = node.Position.x - settings.horizontalDistance;
-                    var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
+                    var target = FindTargetSegment(navBuildContext, node, jumps, originX, settings, navBuilder);
                     if (target)
                     {
                         AddDropNavSegment(target, navBuilder);
@@ -39,7 +39,7 @@ namespace Assets._2RGuide.Runtime.Helpers
                 if (canJumpOrDropToRightSide)
                 {
                     var originX = node.Position.x + settings.horizontalDistance;
-                    var target = FindTargetSegment(navBuildContext, node, navBuildContext.segments, jumps, originX, settings);
+                    var target = FindTargetSegment(navBuildContext, node, jumps, originX, settings, navBuilder);
                     if (target)
                     {
                         AddDropNavSegment(target, navBuilder);
@@ -51,17 +51,17 @@ namespace Assets._2RGuide.Runtime.Helpers
         }
 
         //ToDo: Check if doesn't collide with any other collider not part of pathfinding
-        private static LineSegment2D FindTargetSegment(NavBuildContext navBuildContext, Node node, IEnumerable<NavSegment> navSegments, LineSegment2D[] jumps, float originX, Settings settings)
+        private static LineSegment2D FindTargetSegment(NavBuildContext navBuildContext, Node node, LineSegment2D[] jumps, float originX, Settings settings, NavBuilder navBuilder)
         {
-            var origin = new Vector2(originX, node.Position.y);
+            var origin = new RGuideVector2(originX, node.Position.y);
 
-            var navSegment = navSegments.Where(ss =>
+            var navSegment = navBuildContext.Segments.Where(ss =>
             {
                 if (settings.noDropsTargetTags.Contains(ss.navTag))
                 {
                     return false;
                 }
-                var position = ss.segment.PositionInX(originX);
+                var position = ss.segment.PositionAtX(originX);
                 if (!position.HasValue)
                 {
                     return false;
@@ -70,19 +70,19 @@ namespace Assets._2RGuide.Runtime.Helpers
                 {
                     return false;
                 }
-                return Vector2.Distance(position.Value, origin) <= settings.maxHeight;
+                return RGuideVector2.Distance(position.Value, origin) <= settings.maxHeight;
             })
             .MinBy(ss =>
             {
-                var position = ss.segment.PositionInX(originX);
-                return Vector2.Distance(position.Value, origin);
+                var position = ss.segment.PositionAtX(originX);
+                return RGuideVector2.Distance(position.Value, origin);
             });
 
             if (navSegment)
             {
-                var segment = new LineSegment2D(node.Position, navSegment.segment.PositionInX(originX).Value);
-
-                var overlaps = segment.IsSegmentOverlappingTerrain(navBuildContext.closedPath);
+                var segment = new LineSegment2D(node.Position, navSegment.segment.PositionAtX(originX).Value);
+                
+                var overlaps = segment.IsSegmentOverlappingTerrainRaycast(navBuildContext.Polygons, navBuilder);
 
                 if (overlaps)
                 {
@@ -99,7 +99,7 @@ namespace Assets._2RGuide.Runtime.Helpers
 
         private static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Settings settings, LineSegment2D[] jumps)
         {
-            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, Vector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps);
+            PathBuilderHelper.GetOneWayPlatformSegments(navBuildContext, navBuilder, RGuideVector2.down, settings.maxHeight, settings.maxSlope, ConnectionType.OneWayPlatformDrop, jumps);
         }
 
         private static void AddDropNavSegment(LineSegment2D segment, NavBuilder navBuilder)

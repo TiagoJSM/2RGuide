@@ -1,9 +1,8 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets._2RGuide.Runtime.Helpers
 {
@@ -17,8 +16,14 @@ namespace Assets._2RGuide.Runtime.Helpers
 
     public struct NavBuildContext
     {
-        public PathsD closedPath;
-        public List<NavSegment> segments;
+        public PolyTree Polygons { get; }
+        public IEnumerable<NavSegment> Segments { get; }
+
+        public NavBuildContext(PolyTree polygons, IEnumerable<NavSegment> segments)
+        {
+            Polygons = polygons;
+            Segments = segments;
+        }
     }
 
     public static class NavHelper
@@ -27,7 +32,7 @@ namespace Assets._2RGuide.Runtime.Helpers
         {
             var nodeStore = new NodeStore();
 
-            var navSegments = navBuildContext.segments;
+            var navSegments = navBuildContext.Segments;
 
             var builder = new NavBuilder(nodeStore);
             NodeHelpers.BuildNodes(builder, navSegments);
@@ -46,48 +51,21 @@ namespace Assets._2RGuide.Runtime.Helpers
             };
         }
 
-        public static LineSegment2D[] ConvertClosedPathToSegments(PathsD paths)
+        public static IEnumerable<LineSegment2D> ConvertClosedPathToSegments(IEnumerable<RGuideVector2> points)
         {
-            var segments = new List<LineSegment2D>();
+            var segmentPath = new List<LineSegment2D>();
 
-            foreach (var path in paths)
+            var p1 = points.ElementAt(0);
+            for (var idx = 1; idx < points.Count(); idx++)
             {
-                // Clippy paths are created in the reverse order
-                path.Reverse();
-
-                var segmentPath = new List<LineSegment2D>();
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
-                    p1 = p2;
-                }
-                var start = path[0];
-                segmentPath.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)start.x, (float)start.y)));
-
-                segments.AddRange(segmentPath.Merge());
+                var p2 = points.ElementAt(idx);
+                segmentPath.Add(new LineSegment2D(p1, p2));
+                p1 = p2;
             }
+            var start = points.ElementAt(0);
+            segmentPath.Add(new LineSegment2D(p1, start));
 
-            return segments.ToArray();
-        }
-
-        public static LineSegment2D[] ConvertOpenPathToSegments(PathsD paths)
-        {
-            var segments = new List<LineSegment2D>();
-
-            foreach (var path in paths)
-            {
-                var p1 = path[0];
-                for (var idx = 1; idx < path.Count; idx++)
-                {
-                    var p2 = path[idx];
-                    segments.Add(new LineSegment2D(new Vector2((float)p1.x, (float)p1.y), new Vector2((float)p2.x, (float)p2.y)));
-                    p1 = p2;
-                }
-            }
-
-            return segments.ToArray();
+            return segmentPath;
         }
 
         public static NavSegment[] ConvertToNavSegments(IEnumerable<LineSegment2D> segments, float segmentDivision, IEnumerable<LineSegment2D> edgeSegments, float maxHeight, ConnectionType connectionType, NavTagBoxBounds[] navTagBounds)
@@ -107,47 +85,6 @@ namespace Assets._2RGuide.Runtime.Helpers
                         return dividedSegs;
                     })
                     .ToArray();
-        }
-
-        private static IEnumerable<LineSegment2D> Merge(this IEnumerable<LineSegment2D> segments)
-        {
-            var result = new List<LineSegment2D>();
-            var currentLineSegment = new LineSegment2D();
-
-            foreach(var segment in segments)
-            {
-                if(!currentLineSegment)
-                {
-                    currentLineSegment = segment;
-                    continue;
-                }
-
-                if(segment.Slope == currentLineSegment.Slope)
-                {
-                    currentLineSegment = new LineSegment2D(currentLineSegment.P1, segment.P2);
-                }
-                else
-                {
-                    result.Add(currentLineSegment);
-                    currentLineSegment = segment;
-                }
-            }
-
-            if (currentLineSegment)
-            {
-                result.Add(currentLineSegment);
-            }
-
-            if(result.Count > 1)
-            {
-                if (result[0].Slope == result.Last().Slope)
-                {
-                    result[0] = new LineSegment2D(result.Last().P1, result[0].P2);
-                    result.RemoveAt(result.Count - 1);
-                }
-            }
-
-            return result;
         }
     }
 }

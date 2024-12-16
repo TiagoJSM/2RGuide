@@ -57,6 +57,11 @@ namespace Assets._2RGuide.Runtime
             _maxHeight = maxHeight;
             _navTag = navTags;
         }
+
+        public bool IsCoincident(NodeConnection other)
+        {
+            return Segment.IsCoincident(other.Segment);
+        }
     }
 
     [Serializable]
@@ -69,19 +74,19 @@ namespace Assets._2RGuide.Runtime
         private int _nodeIndex;
 
         [SerializeField]
-        private Vector2 _position;
+        private RGuideVector2 _position;
         [SerializeField]
         private List<NodeConnection> _connections;
 
         public int NodeIndex => _nodeIndex;
-        public Vector2 Position => _position;
+        public RGuideVector2 Position => _position;
         public IEnumerable<NodeConnection> Connections => _connections;
 
         public Node() { }
 
         public Node(
             NodeStore nodeStore,
-            Vector2 position,
+            RGuideVector2 position,
             int nodeIndex)
         {
             _nodeStore = nodeStore;
@@ -154,7 +159,7 @@ namespace Assets._2RGuide.Runtime
         [SerializeField]
         private List<Node> _nodes = new List<Node>();
 
-        public Node NewNode(Vector2 position)
+        public Node NewNode(RGuideVector2 position)
         {
             if (!Contains(position))
             {
@@ -165,12 +170,12 @@ namespace Assets._2RGuide.Runtime
             return null;
         }
 
-        public Node NewNodeOrExisting(Vector2 position)
+        public Node NewNodeOrExisting(RGuideVector2 position)
         {
             return NewNode(position) ?? Get(position);
         }
 
-        public Node SplitSegmentAt(LineSegment2D segment, Vector2 position)
+        public Node SplitSegmentAt(LineSegment2D segment, RGuideVector2 position)
         {
             var splitNode = Get(position);
 
@@ -208,17 +213,17 @@ namespace Assets._2RGuide.Runtime
             return _nodes[nodeIndex];
         }
 
-        public Node Get(Vector2 position)
+        public Node Get(RGuideVector2 position)
         {
             return _nodes.FirstOrDefault(n => n.Position.Approximately(position));
         }
 
-        public Node ClosestTo(Vector2 position)
+        public Node ClosestTo(RGuideVector2 position)
         {
-            return _nodes.MinBy(n => Vector2.Distance(position, n.Position));
+            return _nodes.MinBy(n => RGuideVector2.Distance(position, n.Position));
         }
 
-        public bool Contains(Vector2 position)
+        public bool Contains(RGuideVector2 position)
         {
             return _nodes.Any(n => n.Position.Approximately(position));
         }

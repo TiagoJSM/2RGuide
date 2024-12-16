@@ -1,5 +1,6 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ namespace Assets._2RGuide.Runtime.Coroutines
         public override bool keepWaiting => !_task.IsCompleted;
         public TResult Result => _task.Result;
         public Exception Exception => _task.Exception;
+
+        public TaskCoroutine<TResult> ContinueWith(Action<Task<TResult>> continuationAction)
+        {
+            _task.ContinueWith(continuationAction, TaskScheduler.FromCurrentSynchronizationContext());
+            return this;
+        }
 
         private TaskCoroutine(Task<TResult> task)
         {

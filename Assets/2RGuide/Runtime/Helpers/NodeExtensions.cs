@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._2RGuide.Runtime.Math;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -26,11 +27,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             return HasConnection(node, maxSlope, (node, cn) => cn.Position.x > node.Position.x);
         }
 
-        public static NodeConnection? GetWalkableConnectionForPosition(this Node node, Vector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
+        public static NodeConnection? GetWalkableConnectionWithPosition(this Node node, RGuideVector2 position, float segmentProximityMaxDistance, float maxSlopeDegrees, float stepHeight)
         {
             var eligibleConnections =
                 node.Connections
-                    .Where(c => c.IsWalkable(maxSlopeDegrees) || c.CanWalkOnStep(stepHeight));
+                    .Where(c => c.IsWalkable(maxSlopeDegrees) || c.IsWalkableStep(stepHeight, maxSlopeDegrees));
 
             // Get the closest point in a segment
             if (eligibleConnections.Any())
@@ -40,12 +41,12 @@ namespace Assets._2RGuide.Runtime.Helpers
                         .MinBy(c =>
                         {
                             var closestPoint = c.Segment.ClosestPointOnLine(position);
-                            return Vector2.Distance(closestPoint, position);
+                            return RGuideVector2.Distance(closestPoint, position);
                         });
 
                 // Add the closest point to the results
                 var closestPoint = eligibleConnection.Segment.ClosestPointOnLine(position);
-                if (Vector2.Distance(closestPoint, position) < segmentProximityMaxDistance)
+                if (RGuideVector2.Distance(closestPoint, position) < segmentProximityMaxDistance)
                 {
                     return eligibleConnection;
                 }
@@ -54,12 +55,20 @@ namespace Assets._2RGuide.Runtime.Helpers
             return null;
         }
 
-        public static bool CanWalkOnStep(this NodeConnection neighbor, float stepHeight)
+        public static bool IsWalkableStep(this NodeConnection neighbor, float stepHeight, float maxSlopeDegrees)
         {
+            if(neighbor.ConnectionType != ConnectionType.Walk)
+            {
+                return false;
+            }
+            if(Mathf.Abs(neighbor.Segment.SlopeDegrees) <= maxSlopeDegrees)
+            {
+                return false;
+            }
             return neighbor.Segment.Lenght < stepHeight;
         }
 
-        private static bool IsWalkable(this NodeConnection nc, float maxSlopeDegrees)
+        public static bool IsWalkable(this NodeConnection nc, float maxSlopeDegrees)
         {
             if (nc.ConnectionType != ConnectionType.Walk)
             {

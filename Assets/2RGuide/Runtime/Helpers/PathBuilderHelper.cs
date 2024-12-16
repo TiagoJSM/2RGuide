@@ -6,14 +6,15 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class PathBuilderHelper
     {
-        public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, Vector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
+        public static void GetOneWayPlatformSegments(NavBuildContext navBuildContext, NavBuilder navBuilder, RGuideVector2 raycastDirection, float distance, float maxSlope, ConnectionType connectionType, LineSegment2D[] existingConnections)
         {
-            var dropPoints = navBuildContext.segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).Select(ns => ns.segment.HalfPoint).ToArray();
+            var dropPoints = navBuildContext.Segments.Where(s => s.oneWayPlatform && !s.segment.OverMaxSlope(maxSlope)).Select(ns => ns.segment.HalfPoint).ToArray();
 
             foreach (var dropPoint in dropPoints)
             {
                 var segments = navBuilder.NavSegments.Select(s => s.segment).ToArray();
-                var oneWayPlatform = navBuilder.GetNavSegmentWithPoint(dropPoint);
+                var oneWayPlatform = navBuilder.GetNavSegmentWithPoint(dropPoint, ConnectionType.Walk);
+
                 var start = dropPoint;
                 var hit = Calculations.Raycast(dropPoint, dropPoint + raycastDirection * distance, segments.Except(new LineSegment2D[] { oneWayPlatform.segment }).ToArray());
                 if (!hit)

@@ -19,6 +19,8 @@ namespace Assets._2RGuide.Runtime
         private Transform _target;
         [SerializeField]
         private MoveTo _moveTo;
+        [SerializeField]
+        private bool _allowIncompletePath = true;
 
         public Transform Target
         {
@@ -59,7 +61,7 @@ namespace Assets._2RGuide.Runtime
             {
                 if (_guideAgent != null && _target != null)
                 {
-                    _guideAgent.SetDestination(_target.position);
+                    _guideAgent.SetDestination(_target.position, _allowIncompletePath);
                 }
             }
         }
@@ -68,11 +70,11 @@ namespace Assets._2RGuide.Runtime
         {
             if (_moveTo == MoveTo.Position)
             {
-                _guideAgent.SetDestination(_target.position);
+                _guideAgent.SetDestination(_target.position, _allowIncompletePath);
             }
             else
             {
-                _guideAgent.SetDestination(_target.gameObject);
+                _guideAgent.SetDestination(_target.gameObject, _allowIncompletePath);
             }
         }
     }

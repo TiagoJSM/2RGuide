@@ -1,4 +1,5 @@
 ﻿using Assets._2RGuide.Runtime.Helpers;
+using Assets._2RGuide.Runtime.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,19 +57,26 @@ namespace Assets._2RGuide.Runtime
                     {
                         continue;
                     }
-                    if (neighbor.MaxHeight < maxHeight)
-                    {
-                        continue;
-                    }
-                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !neighbor.CanWalkOnStep(stepHeight))
-                    {
-                        continue;
-                    }
                     if (!allowedConnectionTypes.HasFlag(neighbor.ConnectionType))
                     {
                         continue;
                     }
-
+                    if (neighbor.ConnectionType == ConnectionType.Walk && Mathf.Abs(neighbor.Segment.SlopeDegrees) > maxSlopeDegrees && !neighbor.IsWalkableStep(stepHeight, maxSlopeDegrees))
+                    {
+                        continue;
+                    }
+                    if (neighbor.MaxHeight < maxHeight)
+                    {
+                        if (neighbor.IsWalkable(maxSlopeDegrees))
+                        {
+                            continue;
+                        }
+                        if (!neighbor.IsWalkableStep(stepHeight, maxSlopeDegrees))
+                        {
+                            continue;
+                        }
+                    }
+                    
                     var tentativeGScore = gScore[current] + (neighbor.Segment.Lenght * multipliers[neighbor.ConnectionType]);
 
                     if (tentativeGScore > maxDistance)
@@ -90,12 +98,12 @@ namespace Assets._2RGuide.Runtime
                 }
             }
 
-            var kvp = cameFrom.MinBy(kvp => Vector2.Distance(kvp.Key.Position, goal.Position));
+            var kvp = cameFrom.MinBy(kvp => RGuideVector2.Distance(kvp.Key.Position, goal.Position));
             
             if (kvp.Key != null)
             {
-                var closestNodeDistance = Vector2.Distance(kvp.Key.Position, goal.Position);
-                var startNodeDistance = Vector2.Distance(start.Position, goal.Position);
+                var closestNodeDistance = RGuideVector2.Distance(kvp.Key.Position, goal.Position);
+                var startNodeDistance = RGuideVector2.Distance(start.Position, goal.Position);
                 if (closestNodeDistance < startNodeDistance)
                 {
                     return ReconstructPath(cameFrom, kvp.Key);
@@ -124,7 +132,7 @@ namespace Assets._2RGuide.Runtime
 
         private static float Heuristic(Node node, Node goal)
         {
-            return Vector2.Distance(node.Position, goal.Position);
+            return RGuideVector2.Distance(node.Position, goal.Position);
         }
     }
 }

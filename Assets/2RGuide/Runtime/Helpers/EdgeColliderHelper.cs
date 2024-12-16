@@ -1,5 +1,4 @@
 ﻿using Assets._2RGuide.Runtime.Math;
-using Clipper2Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +8,30 @@ namespace Assets._2RGuide.Runtime.Helpers
 {
     public static class EdgeColliderHelper
     {
-        public static IEnumerable<(LineSegment2D, bool)> GetEdgeSegments(
-            this Collider2D[] colliders,
-            LayerMask oneWayPlatformMask,
-            PathsD closedPaths)
+        public struct EdgeSegmentInfo
         {
-            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, oneWayPlatformMask, closedPaths);
-            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, oneWayPlatformMask, closedPaths);
+            public LineSegment2D edgeSegment;
+            public bool oneWay;
+
+            public EdgeSegmentInfo(LineSegment2D edgeSegment, bool oneWay)
+            {
+                this.edgeSegment = edgeSegment;
+                this.oneWay = oneWay;
+            }
+        }
+
+        public static IEnumerable<EdgeSegmentInfo> GetEdgeSegments(
+            this Collider2D[] colliders,
+            LayerMask oneWayPlatformMask)
+        {
+            var linesFromEdgeColliders = GetLineSegmentsFromEdgeColliders(colliders, oneWayPlatformMask);
+            var linesFromBoxColliders = GetLineSegmentsFromBoxColliders(colliders, oneWayPlatformMask);
             return linesFromEdgeColliders.Concat(linesFromBoxColliders);
         }
 
-        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromEdgeColliders(
+        private static IEnumerable<EdgeSegmentInfo> GetLineSegmentsFromEdgeColliders(
             Collider2D[] colliders,
-            LayerMask oneWayPlatformMask,
-            PathsD closedPaths)
+            LayerMask oneWayPlatformMask)
         {
             return
                 colliders
@@ -31,30 +40,29 @@ namespace Assets._2RGuide.Runtime.Helpers
                     .SelectMany(c =>
                     {
                         var isOneWay = oneWayPlatformMask.Includes(c.gameObject);
-                        return GetSegments(c, closedPaths).Select(s => (s, isOneWay));
+                        return GetSegments(c).Select(s => new EdgeSegmentInfo(s, isOneWay));
                     });
         }
 
-        private static IEnumerable<(LineSegment2D, bool)> GetLineSegmentsFromBoxColliders(
+        private static IEnumerable<EdgeSegmentInfo> GetLineSegmentsFromBoxColliders(
             Collider2D[] colliders,
-            LayerMask oneWayPlatformMask,
-            PathsD closedPaths)
+            LayerMask oneWayPlatformMask)
         {
             return
                 colliders
                     .Where(c => oneWayPlatformMask.Includes(c.gameObject))
                     .Select(c => c as BoxCollider2D)
                     .Where(c => c != null)
-                    .SelectMany(c =>
+                    .Select(c =>
                     {
                         var bounds = new Box(c);
                         var segment = new LineSegment2D(bounds.TopLeft, bounds.TopRight);
-                        var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(segment, closedPaths);
-                        return NavHelper.ConvertOpenPathToSegments(resultOpenPath).Select(s => (s, true));
+                        return new EdgeSegmentInfo(segment, true);
                     });
         }
 
-        private static LineSegment2D[] GetSegments(EdgeCollider2D collider, PathsD closedPaths)
+
+        private static LineSegment2D[] GetSegments(EdgeCollider2D collider)
         {
             var edgeSegments = new List<LineSegment2D>();
 
@@ -67,16 +75,11 @@ namespace Assets._2RGuide.Runtime.Helpers
             for (var idx = 1; idx < collider.pointCount; idx++)
             {
                 var p2 = collider.transform.TransformPoint(collider.points[idx]);
-                edgeSegments.Add(new LineSegment2D(p1, p2));
+                edgeSegments.Add(new LineSegment2D(new RGuideVector2(p1), new RGuideVector2(p2)));
                 p1 = p2;
             }
 
-            return edgeSegments.SelectMany(s =>
-            {
-                var resultOpenPath = ClipperUtils.GetSubtractedPathFromClosedPaths(s, closedPaths);
-                return NavHelper.ConvertOpenPathToSegments(resultOpenPath);
-            })
-            .ToArray();
+            return edgeSegments.ToArray();
         }
     }
 }
