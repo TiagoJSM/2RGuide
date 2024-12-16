@@ -16,6 +16,30 @@ namespace Assets._2RGuide.Runtime
 
     public class AgentOperations
     {
+        private enum TargetInSegmentState
+        {
+            InSegment,
+            InOtherSegment,
+            NotInAnySegment
+        }
+
+        private struct VerifyTargetInSegmentStateResult
+        {
+            public TargetInSegmentState targetInSegmentState;
+            public RGuideVector2 positionInSegment;
+
+            public VerifyTargetInSegmentStateResult(TargetInSegmentState state)
+                : this(state, RGuideVector2.zero)
+            {
+            }
+
+            public VerifyTargetInSegmentStateResult(TargetInSegmentState state, RGuideVector2 positionInSegment)
+            {
+                this.targetInSegmentState = state;
+                this.positionInSegment = positionInSegment;
+            }
+        }
+
         public struct AgentSegment
         {
             public RGuideVector2 Position { get; set; }
@@ -277,14 +301,13 @@ namespace Assets._2RGuide.Runtime
                 return;
             }
 
-            var isTargetInSameSegment = TargetInSameSegment();
-
-            if (isTargetInSameSegment)
+            var isTargetInSameSegment = VerifyTargetInSegmentState();
+            
+            if (isTargetInSameSegment.targetInSegmentState == TargetInSegmentState.InSegment)
             {
-                var position = _currentPathFinding.Value.destinationTarget.transform.position;
-                _path[_path.Length - 1].Position = new RGuideVector2(position.x, position.y);
+                _path[_path.Length - 1].Position = isTargetInSameSegment.positionInSegment;
             }
-            else
+            else if(isTargetInSameSegment.targetInSegmentState == TargetInSegmentState.InOtherSegment)
             {
                 _agentStatus = AgentStatus.Busy;
                 StartFindingPath(_currentPathFinding.Value);
@@ -383,24 +406,24 @@ namespace Assets._2RGuide.Runtime
             DesiredMovement = RGuideVector2.zero;
         }
 
-        private bool TargetInSameSegment()
+        private VerifyTargetInSegmentStateResult VerifyTargetInSegmentState()
         {
-            if (!_currentPathFinding.HasValue)
-            {
-                return false;
-            }
-
-            if (_currentPathFinding.Value.destinationTarget == null)
-            {
-                return false;
-            }
-
             var navWorld = _context.NavWorldManager.NavWorld;
             var segmentProximityMaxDistance = _settings.SegmentProximityMaxDistance;
             var position = _currentPathFinding.Value.destinationTarget.transform.position;
             var navSegment = navWorld.GetClosestNavSegment(new RGuideVector2(position.x, position.y), ConnectionType.Walk, segmentProximityMaxDistance);
+            if(!navSegment)
+            {
+                return new VerifyTargetInSegmentStateResult(TargetInSegmentState.NotInAnySegment);
+            }
 
-            return navSegment.segment.IsCoincident(_targetSegment.Value.segment);
+            var closestPositionOnSegment = navSegment.segment.ClosestPointOnLine(new RGuideVector2(position));
+
+            var state = navSegment.segment.IsCoincident(_targetSegment.Value.segment) 
+                ? TargetInSegmentState.InSegment
+                : TargetInSegmentState.InOtherSegment;
+
+            return new VerifyTargetInSegmentStateResult(state, closestPositionOnSegment);
         }
     }
 }
