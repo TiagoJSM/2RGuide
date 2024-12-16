@@ -48,10 +48,6 @@ Examples
 
 <img src="./Resources/Chase.gif" alt="chase" width="50%" height="50%"/>
 
-Special Thanks
-===
-[Clipper2](https://github.com/AngusJohnson/Clipper2) library used to get the world geometry.
-
 License
 ===
 [MIT licensed](./LICENSE)
