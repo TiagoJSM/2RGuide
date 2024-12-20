@@ -19,7 +19,7 @@ namespace Assets._2RGuide.Editor
             var composite = rootComposite.AddComponent<CompositeCollider2D>();
             composite.geometryType = CompositeCollider2D.GeometryType.Outlines;
             composite.generationType = CompositeCollider2D.GenerationType.Synchronous;
-            var colliders = GetColliders(root);
+            var colliders = GetColliders(root, oneWayPlatformer);
             
             foreach(var collider in colliders)
             {
@@ -28,13 +28,39 @@ namespace Assets._2RGuide.Editor
                 go.transform.parent = rootComposite.transform;
                 go.transform.SetPositionAndRotation(collider.transform.position, collider.transform.rotation);
                 go.transform.localScale = collider.transform.lossyScale;
-                var addedComponent = go.AddComponent(collider.GetType()) as Collider2D;
-                EditorUtility.CopySerialized(collider, addedComponent);
-                // do not include in composive generation if is a one way platformer object, this will be handled in a different way
-                addedComponent.usedByComposite = !oneWayPlatformer.Includes(go);
+                AddCollider(go, collider, !oneWayPlatformer.Includes(go));
             }
 
             return composite;
+        }
+
+        private static void AddCollider(GameObject go, Collider2D collider, bool usedByComposite)
+        {
+            // BoxCollider2D can be copied to the GameObject without any additional processing
+            if (collider is BoxCollider2D)
+            {
+                var addedComponent = go.AddComponent(collider.GetType()) as Collider2D;
+                EditorUtility.CopySerialized(collider, addedComponent);
+                addedComponent.usedByComposite = usedByComposite;
+            }
+            // PolygonCollider2D needs to be separated in different colliders per path, the reason is that 
+            else if (collider is PolygonCollider2D polygonCollider)
+            {
+                AddPolygonCollider(go, polygonCollider, usedByComposite);
+            }
+        }
+
+        private static void AddPolygonCollider(GameObject go, PolygonCollider2D polygonCollider, bool usedByComposite)
+        {
+            for (var pathIndex = 0; pathIndex < polygonCollider.pathCount; pathIndex++)
+            {
+                var path = polygonCollider.GetPath(pathIndex);
+                var addedComponent = go.AddComponent(polygonCollider.GetType()) as PolygonCollider2D;
+                EditorUtility.CopySerialized(polygonCollider, addedComponent);
+                addedComponent.pathCount = 1;
+                addedComponent.SetPath(0, path);
+                addedComponent.usedByComposite = usedByComposite;
+            }
         }
 
         public static void DestroyRootComposiveGameObject()
@@ -54,9 +80,13 @@ namespace Assets._2RGuide.Editor
             return go;
         }
 
-        private static Collider2D[] GetColliders(GameObject root)
+        private static Collider2D[] GetColliders(GameObject root, LayerMask oneWayPlatformer)
         {
-            return root.GetComponentsInChildren<Collider2D>(false).Where(c => IsColliderValidForPathfinding(c) && c.GetComponent<NavTagBounds>() == null).ToArray();
+            return 
+                root
+                    .GetComponentsInChildren<Collider2D>(false)
+                    .Where(c => IsColliderValidForPathfinding(c) && c.GetComponent<NavTagBounds>() == null)
+                    .ToArray();
         }
 
         private static bool IsColliderValidForPathfinding(Collider2D collider)

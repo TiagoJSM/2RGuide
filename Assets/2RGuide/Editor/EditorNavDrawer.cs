@@ -103,10 +103,13 @@ namespace Assets._2RGuide.Editor
             Handles.DrawLine(pos, target, LineThickness);
 
             //arrow head
-            var right = Quaternion.LookRotation(direction, new Vector3(1.0f, 0.0f, 0.0f)) * Quaternion.Euler(180.0f + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
-            var left = Quaternion.LookRotation(direction, new Vector3(1.0f, 0.0f, 0.0f)) * Quaternion.Euler(180.0f - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
-            Handles.DrawLine(target, target + right * arrowHeadLength, LineThickness);
-            Handles.DrawLine(target, target + left * arrowHeadLength, LineThickness);
+            if(!(Mathf.Approximately(direction.x, 0.0f) && Mathf.Approximately(direction.y, 0.0f) && Mathf.Approximately(direction.z, 0.0f)))
+            {
+                var right = Quaternion.LookRotation(direction, new Vector3(1.0f, 0.0f, 0.0f)) * Quaternion.Euler(180.0f + arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+                var left = Quaternion.LookRotation(direction, new Vector3(1.0f, 0.0f, 0.0f)) * Quaternion.Euler(180.0f - arrowHeadAngle, 0, 0) * new Vector3(0, 0, 1);
+                Handles.DrawLine(target, target + right * arrowHeadLength, LineThickness);
+                Handles.DrawLine(target, target + left * arrowHeadLength, LineThickness);
+            }
         }
 
         private static void RenderNodes(Node[] nodes)
