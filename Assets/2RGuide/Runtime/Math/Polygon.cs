@@ -122,18 +122,16 @@ namespace Assets._2RGuide.Runtime.Math
                 return false;
             }
 
-            for(var idx = 0; idx < _polygonVertices.Count; idx++)
-            {
-                var p1 = _polygonVertices[idx];
-                var p2Idx = idx + 1;
-                var p2 = p2Idx >= _polygonVertices.Count ? _polygonVertices[0] : _polygonVertices[p2Idx];
-                var line = new LineSegment2D(p1, p2);
+            var allVerticesInsidePolygon = other._polygonVertices.All(IsPointInPolygon);
 
-                var intersections = other.Intersections(line).ToArray();
-                if (intersections.Any())
-                {
-                    return false;
-                }
+            if (!allVerticesInsidePolygon)
+            {
+                return false;
+            }
+
+            if (SegmentsIntersect(other))
+            {
+                return false;
             }
 
             return true;
@@ -155,6 +153,24 @@ namespace Assets._2RGuide.Runtime.Math
                     yield return intersection.Value;
                 }
             }
+        }
+        private bool SegmentsIntersect(Polygon other)
+        {
+            for (var idx = 0; idx < _polygonVertices.Count; idx++)
+            {
+                var p1 = _polygonVertices[idx];
+                var p2Idx = idx + 1;
+                var p2 = p2Idx >= _polygonVertices.Count ? _polygonVertices[0] : _polygonVertices[p2Idx];
+                var line = new LineSegment2D(p1, p2);
+
+                var intersections = other.Intersections(line).ToArray();
+                if (intersections.Any())
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool ContainBounds(Bounds target)
