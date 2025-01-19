@@ -13,7 +13,7 @@ namespace Assets.Tests.PlayModeTests
         [UnityTest]
         public IEnumerator FindNavSegment()
         {
-            SceneManager.LoadScene("NavSegmentFinderTest");
+            TestSceneManager.LoadScene("NavSegmentFinderTest");
             yield return null;
             var segment = NavWorldManager.Instance.NavWorld.SearchNavSegment(new RTree.Envelope(0, 0, 10, 10), ConnectionType.All);
             Assert.AreEqual(4, segment.Count());

@@ -44,8 +44,7 @@ namespace Assets.Tests.PlayModeTests
         [UnityTest]
         public IEnumerator MoveToTargetsTest([ValueSource(nameof(MoveToTargetsTestValues))] AgentTargetMovementParams values)
         {
-            Debug.Log($"Test running on scene {values.Scene}");
-            SceneManager.LoadScene(values.Scene);
+            TestSceneManager.LoadScene(values.Scene);
             yield return null;
 
             var agentGO = GameObject.Find("Agent");

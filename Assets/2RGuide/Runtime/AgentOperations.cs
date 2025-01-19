@@ -116,7 +116,7 @@ namespace Assets._2RGuide.Runtime
         private float _stepHeight;
         private ConnectionTypeMultipliers _connectionMultipliers;
 
-        private bool RequiresFindingNewPath => !_currentPathFinding.HasValue && _desiredPathFinding.HasValue;
+        private bool NewDestinationRequested => !_currentPathFinding.HasValue && _desiredPathFinding.HasValue;
         private bool HasArrivedAtTargetPosition
         {
             get
@@ -204,10 +204,8 @@ namespace Assets._2RGuide.Runtime
             {
                 case AgentOperationsState.Iddle: break;
                 case AgentOperationsState.MoveToPosition:
-                    CompleteCurrentSegmentWhenMovingToPosition();
-                    break;
                 case AgentOperationsState.FollowTarget:
-                    CompleteCurrentSegmentWhenFollowingTarget();
+                    CompleteCurrentSegmentWhenMoving();
                     break;
             }
         }
@@ -223,26 +221,11 @@ namespace Assets._2RGuide.Runtime
             {
                 case AgentOperationsState.Iddle: break;
                 case AgentOperationsState.MoveToPosition:
-                    UpdateMove();
-                    break;
                 case AgentOperationsState.FollowTarget:
                     UpdateMove();
                     break;
             }
         }
-
-        //private void UpdateMoveToPosition()
-        //{
-        //    if (RequiresFindingNewPath)
-        //    {
-        //        _currentPathFinding = _desiredPathFinding;
-        //        _desiredPathFinding = null;
-        //        StartFindingPath(_currentPathFinding.Value);
-        //    }
-
-        //    CompleteSegmentIfArrivedAtTargetPathPoint();
-        //    SetDesiredMovement();
-        //}
 
         private void UpdateMove()
         {
@@ -251,7 +234,7 @@ namespace Assets._2RGuide.Runtime
                 CancelPathFinding();
                 return;
             }
-            if (RequiresFindingNewPath)
+            if (NewDestinationRequested)
             {
                 _currentPathFinding = _desiredPathFinding;
                 _desiredPathFinding = null;
@@ -271,7 +254,7 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        private void CompleteCurrentSegmentWhenFollowingTarget()
+        private void CompleteCurrentSegmentWhenMoving()
         {
             if (_path == null)
             {
@@ -293,25 +276,11 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        private void CompleteCurrentSegmentWhenMovingToPosition()
-        {
-            if (_path == null)
-            {
-                return;
-            }
-
-            _targetPathIndex++;
-            if (_targetPathIndex >= _path.Length)
-            {
-                ResetInternalState();
-            }
-        }
-
         private void SetPathfindingRequest(PathfindingRequest request)
         {
             CancelPathFinding();
             _desiredPathFinding = request;
-            if (RequiresFindingNewPath)
+            if (NewDestinationRequested)
             {
                 _agentOperationsState = 
                     request.destinationPoint.HasValue 

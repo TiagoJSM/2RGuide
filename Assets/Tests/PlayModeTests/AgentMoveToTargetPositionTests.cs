@@ -16,8 +16,7 @@ namespace Assets.Tests.PlayModeTests
         [UnityTest]
         public IEnumerator MoveToTargetsTest()
         {
-            Debug.Log($"Test running on scene MoveToTargetTestScene");
-            SceneManager.LoadScene("MoveToTargetTestScene");
+            TestSceneManager.LoadScene("MoveToTargetTestScene");
             yield return null;
 
             var agentGO = GameObject.Find("Agent");
