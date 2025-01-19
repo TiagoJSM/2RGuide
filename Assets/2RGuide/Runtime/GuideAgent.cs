@@ -89,14 +89,14 @@ namespace Assets._2RGuide.Runtime
         public float StepHeight => _stepHeight;
         public ConnectionTypeMultipliers ConnectionMultipliers => _connectionMultipliers;
 
-        public void SetDestination(Vector2 destination, bool allowIncompletePath)
+        public void SetDestination(Vector2 destination, bool allowIncompletePath, float targetRange)
         {
-            _agentOperations.SetDestination(new RGuideVector2(destination), allowIncompletePath);
+            _agentOperations.SetDestination(new RGuideVector2(destination), allowIncompletePath, targetRange);
         }
 
-        public void SetDestination(GameObject destination, bool allowIncompletePath)
+        public void SetDestination(GameObject destination, bool allowIncompletePath, float targetRange)
         {
-            _agentOperations.SetDestination(destination, allowIncompletePath);
+            _agentOperations.SetDestination(destination, allowIncompletePath, targetRange);
         }
 
         public void CancelPathFinding()

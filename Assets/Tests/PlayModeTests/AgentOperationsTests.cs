@@ -91,7 +91,7 @@ namespace Assets.Tests.PlayModeTests
             context.Position = target.transform.position;
             target.transform.position = position1.transform.position;
 
-            agentOperations.SetDestination(target, true);
+            agentOperations.SetDestination(target, true, 0.0f);
             agentOperations.Update();
             Assert.That(agentOperations.Status == AgentStatus.Busy);
             Assert.That(agentOperations.IsSearchingForPath);
@@ -149,7 +149,7 @@ namespace Assets.Tests.PlayModeTests
         private void MoveContextAlongPath(TestAgentOperationsContext context, AgentOperations agentOperations, GameObject target, GameObject nextTargetPosition)
         {
             var path = agentOperations.Path;
-            while(agentOperations.TargetPathIndex < path.Length)
+            while(agentOperations.Status == AgentStatus.Moving && agentOperations.TargetPathIndex < path.Length)
             {
                 context.Position = path[agentOperations.TargetPathIndex].Position.ToVector2();
                 if (agentOperations.TargetPathIndex == (path.Length - 1) && nextTargetPosition != null)

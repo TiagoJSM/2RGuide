@@ -61,7 +61,7 @@ namespace Assets._2RGuide.Runtime
             {
                 if (_guideAgent != null && _target != null)
                 {
-                    _guideAgent.SetDestination(_target.position, _allowIncompletePath);
+                    _guideAgent.SetDestination(_target.position, _allowIncompletePath, 0.0f);
                 }
             }
         }
@@ -70,11 +70,11 @@ namespace Assets._2RGuide.Runtime
         {
             if (_moveTo == MoveTo.Position)
             {
-                _guideAgent.SetDestination(_target.position, _allowIncompletePath);
+                _guideAgent.SetDestination(_target.position, _allowIncompletePath, 0.0f);
             }
             else
             {
-                _guideAgent.SetDestination(_target.gameObject, _allowIncompletePath);
+                _guideAgent.SetDestination(_target.gameObject, _allowIncompletePath, 0.0f);
             }
         }
     }
