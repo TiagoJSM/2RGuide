@@ -2,6 +2,7 @@
 using Assets._2RGuide.Runtime.Helpers;
 using Assets._2RGuide.Runtime.Math;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using static Assets._2RGuide.Runtime.GuideAgent;
 
@@ -59,6 +60,23 @@ namespace Assets._2RGuide.Runtime
             public RGuideVector2? destinationPoint;
             public GameObject destinationTarget;
             public bool allowIncompletePath;
+            public float targetRange;
+
+            public PathfindingRequest(RGuideVector2 destination, bool allowIncompletePath, float targetRange)
+            {
+                this.destinationPoint = destination;
+                this.destinationTarget = null;
+                this.allowIncompletePath = allowIncompletePath;
+                this.targetRange = targetRange;
+            }
+
+            public PathfindingRequest(GameObject destination, bool allowIncompletePath, float targetRange)
+            {
+                this.destinationPoint = null;
+                this.destinationTarget = destination;
+                this.allowIncompletePath = allowIncompletePath;
+                this.targetRange = targetRange;
+            }
 
             public RGuideVector2 DestinationPosition
             {
@@ -98,7 +116,21 @@ namespace Assets._2RGuide.Runtime
         private float _stepHeight;
         private ConnectionTypeMultipliers _connectionMultipliers;
 
-        private bool RequiresFindingNewPath => !_currentPathFinding.HasValue && _desiredPathFinding.HasValue;
+        private bool NewDestinationRequested => !_currentPathFinding.HasValue && _desiredPathFinding.HasValue;
+        private bool HasArrivedAtTargetPosition
+        {
+            get
+            {
+                if(!_currentPathFinding.HasValue)
+                {
+                    return false;
+                }
+
+                var destinationPosition = _currentPathFinding.Value.DestinationPosition;
+
+                return RGuideVector2.Distance(ReferencePosition, destinationPosition) <= _currentPathFinding.Value.targetRange;
+            }
+        }
 
         public Nav2RGuideSettings Settings => _settings;
         public RGuideVector2 ReferencePosition => new RGuideVector2(_context.Position) + new RGuideVector2(0.0f, _baseOffset);
@@ -151,14 +183,14 @@ namespace Assets._2RGuide.Runtime
             _connectionMultipliers = connectionMultipliers;
         }
 
-        public void SetDestination(RGuideVector2 destination, bool allowIncompletePath)
+        public void SetDestination(RGuideVector2 destination, bool allowIncompletePath, float targetRange)
         {
-            SetPathfindingRequest(new PathfindingRequest() { destinationPoint = destination, allowIncompletePath = allowIncompletePath });
+            SetPathfindingRequest(new PathfindingRequest(destination, allowIncompletePath, targetRange));
         }
 
-        public void SetDestination(GameObject destination, bool allowIncompletePath)
+        public void SetDestination(GameObject destination, bool allowIncompletePath, float targetRange)
         {
-            SetPathfindingRequest(new PathfindingRequest() { destinationTarget = destination, allowIncompletePath = allowIncompletePath });
+            SetPathfindingRequest(new PathfindingRequest(destination, allowIncompletePath, targetRange));
         }
 
         public void CancelPathFinding()
@@ -172,10 +204,8 @@ namespace Assets._2RGuide.Runtime
             {
                 case AgentOperationsState.Iddle: break;
                 case AgentOperationsState.MoveToPosition:
-                    CompleteCurrentSegmentWhenMovingToPosition();
-                    break;
                 case AgentOperationsState.FollowTarget:
-                    CompleteCurrentSegmentWhenFollowingTarget();
+                    CompleteCurrentSegmentWhenMoving();
                     break;
             }
         }
@@ -191,30 +221,20 @@ namespace Assets._2RGuide.Runtime
             {
                 case AgentOperationsState.Iddle: break;
                 case AgentOperationsState.MoveToPosition:
-                    UpdateMoveToPosition();
-                    break;
                 case AgentOperationsState.FollowTarget:
-                    UpdateFollowTarget();
+                    UpdateMove();
                     break;
             }
         }
 
-        private void UpdateMoveToPosition()
+        private void UpdateMove()
         {
-            if (RequiresFindingNewPath)
+            if (HasArrivedAtTargetPosition)                 // if has arrived at target positon cancel pathfinding
             {
-                _currentPathFinding = _desiredPathFinding;
-                _desiredPathFinding = null;
-                StartFindingPath(_currentPathFinding.Value);
+                CancelPathFinding();
+                return;
             }
-
-            CompleteSegmentIfArrivedAtTargetPathPoint();
-            SetDesiredMovement();
-        }
-
-        private void UpdateFollowTarget()
-        {
-            if (RequiresFindingNewPath)
+            if (NewDestinationRequested)
             {
                 _currentPathFinding = _desiredPathFinding;
                 _desiredPathFinding = null;
@@ -234,7 +254,7 @@ namespace Assets._2RGuide.Runtime
             }
         }
 
-        private void CompleteCurrentSegmentWhenFollowingTarget()
+        private void CompleteCurrentSegmentWhenMoving()
         {
             if (_path == null)
             {
@@ -252,23 +272,7 @@ namespace Assets._2RGuide.Runtime
                 else
                 {
                     ResetInternalState();
-                    _agentOperationsState = AgentOperationsState.Iddle;
                 }
-            }
-        }
-
-        private void CompleteCurrentSegmentWhenMovingToPosition()
-        {
-            if (_path == null)
-            {
-                return;
-            }
-
-            _targetPathIndex++;
-            if (_targetPathIndex >= _path.Length)
-            {
-                ResetInternalState();
-                _agentOperationsState = AgentOperationsState.Iddle;
             }
         }
 
@@ -276,7 +280,7 @@ namespace Assets._2RGuide.Runtime
         {
             CancelPathFinding();
             _desiredPathFinding = request;
-            if (RequiresFindingNewPath)
+            if (NewDestinationRequested)
             {
                 _agentOperationsState = 
                     request.destinationPoint.HasValue 
@@ -386,7 +390,6 @@ namespace Assets._2RGuide.Runtime
             {
                 Debug.LogException(taskCoroutine.Exception);
                 ResetInternalState();
-                _agentOperationsState = AgentOperationsState.Iddle;
                 throw taskCoroutine.Exception;
             }
         }
@@ -402,6 +405,7 @@ namespace Assets._2RGuide.Runtime
             _desiredPathFinding = null;
             _currentPathFinding = null;
             _agentStatus = AgentStatus.Iddle;
+            _agentOperationsState = AgentOperationsState.Iddle;
             _path = null;
             DesiredMovement = RGuideVector2.zero;
         }

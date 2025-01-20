@@ -63,10 +63,9 @@ namespace Assets.Tests.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator MoveToTargetsTest()
+        public IEnumerator MoveTargetInBetweenMovementTest()
         {
-            Debug.Log($"Test running on scene FollowMovingTargetTestScene");
-            SceneManager.LoadScene("FollowMovingTargetTestScene");
+            TestSceneManager.LoadScene("FollowMovingTargetTestScene");
             yield return null;
 
             var settings = Nav2RGuideSettings.Load();
@@ -91,14 +90,14 @@ namespace Assets.Tests.PlayModeTests
             context.Position = target.transform.position;
             target.transform.position = position1.transform.position;
 
-            agentOperations.SetDestination(target, true);
+            agentOperations.SetDestination(target, true, 0.0f);
             agentOperations.Update();
             Assert.That(agentOperations.Status == AgentStatus.Busy);
             Assert.That(agentOperations.IsSearchingForPath);
 
             var pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, height, maxSlopeDegrees, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
             yield return pathfindingRoutine;
-            
+
             context.SetFindPathfindingResult(pathfindingRoutine.Result);
 
             yield return null;
@@ -113,6 +112,65 @@ namespace Assets.Tests.PlayModeTests
             yield return null;
 
             MoveContextAlongPath(context, agentOperations, target, null);
+
+            Assert.That(agentOperations.Status == AgentStatus.Iddle);
+            Assert.That(!agentOperations.IsSearchingForPath);
+        }
+
+        [UnityTest]
+        public IEnumerator MoveTargetInBetweenMovementWithDelayedPathfindingRoutineTest()
+        {
+            TestSceneManager.LoadScene("FollowMovingTargetTestScene");
+            yield return null;
+
+            var settings = Nav2RGuideSettings.Load();
+            var speed = 1.0f;
+            var height = 0.0f;
+            var maxSlopeDegrees = 90.0f;
+            var baseOffset = 0.0f;
+            var proximityThreshold = 0.0f;
+            var connectionType = ConnectionType.Walk;
+            var pathfindingMaxDistance = float.PositiveInfinity;
+            var navTagCapable = new NavTag[0];
+            var stepHeight = 0.0f;
+            var connectionMultipliers = new ConnectionTypeMultipliers();
+
+            var context = new TestAgentOperationsContext();
+            var agentOperations = new AgentOperations(context, settings, speed, height, maxSlopeDegrees, baseOffset, proximityThreshold, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+
+            var target = GameObject.Find("Target");
+            var position1 = GameObject.Find("Position1");
+            var position2 = GameObject.Find("Position2");
+
+            context.Position = target.transform.position;
+            target.transform.position = position1.transform.position;
+
+            agentOperations.SetDestination(target, true, 0.0f);
+            agentOperations.Update();
+            Assert.That(agentOperations.Status == AgentStatus.Busy);
+            Assert.That(agentOperations.IsSearchingForPath);
+
+            var pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, height, maxSlopeDegrees, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            yield return pathfindingRoutine;
+
+            context.SetFindPathfindingResult(pathfindingRoutine.Result);
+
+            yield return null;
+
+            MoveContextAlongPath(context, agentOperations, target, position2);
+            agentOperations.Update();
+            agentOperations.Update();
+
+            pathfindingRoutine = RunPathfindingRoutine(new RGuideVector2(context.Position), new RGuideVector2(target.transform.position), settings, height, maxSlopeDegrees, connectionType, pathfindingMaxDistance, navTagCapable, stepHeight, connectionMultipliers);
+            yield return pathfindingRoutine;
+
+            context.SetFindPathfindingResult(pathfindingRoutine.Result);
+
+            yield return null;
+
+            MoveContextAlongPath(context, agentOperations, target, null);
+            agentOperations.Update();
+            agentOperations.Update();
 
             Assert.That(agentOperations.Status == AgentStatus.Iddle);
             Assert.That(!agentOperations.IsSearchingForPath);
@@ -149,7 +207,7 @@ namespace Assets.Tests.PlayModeTests
         private void MoveContextAlongPath(TestAgentOperationsContext context, AgentOperations agentOperations, GameObject target, GameObject nextTargetPosition)
         {
             var path = agentOperations.Path;
-            while(agentOperations.TargetPathIndex < path.Length)
+            while(agentOperations.Status == AgentStatus.Moving && agentOperations.TargetPathIndex < path.Length)
             {
                 context.Position = path[agentOperations.TargetPathIndex].Position.ToVector2();
                 if (agentOperations.TargetPathIndex == (path.Length - 1) && nextTargetPosition != null)

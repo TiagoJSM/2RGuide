@@ -24,8 +24,7 @@ namespace Assets.Tests.PlayModeTests.Attributes
 
         public void BeforeTest(ITest test)
         {
-            Debug.Log($"Test running on scene {_scene}");
-            SceneManager.LoadScene(_scene);
+            TestSceneManager.LoadScene(_scene);
         }
     }
 }

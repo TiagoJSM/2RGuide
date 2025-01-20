@@ -40,8 +40,7 @@ namespace Assets.Tests.PlayModeTests
         [UnityTest]
         public IEnumerator PathfindingTask([ValueSource(nameof(PathfindingTaskTestValues))] PathfindingTaskParams values)
         {
-            Debug.Log($"Test running on scene {values.Scene}");
-            SceneManager.LoadScene(values.Scene);
+            TestSceneManager.LoadScene(values.Scene);
             yield return null;
 
             var agentGO = GameObject.Find("Agent");
