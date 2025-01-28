@@ -347,7 +347,7 @@ namespace Assets._2RGuide.Runtime
             var end = request.destinationPoint.HasValue ? request.destinationPoint.Value : new RGuideVector2(request.destinationTarget.transform.position);
 
             IsSearchingForPath = true;
-            var taskCoroutine = _context.FindPath(
+            var taskCoroutine = _context.RunPathfinding(
                 start,
                 end,
                 _height,

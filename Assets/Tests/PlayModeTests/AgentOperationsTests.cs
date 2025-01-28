@@ -39,7 +39,7 @@ namespace Assets.Tests.PlayModeTests
                 }
             }
 
-            public TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(RGuideVector2 start, RGuideVector2 end, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float pathfindingMaxDistance, float segmentProximityMaxDistance, NavTag[] navTagCapable, float stepHeight, ConnectionTypeMultipliers connectionMultipliers)
+            public TaskCoroutine<PathfindingTask.PathfindingResult> RunPathfinding(RGuideVector2 start, RGuideVector2 end, float maxHeight, float maxSlopeDegrees, ConnectionType allowedConnectionTypes, float pathfindingMaxDistance, float segmentProximityMaxDistance, NavTag[] navTagCapable, float stepHeight, ConnectionTypeMultipliers connectionMultipliers)
             {
                 _currentTaskCompletionSource = new TaskCompletionSource<PathfindingTask.PathfindingResult>();
                 return TaskCoroutine<PathfindingTask.PathfindingResult>.Run(_currentTaskCompletionSource.Task);

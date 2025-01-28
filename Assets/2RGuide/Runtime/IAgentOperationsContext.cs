@@ -12,7 +12,7 @@ namespace Assets._2RGuide.Runtime
         NavWorldManager NavWorldManager { get; }
         Coroutine StartCoroutine(IEnumerator routine);
         void StopCoroutine(Coroutine routine);
-        TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(
+        TaskCoroutine<PathfindingTask.PathfindingResult> RunPathfinding(
             RGuideVector2 start,
             RGuideVector2 end,
             float maxHeight,
