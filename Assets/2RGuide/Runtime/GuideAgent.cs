@@ -3,6 +3,10 @@ using UnityEngine;
 using System;
 using Assets._2RGuide.Runtime.Coroutines;
 using Assets._2RGuide.Runtime.Math;
+using System.Collections;
+using UnityEngine.UIElements;
+
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,7 +35,7 @@ namespace Assets._2RGuide.Runtime
         public float OneWayPlatformDrop => _oneWayPlatformDrop;
     }
 
-    public class GuideAgent : MonoBehaviour, IAgentOperationsContext
+    public class GuideAgent : MonoBehaviour
     {
         public enum AgentStatus
         {
@@ -47,7 +51,56 @@ namespace Assets._2RGuide.Runtime
             Complete
         }
 
+        private class GuideAgentOperationsContext : IAgentOperationsContext
+        {
+            private GuideAgent _agent;
+            public GuideAgentOperationsContext(GuideAgent agent)
+            {
+                _agent = agent;
+            }
+
+            public NavWorldManager NavWorldManager => _agent._navWorldManager;
+
+            public Vector2 Position => _agent.transform.position;
+
+            public TaskCoroutine<PathfindingTask.PathfindingResult> RunPathfinding(
+                RGuideVector2 start, 
+                RGuideVector2 end, 
+                float maxHeight, 
+                float maxSlopeDegrees, 
+                ConnectionType allowedConnectionTypes, 
+                float pathfindingMaxDistance, 
+                float segmentProximityMaxDistance, 
+                NavTag[] navTagCapable, 
+                float stepHeight, 
+                ConnectionTypeMultipliers connectionMultipliers)
+            {
+                return _agent.RunPathfinding(
+                    start,
+                    end,
+                    maxHeight,
+                    maxSlopeDegrees,
+                    allowedConnectionTypes,
+                    pathfindingMaxDistance,
+                    segmentProximityMaxDistance,
+                    navTagCapable,
+                    stepHeight,
+                    connectionMultipliers);
+            }
+
+            public Coroutine StartCoroutine(IEnumerator routine)
+            {
+                return _agent.StartCoroutine(routine);
+            }
+
+            public void StopCoroutine(Coroutine routine)
+            {
+                _agent.StopCoroutine(routine);
+            }
+        }
+
         private NavWorldManager _navWorldManager;
+        private GuideAgentOperationsContext _operationsContext;
         private AgentOperations _agentOperations;
 
         [SerializeField]
@@ -79,8 +132,6 @@ namespace Assets._2RGuide.Runtime
         public AgentStatus Status => _agentOperations.Status;
         public PathStatus CurrentPathStatus => _agentOperations.CurrentPathStatus;
         public bool IsSearchingForPath => _agentOperations.IsSearchingForPath;
-        public NavWorldManager NavWorldManager => _navWorldManager;
-        public Vector2 Position => transform.position;
         public float Height => _height;
         public float MaxSlopeDegrees => _maxSlopeDegrees;
         public ConnectionType AllowedConnectionTypes => _allowedConnectionTypes;
@@ -91,12 +142,26 @@ namespace Assets._2RGuide.Runtime
 
         public void SetDestination(Vector2 destination, bool allowIncompletePath, float targetRange)
         {
-            _agentOperations.SetDestination(new RGuideVector2(destination), allowIncompletePath, targetRange);
+            if (IsTargetInRange(targetRange, destination))
+            {
+                _agentOperations.CancelPathFinding();
+            }
+            else
+            {
+                _agentOperations.SetDestination(new RGuideVector2(destination), allowIncompletePath, targetRange);
+            }
         }
 
         public void SetDestination(GameObject destination, bool allowIncompletePath, float targetRange)
         {
-            _agentOperations.SetDestination(destination, allowIncompletePath, targetRange);
+            if (IsTargetInRange(targetRange, destination.transform.position))
+            {
+                _agentOperations.CancelPathFinding();
+            }
+            else
+            {
+                _agentOperations.SetDestination(destination, allowIncompletePath, targetRange);
+            }
         }
 
         public void CancelPathFinding()
@@ -109,7 +174,31 @@ namespace Assets._2RGuide.Runtime
             _agentOperations.CompleteCurrentSegment();
         }
 
-        public TaskCoroutine<PathfindingTask.PathfindingResult> FindPath(
+        public IEnumerator FindPath(Vector2 position, bool allowIncompletePath, float targetRange)
+        {
+            SetDestination(position, allowIncompletePath, targetRange);
+
+            if (Status == AgentStatus.Iddle)
+            {
+                yield break;
+            }
+
+            yield return new WaitWhile(() => Status == AgentStatus.Busy);
+        }
+
+        public IEnumerator FindPath(GameObject target, bool allowIncompletePath, float targetRange)
+        {
+            SetDestination(target, allowIncompletePath, targetRange);
+
+            if (Status == AgentStatus.Iddle)
+            {
+                yield break;
+            }
+
+            yield return new WaitWhile(() => Status == AgentStatus.Busy);
+        }
+
+        private TaskCoroutine<PathfindingTask.PathfindingResult> RunPathfinding(
             RGuideVector2 start,
             RGuideVector2 end,
             float maxHeight,
@@ -135,12 +224,18 @@ namespace Assets._2RGuide.Runtime
                 connectionMultipliers);
         }
 
+        private bool IsTargetInRange(float targetRange, Vector3 targetPosition)
+        {
+            return Vector2.Distance(transform.position, targetPosition) < targetRange;
+        }
+
         private void Awake()
         {
             _navWorldManager = NavWorldManager.Instance;
+            _operationsContext = new GuideAgentOperationsContext(this);
             _agentOperations =
                 new AgentOperations(
-                    this,
+                    _operationsContext,
                     Nav2RGuideSettings.Load(),
                     _speed,
                     _height,
